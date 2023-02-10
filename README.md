@@ -1,2 +1,2 @@
-# play-togheter
-play-togheter-project react-java
+# play-together
+play-together-project react-java
