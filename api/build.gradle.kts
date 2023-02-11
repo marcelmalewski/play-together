@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.0.2"
     id("io.spring.dependency-management") version "1.1.0"
+    id ("io.ktor.plugin") version "2.1.2"
 }
 
 group = "com.marcel-malewski"
@@ -28,6 +29,18 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
+
+application {
+    mainClass.set("com.marcelmalewski.playtogetherapi.PlayTogetherApiApplication")
+}
+
+
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
+}
+
 
 tasks.withType<Test> {
     useJUnitPlatform()

@@ -1,13 +1,20 @@
 version: '3.1'
 
 services:
+  api:
+    build: ../api
+    container_name: "api"
+    ports:
+      - "5000:5000"
+    depends_on:
+        - postgres
   postgres:
     container_name: postgres
     image: postgres:14.5-alpine
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: play-together
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: play-together
     volumes:
       - ./volumes/dev/postgres:/var/lib/postgresql/data
 #    healthcheck:
@@ -17,16 +24,12 @@ services:
 #      retries: 10
     ports:
       - "5432:5432"
-    networks:
-      - play-together
     restart: unless-stopped
-  proxy:
-    build: ../dev-proxy
-    ports:
-      - "80:80"
-    networks:
-        - play-together
+#  proxy:
+#    build: ../dev-proxy
+#    ports:
+#      - "80:80"
 
-networks:
-  play-together:
-    driver: bridge
+#networks:
+#  play-together:
+#    driver: bridge
