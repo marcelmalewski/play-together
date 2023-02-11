@@ -2,10 +2,10 @@ plugins {
     java
     id("org.springframework.boot") version "3.0.2"
     id("io.spring.dependency-management") version "1.1.0"
-    id ("io.ktor.plugin") version "2.1.2"
+    application
 }
 
-group = "com.marcel-malewski"
+group = "com.marcel.malewski"
 version = "1.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -31,16 +31,12 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.marcelmalewski.playtogetherapi.PlayTogetherApiApplication")
+    mainClass.set("com.marcel.malewski.playtogetherapi.PlayTogetherApiApplication")
 }
 
-
-ktor {
-    fatJar {
-        archiveFileName.set("fat.jar")
-    }
+tasks.named<Jar>("jar") {
+    enabled = false
 }
-
 
 tasks.withType<Test> {
     useJUnitPlatform()

@@ -1,11 +1,12 @@
-package com.marcelmalewski.playtogetherapi;
+package com.marcel.malewski.playtogetherapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 public class PlayTogetherApiApplication {
-
    public static void main(String[] args) {
       SpringApplication.run(PlayTogetherApiApplication.class, args);
    }
