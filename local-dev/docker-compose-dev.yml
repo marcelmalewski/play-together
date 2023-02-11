@@ -2,10 +2,14 @@ version: '3.1'
 
 services:
   api:
-    build: ../api
+    image: "6745345/play-together-api:1.0"
     container_name: "api"
+    expose:
+      - "5000"
     ports:
       - "5000:5000"
+    networks:
+      - play-together
     depends_on:
         - postgres
   postgres:
@@ -22,14 +26,18 @@ services:
 #      interval: 5s
 #      timeout: 5s
 #      retries: 10
+    expose:
+      - "5432"
     ports:
       - "5432:5432"
     restart: unless-stopped
+    networks:
+      - play-together
 #  proxy:
 #    build: ../dev-proxy
 #    ports:
 #      - "80:80"
 
-#networks:
-#  play-together:
-#    driver: bridge
+networks:
+  play-together:
+    driver: bridge

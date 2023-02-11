@@ -13,7 +13,7 @@ public class GamerController {
    @GetMapping
    @Operation(summary = "Get all gamers")
    public ResponseEntity<String> getAllGamers() {
-      String result = "All gamers22222";
+      String result = "All gamers3333";
       return new ResponseEntity<>(result, HttpStatus.OK);
    }
 }

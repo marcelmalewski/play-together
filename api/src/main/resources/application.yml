@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/play-together
+    url: jdbc:postgresql://postgres:5432/play-together
     username: play-together
     password: 1234
 #    url: jdbc:postgresql://localhost:${POSTGRES_PORT}/${POSTGRES_DB}
