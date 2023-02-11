@@ -1,2 +1,2 @@
-# play-together
-play-together-project react-java
+# Stawianie postgresa
+# Stawianie skonteryzowanego springa
