@@ -7,3 +7,7 @@
 4. docker push 6745345/play-together-api:1.0
 5. wtedy można odpalic dockercompose
 Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalic dockercompose
+
+# Stawianie lokalne frontend
+1. wejść do folderu frontend
+2. yarn dev
