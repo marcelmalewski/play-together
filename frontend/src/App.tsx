@@ -2,7 +2,9 @@ import './App.css'
 
 function App() {
   return (
-    <div className="Apppp">apppdd</div>
+    <div className="text-2xl">
+       Hi
+    </div>
   )
 }
 

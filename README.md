@@ -10,4 +10,5 @@ Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalic
 
 # Stawianie lokalne frontend
 1. wejść do folderu frontend
-2. yarn dev
+2. yarn install
+3. yarn dev
