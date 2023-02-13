@@ -6,25 +6,25 @@ type FullScreenCardProps = {
 
 export function FullScreenCard({ children }: FullScreenCardProps) {
    return (
-      <div className="flex items-center justify-center h-screen bg-base-background">
-         <div className="w-full max-w-sm p-4 rounded-md shadow-card bg-white">
+      <div className="flex justify-center items-center min-h-screen bg-base-background">
+         <div className="max-w-md w-full">
             {children}
          </div>
       </div>
    );
 }
 
-FullScreenCard.Body = function FullScreenCardBody({ children }: FullScreenCardProps) {
+FullScreenCard.Body = function ({ children }: FullScreenCardProps) {
    return (
-      <div className="mt-4">
+      <div className="shadow-card bg-white p-6 rounded-lg">
          {children}
       </div>
    );
 }
 
-FullScreenCard.BelowCard = function FullScreenCardBelowCard({ children }: FullScreenCardProps) {
+FullScreenCard.BelowCard = function ({ children }: FullScreenCardProps) {
    return (
-      <div className="mt-6">
+      <div className="flex justify-center gap-3 mt-2 ">
          {children}
       </div>
    );

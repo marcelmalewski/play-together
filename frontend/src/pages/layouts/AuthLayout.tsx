@@ -8,7 +8,7 @@ export function AuthLayout() {
             <Outlet />
          </FullScreenCard.Body>
          <FullScreenCard.BelowCard>
-            <p className="text-center text-gray-600 dark:text-gray-400">
+            <p>
                &copy; 2021. All rights reserved.
             </p>
          </FullScreenCard.BelowCard>

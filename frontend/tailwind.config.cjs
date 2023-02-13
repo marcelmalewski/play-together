@@ -11,7 +11,7 @@ module.exports = {
         'base-orange': '#F4976C'
       },
       boxShadow: {
-        'card': '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
+        'card': '1px 1px 4px #bdbdbd, -1px -1px 4px #bdbdbd',
       }
     },
   },
