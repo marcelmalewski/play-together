@@ -5,12 +5,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/play-together
-    username: play-together
-    password: 1234
-#    url: jdbc:postgresql://localhost:${POSTGRES_PORT}/${POSTGRES_DB}
-#    username: ${POSTGRES_USER}
-#    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://localhost:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -21,6 +18,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
 
 springdoc:
   swagger-ui:
