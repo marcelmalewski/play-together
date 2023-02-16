@@ -12,3 +12,7 @@ Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalic
 1. wejść do folderu frontend
 2. yarn install
 3. yarn dev
+
+# Przygotowanie środowisko
+1. konfuguracja dockercompose
+2. konfiguracja api
