@@ -3,7 +3,7 @@ package com.marcel.malewski.playtogetherapi.gamer.dto;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class GamerResponseDto {
+public class GamerUpdateRequestDto {
    private Long id;
    private String firstName;
    private String lastName;
