@@ -1,14 +1,13 @@
 package com.marcel.malewski.playtogetherapi.gamer.dto;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
-public class GamerUpdateRequestDto {
-   private Long id;
-   private String firstName;
-   private String lastName;
-   private String email;
-   private String login;
-   private String nickname;
-   private String password;
+//jezeli GamerCreateRequestDto niczym sie nie rozni to mamy duplikat
+public record GamerUpdateRequestDto(
+        Long id,
+        String firstName,
+        String lastName,
+        String email,
+        String login,
+        String nickname,
+        String password
+) {
 }

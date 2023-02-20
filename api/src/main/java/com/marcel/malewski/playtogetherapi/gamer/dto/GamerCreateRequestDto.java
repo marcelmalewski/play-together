@@ -1,4 +1,12 @@
 package com.marcel.malewski.playtogetherapi.gamer.dto;
 
-public class GamerCreateRequestDto {
+public record GamerCreateRequestDto(
+        Long id,
+        String firstName,
+        String lastName,
+        String email,
+        String login,
+        String nickname,
+        String password
+) {
 }

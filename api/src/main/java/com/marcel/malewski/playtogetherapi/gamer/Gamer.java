@@ -18,12 +18,25 @@ public class Gamer {
    @SequenceGenerator(name = "gamer_sequence", sequenceName = "gamer_sequence", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gamer_sequence")
    private Long id;
+   @Column(nullable = false)
    private String firstName;
+   @Column(nullable = false)
    private String lastName;
    private String email;
+   @Column(nullable = false)
    private String login;
    private String nickname;
+   @Column(nullable = false)
    private String password;
+
+   public Gamer(Long id, String firstName, String lastName, String login, String nickname, String password) {
+      this.id = id;
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.login = login;
+      this.nickname = nickname;
+      this.password = password;
+   }
 
    @Override
    public boolean equals(Object o) {
