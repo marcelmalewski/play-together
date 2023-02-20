@@ -16,3 +16,4 @@ Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalic
 # Przygotowanie środowisko
 1. konfuguracja dockercompose
 2. konfiguracja api
+3. zbudowanie projektu zeby pojawily sie rzeczy od mapstructa
