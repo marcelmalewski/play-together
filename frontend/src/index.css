@@ -1,4 +1,19 @@
-@config "./../tailwind.config.cjs";
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
 @tailwind base;
+
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: theme("colors.o-7");
+    border-radius: 7px;
+}
+
 @tailwind components;
 @tailwind utilities;
