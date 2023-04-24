@@ -34,7 +34,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.marcel.malewski.playtogetherapi.PlayTogetherApiApplication")
+    mainClass.set("com.marcel.malewski.playtogetherapi.PlayTogetherApi")
 }
 
 tasks.named<Jar>("jar") {

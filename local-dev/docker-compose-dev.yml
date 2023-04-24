@@ -1,17 +1,17 @@
 version: '3.1'
 
 services:
-  api:
-    image: "6745345/play-together-api:1.0"
-    container_name: "api"
-    expose:
-      - "5000"
-    ports:
-      - "5000:5000"
-    networks:
-      - play-together
-    depends_on:
-        - postgres
+#  api:
+#    image: "6745345/play-together-api:1.0"
+#    container_name: "api"
+#    expose:
+#      - "5000"
+#    ports:
+#      - "5000:5000"
+#    networks:
+#      - play-together
+#    depends_on:
+#        - postgres
   postgres:
     container_name: postgres
     image: postgres:14.5-alpine
@@ -33,10 +33,12 @@ services:
     restart: unless-stopped
     networks:
       - play-together
-#  proxy:
-#    build: ../dev-proxy
-#    ports:
-#      - "80:80"
+  proxy:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build: ../dev-proxy
+    ports:
+      - "80:80"
 
 networks:
   play-together:
