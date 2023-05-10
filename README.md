@@ -10,7 +10,7 @@
 
 # Backend lokalnie
 
-# Postgres przez dockera konfiguracja lokalna (.env)
+# Plik .env
 ```
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
@@ -29,8 +29,3 @@ Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalic
 
 
 package com.marcel.malewski.playtogetherapi.group;
-
-
-public class Group {
-
-}

@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.gamersgroup;
+package com.marcel.malewski.playtogetherapi.gamesession;
 
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import jakarta.persistence.*;
@@ -13,11 +13,11 @@ import java.util.Set;
 @Setter
 @ToString
 @Entity
-@Table(name = "gamers_group")
-public class GamersGroup {
+@Table(name = "game_session")
+public class GameSession {
 	@Id
-	@SequenceGenerator(name = "group_sequence", sequenceName = "group_sequence", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_sequence")
+	@SequenceGenerator(name = "game_sequence", sequenceName = "game_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_sequence")
 	private Long id;
 	private String name;
 	private String owner;
@@ -27,8 +27,8 @@ public class GamersGroup {
 	private boolean isCompetitive;
 	private int requiredAge;
 	@ManyToMany
-	@JoinTable(name = "gamer_gamers_group",
-					joinColumns = @JoinColumn(name = "gamers_group_id"),
+	@JoinTable(name = "gamer_game_session",
+					joinColumns = @JoinColumn(name = "game_session_id"),
 					inverseJoinColumns = @JoinColumn(name = "gamer_id"))
 	@ToString.Exclude
 	private Set<Gamer> gamers = new HashSet<>();
@@ -36,9 +36,9 @@ public class GamersGroup {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof GamersGroup gamersGroup)) return false;
+		if (!(o instanceof GameSession gameSession)) return false;
 
-		return getId() != null ? getId().equals(gamersGroup.getId()) : gamersGroup.getId() == null;
+		return getId() != null ? getId().equals(gameSession.getId()) : gameSession.getId() == null;
 	}
 
 	@Override

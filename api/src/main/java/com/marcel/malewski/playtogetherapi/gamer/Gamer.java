@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
-import com.marcel.malewski.playtogetherapi.gamersgroup.GamersGroup;
+import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,7 +30,7 @@ public class Gamer {
 	private String playingTimeEnd;
 	@ManyToMany(mappedBy = "gamers")
 	@ToString.Exclude
-	private Set<GamersGroup> gamersGroups = new HashSet<>();
+	private Set<GameSession> gameSessions = new HashSet<>();
 	//   @Column(nullable = false)
 	//   private String password;
 
