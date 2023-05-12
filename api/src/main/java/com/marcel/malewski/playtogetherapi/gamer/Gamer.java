@@ -4,13 +4,10 @@ import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 //TODO moze użyć @Data
 @AllArgsConstructor
@@ -34,6 +31,7 @@ public class Gamer implements UserDetails {
 	private String avatarUrl;
 	private String playingTimeStart;
 	private String playingTimeEnd;
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	@ManyToMany(mappedBy = "gamers")
 	@ToString.Exclude
@@ -56,31 +54,31 @@ public class Gamer implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.emptyList();
+		return List.of(new SimpleGrantedAuthority(role.name()));
 	}
 
 	@Override
 	public String getUsername() {
-		return null;
+		return this.login;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return true;
 	}
 }
