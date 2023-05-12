@@ -19,12 +19,13 @@ repositories {
     mavenCentral()
 }
 
+//TODO co oznaczają te imp compileOny annot itd. ?
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.mapstruct:mapstruct:1.5.3.Final")
-//    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
