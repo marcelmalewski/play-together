@@ -15,6 +15,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "gamer")
+//TODO dodać co moze byc nullem
 public class Gamer {
 	@Id
 	@SequenceGenerator(name = "gamer_sequence", sequenceName = "gamer_sequence", allocationSize = 1)
