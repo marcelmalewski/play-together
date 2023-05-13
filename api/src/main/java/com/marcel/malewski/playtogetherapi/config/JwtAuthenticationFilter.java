@@ -11,13 +11,23 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-//TODO mozna dac implement filter
+//TODO mozna dac implement filter czy tak jak jest w licencjacie
 //TODO lombok nonull vs spring nonull
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+	private JwtService jwtService;
+
 	@Override
 	protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
-
+		final String authHeader = request.getHeader("Authorization");
+		final String jwt;
+		final String login;
+		if(authHeader == null || !authHeader.startsWith("Bearer ")) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		jwt = authHeader.substring(7);
+		login = jwtService.extractUsername(jwt);
 	}
 }
