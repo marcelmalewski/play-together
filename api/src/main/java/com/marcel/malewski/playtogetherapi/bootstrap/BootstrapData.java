@@ -43,7 +43,5 @@ public class BootstrapData implements CommandLineRunner {
 		gameSession2Saved.getGamers().add(ericSaved);
 		gameSessionRepository.save(gameSession1Saved);
 		gameSessionRepository.save(gameSession2Saved);
-
-		System.err.println("Data loaded: " + gamerRepository.count() + " gamers, " + gameSessionRepository.count() + " game sessions");
 	}
 }

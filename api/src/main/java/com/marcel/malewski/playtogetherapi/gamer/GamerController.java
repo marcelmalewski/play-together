@@ -6,11 +6,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/gamers")
+@RequestMapping("/v1/gamers")
 public class GamerController {
 
 	@GetMapping
 	public ResponseEntity<String> getGamer() {
 		return ResponseEntity.ok("Hello World");
+	}
+
+	@GetMapping("/secured")
+	public ResponseEntity<String> getTest() {
+		return ResponseEntity.ok("Hello World test");
 	}
 }
