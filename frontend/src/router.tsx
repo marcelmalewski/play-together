@@ -1,14 +1,14 @@
-import {createBrowserRouter} from "react-router-dom";
-import {AuthLayout} from "./layouts/AuthLayout";
-import {Login} from "./pages/login/Login";
-import {Register} from "./pages/register/Register";
+import { createBrowserRouter } from "react-router-dom";
+import { FormLayout } from "./layouts/FormLayout";
+import { LoginPage } from "./pages/loginPage/LoginPage";
+import { RegisterPage } from "./pages/registerPage/RegisterPage";
 
 export const router = createBrowserRouter([
-   {
-      element: <AuthLayout />,
-      children: [
-         { path: "login", element: <Login /> },
-         { path: "signup", element: <Register /> },
-      ],
-   }
-])
+  {
+    element: <FormLayout />,
+    children: [
+      { path: "login", element: <LoginPage /> },
+      { path: "register", element: <RegisterPage /> },
+    ],
+  },
+]);
