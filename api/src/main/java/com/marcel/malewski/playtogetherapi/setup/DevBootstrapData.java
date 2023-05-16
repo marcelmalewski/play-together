@@ -1,18 +1,20 @@
-package com.marcel.malewski.playtogetherapi.bootstrap;
+package com.marcel.malewski.playtogetherapi.setup;
 
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.gamesession.GameSessionRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile("dev")
 @Component
-public class BootstrapData implements CommandLineRunner {
+public class DevBootstrapData implements CommandLineRunner {
 	private final GamerRepository gamerRepository;
 	private final GameSessionRepository gameSessionRepository;
 
-	public BootstrapData(GamerRepository gamerRepository, GameSessionRepository gameSessionRepository) {
+	public DevBootstrapData(GamerRepository gamerRepository, GameSessionRepository gameSessionRepository) {
 		this.gamerRepository = gamerRepository;
 		this.gameSessionRepository = gameSessionRepository;
 	}

@@ -1,4 +1,4 @@
-# Przygotowanie środowisko
+# Przygotowanie środowisko (do poprawy)
 1. konfuguracja dockercompose
 2. konfiguracja api
 3. zbudowanie projektu zeby pojawily sie rzeczy od mapstructa
@@ -16,6 +16,8 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_DB=play-together
 POSTGRES_PORT=5432
+PORT=5000
+SPRING_PROFILES_ACTIVE=dev
 ```
   
 # Backend przez dockera

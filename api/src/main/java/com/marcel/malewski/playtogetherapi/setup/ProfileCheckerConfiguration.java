@@ -1,0 +1,29 @@
+package com.marcel.malewski.playtogetherapi.setup;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+
+//TODO zmienić na logowanie "error" zamiast rzucania wyjątku
+@Configuration
+public class ProfileCheckerConfiguration {
+
+	private final Environment environment;
+
+	@Autowired
+	public ProfileCheckerConfiguration(Environment environment) {
+		this.environment = environment;
+	}
+
+	@Bean
+	public CommandLineRunner profileCheckerRunner() {
+		return args -> {
+			if (environment.getActiveProfiles().length == 0) {
+				throw new IllegalStateException("No profile set. Please set one of the following profiles: dev, prod (see README)");
+//				error("No profile set. Please set one of the following profiles: dev, prod (see README)");
+			}
+		};
+	}
+}
