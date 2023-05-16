@@ -10,8 +10,7 @@ module.exports = {
         sans: ["Lato", "sans-serif"],
       },
       colors: {
-        'base-background': '#FBE8A6',
-        'base-orange': '#F4976C',
+        "o-1": "#0f172a",
         "o-7": "#616470",
       },
       boxShadow: {
