@@ -1,31 +1,23 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 
 type FullScreenCardProps = {
-   children: ReactNode;
-}
+    children: ReactNode;
+};
 
 export function FullScreenCard({ children }: FullScreenCardProps) {
-   return (
-      <div className="flex justify-center items-center min-h-screen bg-base-background">
-         <div className="max-w-md w-full">
-            {children}
-         </div>
-      </div>
-   );
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-base-background">
+            <div className="w-full max-w-md">{children}</div>
+        </div>
+    );
 }
 
 FullScreenCard.Body = function ({ children }: FullScreenCardProps) {
-   return (
-      <div className="shadow-card bg-white p-6 rounded-lg">
-         {children}
-      </div>
-   );
-}
+    return (
+        <div className="rounded-lg bg-white p-6 shadow-card">{children}</div>
+    );
+};
 
 FullScreenCard.BelowCard = function ({ children }: FullScreenCardProps) {
-   return (
-      <div className="flex justify-center gap-3 mt-2 ">
-         {children}
-      </div>
-   );
-}
+    return <div className="mt-2 flex justify-center gap-3 ">{children}</div>;
+};

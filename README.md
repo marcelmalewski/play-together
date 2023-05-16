@@ -4,9 +4,11 @@
 3. zbudowanie projektu zeby pojawily sie rzeczy od mapstructa
 
 # Frontend lokalnie
-1. wejść do folderu frontend
-2. yarn install
-3. yarn dev
+1. w intelij ustawić package manager na `yarn`
+2. w intelij ustawić prettier `automatic prettier configuration`
+3. wejść do folderu frontend 
+4. yarn install 
+5. yarn dev
 
 # Backend lokalnie
 
