@@ -13,7 +13,7 @@ export function FullScreenCard({ children }: FullScreenCardProps) {
 }
 
 FullScreenCard.Body = function ({ children }: FullScreenCardProps) {
-  return <div className="rounded-lg bg-slate-800 p-6">{children}</div>;
+  return <div className="rounded-lg bg-o-2 p-6">{children}</div>;
 };
 
 FullScreenCard.BelowCard = function ({ children }: FullScreenCardProps) {

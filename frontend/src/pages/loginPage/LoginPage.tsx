@@ -1,3 +1,3 @@
 export function LoginPage() {
-  return <h1>Loggginssd</h1>;
+  return <form></form>;
 }
