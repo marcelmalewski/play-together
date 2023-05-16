@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import {FullScreenCard} from "../../components/FullScreenCard";
+import {FullScreenCard} from "../components/FullScreenCard";
 
 export function AuthLayout() {
    return (
