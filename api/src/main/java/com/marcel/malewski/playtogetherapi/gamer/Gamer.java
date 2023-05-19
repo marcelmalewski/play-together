@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 //TODO moze użyć @Data
+//TODO dodać co moze byc nullem
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -17,7 +18,6 @@ import java.util.*;
 @Setter
 @Entity
 @Table(name = "gamer")
-//TODO dodać co moze byc nullem
 public class Gamer implements UserDetails {
 	@Id
 	@SequenceGenerator(name = "gamer_sequence", sequenceName = "gamer_sequence", allocationSize = 1)
