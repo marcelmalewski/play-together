@@ -21,29 +21,36 @@ public class DevBootstrapData implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		//Test Gamers
 		Gamer john = new Gamer();
 		john.setLogin("john");
 		john.setPassword("john");
-
-		GameSession gameSession1 = new GameSession();
-		gameSession1.setName("game session");
-
-		Gamer johnSaved = gamerRepository.save(john);
-		GameSession gameSession1Saved = gameSessionRepository.save(gameSession1);
 
 		Gamer eric = new Gamer();
 		eric.setLogin("eric");
 		eric.setPassword("eric");
 
+		//Test Game sessions
+		GameSession gameSession1 = new GameSession();
+		gameSession1.setName("game session");
+
 		GameSession gameSession2 = new GameSession();
 		gameSession2.setName("game session 2");
 
-		Gamer ericSaved = gamerRepository.save(eric);
-		GameSession gameSession2Saved = gameSessionRepository.save(gameSession2);
+		gamerRepository.save(john);
+		gameSessionRepository.save(gameSession1);
 
-		gameSession1Saved.getGamers().add(johnSaved);
-		gameSession2Saved.getGamers().add(ericSaved);
-		gameSessionRepository.save(gameSession1Saved);
-		gameSessionRepository.save(gameSession2Saved);
+		gamerRepository.save(eric);
+		gameSessionRepository.save(gameSession2);
+
+//		Gamer johnSaved = gamerRepository.save(john);
+//		GameSession gameSession1Saved = gameSessionRepository.save(gameSession1);
+//
+//		Gamer ericSaved = gamerRepository.save(eric);
+//		GameSession gameSession2Saved = gameSessionRepository.save(gameSession2);
+//		gameSession1Saved.getGamers().add(johnSaved);
+//		gameSession2Saved.getGamers().add(ericSaved);
+//		gameSessionRepository.save(gameSession1Saved);
+//		gameSessionRepository.save(gameSession2Saved);
 	}
 }
