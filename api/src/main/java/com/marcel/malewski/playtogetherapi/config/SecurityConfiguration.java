@@ -25,7 +25,13 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests()
 			.requestMatchers(
 				"/",
-				"/v1/gamers"
+				"/v1/gamers",
+				"/docs",
+				"/v2/api-docs/**",
+				"/v3/api-docs/**",
+				"/swagger-resources/**",
+				"/swagger-ui/**",
+				"/swagger-ui.html"
 			)
 			.permitAll()
 			.anyRequest()

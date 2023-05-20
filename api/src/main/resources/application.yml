@@ -24,4 +24,6 @@ spring:
 
 springdoc:
   swagger-ui:
+    tagsSorter: alpha
+    operations-sorter: alpha
     path: /docs
