@@ -1,11 +1,16 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/gamers")
-@Tag(name = "Sessions", description = "Sessions API")
+@Tag(name = "Gamers", description = "Gamers API v1")
 public class GamerController {
 	private final GamerService gamerService;
 
@@ -14,8 +19,10 @@ public class GamerController {
 	}
 
 	@GetMapping
-	public String findAllGamers() {
-		return this.gamerService.findAllGamers().toString();
+	@Operation(summary = "Find all gamers")
+	public ResponseEntity<List<Gamer>> findAllGamers() {
+		List<Gamer> result = this.gamerService.findAllGamers();
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 //	@GetMapping("/{id}")

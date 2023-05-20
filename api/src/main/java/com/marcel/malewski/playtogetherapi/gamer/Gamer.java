@@ -39,18 +39,18 @@ public class Gamer implements UserDetails {
 	//   @Column(nullable = false)
 	//   private String password;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Gamer gamer)) return false;
-
-		return getId() != null ? getId().equals(gamer.getId()) : gamer.getId() == null;
-	}
-
-	@Override
-	public int hashCode() {
-		return getId() != null ? getId().hashCode() : 0;
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		if (this == o) return true;
+//		if (!(o instanceof Gamer gamer)) return false;
+//
+//		return getId() != null ? getId().equals(gamer.getId()) : gamer.getId() == null;
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return getId() != null ? getId().hashCode() : 0;
+//	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

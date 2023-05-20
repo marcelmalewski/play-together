@@ -15,4 +15,8 @@ public class GamerService {
 	public List<Gamer> findAllGamers() {
 		return gamerRepository.findAll();
 	}
+
+	public Gamer getGamer(Long id) {
+		return gamerRepository.findById(id).get();
+	}
 }
