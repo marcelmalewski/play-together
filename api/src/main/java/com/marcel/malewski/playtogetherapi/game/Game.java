@@ -1,6 +1,7 @@
 package com.marcel.malewski.playtogetherapi.game;
 
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -23,5 +24,9 @@ public class Game {
 	private String name;
 	@ManyToMany(mappedBy = "favouriteGames")
 	@ToString.Exclude
-	private Set<Gamer> gamer;
+	private Set<Gamer> gamers;
+	@OneToMany(mappedBy = "game")
+	@ToString.Exclude
+	@NotNull
+	private Set<GameSession> gameSessions;
 }

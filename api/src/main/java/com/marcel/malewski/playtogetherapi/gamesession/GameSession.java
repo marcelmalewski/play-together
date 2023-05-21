@@ -2,10 +2,12 @@ package com.marcel.malewski.playtogetherapi.gamesession;
 
 import com.marcel.malewski.playtogetherapi.game.Game;
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.shared.PrivacyLevel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,24 +25,26 @@ public class GameSession {
 	private Long id;
 	@NotNull
 	private String name;
-	@ManyToMany
-	@JoinTable(name = "game_gamesession",
-		joinColumns = @JoinColumn(name = "game_session_id"),
-		inverseJoinColumns = @JoinColumn(name = "game_id"))
-	@ToString.Exclude
+	@ManyToOne
+	@JoinColumn(name = "game_id")
 	@NotNull
 	private Game game;
 	private String description;
+	@Enumerated(EnumType.STRING)
 	@NotNull
-	private String visibilityType;
+	private PrivacyLevel visibilityType;
+	@Enumerated(EnumType.STRING)
 	@NotNull
-	private String accessType;
+	private PrivacyLevel accessType;
 	@NotNull
-	private String date;
+	private LocalDate date;
 	private boolean isCompetitive;
 	private int maxMembers;
 	private int minAge;
+	//TODO to na potem
+	@NotNull
 	private String availabilityTimes;
+	//TODO to na potem
 	private String pendingMembers;
 	private int numberOfMembers;
 	private boolean isCurrentUserMember;
