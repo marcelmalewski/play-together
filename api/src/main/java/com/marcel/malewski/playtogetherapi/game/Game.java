@@ -1,8 +1,11 @@
 package com.marcel.malewski.playtogetherapi.game;
 
+import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +21,7 @@ public class Game {
 	private int id;
 	@NotNull
 	private String name;
+	@ManyToMany(mappedBy = "favouriteGames")
+	@ToString.Exclude
+	private Set<Gamer> gamer;
 }

@@ -1,6 +1,8 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
+import com.marcel.malewski.playtogetherapi.game.Game;
 import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
+import com.marcel.malewski.playtogetherapi.genre.Genre;
 import com.marcel.malewski.playtogetherapi.shared.Platform;
 import com.marcel.malewski.playtogetherapi.shared.Role;
 import jakarta.persistence.*;
@@ -41,17 +43,30 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private LocalTime playingTimeEnd;
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private Platform platforms;
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private Role role;
-	private String favouriteGames;
-	private String favouriteGenres;
+	@ManyToMany
+	@JoinTable(name = "gamer_favourite_game",
+		joinColumns = @JoinColumn(name = "gamer_id"),
+		inverseJoinColumns = @JoinColumn(name = "game_id"))
+	@ToString.Exclude
+	private Set<Game> favouriteGames;
+	@ManyToMany
+	@JoinTable(name = "gamer_favourite_genre",
+		joinColumns = @JoinColumn(name = "gamer_id"),
+		inverseJoinColumns = @JoinColumn(name = "genre_id"))
+	@ToString.Exclude
+	private Set<Genre> favouriteGenres;
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
+	@NotNull
 	private Set<GameSession> joinedGameSessions = new HashSet<>();
 	@OneToMany(mappedBy = "creator")
 	@ToString.Exclude
+	@NotNull
 	private Set<GameSession> createdGameSessions = new HashSet<>();
 
 	@Override

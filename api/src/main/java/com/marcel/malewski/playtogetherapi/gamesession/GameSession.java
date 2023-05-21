@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.gamesession;
 
+import com.marcel.malewski.playtogetherapi.game.Game;
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -22,8 +23,13 @@ public class GameSession {
 	private Long id;
 	@NotNull
 	private String name;
+	@ManyToMany
+	@JoinTable(name = "game_gamesession",
+		joinColumns = @JoinColumn(name = "game_session_id"),
+		inverseJoinColumns = @JoinColumn(name = "game_id"))
+	@ToString.Exclude
 	@NotNull
-	private String game;
+	private Game game;
 	private String description;
 	@NotNull
 	private String visibilityType;
@@ -43,7 +49,7 @@ public class GameSession {
 	@NotNull
 	private Gamer creator;
 	@ManyToMany
-	@JoinTable(name = "gamer_game_session",
+	@JoinTable(name = "game_session_members",
 					joinColumns = @JoinColumn(name = "game_session_id"),
 					inverseJoinColumns = @JoinColumn(name = "gamer_id"))
 	@ToString.Exclude
