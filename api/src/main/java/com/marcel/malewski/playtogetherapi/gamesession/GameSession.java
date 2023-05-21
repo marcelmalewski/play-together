@@ -17,8 +17,8 @@ import java.util.Set;
 @Table(name = "game_session")
 public class GameSession {
 	@Id
-	@SequenceGenerator(name = "game_sequence", sequenceName = "game_sequence", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_sequence")
+	@SequenceGenerator(name = "game_session_sequence", sequenceName = "game_session_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_session_sequence")
 	private Long id;
 	@NotNull
 	private String name;

@@ -1,6 +1,8 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
 import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
+import com.marcel.malewski.playtogetherapi.shared.Platform;
+import com.marcel.malewski.playtogetherapi.shared.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -38,12 +40,13 @@ public class Gamer implements UserDetails {
 	private LocalTime playingTimeStart;
 	@NotNull
 	private LocalTime playingTimeEnd;
-	private String platforms;
-	private String favouriteGames;
-	private String favouriteGenres;
+	@Enumerated(EnumType.STRING)
+	private Platform platforms;
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private Role role;
+	private String favouriteGames;
+	private String favouriteGenres;
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
 	private Set<GameSession> joinedGameSessions = new HashSet<>();
