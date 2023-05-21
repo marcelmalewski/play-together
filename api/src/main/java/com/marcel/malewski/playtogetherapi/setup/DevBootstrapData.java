@@ -26,22 +26,24 @@ public class DevBootstrapData implements CommandLineRunner {
 		john.setLogin("john");
 		john.setPassword("john");
 
-		Gamer eric = new Gamer();
-		eric.setLogin("eric");
-		eric.setPassword("eric");
-
-		//Test Game sessions
-		GameSession gameSession1 = new GameSession();
-		gameSession1.setName("game session");
-
-		GameSession gameSession2 = new GameSession();
-		gameSession2.setName("game session 2");
-
-		gamerRepository.save(john);
-		gameSessionRepository.save(gameSession1);
-
-		gamerRepository.save(eric);
-		gameSessionRepository.save(gameSession2);
+//		gamerRepository.save(john);
+//
+//		Gamer eric = new Gamer();
+//		eric.setLogin("eric");
+//		eric.setPassword("eric");
+//
+//		//Test Game sessions
+//		GameSession gameSession1 = new GameSession();
+//		gameSession1.setName("game session");
+//
+//		GameSession gameSession2 = new GameSession();
+//		gameSession2.setName("game session 2");
+//
+//		gamerRepository.save(john);
+//		gameSessionRepository.save(gameSession1);
+//
+//		gamerRepository.save(eric);
+//		gameSessionRepository.save(gameSession2);
 
 //		Gamer johnSaved = gamerRepository.save(john);
 //		GameSession gameSession1Saved = gameSessionRepository.save(gameSession1);

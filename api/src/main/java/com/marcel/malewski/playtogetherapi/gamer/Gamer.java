@@ -44,7 +44,7 @@ public class Gamer implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private Role role;
-	@ManyToMany(mappedBy = "gamers")
+	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
 	private Set<GameSession> gameSessions = new HashSet<>();
 

@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.gamesession;
 
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.HashSet;
@@ -19,19 +20,31 @@ public class GameSession {
 	@SequenceGenerator(name = "game_sequence", sequenceName = "game_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_sequence")
 	private Long id;
+	@NotNull
 	private String name;
-	private String owner;
+	@NotNull
+	private String game;
 	private String description;
+	@NotNull
 	private String visibilityType;
+	@NotNull
 	private String accessType;
+	@NotNull
+	private String date;
 	private boolean isCompetitive;
-	private int requiredAge;
+	private int maxMembers;
+	private int minAge;
+	private String availabilityTimes;
+	private String pendingMembers;
+	private int numberOfMembers;
+	private boolean isCurrentUserMember;
+	private String creator;
 	@ManyToMany
 	@JoinTable(name = "gamer_game_session",
 					joinColumns = @JoinColumn(name = "game_session_id"),
 					inverseJoinColumns = @JoinColumn(name = "gamer_id"))
 	@ToString.Exclude
-	private Set<Gamer> gamers = new HashSet<>();
+	private Set<Gamer> members = new HashSet<>();
 
 	@Override
 	public boolean equals(Object o) {
