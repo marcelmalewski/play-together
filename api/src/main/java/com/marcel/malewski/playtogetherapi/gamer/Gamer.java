@@ -46,7 +46,9 @@ public class Gamer implements UserDetails {
 	private Role role;
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
-	private Set<GameSession> gameSessions = new HashSet<>();
+	private Set<GameSession> joinedGameSessions = new HashSet<>();
+	@OneToMany(mappedBy = "creator")
+	private Set<GameSession> createdGameSessions = new HashSet<>();
 
 	@Override
 	public boolean equals(Object o) {

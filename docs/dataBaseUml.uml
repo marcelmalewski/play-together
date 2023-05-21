@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>dbab79b2-f7aa-409c-bb61-12d959a61e71</OriginalElement>
+  <nodes>
+    <node x="95.0" y="290.0">dbab79b2-f7aa-409c-bb61-12d959a61e71.TABLE:play_together.public.gamer_game_session</node>
+    <node x="-126.0" y="-164.0">dbab79b2-f7aa-409c-bb61-12d959a61e71.TABLE:play_together.public.gamer</node>
+    <node x="316.0" y="-181.0">dbab79b2-f7aa-409c-bb61-12d959a61e71.TABLE:play_together.public.game_session</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="dbab79b2-f7aa-409c-bb61-12d959a61e71.TABLE:play_together.public.gamer_game_session" target="dbab79b2-f7aa-409c-bb61-12d959a61e71.TABLE:play_together.public.game_session" relationship="REFERENCES">
+      <point x="55.75" y="-42.0" />
+      <point x="262.25" y="210.0" />
+      <point x="441.5" y="210.0" />
+      <point x="0.0" y="185.5" />
+    </edge>
+    <edge source="dbab79b2-f7aa-409c-bb61-12d959a61e71.TABLE:play_together.public.gamer_game_session" target="dbab79b2-f7aa-409c-bb61-12d959a61e71.TABLE:play_together.public.gamer" relationship="REFERENCES">
+      <point x="-55.75" y="-42.0" />
+      <point x="150.75" y="210.0" />
+      <point x="-5.5" y="210.0" />
+      <point x="0.0" y="163.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="313.5" y="66.5" />
+  <SelectedNodes>
+    <node>dbab79b2-f7aa-409c-bb61-12d959a61e71.TABLE:play_together.public.gamer_game_session</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

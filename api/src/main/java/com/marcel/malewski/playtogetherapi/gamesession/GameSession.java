@@ -38,12 +38,16 @@ public class GameSession {
 	private String pendingMembers;
 	private int numberOfMembers;
 	private boolean isCurrentUserMember;
-	private String creator;
+	@ManyToOne
+	@JoinColumn(name = "gamer_id")
+	@NotNull
+	private Gamer creator;
 	@ManyToMany
 	@JoinTable(name = "gamer_game_session",
 					joinColumns = @JoinColumn(name = "game_session_id"),
 					inverseJoinColumns = @JoinColumn(name = "gamer_id"))
 	@ToString.Exclude
+	@NotNull
 	private Set<Gamer> members = new HashSet<>();
 
 	@Override
