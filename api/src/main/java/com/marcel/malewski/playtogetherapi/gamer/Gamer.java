@@ -8,10 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
-//TODO moze użyć @Data
-//TODO dodać co moze byc nullem
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -31,13 +31,13 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private String email;
 	@NotNull
-	private Date birthdate;
+	private LocalDate birthdate;
 	private String bio;
 	private String avatarUrl;
 	@NotNull
-	private String playingTimeStart;
+	private LocalTime playingTimeStart;
 	@NotNull
-	private String playingTimeEnd;
+	private LocalTime playingTimeEnd;
 	private String platforms;
 	private String favouriteGames;
 	private String favouriteGenres;
@@ -48,6 +48,7 @@ public class Gamer implements UserDetails {
 	@ToString.Exclude
 	private Set<GameSession> joinedGameSessions = new HashSet<>();
 	@OneToMany(mappedBy = "creator")
+	@ToString.Exclude
 	private Set<GameSession> createdGameSessions = new HashSet<>();
 
 	@Override
