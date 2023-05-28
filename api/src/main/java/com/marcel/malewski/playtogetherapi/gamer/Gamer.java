@@ -53,21 +53,21 @@ public class Gamer implements UserDetails {
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "game_id"))
 	@ToString.Exclude
-	private Set<Game> favouriteGames;
+	private List<Game> favouriteGames;
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_genre",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	@ToString.Exclude
-	private Set<Genre> favouriteGenres;
+	private List<Genre> favouriteGenres;
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
 	@NotNull
-	private Set<GameSession> joinedGameSessions = new HashSet<>();
+	private List<GameSession> joinedGameSessions = new LinkedList<>();
 	@OneToMany(mappedBy = "creator")
 	@ToString.Exclude
 	@NotNull
-	private Set<GameSession> createdGameSessions = new HashSet<>();
+	private List<GameSession> createdGameSessions = new LinkedList<>();
 
 	@Override
 	public boolean equals(Object o) {

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -24,7 +25,7 @@ public class Game {
 	private String name;
 	@ManyToMany(mappedBy = "favouriteGames")
 	@ToString.Exclude
-	private Set<Gamer> gamers;
+	private List<Gamer> gamers;
 	@OneToMany(mappedBy = "game")
 	@ToString.Exclude
 	@NotNull

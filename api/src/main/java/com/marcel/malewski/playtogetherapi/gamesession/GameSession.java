@@ -9,6 +9,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -58,7 +60,7 @@ public class GameSession {
 					inverseJoinColumns = @JoinColumn(name = "gamer_id"))
 	@ToString.Exclude
 	@NotNull
-	private Set<Gamer> members = new HashSet<>();
+	private List<Gamer> members = new LinkedList<>();
 
 	@Override
 	public boolean equals(Object o) {
