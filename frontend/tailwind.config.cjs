@@ -10,9 +10,11 @@ module.exports = {
         sans: ["Lato", "sans-serif"],
       },
       colors: {
-        "o-1": "#0f172a",
-        "o-2": "#1e293b",
-        "o-7": "#616470",
+        //hover -> 20l or 20d
+        //border -> 20l or 20d
+        //zmiana slate-500 na cos innego to po prostu ctrl+shift+r
+        "o-1": "#616470",
+        "cyan-700-10d": "#0b5c73",
       },
       boxShadow: {
         'card': '1px 1px 4px #bdbdbd, -1px -1px 4px #bdbdbd',
