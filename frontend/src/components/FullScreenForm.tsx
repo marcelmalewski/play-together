@@ -7,6 +7,7 @@ interface FullScreenCardProps {
 export function FullScreenForm({ children }: FullScreenCardProps) {
   return (
     <div className="flex min-h-screen items-center justify-center">
+      <div>Welcome page</div>
       <div className="w-full max-w-md">{children}</div>
     </div>
   );

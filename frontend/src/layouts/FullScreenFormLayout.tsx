@@ -1,7 +1,10 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { FullScreenForm } from "../components/FullScreenForm";
 
 export function FullScreenFormLayout() {
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
+
   return (
     <FullScreenForm>
       <FullScreenForm.Body>
