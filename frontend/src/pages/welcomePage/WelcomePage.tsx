@@ -1,3 +1,9 @@
 export function WelcomePage() {
-  return <h1>Welcome</h1>;
+  return (
+    <div>
+      <p>welcome</p>
+      <button>go to login</button>
+      <button>go to register</button>
+    </div>
+  );
 }

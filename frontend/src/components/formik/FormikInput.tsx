@@ -1,10 +1,9 @@
 import React from "react";
-import { Field, ErrorMessage } from "formik";
+import { ErrorMessage, Field } from "formik";
 import { FormikTextError } from "./FormikTextError";
+import { BasicFormProps } from "../../interfaces/formikInterfaces";
 
-export function FormikInput(props: any) {
-  const { label, name, ...rest } = props;
-
+export function FormikInput({ label, name, ...rest }: BasicFormProps) {
   return (
     <div>
       <label htmlFor={name}>{label}</label>

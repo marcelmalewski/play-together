@@ -4,7 +4,7 @@ interface FullScreenCardProps {
   children: ReactNode;
 }
 
-export function FullScreenCard({ children }: FullScreenCardProps) {
+export function FullScreenForm({ children }: FullScreenCardProps) {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-md">{children}</div>
@@ -12,10 +12,10 @@ export function FullScreenCard({ children }: FullScreenCardProps) {
   );
 }
 
-FullScreenCard.Body = function ({ children }: FullScreenCardProps) {
+FullScreenForm.Body = function ({ children }: FullScreenCardProps) {
   return <div className="rounded-lg bg-o-2 p-6">{children}</div>;
 };
 
-FullScreenCard.BelowCard = function ({ children }: FullScreenCardProps) {
+FullScreenForm.BelowCard = function ({ children }: FullScreenCardProps) {
   return <div className="mt-2 flex justify-center gap-3">{children}</div>;
 };

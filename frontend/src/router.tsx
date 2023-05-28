@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { FormLayout } from "./layouts/FormLayout";
+import { FullScreenFormLayout } from "./layouts/FullScreenFormLayout";
 import { LoginPage } from "./pages/loginPage/LoginPage";
 import { RegisterPage } from "./pages/registerPage/RegisterPage";
 import { WelcomePage } from "./pages/welcomePage/WelcomePage";
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     element: <WelcomePage />,
   },
   {
-    element: <FormLayout />,
+    element: <FullScreenFormLayout />,
     children: [
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
