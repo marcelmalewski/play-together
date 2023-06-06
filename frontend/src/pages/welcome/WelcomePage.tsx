@@ -6,13 +6,13 @@ export function WelcomePage() {
       <p>welcome</p>
       <Link
         to="/login"
-        className="inline-block flex h-12 w-40 items-center justify-center rounded-md bg-cyan-700 text-2xl hover:bg-cyan-700-20d"
+        className="hover:bg-cyan-700-20d inline-block flex h-12 w-40 items-center justify-center rounded-md bg-cyan-700 text-2xl"
       >
         go to login
       </Link>
       <Link
         to="/register"
-        className="mt-10 inline-block flex h-12 w-40 items-center justify-center rounded-md bg-cyan-700 text-2xl hover:bg-cyan-700-20d"
+        className="hover:bg-cyan-700-20d mt-10 inline-block flex h-12 w-40 items-center justify-center rounded-md bg-cyan-700 text-2xl"
       >
         go to register
       </Link>

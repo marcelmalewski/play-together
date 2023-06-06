@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { LoginPage } from "./pages/loginPage/LoginPage";
-import { RegisterPage } from "./pages/registerPage/RegisterPage";
-import { WelcomePage } from "./pages/welcomePage/WelcomePage";
+import { LoginPage } from "./pages/login/LoginPage";
+import { RegisterPage } from "./pages/register/RegisterPage";
+import { WelcomePage } from "./pages/welcome/WelcomePage";
 
 export const router = createBrowserRouter([
   {

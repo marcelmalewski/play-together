@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { LoginFormValues } from "../../interfaces/authInterfaces";
 import { FormikInput } from "../../components/formik/FormikInput";
-import { FullScreenFormLayout } from "../../components/FullScreenFormLayout";
+import { FullScreenFormLayout } from "../../layouts/FullScreenFormLayout";
 
 export function LoginPage() {
   const initialValues: LoginFormValues = {
