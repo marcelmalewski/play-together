@@ -6,15 +6,15 @@ export function WelcomePage() {
       <p>welcome</p>
       <Link
         to="/login"
-        className="hover:bg-cyan-700-20d inline-block flex h-12 w-40 items-center justify-center rounded-md bg-cyan-700 text-2xl"
+        className="inline-block flex h-12 w-40 items-center justify-center rounded-md bg-base-button text-2xl duration-200 hover:bg-base-button-hov"
       >
-        go to login
+        Login
       </Link>
       <Link
         to="/register"
-        className="hover:bg-cyan-700-20d mt-10 inline-block flex h-12 w-40 items-center justify-center rounded-md bg-cyan-700 text-2xl"
+        className="mt-10 inline-block flex h-12 w-40 items-center justify-center rounded-md bg-base-button text-2xl duration-200 hover:bg-base-button-hov"
       >
-        go to register
+        Register
       </Link>
     </div>
   );

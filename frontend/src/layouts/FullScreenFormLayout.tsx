@@ -6,6 +6,7 @@ interface FullScreenCardProps {
   children: ReactNode;
 }
 
+//TODO poprawić kolory
 export function FullScreenFormLayout({ children }: FullScreenCardProps) {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";

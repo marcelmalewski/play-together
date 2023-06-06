@@ -18,6 +18,7 @@ export function LoginPage() {
     console.log("logged in");
   }
 
+  //TODO poprawić kolory
   return (
     <FullScreenFormLayout>
       <Formik
