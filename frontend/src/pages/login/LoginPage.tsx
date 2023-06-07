@@ -14,7 +14,7 @@ export function LoginPage() {
     password: "",
   };
   const loginSchema = Yup.object().shape({
-    loginOrEmail: Yup.string().required("Login/email is required"),
+    loginOrEmail: Yup.string().required("Login / email is required"),
     password: Yup.string().required("Password is required"),
   });
 
