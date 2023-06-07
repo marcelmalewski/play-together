@@ -31,6 +31,7 @@ module.exports = {
 
         "base-button": "#0e7490", //cyan-700
         "base-button-hov": "#155e75", //cyan-800
+        "base-line": "#f59e0b", //amber-500
         "error": "#ef4444", //red-500
       }
     },

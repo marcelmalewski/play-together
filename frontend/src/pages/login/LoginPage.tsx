@@ -34,7 +34,7 @@ export function LoginPage() {
             <div className="flex flex-col gap-4">
               <FormikInput
                 className="block w-full rounded-lg border border-form-border bg-form-bg p-2 placeholder-placeholder focus:outline-none"
-                label="Login/email"
+                label="Login / email"
                 name="loginOrEmail"
               />
               <FormikInput
