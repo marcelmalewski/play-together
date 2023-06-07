@@ -4,7 +4,7 @@ export function WelcomePage() {
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center gap-40">
       <p className="text-3xl">Welcome</p>
-      <div className="flex flex-col items-center justify-center gap-4">
+      <nav className="flex flex-col items-center justify-center gap-4">
         <Link
           to="/login"
           className="inline-block flex h-12 w-40 items-center justify-center rounded-md bg-base-button text-2xl duration-200 hover:bg-base-button-hov"
@@ -17,7 +17,7 @@ export function WelcomePage() {
         >
           Register
         </Link>
-      </div>
+      </nav>
     </div>
   );
 }

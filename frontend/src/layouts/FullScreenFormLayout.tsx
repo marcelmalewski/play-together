@@ -6,14 +6,13 @@ interface FullScreenCardProps {
   children: ReactNode;
 }
 
-//TODO poprawić kolory
 export function FullScreenFormLayout({ children }: FullScreenCardProps) {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <div className="absolute top-0 flex w-full items-center justify-start border border-white p-2">
+    <div className="flex h-screen w-screen flex-col items-center justify-center gap-4">
+      <nav className="absolute top-0 flex w-full items-center justify-start p-2">
         <ArrowBackIosNewIcon
           sx={{
             fontSize: "large",
@@ -25,12 +24,9 @@ export function FullScreenFormLayout({ children }: FullScreenCardProps) {
         >
           Welcome page
         </Link>
-      </div>
+      </nav>
       {children}
-      {/*<div>Welcome page</div>*/}
-      {/*<div className="flex w-full flex-grow items-center justify-center">*/}
-      {/*  {children}*/}
-      {/*</div>*/}
+      <nav className="text-xl">Don't have an account? Register</nav>
     </div>
   );
 }
