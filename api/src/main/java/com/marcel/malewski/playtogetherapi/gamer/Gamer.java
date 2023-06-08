@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+//TODO upewnic sie ze tutaj jest tez pelna walidacja
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

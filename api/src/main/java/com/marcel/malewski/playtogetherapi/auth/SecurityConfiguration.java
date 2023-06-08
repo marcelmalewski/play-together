@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.config;
+package com.marcel.malewski.playtogetherapi.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
