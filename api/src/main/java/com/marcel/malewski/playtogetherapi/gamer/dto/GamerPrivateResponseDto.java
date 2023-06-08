@@ -1,23 +1,22 @@
 package com.marcel.malewski.playtogetherapi.gamer.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import com.marcel.malewski.playtogetherapi.genre.Genre;
+import com.marcel.malewski.playtogetherapi.shared.Platform;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 public record GamerPrivateResponseDto(
-	@NotBlank
 	String login,
-	@Email
 	String email,
-	String birthdate,
-	@NotBlank
+	LocalDate birthdate,
 	String bio,
 	String avatarUrl,
-	@NotBlank
-	String playingTimeStart,
-	@NotBlank
-	String playingTimeEnd,
-	String platforms,
-	String favouriteGames,
-	String favouriteGenres
+	LocalTime playingTimeStart,
+	LocalTime playingTimeEnd,
+	List<Platform> platforms,
+	List<String> favouriteGames,
+	List<Genre> favouriteGenres
 ) {
 }

@@ -14,8 +14,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
+//
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -46,8 +49,6 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private Platform platforms;
 	@Enumerated(EnumType.STRING)
-	@NotNull
-	private Role role;
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_game",
 		joinColumns = @JoinColumn(name = "gamer_id"),
@@ -60,6 +61,10 @@ public class Gamer implements UserDetails {
 		inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	@ToString.Exclude
 	private List<Genre> favouriteGenres;
+	@NotNull
+	private Role role;
+	@NotNull
+	private LocalDate createdAt;
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
 	@NotNull
