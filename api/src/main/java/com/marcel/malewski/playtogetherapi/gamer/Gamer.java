@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-//
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -38,7 +37,7 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private String email;
 	@NotNull
-	private LocalDate birthdate;
+	private LocalDate birthDate;
 	private String bio;
 	private String avatarUrl;
 	@NotNull
@@ -54,12 +53,14 @@ public class Gamer implements UserDetails {
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "game_id"))
 	@ToString.Exclude
+	@NotNull
 	private List<Game> favouriteGames;
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_genre",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	@ToString.Exclude
+	@NotNull
 	private List<Genre> favouriteGenres;
 	@NotNull
 	private Role role;
