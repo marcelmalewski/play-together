@@ -41,14 +41,15 @@ export function LoginPage() {
                 className="block w-full rounded-lg border border-form-border bg-form-bg p-2 placeholder-placeholder focus:outline-none"
                 label="Password"
                 name="password"
+                type="password"
               />
             </div>
             <button
               type="submit"
-              className="mt-8 h-12 w-40 rounded-md bg-base-button text-2xl enabled:hover:bg-base-button-hov disabled:cursor-not-allowed disabled:opacity-40"
+              className="mt-8 h-12 w-40 rounded-md bg-base-button text-2xl duration-200 enabled:hover:bg-base-button-hov disabled:cursor-not-allowed disabled:opacity-40"
               disabled={formik.isSubmitting || formik.isValidating}
             >
-              create
+              login
             </button>
           </Form>
         )}
