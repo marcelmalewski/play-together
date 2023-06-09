@@ -28,6 +28,12 @@ public class GamerController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+	@GetMapping
+	public ResponseEntity<GamerPrivateResponseDto> getGamer(Long id) {
+		GamerPrivateResponseDto result = this.gamerService.getGamer(id);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
 //	@GetMapping("/{id}")
 //	@Operation(summary = "Get gamer by id")
 //	public ResponseEntity<GamerResponseDto> getGamer(@PathVariable Long id) {

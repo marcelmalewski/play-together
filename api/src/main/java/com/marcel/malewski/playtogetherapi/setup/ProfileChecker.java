@@ -8,12 +8,12 @@ import org.springframework.core.env.Environment;
 
 //TODO zmienić na logowanie "error" zamiast rzucania wyjątku
 @Configuration
-public class ProfileCheckerConfiguration {
+public class ProfileChecker {
 
 	private final Environment environment;
 
 	@Autowired
-	public ProfileCheckerConfiguration(Environment environment) {
+	public ProfileChecker(Environment environment) {
 		this.environment = environment;
 	}
 
