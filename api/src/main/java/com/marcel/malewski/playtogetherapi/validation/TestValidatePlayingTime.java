@@ -15,29 +15,24 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+//TODO sprawdzić jak to działa
 public class TestValidatePlayingTime {
 	@Test
 	public void testValidatePlayingTime() {
-		// Create a validator
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 
-		// Create an instance of GamerRegisterRequestDto
 		GamerRegisterRequestDto requestDto = new GamerRegisterRequestDto(
 			"username",
-			"password",
-			"example@example.com",
+			"test1234534563456",
+			"yes@yes.com",
 			LocalDate.now(),
 			LocalTime.of(19, 0),
 			LocalTime.of(10, 0),
-			List.of(Platform.PC, Platform.XBOX)
+			List.of(Platform.PC)
 		);
 
-		// Validate the instance
 		Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(requestDto);
-
-		// Assert that there are no violations
 		assertEquals(1, violations.size());
 	}
 }
