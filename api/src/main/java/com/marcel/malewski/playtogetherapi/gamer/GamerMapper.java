@@ -1,11 +1,9 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
+import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface GamerMapper {
-//	GamerResponseDto mapToGamerResponseDto(Gamer gamer);
-//	List<GamerResponseDto> mapToGamerList(List<Gamer> gamers);
-//	Gamer mapToGamer(GamerCreateRequestDto gamerCreateRequestDto);
-//	Gamer mapToGamer(GamerUpdateRequestDto gamerUpdateRequestDto);
+	GamerPrivateResponseDto toGamerPrivateResponseDto(Gamer gamer);
 }

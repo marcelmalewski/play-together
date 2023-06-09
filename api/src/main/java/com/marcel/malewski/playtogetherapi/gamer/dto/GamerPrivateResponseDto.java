@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.gamer.dto;
 
+import com.marcel.malewski.playtogetherapi.game.Game;
 import com.marcel.malewski.playtogetherapi.genre.Genre;
 import com.marcel.malewski.playtogetherapi.shared.Platform;
 
@@ -16,7 +17,7 @@ public record GamerPrivateResponseDto(
 	LocalTime playingTimeStart,
 	LocalTime playingTimeEnd,
 	List<Platform> platforms,
-	List<String> favouriteGames,
+	List<Game> favouriteGames,
 	List<Genre> favouriteGenres
 ) {
 }

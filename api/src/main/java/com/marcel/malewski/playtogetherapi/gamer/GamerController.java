@@ -1,10 +1,13 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
+import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,9 +22,9 @@ public class GamerController {
 	}
 
 	@GetMapping
-	@Operation(summary = "Find all gamers")
-	public ResponseEntity<List<Gamer>> findAllGamers() {
-		List<Gamer> result = this.gamerService.findAllGamers();
+	@Operation(summary = "Find all gamers public info")
+	public ResponseEntity<List<GamerPrivateResponseDto>> findAllGamers() {
+		List<GamerPrivateResponseDto> result = this.gamerService.findAllGamers();
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 

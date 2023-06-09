@@ -45,10 +45,9 @@ public class Gamer implements UserDetails {
 	private LocalTime playingTimeStart;
 	@NotNull
 	private LocalTime playingTimeEnd;
-	@Enumerated(EnumType.STRING)
 	@NotNull
-	private Platform platforms;
 	@Enumerated(EnumType.STRING)
+	private List<Platform> platforms;
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_game",
 		joinColumns = @JoinColumn(name = "gamer_id"),
@@ -64,6 +63,7 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<Genre> favouriteGenres;
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	@NotNull
 	private LocalDate createdAt;
