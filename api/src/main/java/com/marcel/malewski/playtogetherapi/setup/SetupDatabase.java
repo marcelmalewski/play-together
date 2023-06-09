@@ -16,8 +16,12 @@ public class SetupDatabase implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		if(!gamerRepository.existsByLogin("admin")) {
-			Gamer admin = Ga
+		if (!gamerRepository.existsByLogin("admin")) {
+			Gamer admin = new Gamer();
+			admin.setLogin("admin");
+			admin.setPassword("admin");
+			admin.setEmail("yes@yes.com");
+			admin.setBirthDate(null);
 		}
 	}
 }
