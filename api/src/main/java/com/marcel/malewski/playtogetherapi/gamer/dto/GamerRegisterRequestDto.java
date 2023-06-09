@@ -16,7 +16,6 @@ import java.util.List;
 @ValidatePlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = 3, max = 20)
-	@NotNull
 	String login,
 	@Size(min = 8, max = 20)
 	@NotNull

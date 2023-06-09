@@ -5,10 +5,14 @@ import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.genre.Genre;
 import com.marcel.malewski.playtogetherapi.shared.Platform;
 import com.marcel.malewski.playtogetherapi.shared.Role;
+import com.marcel.malewski.playtogetherapi.validation.ValidatePlayingTime;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +23,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+//TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
 //TODO upewnic sie ze tutaj jest tez pelna walidacja
+@ValidatePlayingTime
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -32,13 +38,16 @@ public class Gamer implements UserDetails {
 	@SequenceGenerator(name = "gamer_sequence", sequenceName = "gamer_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gamer_sequence")
 	private Long id;
-	@Size(min = 3, max = 20)
 	@NotNull
+	@Size(min = 3, max = 20)
 	private String login;
 	@NotNull
+	@Size(min = 8, max = 20)
 	private String password;
 	@NotNull
+	@Email
 	private String email;
+	@PastOrPresent
 	@NotNull
 	private LocalDate birthDate;
 	private String bio;
@@ -47,8 +56,9 @@ public class Gamer implements UserDetails {
 	private LocalTime playingTimeStart;
 	@NotNull
 	private LocalTime playingTimeEnd;
+	@UniqueElements
+	@Size(min = 1)
 	@NotNull
-	@Enumerated(EnumType.STRING)
 	private List<Platform> platforms;
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_game",
