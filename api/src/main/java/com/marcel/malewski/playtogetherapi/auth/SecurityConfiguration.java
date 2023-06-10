@@ -3,14 +3,9 @@ package com.marcel.malewski.playtogetherapi.auth;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 //TODO dodać profile
 //TODO co to dokladnie stateless session
@@ -28,7 +23,8 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests()
 			.requestMatchers(
 				"/",
-				"/v1/gamers",
+				"/v1/persons2",
+				"users/@me",
 				"/docs",
 				"/v2/api-docs/**",
 				"/v3/api-docs/**",
@@ -40,19 +36,11 @@ public class SecurityConfiguration {
 			.anyRequest()
 			.authenticated()
 			.and()
-			.sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and()
-			.formLogin()
-			.and()
-			.exceptionHandling()
-			.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+			.formLogin();
+//			.and()
+//			.exceptionHandling()
+//			.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 
 		return http.build();
-	}
-
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
 	}
 }

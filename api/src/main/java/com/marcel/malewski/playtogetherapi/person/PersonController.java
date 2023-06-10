@@ -21,14 +21,14 @@ public class PersonController {
 		this.personService = personService;
 	}
 
-	@GetMapping(value="/users")
+	@GetMapping(value="/persons")
 	@Operation(summary = "Find all gamers public info")
 	public ResponseEntity<List<Person>> findAllGamers() {
-		List<Person> result = this.personService.findAllUsers();
+		List<Person> result = this.personService.findAllPersons();
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@GetMapping(value="/users/@me")
+	@GetMapping(value="/persons/@me")
 	public ResponseEntity<String> getGamer(Principal principal) {
 		if(principal != null) {
 			return new ResponseEntity<>(principal.getName(), HttpStatus.OK);
