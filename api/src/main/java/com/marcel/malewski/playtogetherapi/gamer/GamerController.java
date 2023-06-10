@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1/gamers")
+@RequestMapping(value = "/v1")
 @Tag(name = "Gamers", description = "Gamers API v1")
 public class GamerController {
 	private final GamerService gamerService;
@@ -21,14 +21,14 @@ public class GamerController {
 		this.gamerService = gamerService;
 	}
 
-	@GetMapping(value="/yes")
+	@GetMapping(value="/gamers")
 	@Operation(summary = "Find all gamers public info")
 	public ResponseEntity<List<GamerPrivateResponseDto>> findAllGamers() {
 		List<GamerPrivateResponseDto> result = this.gamerService.findAllGamers();
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
-	@GetMapping(value="/yes2")
+	@GetMapping(value="/gamers/:gamerId")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Long id) {
 		GamerPrivateResponseDto result = this.gamerService.getGamer(id);
 		return new ResponseEntity<>(result, HttpStatus.OK);
