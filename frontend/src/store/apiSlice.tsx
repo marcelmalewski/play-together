@@ -18,7 +18,11 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    getMyData: builder.query<any, void>({
+      query: () => "/gamers/@me",
+      providesTags: ["MyData"],
+    }),
   }),
 });
 
-export const { useLoginMutation } = apiSlice;
+export const { useLoginMutation, useGetMyDataQuery } = apiSlice;

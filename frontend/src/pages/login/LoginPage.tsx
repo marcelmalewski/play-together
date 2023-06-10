@@ -1,14 +1,23 @@
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikValues } from "formik";
 import * as Yup from "yup";
 import { FormikInput } from "../../components/formik/FormikInput";
 import { FullScreenFormLayout } from "../../layouts/FullScreenFormLayout";
+import { useLoginMutation } from "../../store/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 interface LoginFormValues {
   loginOrEmail: string;
   password: string;
 }
 
+interface LoginBody {
+  username: string;
+  password: string;
+}
+
 export function LoginPage() {
+  const [login] = useLoginMutation();
+  const navigate = useNavigate();
   const initialValues: LoginFormValues = {
     loginOrEmail: "",
     password: "",
@@ -18,8 +27,41 @@ export function LoginPage() {
     password: Yup.string().required("Password is required"),
   });
 
-  function tryToLogin() {
-    console.log("logged in");
+  function tryToLogin(values: FormikValues) {
+    const loginBody = {
+      username: values.login,
+      password: values.password,
+    };
+    type loginBodyKey = keyof typeof loginBody;
+    const loginBodyKeys = Object.keys(loginBody) as loginBodyKey[];
+    const loginBodyAsString = loginBodyKeys
+      .map(
+        (key) =>
+          encodeURIComponent(key) + "=" + encodeURIComponent(loginBody[key])
+      )
+      .join("&");
+
+    login(loginBodyAsString)
+      .unwrap()
+      .then((result) => {
+        // enqueueSnackbar("Group created successfully", {
+        //   variant: "success",
+        // });
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        // if (error.originalStatus === 200) {
+        //   dispatch(apiSlice.util.resetApiState());
+        //   navigate("/my-profile");
+        // } else if (error.status === 401) {
+        //   setShowLoginEmailPasswordIncorrect(true);
+        // } else {
+        //   enqueueSnackbar(handleErrorMessage(error), {
+        //     variant: "error",
+        //   });
+        // }
+      });
   }
 
   return (
