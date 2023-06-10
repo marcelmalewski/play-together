@@ -29,7 +29,7 @@ export function LoginPage() {
 
   function tryToLogin(values: FormikValues) {
     const loginBody = {
-      username: values.login,
+      username: values.loginOrEmail,
       password: values.password,
     };
     type loginBodyKey = keyof typeof loginBody;
@@ -40,6 +40,8 @@ export function LoginPage() {
           encodeURIComponent(key) + "=" + encodeURIComponent(loginBody[key])
       )
       .join("&");
+
+    console.log(loginBodyAsString);
 
     login(loginBodyAsString)
       .unwrap()

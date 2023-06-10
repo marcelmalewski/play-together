@@ -12,7 +12,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1")
+@RequestMapping()
 @Tag(name = "Persons", description = "Persons API v1")
 public class PersonController {
 	private final PersonService personService;
@@ -30,6 +30,7 @@ public class PersonController {
 
 	@GetMapping(value="/persons/@me")
 	public ResponseEntity<String> getGamer(Principal principal) {
+		System.out.println(principal);
 		if(principal != null) {
 			return new ResponseEntity<>(principal.getName(), HttpStatus.OK);
 		}
