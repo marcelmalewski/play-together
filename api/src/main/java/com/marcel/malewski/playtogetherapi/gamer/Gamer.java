@@ -5,7 +5,6 @@ import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.genre.Genre;
 import com.marcel.malewski.playtogetherapi.shared.Platform;
 import com.marcel.malewski.playtogetherapi.shared.Role;
-import com.marcel.malewski.playtogetherapi.validation.ValidatePlayingTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -25,7 +24,6 @@ import java.util.List;
 
 //TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
 //TODO upewnic sie ze tutaj jest tez pelna walidacja
-@ValidatePlayingTime
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -38,14 +36,14 @@ public class Gamer implements UserDetails {
 	@SequenceGenerator(name = "gamer_sequence", sequenceName = "gamer_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gamer_sequence")
 	private Long id;
-	@NotNull
 	@Size(min = 3, max = 20)
+	@NotNull
 	private String login;
-	@NotNull
 	@Size(min = 8, max = 20)
-	private String password;
 	@NotNull
+	private String password;
 	@Email
+	@NotNull
 	private String email;
 	@PastOrPresent
 	@NotNull
