@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Collections;
 import java.util.List;
 
 @Profile("dev")
@@ -33,12 +32,8 @@ public class SetupDatabase implements CommandLineRunner {
 			admin.setPlayingTimeStart(LocalTime.of(15, 0));
 			admin.setPlayingTimeEnd(LocalTime.of(19, 0));
 			admin.setPlatforms(List.of(Platform.PC));
-			admin.setFavouriteGames(Collections.emptyList());
-			admin.setFavouriteGenres(Collections.emptyList());
 			admin.setRole(Role.MODERATOR);
 			admin.setCreatedAt(LocalDate.now());
-			admin.setJoinedGameSessions(Collections.emptyList());
-			admin.setCreatedGameSessions(Collections.emptyList());
 
 			gamerRepository.save(admin);
 		}

@@ -64,14 +64,14 @@ public class Gamer implements UserDetails {
 		inverseJoinColumns = @JoinColumn(name = "game_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<Game> favouriteGames;
+	private List<Game> favouriteGames = new LinkedList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_genre",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<Genre> favouriteGenres;
+	private List<Genre> favouriteGenres = new LinkedList<>();
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Role role;
