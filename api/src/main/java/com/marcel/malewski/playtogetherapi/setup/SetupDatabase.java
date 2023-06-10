@@ -26,7 +26,7 @@ public class SetupDatabase implements CommandLineRunner {
 		if (!gamerRepository.existsByLogin("admin")) {
 			Gamer admin = new Gamer();
 			admin.setLogin("admin");
-			admin.setPassword("admin");
+			admin.setPassword("admin-pw");
 			admin.setEmail("yes@yes.com");
 			admin.setBirthDate(LocalDate.of(2000, 1, 1));
 			admin.setPlayingTimeStart(LocalTime.of(15, 0));

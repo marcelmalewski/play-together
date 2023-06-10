@@ -24,6 +24,7 @@ import java.util.List;
 
 //TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
 //TODO upewnic sie ze tutaj jest tez pelna walidacja
+//TODO napewno linked list ?
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -39,7 +40,7 @@ public class Gamer implements UserDetails {
 	@Size(min = 3, max = 20)
 	@NotNull
 	private String login;
-	@Size(min = 8, max = 20)
+	@Size(min = 8, max = 20, message = "pass longer need to be")
 	@NotNull
 	private String password;
 	@Email
