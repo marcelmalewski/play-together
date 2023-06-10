@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.setup;
 
-import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.person.PersonRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Profile("dev")
 @Component
 public class SetupDatabase implements CommandLineRunner {
-	private final GamerRepository gamerRepository;
+	private final PersonRepository personRepository;
 
-	public SetupDatabase(GamerRepository gamerRepository) {
-		this.gamerRepository = gamerRepository;
+	public SetupDatabase(PersonRepository personRepository) {
+		this.personRepository = personRepository;
 	}
 
 	@Override
