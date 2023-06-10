@@ -18,6 +18,12 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: "/logout",
+        method: "POST",
+      }),
+    }),
     getMyData: builder.query<any, void>({
       query: () => "/gamers/@me",
       providesTags: ["MyData"],
@@ -25,4 +31,5 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useLoginMutation, useGetMyDataQuery } = apiSlice;
+export const { useLoginMutation, useLogoutMutation, useGetMyDataQuery } =
+  apiSlice;
