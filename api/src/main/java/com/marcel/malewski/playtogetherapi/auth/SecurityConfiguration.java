@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 //TODO dodać profile
 //TODO co to dokladnie stateless session
+//TODO jaki powinien byc dostep do dokumentacji
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor

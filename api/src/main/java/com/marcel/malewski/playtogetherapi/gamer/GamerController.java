@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -29,9 +30,19 @@ public class GamerController {
 	}
 
 	@GetMapping(value="/gamers/:gamerId")
+	@Operation(summary = "Get public info about a gamer by id")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Long id) {
 		GamerPrivateResponseDto result = this.gamerService.getGamer(id);
 		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@GetMapping(value="/gamers/@me")
+	public ResponseEntity<String> getGamer(Principal principal) {
+		if(principal != null) {
+			return new ResponseEntity<>(principal.getName(), HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
 
 //	@GetMapping("/{id}")
