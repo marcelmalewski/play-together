@@ -21,8 +21,9 @@ public class Person implements UserDetails {
 	@SequenceGenerator(name = "person_sequence", sequenceName = "person_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_sequence")
 	private Long id;
-	private String username;
+	private String login;
 	private String password;
+	private String email;
 	@Enumerated(EnumType.STRING)
 	private PersonRole role;
 
@@ -42,6 +43,11 @@ public class Person implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority(role.name()));
+	}
+
+	@Override
+	public String getUsername() {
+		return this.id.toString();
 	}
 
 	@Override
