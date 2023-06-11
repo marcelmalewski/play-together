@@ -51,7 +51,7 @@ export function LoginPage() {
         enqueueSnackbar("Logged in successfully", {
           variant: "success",
         });
-        // navigate(`/my-profile`);
+        navigate(`/my-profile`);
       })
       .catch((error) => {
         console.log(error);
