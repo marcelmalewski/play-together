@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 import java.util.List;
 
+//TODO dodac v1? po co ?
 @RestController
-@RequestMapping(value = "/v1")
+@RequestMapping(value = "")
 @Tag(name = "Gamers", description = "Gamers API v1")
 public class GamerController {
 	private final GamerService gamerService;

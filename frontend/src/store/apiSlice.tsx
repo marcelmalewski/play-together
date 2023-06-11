@@ -25,7 +25,7 @@ export const apiSlice = createApi({
       }),
     }),
     getMyData: builder.query<any, void>({
-      query: () => "/persons/@me",
+      query: () => "/gamers/@me",
       providesTags: ["MyData"],
     }),
   }),
