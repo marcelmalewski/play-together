@@ -16,6 +16,6 @@ public class PostgresUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-		return personRepository.findByLogin(login);
+		return personRepository.findByLogin(login).get();
 	}
 }

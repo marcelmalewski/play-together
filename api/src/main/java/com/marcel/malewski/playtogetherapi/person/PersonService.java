@@ -16,4 +16,8 @@ public class PersonService {
 	public List<Person> findAllPersons() {
 		return personRepository.findAll();
 	}
+
+	public Person getPerson(String login) {
+		return personRepository.findByLogin(login).get();
+	}
 }
