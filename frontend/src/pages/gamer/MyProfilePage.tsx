@@ -6,6 +6,9 @@ import {
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/storeHooks";
+import { Slide } from "@mui/material";
+import React from "react";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 export function MyProfilePage() {
   const { data: myData, isSuccess, isError, error } = useGetMyDataQuery();
@@ -14,6 +17,7 @@ export function MyProfilePage() {
   const dispatch = useAppDispatch();
 
   console.log(myData);
+  const [checked, setChecked] = React.useState(true);
 
   function tryToLogout() {
     logout()
@@ -35,29 +39,44 @@ export function MyProfilePage() {
       });
   }
 
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
   return (
     <div className="flex h-screen w-screen">
-      <nav className="flex h-full flex-col border p-2 text-lg">
-        <div className="flex flex-grow flex-col items-start">
-          <button className="after:block after:h-0.5 after:w-0 after:bg-base-line after:duration-200 hover:after:w-full">
-            My profile
+      <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
+        <nav className="flex h-full flex-col border p-2 text-lg">
+          <div className="flex flex-grow flex-col items-start">
+            <button className="flex items-center justify-center self-end">
+              <ArrowBackIosNewIcon
+                className="hover:text-light-hov"
+                sx={{
+                  fontSize: "1.5rem",
+                }}
+              />
+            </button>
+            <button className="after:block after:h-0.5 after:w-0 after:bg-base-line after:duration-200 hover:after:w-full">
+              My profile
+            </button>
+            <button className="after:block after:h-0.5 after:w-0 after:bg-base-line after:duration-200 hover:after:w-full">
+              Session panel
+            </button>
+            <button className="after:block after:h-0.5 after:w-0 after:bg-base-line after:duration-200 hover:after:w-full">
+              Admin panel
+            </button>
+          </div>
+          <button
+            onClick={tryToLogout}
+            className="self-start after:block after:h-0.5 after:w-0 after:bg-base-line after:duration-200 hover:after:w-full"
+          >
+            Logout
           </button>
-          <button className="after:block after:h-0.5 after:w-0 after:bg-base-line after:duration-200 hover:after:w-full">
-            Session panel
-          </button>
-          <button className="after:block after:h-0.5 after:w-0 after:bg-base-line after:duration-200 hover:after:w-full">
-            Admin panel
-          </button>
-        </div>
-        <button
-          onClick={tryToLogout}
-          className="self-start after:block after:h-0.5 after:w-0 after:bg-base-line after:duration-200 hover:after:w-full"
-        >
-          Logout
-        </button>
-      </nav>
+        </nav>
+      </Slide>
       <div className="flex flex-grow items-center justify-center gap-5 border">
         <p>my profile</p>
+        <button onClick={handleChange}>try</button>
       </div>
     </div>
   );
