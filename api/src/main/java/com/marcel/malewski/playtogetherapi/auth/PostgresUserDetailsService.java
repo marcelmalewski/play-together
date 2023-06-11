@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.auth;
 
+import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -7,14 +8,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PostgresUserDetailsService implements UserDetailsService {
-	private final PersonRepository personRepository;
+	private final GamerRepository gamerRepository;
 
-	public PostgresUserDetailsService(PersonRepository personRepository) {
-		this.personRepository = personRepository;
+	public PostgresUserDetailsService(GamerRepository gamerRepository) {
+		this.gamerRepository = gamerRepository;
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-		return personRepository.findByLogin(login).get();
+		return gamerRepository.findByLogin(login).get();
 	}
 }

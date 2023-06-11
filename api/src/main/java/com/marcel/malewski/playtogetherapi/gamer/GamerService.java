@@ -25,6 +25,6 @@ public class GamerService {
 	}
 
 	public GamerPrivateResponseDto getGamer(String login) {
-		return gamerMapper.toGamerPrivateResponseDto(gamerRepository.findById(id).get());
+		return gamerMapper.toGamerPrivateResponseDto(gamerRepository.findByLogin(login).get());
 	}
 }

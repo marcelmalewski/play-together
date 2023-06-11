@@ -107,7 +107,7 @@ public class Gamer implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return this.login;
+		return this.id.toString();
 	}
 
 	@Override

@@ -41,7 +41,8 @@ public class GamerController {
 	public ResponseEntity<String> getGamer(Principal principal) {
 		if(principal != null) {
 			String personLogin = principal.getName();
-			Gamer gamer = gamerService.getPerson(personLogin);
+			System.out.println(personLogin);
+			System.out.println(principal);
 
 			return new ResponseEntity<>("person", HttpStatus.OK);
 		}

@@ -9,5 +9,4 @@ import java.util.Optional;
 public interface GamerRepository extends JpaRepository<Gamer, Long> {
 	boolean existsByLogin(String login);
 	Optional<Gamer> findByLogin(String login);
-
 }
