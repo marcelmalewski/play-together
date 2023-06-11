@@ -41,7 +41,6 @@ public class Gamer implements UserDetails {
 	@Size(min = 3, max = 20)
 	@NotNull
 	private String login;
-	@Size(min = 8, max = 20, message = "pass longer need to be")
 	@NotNull
 	private String password;
 	@Email
@@ -108,7 +107,7 @@ public class Gamer implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return this.id.toString();
+		return this.login;
 	}
 
 	@Override
