@@ -1,18 +1,8 @@
-# Przygotowanie środowisko (do poprawy)
-1. konfuguracja dockercompose
-2. konfiguracja api
-3. zbudowanie projektu zeby pojawily sie rzeczy od mapstructa
+# Local dev environment
+1. create .env file
+2. start `./local-dev/docker-compose.yml` with environment variables file: `.env`
 
-# Frontend lokalnie
-1. w intelij ustawić package manager na `yarn`
-2. w intelij ustawić prettier `automatic prettier configuration`
-3. wejść do folderu frontend 
-4. yarn install 
-5. yarn dev
-
-# Backend lokalnie
-
-# Plik .env
+# example values for `.env`
 ```
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
@@ -21,15 +11,24 @@ POSTGRES_PORT=5432
 PORT=5000
 SPRING_PROFILES_ACTIVE=dev
 ```
+
+# Local dev frontend
+1. set `yarn` as package manager
+2. set prettier
+3. go to `./frontend`
+4. yarn install 
+5. yarn dev
+
+# Local dev backend
+1. clean build with gradle
+2. set environment variables for api from `.env`
+
   
-# Backend przez dockera
-1. komenda: `./gradlew build`
-2. komenda: `docker build -t play-together-api .`
-   opcjonalny parametr: --build-arg JAR_FILE=build/libs/api-1.0.0.jar
-3. komenda: `docker tag play-together-api 6745345/play-together-api:1.0`
-4. komenda: `docker push 6745345/play-together-api:1.0`
-5. wtedy można odpalic dockercompose
+# Backend with docker
+1. command: `./gradlew build`
+2. command: `docker build -t play-together-api .`
+   optional parametr: --build-arg JAR_FILE=build/libs/api-1.0.0.jar
+3. command: `docker tag play-together-api 6745345/play-together-api:1.0`
+4. command: `docker push 6745345/play-together-api:1.0`
+5. then docker-compose.yml
 Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalic dockercompose
-
-
-package com.marcel.malewski.playtogetherapi.group;
