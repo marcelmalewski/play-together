@@ -4,10 +4,6 @@ server:
     context-path: /api
 
 spring:
-  security:
-    user:
-      name: admin
-      password: admin.123
   datasource:
     url: jdbc:postgresql://localhost:${POSTGRES_PORT}/${POSTGRES_DB}
     username: ${POSTGRES_USER}

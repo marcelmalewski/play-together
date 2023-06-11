@@ -40,6 +40,9 @@ public class SecurityConfiguration {
 			.authenticated()
 			.and()
 			.formLogin()
+			.successHandler((request, response, authentication) -> {
+				// Do nothing upon successful login
+			})
 			.and()
 			.exceptionHandling()
 			.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));

@@ -29,12 +29,13 @@ public class PersonController {
 	}
 
 	@GetMapping(value="/persons/@me")
-	public ResponseEntity<Person> getGamer(Principal principal) {
+	public ResponseEntity<String> getGamer(Principal principal) {
+		System.out.println(principal);
 		if(principal != null) {
 			String personLogin = principal.getName();
 			Person person = personService.getPerson(personLogin);
 
-			return new ResponseEntity<>(person, HttpStatus.OK);
+			return new ResponseEntity<>("person", HttpStatus.OK);
 		}
 
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

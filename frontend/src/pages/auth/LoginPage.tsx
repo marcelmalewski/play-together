@@ -1,9 +1,10 @@
-import { Form, Formik, FormikValues } from "formik";
+import { Form, Formik, FormikHelpers, FormikValues } from "formik";
 import * as Yup from "yup";
 import { FormikInput } from "../../components/formik/FormikInput";
 import { FullScreenFormLayout } from "../../layouts/FullScreenFormLayout";
 import { useLoginMutation } from "../../store/apiSlice";
 import { useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 
 interface LoginFormValues {
   loginOrEmail: string;
@@ -27,7 +28,10 @@ export function LoginPage() {
     password: Yup.string().required("Password is required"),
   });
 
-  function tryToLogin(values: FormikValues) {
+  function tryToLogin(
+    values: FormikValues,
+    formikHelpers: FormikHelpers<LoginFormValues>
+  ) {
     const loginBody = {
       username: values.loginOrEmail,
       password: values.password,
@@ -41,29 +45,24 @@ export function LoginPage() {
       )
       .join("&");
 
-    console.log(loginBodyAsString);
-
     login(loginBodyAsString)
       .unwrap()
-      .then((result) => {
-        // enqueueSnackbar("Group created successfully", {
-        //   variant: "success",
-        // });
-        console.log(result);
+      .then(() => {
+        enqueueSnackbar("Logged in successfully", {
+          variant: "success",
+        });
+        // navigate(`/my-profile`);
       })
       .catch((error) => {
         console.log(error);
-        // if (error.originalStatus === 200) {
-        //   dispatch(apiSlice.util.resetApiState());
-        //   navigate("/my-profile");
-        // } else if (error.status === 401) {
-        //   setShowLoginEmailPasswordIncorrect(true);
-        // } else {
-        //   enqueueSnackbar(handleErrorMessage(error), {
-        //     variant: "error",
-        //   });
-        // }
+        enqueueSnackbar("Logging failed", {
+          variant: "error",
+        });
+        //TODO obsluzyc zle haslo
+        //TODO tu tez bede pobieral my data wiec pewnie trzeba dodac czyszczenie przy logowaniu
       });
+
+    formikHelpers.setSubmitting(false);
   }
 
   return (

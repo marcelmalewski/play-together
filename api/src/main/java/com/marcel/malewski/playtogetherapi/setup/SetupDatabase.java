@@ -23,8 +23,8 @@ public class SetupDatabase implements CommandLineRunner {
 	public void run(String... args) {
 		if (!personRepository.existsByLogin("admin")) {
 			Person person = new Person();
-			person.setLogin("test");
-			person.setPassword(passwordEncoder.encode("test1234"));
+			person.setLogin("admin");
+			person.setPassword(passwordEncoder.encode("admin.123"));
 			person.setEmail("asdf");
 			person.setRole(PersonRole.ROLE_MODERATOR);
 
