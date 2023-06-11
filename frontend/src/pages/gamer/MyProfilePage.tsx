@@ -17,7 +17,7 @@ export function MyProfilePage() {
   const dispatch = useAppDispatch();
 
   console.log(myData);
-  const [checked, setChecked] = React.useState(true);
+  const [open, setOpen] = React.useState(true);
 
   function tryToLogout() {
     logout()
@@ -39,27 +39,28 @@ export function MyProfilePage() {
       });
   }
 
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
+  function openNavbar() {
+    setOpen(true);
+  }
+
+  function closeNavbar() {
+    setOpen(false);
+  }
 
   //TODO na refreshuy jest animacja poprawic to albo jakos inaczej zrobic animacje
   return (
     <div className="flex h-screen w-screen">
-      <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
+      <Slide direction="right" in={open} mountOnEnter unmountOnExit>
         <nav className="flex h-full flex-col border-r border-base-border bg-slate-800 p-3 text-lg">
           <div className="flex flex-grow flex-col items-start">
-            <button
-              onClick={handleChange}
-              className="flex items-center justify-center self-end"
-            >
-              <ArrowBackIosNewIcon
-                className="hover:text-light-hov"
-                sx={{
-                  fontSize: "1.5rem",
-                }}
-              />
-            </button>
+            <ArrowBackIosNewIcon
+              type="button"
+              onClick={closeNavbar}
+              className="self-end hover:text-light-hov"
+              sx={{
+                fontSize: "1.5rem",
+              }}
+            />
             <button className="after:block after:h-0.5 after:w-0 after:bg-base-line after:duration-200 hover:after:w-full">
               My profile
             </button>
@@ -78,7 +79,17 @@ export function MyProfilePage() {
           </button>
         </nav>
       </Slide>
-      <div className="flex flex-grow items-center justify-center gap-5">
+      {!open && (
+        <ArrowBackIosNewIcon
+          type="button"
+          onClick={openNavbar}
+          className="m-3 rotate-180 self-start hover:text-light-hov"
+          sx={{
+            fontSize: "1.5rem",
+          }}
+        />
+      )}
+      <div className="flex flex-grow items-center justify-center gap-5 border">
         <p>my profile</p>
       </div>
     </div>
