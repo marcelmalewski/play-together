@@ -43,12 +43,16 @@ export function MyProfilePage() {
     setChecked((prev) => !prev);
   };
 
+  //TODO na refreshuy jest animacja poprawic to albo jakos inaczej zrobic animacje
   return (
     <div className="flex h-screen w-screen">
       <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
-        <nav className="flex h-full flex-col border p-2 text-lg">
+        <nav className="flex h-full flex-col border-r border-base-border bg-slate-800 p-3 text-lg">
           <div className="flex flex-grow flex-col items-start">
-            <button className="flex items-center justify-center self-end">
+            <button
+              onClick={handleChange}
+              className="flex items-center justify-center self-end"
+            >
               <ArrowBackIosNewIcon
                 className="hover:text-light-hov"
                 sx={{
@@ -74,9 +78,8 @@ export function MyProfilePage() {
           </button>
         </nav>
       </Slide>
-      <div className="flex flex-grow items-center justify-center gap-5 border">
+      <div className="flex flex-grow items-center justify-center gap-5">
         <p>my profile</p>
-        <button onClick={handleChange}>try</button>
       </div>
     </div>
   );
