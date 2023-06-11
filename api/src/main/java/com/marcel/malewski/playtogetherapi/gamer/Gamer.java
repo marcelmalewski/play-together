@@ -25,6 +25,7 @@ import java.util.List;
 //TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
 //TODO upewnic sie ze tutaj jest tez pelna walidacja
 //TODO napewno linked list ?
+//TODO role zmienic na roles
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
