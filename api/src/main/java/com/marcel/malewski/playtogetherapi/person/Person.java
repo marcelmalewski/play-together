@@ -47,7 +47,7 @@ public class Person implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return this.id.toString();
+		return this.login;
 	}
 
 	@Override
