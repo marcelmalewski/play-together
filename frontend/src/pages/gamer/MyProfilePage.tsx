@@ -89,7 +89,7 @@ export function MyProfilePage() {
           }}
         />
       )}
-      <div className="flex flex-grow items-center justify-center gap-5 border">
+      <div className="flex flex-grow items-center justify-center gap-5">
         <p>my profile</p>
       </div>
     </div>
