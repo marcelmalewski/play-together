@@ -1,6 +1,7 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,19 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	void registerPerson() {
+	void register(GamerRegisterRequestDto gamerRegisterRequestDto) {
+		String login = gamerRegisterRequestDto.login();
+		String email = gamerRegisterRequestDto.email();
+		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
+
+		if(gamerRepository.existsByLogin(login)){
+
+		}
+
+		if(gamerRepository.existsByEmail(email)){
+
+		}
+
 
 //		if (!personRepository.existsByLogin("test")) {
 //			Person person = new Person();

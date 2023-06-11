@@ -40,11 +40,13 @@ public class Gamer implements UserDetails {
 	private Long id;
 	@Size(min = 3, max = 20)
 	@NotNull
+	@Column(unique = true)
 	private String login;
 	@NotNull
 	private String password;
 	@Email
 	@NotNull
+	@Column(unique = true)
 	private String email;
 	@PastOrPresent
 	@NotNull
