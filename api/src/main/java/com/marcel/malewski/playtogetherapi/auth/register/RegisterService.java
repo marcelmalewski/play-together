@@ -1,8 +1,5 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
-import com.marcel.malewski.playtogetherapi.person.Person;
-import com.marcel.malewski.playtogetherapi.person.PersonRepository;
-import com.marcel.malewski.playtogetherapi.person.PersonRole;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +14,17 @@ public class RegisterService {
 	}
 
 	void registerPerson() {
-		Person person = new Person();
-		person.setLogin("test");
-		person.setPassword(passwordEncoder.encode("test.123"));
-		person.setEmail("asdf");
-		person.setRole(PersonRole.ROLE_MODERATOR);
 
-		personRepository.save(person);
+		if (!personRepository.existsByLogin("test")) {
+			Person person = new Person();
+			person.setLogin("test");
+			person.setPassword(passwordEncoder.encode("test.123"));
+			person.setEmail("asdf");
+			person.setRole(PersonRole.ROLE_MODERATOR);
+
+			System.out.println(person);
+			this.personRepository.save(person);
+		}
 	}
+
 }

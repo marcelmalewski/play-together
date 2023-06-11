@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.shared;
 
-public enum Role {
+public enum GamerRole {
 	USER,
 	MODERATOR
 }
