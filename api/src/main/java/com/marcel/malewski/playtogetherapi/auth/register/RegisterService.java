@@ -6,6 +6,8 @@ import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;
