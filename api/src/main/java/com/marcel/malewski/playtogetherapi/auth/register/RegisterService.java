@@ -38,7 +38,7 @@ public class RegisterService {
 		admin.setPlayingTimeEnd(gamerRegisterRequestDto.playingTimeEnd());
 		admin.setPlatforms(gamerRegisterRequestDto.platforms());
 //		admin.setRole(gamerRegisterRequestDto);
-//		admin.setCreatedAt(LocalDate.now());
+		admin.setCreatedAt(LocalDate.now());
 	}
 
 }
