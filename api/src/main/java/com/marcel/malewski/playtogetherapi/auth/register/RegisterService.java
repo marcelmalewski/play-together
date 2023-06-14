@@ -23,12 +23,10 @@ public class RegisterService {
 		String email = gamerRegisterRequestDto.email();
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
 
-		if(gamerRepository.existsByLogin(login)){
-
+		if (gamerRepository.existsByLogin(login)) {
 		}
 
-		if(gamerRepository.existsByEmail(email)){
-
+		if (gamerRepository.existsByEmail(email)) {
 		}
 
 		Gamer admin = new Gamer();
@@ -42,5 +40,4 @@ public class RegisterService {
 //		admin.setRole(gamerRegisterRequestDto);//TODO poprawic na roles
 		admin.setCreatedAt(LocalDate.now());
 	}
-
 }
