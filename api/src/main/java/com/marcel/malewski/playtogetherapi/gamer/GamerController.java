@@ -38,7 +38,7 @@ public class GamerController {
 	}
 
 	@GetMapping(value="/gamers/@me")
-	@Operation(summary = "Get private infor about authenticated gamer")
+	@Operation(summary = "Get private info about authenticated gamer")
 	public ResponseEntity<String> getGamer(Principal principal) {
 		if(principal != null) {
 			String personLogin = principal.getName();
