@@ -2,7 +2,7 @@ package com.marcel.malewski.playtogetherapi.setup;
 
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
-import com.marcel.malewski.playtogetherapi.shared.GamerRole;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.shared.Platform;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -35,7 +35,7 @@ public class SetupDatabase implements CommandLineRunner {
 			admin.setPlayingTimeStart(LocalTime.of(15, 0));
 			admin.setPlayingTimeEnd(LocalTime.of(19, 0));
 			admin.setPlatforms(List.of(Platform.PC));
-			admin.setRole(GamerRole.MODERATOR);
+			admin.setRole(GamerRoleEnum.MODERATOR);
 			admin.setCreatedAt(LocalDate.now());
 
 			gamerRepository.save(admin);

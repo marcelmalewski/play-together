@@ -1,9 +1,9 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
 import com.marcel.malewski.playtogetherapi.game.Game;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.genre.Genre;
-import com.marcel.malewski.playtogetherapi.shared.GamerRole;
 import com.marcel.malewski.playtogetherapi.shared.Platform;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -11,7 +11,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +24,7 @@ import java.util.List;
 //TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
 //TODO upewnic sie ze tutaj jest tez pelna walidacja
 //TODO napewno linked list ?
-//TODO role zmienic na roles
+//TODO przetestowac czy size ogranicza minimalną ilosc np. w roles
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -55,19 +54,21 @@ public class Gamer implements UserDetails {
 	private LocalTime playingTimeStart;
 	@NotNull
 	private LocalTime playingTimeEnd;
-	@UniqueElements
-	@Size(min = 1)
-	@NotNull
-	private List<Platform> platforms = new LinkedList<>();
-	@Enumerated(EnumType.STRING)
-	@NotNull
-	private GamerRole role;
 	@NotNull
 	private LocalDate createdAt;
 
 	private String bio;
 	private String avatarUrl;
 
+	@NotNull
+	private List<Platform> platforms = new LinkedList<>();
+	@ManyToMany
+	@JoinTable(name = "gamer_favourite_game",
+		joinColumns = @JoinColumn(name = "gamer_id"),
+		inverseJoinColumns = @JoinColumn(name = "gamerrole_id"))
+	@ToString.Exclude
+	@NotNull
+	private List<GamerRoleEnum> role = new LinkedList<>();
 	@OneToMany(mappedBy = "creator")
 	@ToString.Exclude
 	@NotNull

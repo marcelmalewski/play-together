@@ -17,11 +17,11 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-@Table(name = "game_session")
+@Table(name = "gamesession")
 public class GameSession {
 	@Id
-	@SequenceGenerator(name = "game_session_sequence", sequenceName = "game_session_sequence", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_session_sequence")
+	@SequenceGenerator(name = "gamesession_sequence", sequenceName = "gamesession_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gamesession_sequence")
 	private Long id;
 	@NotNull
 	private String name;
@@ -49,8 +49,8 @@ public class GameSession {
 	@NotNull
 	private Gamer creator;
 	@ManyToMany
-	@JoinTable(name = "game_session_members",
-					joinColumns = @JoinColumn(name = "game_session_id"),
+	@JoinTable(name = "gamesession_member",
+					joinColumns = @JoinColumn(name = "gamesession_id"),
 					inverseJoinColumns = @JoinColumn(name = "gamer_id"))
 	@ToString.Exclude
 	@NotNull
