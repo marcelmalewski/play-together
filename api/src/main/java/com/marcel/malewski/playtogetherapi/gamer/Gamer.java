@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.game.Game;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.genre.Genre;
-import com.marcel.malewski.playtogetherapi.shared.PlatformEnum;
+import com.marcel.malewski.playtogetherapi.platform.PlatformEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

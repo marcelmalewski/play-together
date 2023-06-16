@@ -36,12 +36,12 @@ public class GameSession {
 	@NotNull//TODO to na potem
 	private String availabilityTimes;
 
-	private int numberOfMembers;
-	private boolean isCurrentUserMember;
 	private String description;
-	private boolean isCompetitive;
+	private int numberOfMembers;
 	private int maxMembers;
 	private int minAge;
+	private boolean isCurrentUserMember;
+	private boolean isCompetitive;
 	private String pendingMembers;//TODO to na potem
 
 	@ManyToOne

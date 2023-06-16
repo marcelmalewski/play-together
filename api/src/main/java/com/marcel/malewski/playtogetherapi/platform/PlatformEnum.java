@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.shared;
+package com.marcel.malewski.playtogetherapi.platform;
 
 public enum PlatformEnum {
 	PC,

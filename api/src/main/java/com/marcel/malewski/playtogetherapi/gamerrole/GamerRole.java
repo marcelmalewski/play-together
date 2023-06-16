@@ -23,6 +23,7 @@ public class GamerRole {
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private GamerRoleEnum name;
+
 	@ManyToMany(mappedBy = "roles")
 	private List<Gamer> gamers = new LinkedList<>();
 }

@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.gamer.dto;
 
-import com.marcel.malewski.playtogetherapi.shared.PlatformEnum;
+import com.marcel.malewski.playtogetherapi.platform.PlatformEnum;
 import com.marcel.malewski.playtogetherapi.validation.ValidatePlayingTime;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

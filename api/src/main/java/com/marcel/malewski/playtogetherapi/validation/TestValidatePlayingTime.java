@@ -1,7 +1,7 @@
 package com.marcel.malewski.playtogetherapi.validation;
 
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.shared.PlatformEnum;
+import com.marcel.malewski.playtogetherapi.platform.PlatformEnum;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

@@ -2,7 +2,7 @@ package com.marcel.malewski.playtogetherapi.gamer.dto;
 
 import com.marcel.malewski.playtogetherapi.game.Game;
 import com.marcel.malewski.playtogetherapi.genre.Genre;
-import com.marcel.malewski.playtogetherapi.shared.PlatformEnum;
+import com.marcel.malewski.playtogetherapi.platform.PlatformEnum;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
