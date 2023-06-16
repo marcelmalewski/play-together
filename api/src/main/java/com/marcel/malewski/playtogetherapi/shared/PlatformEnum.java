@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.shared;
 
-public enum Platform {
+public enum PlatformEnum {
 	PC,
 	MOBILE,
 	SWITCH,

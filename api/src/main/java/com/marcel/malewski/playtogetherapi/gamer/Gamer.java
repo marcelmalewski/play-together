@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.game.Game;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.genre.Genre;
-import com.marcel.malewski.playtogetherapi.shared.Platform;
+import com.marcel.malewski.playtogetherapi.shared.PlatformEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -62,7 +62,7 @@ public class Gamer implements UserDetails {
 	private String avatarUrl;
 
 	@NotNull
-	private List<Platform> platforms = new LinkedList<>();
+	private List<PlatformEnum> platformEnums = new LinkedList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),

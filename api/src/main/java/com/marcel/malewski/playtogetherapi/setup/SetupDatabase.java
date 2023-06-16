@@ -27,11 +27,15 @@ public class SetupDatabase implements CommandLineRunner {
 //			admin.setBirthDate(LocalDate.of(2000, 1, 1));
 //			admin.setPlayingTimeStart(LocalTime.of(15, 0));
 //			admin.setPlayingTimeEnd(LocalTime.of(19, 0));
-//			admin.setPlatforms(List.of(Platform.PC));
+//			admin.setPlatformEnums(List.of(PlatformEnum.PC));
 //			admin.setRole(GamerRoleEnum.MODERATOR);
 //			admin.setCreatedAt(LocalDate.now());
 //
 //			gamerRepository.save(admin);
 //		}
+
+//		Book noEJBSaved = bookRepository.save(noEJB);
+//
+//		ericSaved.getBooks().add(dddSaved);
 	}
 }

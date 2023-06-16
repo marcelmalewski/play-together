@@ -1,7 +1,7 @@
 package com.marcel.malewski.playtogetherapi.validation;
 
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.shared.Platform;
+import com.marcel.malewski.playtogetherapi.shared.PlatformEnum;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -29,7 +29,7 @@ public class TestValidatePlayingTime {
 			LocalDate.now(),
 			LocalTime.of(19, 0),
 			LocalTime.of(10, 0),
-			List.of(Platform.PC)
+			List.of(PlatformEnum.PC)
 		);
 
 		Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(requestDto);
