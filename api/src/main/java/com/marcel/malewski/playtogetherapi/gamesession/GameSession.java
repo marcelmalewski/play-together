@@ -36,13 +36,13 @@ public class GameSession {
 	private LocalDate date;
 	@NotNull//TODO to na potem
 	private String availabilityTimes;
-
-	private String description;
 	private int numberOfMembers;
 	private int maxMembers;
 	private int minAge;
 	private boolean isCurrentUserMember;
 	private boolean isCompetitive;
+
+	private String description;
 	private String pendingMembers;//TODO to na potem
 
 	@ManyToOne
@@ -61,8 +61,8 @@ public class GameSession {
 	@NotNull
 	private Game game;
 	@ManyToMany
-	@JoinTable(name = "gamer_platform",
-		joinColumns = @JoinColumn(name = "gamer_id"),
+	@JoinTable(name = "gamesession_platform",
+		joinColumns = @JoinColumn(name = "gamesession_id"),
 		inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	@ToString.Exclude
 	@NotNull

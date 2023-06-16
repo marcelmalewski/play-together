@@ -61,13 +61,10 @@ public class Gamer implements UserDetails {
 	private String bio;
 	private String avatarUrl;
 
-	@ManyToMany
-	@JoinTable(name = "gamer_platform",
-		joinColumns = @JoinColumn(name = "gamer_id"),
-		inverseJoinColumns = @JoinColumn(name = "platform_id"))
+	@OneToMany(mappedBy = "creator")
 	@ToString.Exclude
 	@NotNull
-	private List<Platform> platforms = new LinkedList<>();
+	private List<GameSession> createdGameSessions = new LinkedList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
@@ -75,10 +72,13 @@ public class Gamer implements UserDetails {
 	@ToString.Exclude
 	@NotNull
 	private List<GamerRole> roles = new LinkedList<>();
-	@OneToMany(mappedBy = "creator")
+	@ManyToMany
+	@JoinTable(name = "gamer_platform",
+		joinColumns = @JoinColumn(name = "gamer_id"),
+		inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<GameSession> createdGameSessions = new LinkedList<>();
+	private List<Platform> platforms = new LinkedList<>();
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
 	@NotNull
