@@ -2,7 +2,7 @@ package com.marcel.malewski.playtogetherapi.platform;
 //TODO moze ten enum nie jest potrzebny
 
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
+import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -23,8 +23,10 @@ public class Platform {
 	private Long id;
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private GamerRoleEnum name;
+	private PlatformEnum name;
 
 	@ManyToMany(mappedBy = "platforms")
 	private List<Gamer> gamers = new LinkedList<>();
+	@ManyToMany(mappedBy = "platforms")
+	private List<GameSession> gameSessions = new LinkedList<>();
 }

@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.gamesession;
 
 import com.marcel.malewski.playtogetherapi.game.Game;
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.shared.PrivacyLevel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -59,6 +60,13 @@ public class GameSession {
 	@JoinColumn(name = "game_id")
 	@NotNull
 	private Game game;
+	@ManyToMany
+	@JoinTable(name = "gamer_platform",
+		joinColumns = @JoinColumn(name = "gamer_id"),
+		inverseJoinColumns = @JoinColumn(name = "platform_id"))
+	@ToString.Exclude
+	@NotNull
+	private List<Platform> platforms = new LinkedList<>();
 
 	@Override
 	public boolean equals(Object o) {

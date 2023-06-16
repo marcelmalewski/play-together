@@ -1,18 +1,18 @@
 package com.marcel.malewski.playtogetherapi.gamer.dto;
 
-import com.marcel.malewski.playtogetherapi.platform.PlatformEnum;
+import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.validation.ValidatePlayingTime;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 //TODO jakies wieksze wymagania co do hasla
+//TODO dodac walidacje platforms size
 @ValidatePlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = 3, max = 20)
@@ -30,9 +30,6 @@ public record GamerRegisterRequestDto(
 	LocalTime playingTimeStart,
 	@NotNull
 	LocalTime playingTimeEnd,
-	@UniqueElements
-	@Size(min = 1)
-	@NotNull
-	List<PlatformEnum> platformEnums
+	List<Platform> platforms
 ) {
 }

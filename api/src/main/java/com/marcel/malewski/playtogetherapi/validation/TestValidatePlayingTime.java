@@ -1,7 +1,6 @@
 package com.marcel.malewski.playtogetherapi.validation;
 
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.platform.PlatformEnum;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +27,8 @@ public class TestValidatePlayingTime {
 			LocalDate.now(),
 			LocalTime.of(19, 0),
 			LocalTime.of(10, 0),
-			List.of(PlatformEnum.PC)
+			null
+//			List.of(PlatformEnum.PC)
 		);
 
 		Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(requestDto);
