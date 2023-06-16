@@ -1,7 +1,7 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
 import com.marcel.malewski.playtogetherapi.game.Game;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.genre.Genre;
 import com.marcel.malewski.playtogetherapi.shared.Platform;
@@ -25,6 +25,7 @@ import java.util.List;
 //TODO upewnic sie ze tutaj jest tez pelna walidacja
 //TODO napewno linked list ?
 //TODO przetestowac czy size ogranicza minimalną ilosc np. w roles
+//TODO co dokladnie znaczy joincolumn i inversejoin
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -63,12 +64,12 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<Platform> platforms = new LinkedList<>();
 	@ManyToMany
-	@JoinTable(name = "gamer_favourite_game",
+	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "gamerrole_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<GamerRoleEnum> role = new LinkedList<>();
+	private List<GamerRole> roles = new LinkedList<>();
 	@OneToMany(mappedBy = "creator")
 	@ToString.Exclude
 	@NotNull
@@ -107,7 +108,7 @@ public class Gamer implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority(role.name()));
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).toList();
 	}
 
 	@Override

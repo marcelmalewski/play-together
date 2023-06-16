@@ -1,15 +1,20 @@
 package com.marcel.malewski.playtogetherapi.gamerrole;
 
+import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
+//TODO moze ten enum nie jest potrzebny?
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Getter
 @Setter
-@Entity
+@Entity(name = "gamerrole")
 public class GamerRole {
 	@Id
 	@SequenceGenerator(name = "gamerrole_sequence", sequenceName = "gamerrole_sequence", allocationSize = 1)
@@ -17,5 +22,7 @@ public class GamerRole {
 	private Long id;
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private String name;
+	private GamerRoleEnum name;
+	@ManyToMany(mappedBy = "roles")
+	private List<Gamer> gamers = new LinkedList<>();
 }
