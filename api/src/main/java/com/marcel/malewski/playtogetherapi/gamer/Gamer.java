@@ -51,8 +51,6 @@ public class Gamer implements UserDetails {
 	@PastOrPresent
 	@NotNull
 	private LocalDate birthDate;
-	private String bio;
-	private String avatarUrl;
 	@NotNull
 	private LocalTime playingTimeStart;
 	@NotNull
@@ -60,7 +58,24 @@ public class Gamer implements UserDetails {
 	@UniqueElements
 	@Size(min = 1)
 	@NotNull
-	private List<Platform> platforms;
+	private List<Platform> platforms = new LinkedList<>();
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private GamerRole role;
+	@NotNull
+	private LocalDate createdAt;
+
+	private String bio;
+	private String avatarUrl;
+
+	@OneToMany(mappedBy = "creator")
+	@ToString.Exclude
+	@NotNull
+	private List<GameSession> createdGameSessions = new LinkedList<>();
+	@ManyToMany(mappedBy = "members")
+	@ToString.Exclude
+	@NotNull
+	private List<GameSession> joinedGameSessions = new LinkedList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_game",
 		joinColumns = @JoinColumn(name = "gamer_id"),
@@ -75,19 +90,6 @@ public class Gamer implements UserDetails {
 	@ToString.Exclude
 	@NotNull
 	private List<Genre> favouriteGenres = new LinkedList<>();
-	@Enumerated(EnumType.STRING)
-	@NotNull
-	private GamerRole role;
-	@NotNull
-	private LocalDate createdAt;
-	@ManyToMany(mappedBy = "members")
-	@ToString.Exclude
-	@NotNull
-	private List<GameSession> joinedGameSessions = new LinkedList<>();
-	@OneToMany(mappedBy = "creator")
-	@ToString.Exclude
-	@NotNull
-	private List<GameSession> createdGameSessions = new LinkedList<>();
 
 	@Override
 	public boolean equals(Object o) {

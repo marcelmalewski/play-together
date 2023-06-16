@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Tag(
 	name = "Registration",
-	description = "Account registration. Login, and logout are handled by Spring Security"
+	description = "Gamer registration. Login, and logout are handled by Spring Security"
 )
 @Validated//TODO co robi to validated
 public class RegisterController {

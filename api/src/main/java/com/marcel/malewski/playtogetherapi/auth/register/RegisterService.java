@@ -24,9 +24,11 @@ public class RegisterService {
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
 
 		if (gamerRepository.existsByLogin(login)) {
+			//error
 		}
 
 		if (gamerRepository.existsByEmail(email)) {
+			//error
 		}
 
 		Gamer admin = new Gamer();

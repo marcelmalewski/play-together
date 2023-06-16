@@ -23,11 +23,12 @@ public class Game {
 	private int id;
 	@NotNull
 	private String name;
-	@ManyToMany(mappedBy = "favouriteGames")
-	@ToString.Exclude
-	private List<Gamer> gamers;
+
 	@OneToMany(mappedBy = "game")
 	@ToString.Exclude
 	@NotNull
 	private Set<GameSession> gameSessions;
+	@ManyToMany(mappedBy = "favouriteGames")
+	@ToString.Exclude
+	private List<Gamer> gamers;
 }

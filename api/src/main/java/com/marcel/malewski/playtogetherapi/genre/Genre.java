@@ -21,6 +21,7 @@ public class Genre {
 	private int id;
 	@NotNull
 	private String name;
+
 	@ManyToMany(mappedBy = "favouriteGenres")
 	@ToString.Exclude
 	private List<Gamer> gamer;

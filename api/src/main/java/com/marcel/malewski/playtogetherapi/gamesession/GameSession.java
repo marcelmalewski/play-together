@@ -25,11 +25,6 @@ public class GameSession {
 	private Long id;
 	@NotNull
 	private String name;
-	@ManyToOne
-	@JoinColumn(name = "game_id")
-	@NotNull
-	private Game game;
-	private String description;
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private PrivacyLevel visibilityType;
@@ -38,16 +33,17 @@ public class GameSession {
 	private PrivacyLevel accessType;
 	@NotNull
 	private LocalDate date;
+	@NotNull//TODO to na potem
+	private String availabilityTimes;
+
+	private int numberOfMembers;
+	private boolean isCurrentUserMember;
+	private String description;
 	private boolean isCompetitive;
 	private int maxMembers;
 	private int minAge;
-	//TODO to na potem
-	@NotNull
-	private String availabilityTimes;
-	//TODO to na potem
-	private String pendingMembers;
-	private int numberOfMembers;
-	private boolean isCurrentUserMember;
+	private String pendingMembers;//TODO to na potem
+
 	@ManyToOne
 	@JoinColumn(name = "gamer_id")
 	@NotNull
@@ -59,6 +55,10 @@ public class GameSession {
 	@ToString.Exclude
 	@NotNull
 	private List<Gamer> members = new LinkedList<>();
+	@ManyToOne
+	@JoinColumn(name = "game_id")
+	@NotNull
+	private Game game;
 
 	@Override
 	public boolean equals(Object o) {
