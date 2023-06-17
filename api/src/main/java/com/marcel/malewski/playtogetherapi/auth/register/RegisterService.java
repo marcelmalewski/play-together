@@ -3,7 +3,7 @@ package com.marcel.malewski.playtogetherapi.auth.register;
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleService;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.platform.PlatformRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,13 +14,13 @@ import java.time.LocalDate;
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;
-	private final GamerRoleService gamerRoleService;
+	private final GamerRoleRepository gamerRoleRepository;
 	private final PlatformRepository platformRepository;
 	private final PasswordEncoder passwordEncoder;
 
-	public RegisterService(GamerRepository gamerRepository, GamerRoleService gamerRoleService, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
+	public RegisterService(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
-		this.gamerRoleService = gamerRoleService;
+		this.gamerRoleRepository = gamerRoleRepository;
 		this.platformRepository = platformRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
@@ -55,11 +55,16 @@ public class RegisterService {
 		newGamer.setPlayingTimeEnd(gamerRegisterRequestDto.playingTimeEnd());
 		newGamer.setCreatedAt(LocalDate.now());
 
-		Gamer savedGamer = gamerRepository.save(newGamer);
-		savedGamer.getPlatforms().add(platform);
-		platform.getGamers().add(savedGamer);
+//		Gamer savedGamer = gamerRepository.save(newGamer);
+//		savedGamer.getPlatforms().add(platform);
+//		platform.getGamers().add(savedGamer);
 
 //		newGamer.setPlatformEnums(gamerRegisterRequestDto.platformEnums());
 //		newGamer.setRole(gamerRegisterRequestDto);
+
+
+		//Test
+//			GamerRole test = gamerRoleRepository.findByName(GamerRoleEnum.USER.name()).get();
+//			System.out.println(test.toString());
 	}
 }

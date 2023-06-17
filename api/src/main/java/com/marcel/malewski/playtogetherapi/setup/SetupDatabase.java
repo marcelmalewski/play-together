@@ -49,6 +49,7 @@ public class SetupDatabase implements CommandLineRunner {
 			//Role
 			GamerRole userRole = new GamerRole();
 			userRole.setName(GamerRoleEnum.USER.name());
+			gamerRoleRepository.save(userRole);
 
 			GamerRole moderatorRole = new GamerRole();
 			moderatorRole.setName(GamerRoleEnum.MODERATOR.name());
@@ -64,6 +65,8 @@ public class SetupDatabase implements CommandLineRunner {
 
 			savedAdmin.getPlatforms().add(savedPc);
 			savedPc.getGamers().add(savedAdmin);
+
+			//test
 		}
 	}
 }
