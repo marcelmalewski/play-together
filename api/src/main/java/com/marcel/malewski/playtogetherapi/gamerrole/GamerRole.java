@@ -25,5 +25,6 @@ public class GamerRole {
 	private GamerRoleEnum name;
 
 	@ManyToMany(mappedBy = "roles")
+	@NotNull
 	private List<Gamer> gamers = new ArrayList<>();
 }

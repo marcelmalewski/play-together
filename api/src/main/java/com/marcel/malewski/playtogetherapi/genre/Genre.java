@@ -25,5 +25,6 @@ public class Genre {
 
 	@ManyToMany(mappedBy = "favouriteGenres")
 	@ToString.Exclude
+	@NotNull
 	private List<Gamer> gamer = new ArrayList<>();;
 }

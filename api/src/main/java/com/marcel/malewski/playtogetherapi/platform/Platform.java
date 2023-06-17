@@ -26,7 +26,9 @@ public class Platform {
 	private PlatformEnum name;
 
 	@ManyToMany(mappedBy = "platforms")
+	@NotNull
 	private List<Gamer> gamers = new ArrayList<>();
 	@ManyToMany(mappedBy = "platforms")
+	@NotNull
 	private List<GameSession> gameSessions = new ArrayList<>();
 }

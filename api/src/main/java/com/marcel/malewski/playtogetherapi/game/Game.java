@@ -31,5 +31,6 @@ public class Game {
 	private Set<GameSession> gameSessions;
 	@ManyToMany(mappedBy = "favouriteGames")
 	@ToString.Exclude
+	@NotNull
 	private List<Gamer> gamers = new ArrayList<>();
 }
