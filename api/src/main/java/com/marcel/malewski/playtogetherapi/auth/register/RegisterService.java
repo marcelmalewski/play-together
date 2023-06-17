@@ -30,27 +30,24 @@ public class RegisterService {
 
 	void registerGamerAsUser(GamerRegisterRequestDto gamerRegisterRequestDto) {
 		String login = gamerRegisterRequestDto.login();
-		String email = gamerRegisterRequestDto.email();
-		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
-
 		if (gamerRepository.existsByLogin(login)) {
 			//error
 		}
 
+		String email = gamerRegisterRequestDto.email();
 		if (gamerRepository.existsByEmail(email)) {
 			//error
 		}
-
-		//TODO pobieranie roli
-		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(
-			GamerRoleEnum.USER.name()
-		);
 
 		//TODO czy platforma istnieje
 		Platform pcPlatform = platformRepository.getReferenceById(
 			gamerRegisterRequestDto.platforms().get(0)
 		);
 
+		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
+		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(
+			GamerRoleEnum.USER.name()
+		);
 
 		Gamer newGamer = new Gamer();
 		newGamer.setLogin(gamerRegisterRequestDto.login());
@@ -62,7 +59,6 @@ public class RegisterService {
 		newGamer.setCreatedAt(LocalDate.now());
 
 		Gamer savedGamer = gamerRepository.save(newGamer);
-
 		savedGamer.getRoles().add(userGamerRole);
 		userGamerRole.getGamers().add(savedGamer);
 		savedGamer.getPlatforms().add(pcPlatform);
