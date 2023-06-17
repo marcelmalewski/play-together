@@ -56,7 +56,7 @@ public class SetupDatabase implements CommandLineRunner {
 
 			//Platform
 			Platform pcPlatform = new Platform();
-			pcPlatform.setName(PlatformEnum.PC);
+			pcPlatform.setName(PlatformEnum.PC.name());
 			Platform savedPc = platformRepository.save(pcPlatform);
 
 			savedAdmin.getPlatforms().add(savedPc);

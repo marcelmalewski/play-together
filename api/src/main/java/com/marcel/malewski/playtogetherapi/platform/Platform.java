@@ -21,9 +21,9 @@ public class Platform {
 	@SequenceGenerator(name = "platform_sequence", sequenceName = "platform_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "platform_sequence")
 	private Long id;
-	@Enumerated(EnumType.STRING)
+	@Column(unique = true)
 	@NotNull
-	private PlatformEnum name;
+	private String name;
 
 	@ManyToMany(mappedBy = "platforms")
 	@NotNull

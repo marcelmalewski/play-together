@@ -20,9 +20,9 @@ public class GamerRole {
 	@SequenceGenerator(name = "gamerrole_sequence", sequenceName = "gamerrole_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gamerrole_sequence")
 	private Long id;
-	@Enumerated(EnumType.STRING)
+	@Column(unique = true)
 	@NotNull
-	private GamerRoleEnum name;
+	private String name;
 
 	@ManyToMany(mappedBy = "roles")
 	@NotNull
