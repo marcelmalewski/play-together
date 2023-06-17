@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 //TODO moze ten enum nie jest potrzebny?
@@ -25,5 +25,5 @@ public class GamerRole {
 	private GamerRoleEnum name;
 
 	@ManyToMany(mappedBy = "roles")
-	private List<Gamer> gamers = new LinkedList<>();
+	private List<Gamer> gamers = new ArrayList<>();
 }

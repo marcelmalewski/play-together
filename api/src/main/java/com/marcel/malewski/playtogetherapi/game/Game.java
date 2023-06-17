@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -30,5 +31,5 @@ public class Game {
 	private Set<GameSession> gameSessions;
 	@ManyToMany(mappedBy = "favouriteGames")
 	@ToString.Exclude
-	private List<Gamer> gamers;
+	private List<Gamer> gamers = new ArrayList<>();
 }

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class Platform {
 	private PlatformEnum name;
 
 	@ManyToMany(mappedBy = "platforms")
-	private List<Gamer> gamers = new LinkedList<>();
+	private List<Gamer> gamers = new ArrayList<>();
 	@ManyToMany(mappedBy = "platforms")
-	private List<GameSession> gameSessions = new LinkedList<>();
+	private List<GameSession> gameSessions = new ArrayList<>();
 }

@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +25,6 @@ import java.util.List;
 //TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
 //TODO upewnic sie ze tutaj jest tez pelna walidacja
 //TODO napewno linked list ?
-//TODO przetestowac czy size ogranicza minimalną ilosc np. w roles
 //TODO co dokladnie znaczy joincolumn i inversejoin
 @AllArgsConstructor
 @NoArgsConstructor
@@ -64,7 +64,7 @@ public class Gamer implements UserDetails {
 	@OneToMany(mappedBy = "creator")
 	@ToString.Exclude
 	@NotNull
-	private List<GameSession> createdGameSessions = new LinkedList<>();
+	private List<GameSession> createdGameSessions = new ArrayList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
@@ -82,21 +82,21 @@ public class Gamer implements UserDetails {
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
 	@NotNull
-	private List<GameSession> joinedGameSessions = new LinkedList<>();
+	private List<GameSession> joinedGameSessions = new ArrayList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_game",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "game_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<Game> favouriteGames = new LinkedList<>();
+	private List<Game> favouriteGames = new ArrayList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_genre",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<Genre> favouriteGenres = new LinkedList<>();
+	private List<Genre> favouriteGenres = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object o) {

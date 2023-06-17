@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -24,5 +25,5 @@ public class Genre {
 
 	@ManyToMany(mappedBy = "favouriteGenres")
 	@ToString.Exclude
-	private List<Gamer> gamer;
+	private List<Gamer> gamer = new ArrayList<>();;
 }

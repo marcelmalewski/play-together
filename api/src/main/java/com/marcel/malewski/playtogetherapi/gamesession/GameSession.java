@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -59,14 +59,14 @@ public class GameSession {
 					inverseJoinColumns = @JoinColumn(name = "gamer_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<Gamer> members = new LinkedList<>();
+	private List<Gamer> members = new ArrayList<>();
 	@ManyToMany
 	@JoinTable(name = "gamesession_platform",
 		joinColumns = @JoinColumn(name = "gamesession_id"),
 		inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<Platform> platforms = new LinkedList<>();
+	private List<Platform> platforms = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object o) {
