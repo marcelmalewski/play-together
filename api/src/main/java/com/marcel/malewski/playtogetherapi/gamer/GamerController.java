@@ -15,7 +15,7 @@ import java.util.List;
 //TODO dodac v1? po co ?
 @RestController
 @RequestMapping(value = "")
-@Tag(name = "Gamers", description = "Gamers API v1")
+@Tag(name = "Gamers", description = "Gamers API")
 public class GamerController {
 	private final GamerService gamerService;
 
@@ -38,7 +38,7 @@ public class GamerController {
 	}
 
 	@GetMapping(value = "/gamers/@me")
-	@Operation(summary = "Get private info about authenticated gamer")
+	@Operation(summary = "Get private info about an authenticated gamer")
 	public ResponseEntity<String> getGamer(Principal principal) {
 		if (principal != null) {
 			String personLogin = principal.getName();

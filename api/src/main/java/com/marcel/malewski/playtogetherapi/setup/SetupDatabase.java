@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+//TODO moze zmienic repozytoria na serwisy
+
 @Profile("dev")
 @Component
 public class SetupDatabase implements CommandLineRunner {
