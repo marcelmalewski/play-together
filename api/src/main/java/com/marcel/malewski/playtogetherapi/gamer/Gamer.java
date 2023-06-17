@@ -18,7 +18,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 //TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
@@ -69,14 +68,14 @@ public class Gamer implements UserDetails {
 		inverseJoinColumns = @JoinColumn(name = "gamerrole_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<GamerRole> roles = new LinkedList<>();
+	private List<GamerRole> roles = new ArrayList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_platform",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	@ToString.Exclude
 	@NotNull
-	private List<Platform> platforms = new LinkedList<>();
+	private List<Platform> platforms = new ArrayList<>();
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
 	@NotNull

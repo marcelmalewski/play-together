@@ -23,6 +23,7 @@ public class GamerController {
 		this.gamerService = gamerService;
 	}
 
+	//TODO private zmienic na public
 	@GetMapping(value = "/gamers")
 	@Operation(summary = "Find all gamers public info")
 	public ResponseEntity<List<GamerPrivateResponseDto>> findAllGamers() {
@@ -30,6 +31,7 @@ public class GamerController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
+	//TODO private zmienic na public
 	@GetMapping(value = "/gamers/:gamerId")
 	@Operation(summary = "Get public info about a gamer by id")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Long id) {

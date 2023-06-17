@@ -6,12 +6,14 @@ import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
+import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.platform.PlatformRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
+//TODO repository zmienic na serwisy
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;
@@ -26,7 +28,7 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	void register(GamerRegisterRequestDto gamerRegisterRequestDto) {
+	void registerGamerAsUser(GamerRegisterRequestDto gamerRegisterRequestDto) {
 		String login = gamerRegisterRequestDto.login();
 		String email = gamerRegisterRequestDto.email();
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
@@ -45,9 +47,9 @@ public class RegisterService {
 		);
 
 		//TODO czy platforma istnieje
-//		Platform pcPlatform = platformRepository.getReferenceById(
-//			gamerRegisterRequestDto.platforms().get(0)
-//		);
+		Platform pcPlatform = platformRepository.getReferenceById(
+			gamerRegisterRequestDto.platforms().get(0)
+		);
 
 
 		Gamer newGamer = new Gamer();
@@ -59,12 +61,15 @@ public class RegisterService {
 		newGamer.setPlayingTimeEnd(gamerRegisterRequestDto.playingTimeEnd());
 		newGamer.setCreatedAt(LocalDate.now());
 
-		System.out.println(userGamerRole);
+		Gamer savedGamer = gamerRepository.save(newGamer);
 
-//		Gamer savedGamer = gamerRepository.save(newGamer);
-//		savedGamer.getRoles().add(userGamerRole);
-//		userGamerRole.getGamers().add(savedGamer);
-//		savedGamer.getPlatforms().add(pcPlatform);
-//		pcPlatform.getGamers().add(savedGamer);
+		savedGamer.getRoles().add(userGamerRole);
+		userGamerRole.getGamers().add(savedGamer);
+		savedGamer.getPlatforms().add(pcPlatform);
+		pcPlatform.getGamers().add(savedGamer);
+
+		gamerRepository.save(savedGamer);
+		gamerRoleRepository.save(userGamerRole);
+		platformRepository.save(pcPlatform);
 	}
 }
