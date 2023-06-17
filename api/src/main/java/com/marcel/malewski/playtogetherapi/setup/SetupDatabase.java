@@ -65,10 +65,6 @@ public class SetupDatabase implements CommandLineRunner {
 
 			savedAdmin.getPlatforms().add(savedPc);
 			savedPc.getGamers().add(savedAdmin);
-
-			//Test
-//			GamerRole test = gamerRoleRepository.findByName().get();
-//			System.out.println(test);
 		}
 	}
 }

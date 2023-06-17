@@ -3,8 +3,9 @@ package com.marcel.malewski.playtogetherapi.auth.register;
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRole;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
-import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.platform.PlatformRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,32 +40,31 @@ public class RegisterService {
 		}
 
 		//TODO pobieranie roli
+		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(
+			GamerRoleEnum.USER.name()
+		);
 
 		//TODO czy platforma istnieje
-		Platform platform = platformRepository.getReferenceById(
-			gamerRegisterRequestDto.platforms().get(0)
-		);
+//		Platform pcPlatform = platformRepository.getReferenceById(
+//			gamerRegisterRequestDto.platforms().get(0)
+//		);
 
 
 		Gamer newGamer = new Gamer();
 		newGamer.setLogin(gamerRegisterRequestDto.login());
-		newGamer.setPassword(passwordEncoder.encode(gamerRegisterRequestDto.password()));
+		newGamer.setPassword(encodedPassword);
 		newGamer.setEmail(gamerRegisterRequestDto.email());
 		newGamer.setBirthDate(gamerRegisterRequestDto.birthDate());
 		newGamer.setPlayingTimeStart(gamerRegisterRequestDto.playingTimeStart());
 		newGamer.setPlayingTimeEnd(gamerRegisterRequestDto.playingTimeEnd());
 		newGamer.setCreatedAt(LocalDate.now());
 
+		System.out.println(userGamerRole);
+
 //		Gamer savedGamer = gamerRepository.save(newGamer);
-//		savedGamer.getPlatforms().add(platform);
-//		platform.getGamers().add(savedGamer);
-
-//		newGamer.setPlatformEnums(gamerRegisterRequestDto.platformEnums());
-//		newGamer.setRole(gamerRegisterRequestDto);
-
-
-		//Test
-//			GamerRole test = gamerRoleRepository.findByName(GamerRoleEnum.USER.name()).get();
-//			System.out.println(test.toString());
+//		savedGamer.getRoles().add(userGamerRole);
+//		userGamerRole.getGamers().add(savedGamer);
+//		savedGamer.getPlatforms().add(pcPlatform);
+//		pcPlatform.getGamers().add(savedGamer);
 	}
 }

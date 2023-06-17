@@ -2,18 +2,18 @@ package com.marcel.malewski.playtogetherapi.auth.register;
 
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+//TODO co robi to validated
 
 @RestController
 @Tag(
 	name = "Registration",
 	description = "Gamer registration. Login, and logout are handled by Spring Security"
 )
-@Validated//TODO co robi to validated
+//@Validated
 public class RegisterController {
 	private final RegisterService registerService;
 
@@ -21,9 +21,8 @@ public class RegisterController {
 		this.registerService = registerService;
 	}
 
-	//TODO przetestowac walidacje i ewentualnie zakomponetowac @Valid zeby latwiej sie testowalo
 	@PostMapping(value="/auth/register")
-	public void register(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto) {
+	public void register(@RequestBody GamerRegisterRequestDto gamerRegisterRequestDto) {
 		//TODO dodac jezeli principal nie jest nullem to nie moze dokonac rejestracji
 		this.registerService.register(gamerRegisterRequestDto);
 	}
