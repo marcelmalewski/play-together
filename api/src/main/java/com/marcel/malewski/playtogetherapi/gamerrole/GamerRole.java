@@ -8,7 +8,6 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO moze ten enum nie jest potrzebny?
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

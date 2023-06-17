@@ -3,6 +3,9 @@ package com.marcel.malewski.playtogetherapi.auth.register;
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
+import com.marcel.malewski.playtogetherapi.platform.Platform;
+import com.marcel.malewski.playtogetherapi.platform.PlatformRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +14,14 @@ import java.time.LocalDate;
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;
+	private final GamerRoleRepository gamerRoleRepository;
+	private final PlatformRepository platformRepository;
 	private final PasswordEncoder passwordEncoder;
 
-	public RegisterService(GamerRepository gamerRepository, PasswordEncoder passwordEncoder) {
+	public RegisterService(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
+		this.gamerRoleRepository = gamerRoleRepository;
+		this.platformRepository = platformRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -31,15 +38,28 @@ public class RegisterService {
 			//error
 		}
 
-		Gamer admin = new Gamer();
-		admin.setLogin(gamerRegisterRequestDto.login());
-		admin.setPassword(passwordEncoder.encode(gamerRegisterRequestDto.password()));
-		admin.setEmail(gamerRegisterRequestDto.email());
-		admin.setBirthDate(gamerRegisterRequestDto.birthDate());
-		admin.setPlayingTimeStart(gamerRegisterRequestDto.playingTimeStart());
-		admin.setPlayingTimeEnd(gamerRegisterRequestDto.playingTimeEnd());
-//		admin.setPlatformEnums(gamerRegisterRequestDto.platformEnums());
-//		admin.setRole(gamerRegisterRequestDto);//TODO poprawic na roles
-		admin.setCreatedAt(LocalDate.now());
+		//TODO pobieranie roli
+
+		//TODO czy platforma istnieje
+		Platform platform = platformRepository.getReferenceById(
+			gamerRegisterRequestDto.platforms().get(0)
+		);
+
+
+		Gamer newGamer = new Gamer();
+		newGamer.setLogin(gamerRegisterRequestDto.login());
+		newGamer.setPassword(passwordEncoder.encode(gamerRegisterRequestDto.password()));
+		newGamer.setEmail(gamerRegisterRequestDto.email());
+		newGamer.setBirthDate(gamerRegisterRequestDto.birthDate());
+		newGamer.setPlayingTimeStart(gamerRegisterRequestDto.playingTimeStart());
+		newGamer.setPlayingTimeEnd(gamerRegisterRequestDto.playingTimeEnd());
+		newGamer.setCreatedAt(LocalDate.now());
+
+		Gamer savedGamer = gamerRepository.save(newGamer);
+		savedGamer.getPlatforms().add(platform);
+		platform.getGamers().add(savedGamer);
+
+//		newGamer.setPlatformEnums(gamerRegisterRequestDto.platformEnums());
+//		newGamer.setRole(gamerRegisterRequestDto);
 	}
 }

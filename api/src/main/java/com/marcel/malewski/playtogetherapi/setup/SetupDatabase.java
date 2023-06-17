@@ -47,6 +47,9 @@ public class SetupDatabase implements CommandLineRunner {
 			Gamer savedAdmin = gamerRepository.save(admin);
 
 			//Role
+			GamerRole userRole = new GamerRole();
+			userRole.setName(GamerRoleEnum.USER.name());
+
 			GamerRole moderatorRole = new GamerRole();
 			moderatorRole.setName(GamerRoleEnum.MODERATOR.name());
 			GamerRole savedModerator = gamerRoleRepository.save(moderatorRole);

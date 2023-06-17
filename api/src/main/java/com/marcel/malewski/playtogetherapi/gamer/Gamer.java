@@ -113,7 +113,7 @@ public class Gamer implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).toList();
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
 	}
 
 	@Override

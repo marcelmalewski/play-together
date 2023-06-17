@@ -1,6 +1,5 @@
 package com.marcel.malewski.playtogetherapi.gamer.dto;
 
-import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.validation.ValidatePlayingTime;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -30,6 +29,6 @@ public record GamerRegisterRequestDto(
 	LocalTime playingTimeStart,
 	@NotNull
 	LocalTime playingTimeEnd,
-	List<Platform> platforms
+	List<Long> platforms
 ) {
 }
