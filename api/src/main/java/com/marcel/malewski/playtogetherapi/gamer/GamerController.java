@@ -1,6 +1,9 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRole;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -18,15 +21,19 @@ import java.util.List;
 @Tag(name = "Gamers", description = "Gamers API v1")
 public class GamerController {
 	private final GamerService gamerService;
+	private final GamerRoleRepository gamerRoleRepository;
 
-	public GamerController(GamerService gamerService) {
+	public GamerController(GamerService gamerService, GamerRoleRepository gamerRoleRepository) {
 		this.gamerService = gamerService;
+		this.gamerRoleRepository = gamerRoleRepository;
 	}
 
 	@GetMapping(value="/gamers")
 	@Operation(summary = "Find all gamers public info")
 	public ResponseEntity<List<GamerPrivateResponseDto>> findAllGamers() {
 		List<GamerPrivateResponseDto> result = this.gamerService.findAllGamers();
+		GamerRole roles = this.gamerRoleRepository.getReferenceByName(GamerRoleEnum.USER.name());
+		System.out.println(roles);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 

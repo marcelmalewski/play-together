@@ -31,6 +31,7 @@ public class SecurityConfiguration {
 			.requestMatchers(
 				"/",
 				"/auth/register",
+				"/gamers",
 				"/docs",
 				"/v2/api-docs/**",
 				"/v3/api-docs/**",
