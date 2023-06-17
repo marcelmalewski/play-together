@@ -3,7 +3,7 @@ package com.marcel.malewski.playtogetherapi.auth.register;
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
+import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleService;
 import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.platform.PlatformRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,13 +14,13 @@ import java.time.LocalDate;
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;
-	private final GamerRoleRepository gamerRoleRepository;
+	private final GamerRoleService gamerRoleService;
 	private final PlatformRepository platformRepository;
 	private final PasswordEncoder passwordEncoder;
 
-	public RegisterService(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
+	public RegisterService(GamerRepository gamerRepository, GamerRoleService gamerRoleService, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
-		this.gamerRoleRepository = gamerRoleRepository;
+		this.gamerRoleService = gamerRoleService;
 		this.platformRepository = platformRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
