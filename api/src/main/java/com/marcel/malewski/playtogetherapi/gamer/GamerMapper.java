@@ -14,6 +14,7 @@ abstract class GamerMapper {
 		List<String> platforms = gamer.getPlatforms().stream().map(Platform::getName).toList();
 		List<String> games = gamer.getFavouriteGames().stream().map(Game::getName).toList();
 		List<String> genres = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
+
 		return new GamerPrivateResponseDto(
 			gamer.getLogin(),
 			gamer.getEmail(),
