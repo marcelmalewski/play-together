@@ -39,7 +39,7 @@ public class RegisterService {
 			//error
 		}
 
-		//TODO czy platforma istnieje
+		//TODO czy platforma istnieje, dodac obsluge dla paru platform
 		Platform pcPlatform = platformRepository.getReferenceById(
 			gamerRegisterRequestDto.platforms().get(0)
 		);
