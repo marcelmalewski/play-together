@@ -18,6 +18,13 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    // registerGamerAsUser: builder.mutation<void, string>({
+    //   query: (body) => ({
+    //     url: "/",
+    //     body: body,
+    //     method: "POST",
+    //   }),
+    // }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: "/logout",
