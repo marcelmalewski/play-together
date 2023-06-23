@@ -5,16 +5,7 @@ import { FullScreenFormLayout } from "../../layouts/FullScreenFormLayout";
 import { useLoginMutation } from "../../store/apiSlice";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
-
-interface LoginFormValues {
-  loginOrEmail: string;
-  password: string;
-}
-
-interface LoginBody {
-  username: string;
-  password: string;
-}
+import { LoginBody, LoginFormValues } from "../../interfaces/authInterfaces";
 
 export function LoginPage() {
   const [login] = useLoginMutation();
@@ -32,7 +23,7 @@ export function LoginPage() {
     values: FormikValues,
     formikHelpers: FormikHelpers<LoginFormValues>
   ) {
-    const loginBody = {
+    const loginBody: LoginBody = {
       username: values.loginOrEmail,
       password: values.password,
     };

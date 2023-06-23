@@ -6,15 +6,7 @@ import { FormikDatePicker } from "../../components/formik/FormikDatePicker";
 import React from "react";
 // @ts-ignore
 import DatePicker from "react-datepicker";
-
-interface RegisterFormValues {
-  login: string;
-  password: string;
-  email: string;
-  birthDate: Date;
-  playingTimeStart: Date;
-  playingTimeEnd: Date;
-}
+import { RegisterFormValues } from "../../interfaces/authInterfaces";
 
 export function RegisterPage() {
   const defaultPlayingTimeStart = new Date();
