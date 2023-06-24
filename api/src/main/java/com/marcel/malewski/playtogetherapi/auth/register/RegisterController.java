@@ -23,7 +23,7 @@ public class RegisterController {
 	}
 
 	@PostMapping(value="/auth/register")
-	public void register(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto) {
+	public void registerGamerAsUser(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto) {
 		//TODO dodac jezeli principal nie jest nullem to nie moze dokonac rejestracji
 		this.registerService.registerGamerAsUser(gamerRegisterRequestDto);
 	}
