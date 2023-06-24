@@ -23,8 +23,4 @@ public class GamerService {
 	public GamerPrivateResponseDto getGamer(Long id) {
 		return gamerMapper.toGamerPrivateResponseDto(gamerRepository.findById(id).get());
 	}
-
-	public GamerPrivateResponseDto getGamer(String login) {
-		return gamerMapper.toGamerPrivateResponseDto(gamerRepository.findByLogin(login).get());
-	}
 }
