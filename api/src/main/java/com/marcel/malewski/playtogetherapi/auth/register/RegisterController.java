@@ -7,14 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-//TODO co robi to validated
-
 @RestController
 @Tag(
 	name = "Registration",
 	description = "Gamer registration. Login, and logout are handled by Spring Security"
 )
-//@Validated
 public class RegisterController {
 	private final RegisterService registerService;
 
