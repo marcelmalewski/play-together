@@ -1,11 +1,11 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
+import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPublicResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//TODO map toList vs collect
 @Service
 public class GamerService {
 	private final GamerRepository gamerRepository;
@@ -16,11 +16,15 @@ public class GamerService {
 		this.gamerMapper = gamerMapper;
 	}
 
-	public List<GamerPrivateResponseDto> findAllGamers() {
-		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPrivateResponseDto).toList();
+	public List<GamerPublicResponseDto> findAllGamers() {
+		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPublicResponseDto).toList();
 	}
 
-	public GamerPrivateResponseDto getGamer(Long id) {
+	public GamerPublicResponseDto getGamerPublic(Long id) {
+		return gamerMapper.toGamerPublicResponseDto(gamerRepository.findById(id).get());
+	}
+
+	public GamerPrivateResponseDto getGamerPrivate(Long id) {
 		return gamerMapper.toGamerPrivateResponseDto(gamerRepository.findById(id).get());
 	}
 }

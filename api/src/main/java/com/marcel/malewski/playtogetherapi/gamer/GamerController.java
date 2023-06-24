@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
-import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
+import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPublicResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -26,17 +26,17 @@ public class GamerController {
 	//TODO private zmienic na public
 	@GetMapping(value = "/gamers")
 	@Operation(summary = "Find all gamers public info")
-	public ResponseEntity<List<GamerPrivateResponseDto>> findAllGamers() {
-		List<GamerPrivateResponseDto> result = this.gamerService.findAllGamers();
-		return new ResponseEntity<>(result, HttpStatus.OK);
+	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers() {
+		List<GamerPublicResponseDto> allGamers = this.gamerService.findAllGamers();
+		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
 	//TODO private zmienic na public
 	@GetMapping(value = "/gamers/:gamerId")
 	@Operation(summary = "Get public info about a gamer by id")
-	public ResponseEntity<GamerPrivateResponseDto> getGamer(Long id) {
-		GamerPrivateResponseDto result = this.gamerService.getGamer(id);
-		return new ResponseEntity<>(result, HttpStatus.OK);
+	public ResponseEntity<GamerPublicResponseDto> getGamerPublic(Long id) {
+		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublic(id);
+		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/gamers/@me")
