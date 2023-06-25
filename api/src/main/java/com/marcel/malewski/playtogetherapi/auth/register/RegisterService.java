@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-//TODO repository zmienic na serwisy
+//TODO repository zmienic na serwisy?
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;
