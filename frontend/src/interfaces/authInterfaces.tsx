@@ -16,3 +16,5 @@ export interface RegisterFormValues {
   playingTimeStart: Date;
   playingTimeEnd: Date;
 }
+
+export interface RegisterBody {}

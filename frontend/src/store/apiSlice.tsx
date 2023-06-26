@@ -18,7 +18,7 @@ export const apiSlice = createApi({
         },
       }),
     }),
-    // registerGamerAsUser: builder.mutation<void, string>({
+    // registerGamerAsUser: builder.mutation<void, RegisterBody>({
     //   query: (body) => ({
     //     url: "/",
     //     body: body,
