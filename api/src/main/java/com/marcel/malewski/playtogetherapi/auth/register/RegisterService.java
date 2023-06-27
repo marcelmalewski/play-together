@@ -4,7 +4,6 @@ import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRole;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.platform.PlatformRepository;
@@ -28,7 +27,7 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	void registerGamerAsUser(GamerRegisterRequestDto gamerRegisterRequestDto) {
+	void register(GamerRegisterRequestDto gamerRegisterRequestDto, String gamerRole) {
 		String login = gamerRegisterRequestDto.login();
 		if (gamerRepository.existsByLogin(login)) {
 			//error
@@ -46,7 +45,7 @@ public class RegisterService {
 
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
 		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(
-			GamerRoleEnum.USER.name()
+			gamerRole
 		);
 
 		Gamer newGamer = new Gamer();
