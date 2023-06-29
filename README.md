@@ -30,5 +30,5 @@ SPRING_PROFILES_ACTIVE=dev
    optional parametr: --build-arg JAR_FILE=build/libs/api-1.0.0.jar
 3. command: `docker tag play-together-api 6745345/play-together-api:1.0`
 4. command: `docker push 6745345/play-together-api:1.0`
-5. then docker-compose.yml
+5. docker-compose.yml
 Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalic dockercompose
