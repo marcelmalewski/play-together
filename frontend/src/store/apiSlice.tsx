@@ -20,7 +20,7 @@ export const apiSlice = createApi({
     }),
     // registerGamerAsUser: builder.mutation<void, RegisterBody>({
     //   query: (body) => ({
-    //     url: "/",
+    //     url: "/auth/gamers/register",
     //     body: body,
     //     method: "POST",
     //   }),
