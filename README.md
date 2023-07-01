@@ -32,7 +32,7 @@ SPRING_PROFILES_ACTIVE=dev
 ## Start local backend
 1. clean build with gradle (poprawić) dać komende
 
-## Start backend with docker
+## Start backend with docker images
 1. command: `./gradlew build`
 2. command: `docker build -t play-together-api .`
    optional parametr: --build-arg JAR_FILE=build/libs/api-1.0.0.jar
