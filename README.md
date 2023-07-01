@@ -1,3 +1,6 @@
+# What will docker start:
+1. database...
+
 # Local dev environment
 1. create .env file
 2. start `./local-dev/docker-compose.yml` with environment variables file: `.env`
@@ -11,17 +14,21 @@ POSTGRES_PORT=5432
 PORT=5000
 SPRING_PROFILES_ACTIVE=dev
 ```
-
-# Local frontend
+## Before coding frontend
 1. set `yarn` as package manager
 2. set prettier
-3. go to `./frontend`
-4. yarn install 
-5. yarn dev
+   
+## Start local frontend
+1. go to `./frontend`
+2. yarn install
+3. yarn dev
 
-# Local backend
-1. clean build with gradle
-2. set environment variables for api from `.env`
+## Before coding backend
+1. set environment variables for api from `.env`
+   
+## Start local backend
+1. clean build with gradle (poprawić) dać komende
+
 
   
 # Backend with docker
