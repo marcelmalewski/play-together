@@ -12,14 +12,14 @@ PORT=5000
 SPRING_PROFILES_ACTIVE=dev
 ```
 
-# Local dev frontend
+# Local frontend
 1. set `yarn` as package manager
 2. set prettier
 3. go to `./frontend`
 4. yarn install 
 5. yarn dev
 
-# Local dev backend
+# Local backend
 1. clean build with gradle
 2. set environment variables for api from `.env`
 
