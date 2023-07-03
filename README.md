@@ -1,6 +1,6 @@
 # Play together
 
-## What will docker start:
+## Docker files + content
 1. database...
 
 ## Local dev environment
