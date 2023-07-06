@@ -24,5 +24,6 @@ public class GamerRole {
 	private String name;
 
 	@ManyToMany(mappedBy = "roles")
+	@NotNull
 	private List<Gamer> gamers = new ArrayList<>();
 }

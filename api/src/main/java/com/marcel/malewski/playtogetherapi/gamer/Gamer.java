@@ -66,6 +66,7 @@ public class Gamer implements UserDetails {
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "gamerrole_id"))
 	@ToString.Exclude
+	@NotNull
 	private List<GamerRole> roles = new ArrayList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_platform",
