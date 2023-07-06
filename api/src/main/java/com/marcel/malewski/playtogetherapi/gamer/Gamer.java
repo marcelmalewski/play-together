@@ -11,13 +11,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 //TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
@@ -66,7 +66,6 @@ public class Gamer implements UserDetails {
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "gamerrole_id"))
 	@ToString.Exclude
-	@NotNull
 	private List<GamerRole> roles = new ArrayList<>();
 	@ManyToMany
 	@JoinTable(name = "gamer_platform",
@@ -109,7 +108,8 @@ public class Gamer implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
+//		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
+		return Collections.emptyList();
 	}
 
 	@Override

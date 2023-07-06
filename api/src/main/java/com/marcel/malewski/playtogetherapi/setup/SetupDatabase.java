@@ -2,8 +2,6 @@ package com.marcel.malewski.playtogetherapi.setup;
 
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRole;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.platform.PlatformEnum;
@@ -49,16 +47,16 @@ public class SetupDatabase implements CommandLineRunner {
 			Gamer savedAdmin = gamerRepository.save(admin);
 
 			//Role
-			GamerRole userRole = new GamerRole();
-			userRole.setName(GamerRoleEnum.USER.name());
-			gamerRoleRepository.save(userRole);
-
-			GamerRole moderatorRole = new GamerRole();
-			moderatorRole.setName(GamerRoleEnum.MODERATOR.name());
-			GamerRole savedModerator = gamerRoleRepository.save(moderatorRole);
-
-			savedAdmin.getRoles().add(savedModerator);
-			savedModerator.getGamers().add(savedAdmin);
+//			GamerRole userRole = new GamerRole();
+//			userRole.setName(GamerRoleEnum.USER.name());
+//			gamerRoleRepository.save(userRole);
+//
+//			GamerRole moderatorRole = new GamerRole();
+//			moderatorRole.setName(GamerRoleEnum.MODERATOR.name());
+//			GamerRole savedModerator = gamerRoleRepository.save(moderatorRole);
+//
+//			savedAdmin.getRoles().add(savedModerator);
+//			savedModerator.getGamers().add(savedAdmin);
 
 			//Platform
 			Platform pcPlatform = new Platform();

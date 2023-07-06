@@ -3,7 +3,6 @@ package com.marcel.malewski.playtogetherapi.auth.register;
 import com.marcel.malewski.playtogetherapi.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.platform.Platform;
 import com.marcel.malewski.playtogetherapi.platform.PlatformRepository;
@@ -44,9 +43,9 @@ public class RegisterService {
 		);
 
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
-		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(
-			gamerRole
-		);
+//		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(
+//			gamerRole
+//		);
 
 		Gamer newGamer = new Gamer();
 		newGamer.setLogin(gamerRegisterRequestDto.login());
@@ -58,13 +57,13 @@ public class RegisterService {
 		newGamer.setCreatedAt(LocalDate.now());
 
 		Gamer savedGamer = gamerRepository.save(newGamer);
-		savedGamer.getRoles().add(userGamerRole);
-		userGamerRole.getGamers().add(savedGamer);
+//		savedGamer.getRoles().add(userGamerRole);
+//		userGamerRole.getGamers().add(savedGamer);
 		savedGamer.getPlatforms().add(pcPlatform);
 		pcPlatform.getGamers().add(savedGamer);
 
 		gamerRepository.save(savedGamer);
-		gamerRoleRepository.save(userGamerRole);
+//		gamerRoleRepository.save(userGamerRole);
 		platformRepository.save(pcPlatform);
 	}
 }
