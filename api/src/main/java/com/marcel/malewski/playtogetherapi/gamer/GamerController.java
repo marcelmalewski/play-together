@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.gamer;
 
+import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPublicResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,7 +34,7 @@ public class GamerController {
 	@GetMapping(value = "/gamers/:gamerId")
 	@Operation(summary = "Get public info about a gamer by id")
 	public ResponseEntity<GamerPublicResponseDto> getGamerPublic(Long id) {
-		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublic(id);
+		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(id);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
@@ -41,9 +42,10 @@ public class GamerController {
 	@Operation(summary = "Get private info about an authenticated gamer")
 	public ResponseEntity<String> getGamer(Principal principal) {
 		if (principal != null) {
-			String personLogin = principal.getName();
-			System.out.println(personLogin);
-			System.out.println(principal);
+			String gamerIdAsString = principal.getName();
+			Long gamerId = Long.parseLong(gamerIdAsString);
+			GamerPrivateResponseDto gamerPrivateInfo = gamerService.getGamerPrivateInfo(gamerId);
+			System.out.println(gamerPrivateInfo);
 
 			return new ResponseEntity<>("person", HttpStatus.OK);
 		}
