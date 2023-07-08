@@ -14,10 +14,18 @@ export function LoggedInGuard({ children }: PropsWithChildren) {
   if (isSuccess) {
     content = children;
   } else if (isError) {
-    console.log(error);
-    content = <div>generic error page</div>;
-    // content = <NotLoggedInErrorPage />;
-    // content = <div>not logged in page</div>;
+    if ("status" in error) {
+      if (error.status === 401) {
+        // content = <NotLoggedInErrorPage />;
+        content = (
+          <div className="flex items-center justify-center">
+            not logged in page
+          </div>
+        );
+      }
+    } else {
+      content = <div>generic error page</div>;
+    }
   }
 
   return <>{content}</>;
