@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import { useErrorSnackbarWithMessage } from "../hooks/sharedHooks";
 
 export function MoveIfLoggedInGuard({ children }: PropsWithChildren) {
-  const { isSuccess, isError, error } = useGetMyDataQuery();
+  const { isSuccess, isError } = useGetMyDataQuery();
   let content: ReactNode = (
     <div className="flex h-screen w-screen items-center justify-center bg-o-1">
       <CircularProgress size={90} />

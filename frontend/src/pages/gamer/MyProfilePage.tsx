@@ -28,6 +28,7 @@ export function MyProfilePage() {
           enqueueSnackbar("Logged out successfully", {
             variant: "success",
           });
+          navigate("/");
         } else {
           enqueueSnackbar(
             "Something went wrong on the server while trying to log out",
@@ -48,6 +49,7 @@ export function MyProfilePage() {
   }
 
   //TODO na refreshuy jest animacja poprawic to albo jakos inaczej zrobic animacje
+  //TODO w lewo ten guzik co otwiera menu
   return (
     <div className="flex h-screen w-screen">
       <Slide direction="right" in={open} mountOnEnter unmountOnExit>
