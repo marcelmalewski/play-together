@@ -4,8 +4,13 @@ import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPublicResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,16 +45,20 @@ public class GamerController {
 
 	@GetMapping(value = "/gamers/@me")
 	@Operation(summary = "Get private info about an authenticated gamer")
-	public ResponseEntity<String> getGamer(Principal principal) {
+	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
+	                                                        HttpServletResponse response) {
+		//TODO co jak zalogowany do konta ktore nie istnieje, dodać try catch obsługe gdy get gamer wywali wyjątek
 		if (principal != null) {
 			String gamerIdAsString = principal.getName();
 			Long gamerId = Long.parseLong(gamerIdAsString);
 			GamerPrivateResponseDto gamerPrivateInfo = gamerService.getGamerPrivateInfo(gamerId);
-			System.out.println(gamerPrivateInfo);
 
-			return new ResponseEntity<>("person", HttpStatus.OK);
+			return new ResponseEntity<>(gamerPrivateInfo, HttpStatus.OK);
 		}
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
+		securityContextLogoutHandler.logout(request, response, auth);
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
 
