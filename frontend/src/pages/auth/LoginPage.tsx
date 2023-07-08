@@ -6,6 +6,7 @@ import { useLoginMutation } from "../../store/apiSlice";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 import { LoginBody, LoginFormValues } from "../../interfaces/authInterfaces";
+import { useEffect } from "react";
 
 export function LoginPage() {
   const [login] = useLoginMutation();
@@ -56,6 +57,13 @@ export function LoginPage() {
 
     formikHelpers.setSubmitting(false);
   }
+
+  useEffect(() => {
+    console.log("yes");
+    enqueueSnackbar("Logging failed", {
+      variant: "error",
+    });
+  }, []);
 
   return (
     <FullScreenFormLayout>
