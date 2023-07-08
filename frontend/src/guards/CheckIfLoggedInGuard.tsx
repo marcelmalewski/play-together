@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import { useSnackbarNotification } from "../hooks/sharedHooks";
 import { ErrorResponse } from "../interfaces/sharedInterfaces";
 
-export function LoggedInGuard({ children }: PropsWithChildren) {
+export function CheckIfLoggedInGuard({ children }: PropsWithChildren) {
   const { data: myData, isSuccess, isError, error } = useGetMyDataQuery();
   let content: ReactNode = (
     <div className="flex h-screen w-screen items-center justify-center bg-o-1">

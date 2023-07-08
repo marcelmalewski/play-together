@@ -2,7 +2,7 @@ import React, { PropsWithChildren, ReactNode } from "react";
 import { CircularProgress } from "@mui/material";
 import { useGetMyDataQuery } from "../store/apiSlice";
 
-export function NotLoggedInGuard({ children }: PropsWithChildren) {
+export function CheckIfNotLoggedInGuard({ children }: PropsWithChildren) {
   const { data: myData, isSuccess, isError, error } = useGetMyDataQuery();
   let content: ReactNode = (
     <div className="flex h-screen w-screen items-center justify-center bg-o-1">
