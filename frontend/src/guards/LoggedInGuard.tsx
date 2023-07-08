@@ -13,14 +13,11 @@ export function LoggedInGuard({ children }: PropsWithChildren) {
     </div>
   );
 
-  //TODO jak backend bedzie zwracac message: https://redux-toolkit.js.org/rtk-query/usage-with-typescript#inline-error-handling-example
-  //TODO przetestowac dzialanie hooka
   if (isSuccess) {
     content = children;
   } else if (isError) {
     if ("status" in error) {
       if (error.status === 401) {
-        //TODO zamienic na message from api
         content = <Navigate replace to="/" />;
       }
     } else {
