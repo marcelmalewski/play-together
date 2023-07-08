@@ -10,19 +10,15 @@ export function LoggedInGuard({ children }: PropsWithChildren) {
     </div>
   );
 
-  content = children;
-
-  // if (isSuccess) {
-  //   console.log(myData);
-  //   if (myData === null) {
-  //     // content = <NotLoggedInErrorPage />;
-  //     content = <div>not logged in page</div>;
-  //   } else {
-  //     content = children;
-  //   }
-  // } else if (isError) {
-  //   content = <div>generic error page</div>;
-  // }
+  //TODO https://redux-toolkit.js.org/rtk-query/usage-with-typescript#inline-error-handling-example
+  if (isSuccess) {
+    content = children;
+  } else if (isError) {
+    console.log(error);
+    content = <div>generic error page</div>;
+    // content = <NotLoggedInErrorPage />;
+    // content = <div>not logged in page</div>;
+  }
 
   return <>{content}</>;
 }
