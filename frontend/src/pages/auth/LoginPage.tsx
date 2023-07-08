@@ -2,14 +2,16 @@ import { Form, Formik, FormikHelpers, FormikValues } from "formik";
 import * as Yup from "yup";
 import { FormikInput } from "../../components/formik/FormikInput";
 import { FullScreenFormLayout } from "../../layouts/FullScreenFormLayout";
-import { useLoginMutation } from "../../store/apiSlice";
+import { apiSlice, useLoginMutation } from "../../store/apiSlice";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 import { LoginBody, LoginFormValues } from "../../interfaces/authInterfaces";
+import { useAppDispatch } from "../../store/storeHooks";
 
 export function LoginPage() {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const initialValues: LoginFormValues = {
     loginOrEmail: "",
     password: "",
@@ -39,10 +41,10 @@ export function LoginPage() {
     login(loginBodyAsString)
       .unwrap()
       .then(() => {
+        dispatch(apiSlice.util.resetApiState());
         enqueueSnackbar("Logged in successfully", {
           variant: "success",
         });
-        console.log("nawigacja po logowanie");
         navigate(`/my-profile`);
       })
       .catch((error) => {
