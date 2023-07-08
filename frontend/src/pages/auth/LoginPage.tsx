@@ -36,17 +36,16 @@ export function LoginPage() {
       )
       .join("&");
 
-    //TODO co jak wejdzie pobieranie my data
     login(loginBodyAsString)
       .unwrap()
       .then(() => {
         enqueueSnackbar("Logged in successfully", {
           variant: "success",
         });
+        console.log("nawigacja po logowanie");
         navigate(`/my-profile`);
       })
       .catch((error) => {
-        console.log(error);
         enqueueSnackbar("Logging failed", {
           variant: "error",
         });

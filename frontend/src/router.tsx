@@ -3,8 +3,8 @@ import { LoginPage } from "./pages/auth/LoginPage";
 import { RegisterPage } from "./pages/auth/RegisterPage";
 import { WelcomePage } from "./pages/welcome/WelcomePage";
 import { MyProfilePage } from "./pages/gamer/MyProfilePage";
-import { CheckIfLoggedInGuard } from "./guards/CheckIfLoggedInGuard";
-import { CheckIfNotLoggedInGuard } from "./guards/CheckIfNotLoggedInGuard";
+import { MoveIfNotLoggedInGuard } from "./guards/MoveIfNotLoggedInGuard";
+import { MoveIfLoggedInGuard } from "./guards/MoveIfLoggedInGuard";
 
 export const router = createBrowserRouter([
   {
@@ -14,33 +14,33 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <CheckIfNotLoggedInGuard>
+      <MoveIfLoggedInGuard>
         <WelcomePage />
-      </CheckIfNotLoggedInGuard>
+      </MoveIfLoggedInGuard>
     ),
   },
   {
     path: "login",
     element: (
-      <CheckIfNotLoggedInGuard>
+      <MoveIfLoggedInGuard>
         <LoginPage />
-      </CheckIfNotLoggedInGuard>
+      </MoveIfLoggedInGuard>
     ),
   },
   {
     path: "register",
     element: (
-      <CheckIfNotLoggedInGuard>
+      <MoveIfLoggedInGuard>
         <RegisterPage />
-      </CheckIfNotLoggedInGuard>
+      </MoveIfLoggedInGuard>
     ),
   },
   {
     path: "my-profile",
     element: (
-      <CheckIfLoggedInGuard>
+      <MoveIfNotLoggedInGuard>
         <MyProfilePage />
-      </CheckIfLoggedInGuard>
+      </MoveIfNotLoggedInGuard>
     ),
   },
 ]);

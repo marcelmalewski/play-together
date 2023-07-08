@@ -4,7 +4,7 @@ import { useGetMyDataQuery } from "../store/apiSlice";
 import { Navigate } from "react-router-dom";
 import { useErrorSnackbarWithError } from "../hooks/sharedHooks";
 
-export function CheckIfLoggedInGuard({ children }: PropsWithChildren) {
+export function MoveIfNotLoggedInGuard({ children }: PropsWithChildren) {
   const { isSuccess, isError, error } = useGetMyDataQuery();
   let content: ReactNode = (
     <div className="flex h-screen w-screen items-center justify-center bg-o-1">
@@ -15,6 +15,8 @@ export function CheckIfLoggedInGuard({ children }: PropsWithChildren) {
   if (isSuccess) {
     content = children;
   } else if (isError) {
+    console.log("nie zalogowany w my profile");
+
     if ("status" in error) {
       if (error.status === 401) {
         content = <Navigate replace to="/" />;
