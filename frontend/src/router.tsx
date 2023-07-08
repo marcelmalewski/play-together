@@ -3,7 +3,8 @@ import { LoginPage } from "./pages/auth/LoginPage";
 import { RegisterPage } from "./pages/auth/RegisterPage";
 import { WelcomePage } from "./pages/welcome/WelcomePage";
 import { MyProfilePage } from "./pages/gamer/MyProfilePage";
-import { LoginGuard } from "./guards/LoginGuard";
+import { LoggedInGuard } from "./guards/LoggedInGuard";
+import { NotLoggedInGuard } from "./guards/NotLoggedInGuard";
 
 export const router = createBrowserRouter([
   {
@@ -12,16 +13,34 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <WelcomePage />,
+    element: (
+      <NotLoggedInGuard>
+        <WelcomePage />
+      </NotLoggedInGuard>
+    ),
   },
-  { path: "login", element: <LoginPage /> },
-  { path: "register", element: <RegisterPage /> },
+  {
+    path: "login",
+    element: (
+      <NotLoggedInGuard>
+        <LoginPage />
+      </NotLoggedInGuard>
+    ),
+  },
+  {
+    path: "register",
+    element: (
+      <NotLoggedInGuard>
+        <RegisterPage />
+      </NotLoggedInGuard>
+    ),
+  },
   {
     path: "my-profile",
     element: (
-      <LoginGuard>
+      <LoggedInGuard>
         <MyProfilePage />
-      </LoginGuard>
+      </LoggedInGuard>
     ),
   },
 ]);
