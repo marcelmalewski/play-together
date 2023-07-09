@@ -1,6 +1,5 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
-import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.gamer.dto;
+package com.marcel.malewski.playtogetherapi.auth.register;
 
 import com.marcel.malewski.playtogetherapi.validation.ValidatePlayingTime;
 import jakarta.validation.constraints.Email;
@@ -12,6 +12,7 @@ import java.util.List;
 
 //TODO jakies wieksze wymagania co do hasla
 //TODO dodac walidacje platforms size
+//TODO dodac messages
 @ValidatePlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = 3, max = 20)
