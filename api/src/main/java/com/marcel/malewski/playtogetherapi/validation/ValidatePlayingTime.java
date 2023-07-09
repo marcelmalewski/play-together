@@ -5,13 +5,12 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-//TODO poprawić wiadomość
 @Documented
 @Constraint(validatedBy = PlayingTimeValidator.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidatePlayingTime {
-	String message() default "Start time should be before end time.";
+	String message() default "Start time must be earlier than end time.";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }
