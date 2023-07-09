@@ -1,6 +1,7 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
 import com.marcel.malewski.playtogetherapi.gamer.dto.GamerRegisterRequestDto;
+import com.marcel.malewski.playtogetherapi.gamer.exceptions.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleEnum;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -8,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-//TODO ewentualnie pojsc w auth controller
 @RestController
 @Tag(
 	name = "Registration",
@@ -22,12 +21,12 @@ public class RegisterController {
 		this.registerService = registerService;
 	}
 
-	//TODO dostep ma niezalogowana osoba i kazdy
 	@PostMapping(value="/auth/gamers/register")
 	public void registerUser(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto) {
 		//TODO dodac jezeli principal nie jest nullem to nie moze dokonac rejestracji
 		String gamerRole = GamerRoleEnum.USER.name();
-		this.registerService.register(gamerRegisterRequestDto, gamerRole);
+		throw new GamerNotFoundException(12L);
+//		this.registerService.register(gamerRegisterRequestDto, gamerRole);
 	}
 
 	//TODO dostep ma tylko inny moderator
