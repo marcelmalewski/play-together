@@ -15,8 +15,6 @@ export function MoveIfNotLoggedInGuard({ children }: PropsWithChildren) {
   if (isSuccess) {
     content = children;
   } else if (isError) {
-    console.log("nie zalogowany w my profile");
-
     if ("status" in error) {
       if (error.status === 401) {
         content = <Navigate replace to="/" />;

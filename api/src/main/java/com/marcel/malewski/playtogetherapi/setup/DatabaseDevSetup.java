@@ -18,13 +18,13 @@ import java.time.LocalTime;
 
 @Profile("dev")
 @Component
-public class SetupDatabase implements CommandLineRunner {
+public class DatabaseDevSetup implements CommandLineRunner {
 	private final GamerRepository gamerRepository;
 	private final GamerRoleRepository gamerRoleRepository;
 	private final PlatformRepository platformRepository;
 	private final PasswordEncoder passwordEncoder;
 
-	public SetupDatabase(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
+	public DatabaseDevSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.gamerRoleRepository = gamerRoleRepository;
 		this.platformRepository = platformRepository;

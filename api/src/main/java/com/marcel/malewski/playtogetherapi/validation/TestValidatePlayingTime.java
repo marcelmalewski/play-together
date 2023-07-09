@@ -14,6 +14,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO sprawdzić jak to działa
+//TODO przenieść gdzie?
 public class TestValidatePlayingTime {
 	@Test
 	public void testValidatePlayingTime() {
