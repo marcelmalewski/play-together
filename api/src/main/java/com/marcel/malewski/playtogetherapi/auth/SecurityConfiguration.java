@@ -30,7 +30,7 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests()
 			.requestMatchers(
 				"/",
-				"/auth/register",
+				"/auth/gamers/register",
 				"/platforms",
 				"/gamers",
 				"/docs",
