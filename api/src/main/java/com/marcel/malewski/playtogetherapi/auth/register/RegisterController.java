@@ -25,7 +25,6 @@ public class RegisterController {
 	public void registerUser(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto) {
 		//TODO dodac jezeli principal nie jest nullem to nie moze dokonac rejestracji
 		String gamerRole = GamerRoleEnum.USER.name();
-		System.out.println("yes");
 		throw new GamerNotFoundException(12L);
 //		this.registerService.register(gamerRegisterRequestDto, gamerRole);
 	}

@@ -33,6 +33,7 @@ public class SecurityConfiguration {
 				"/auth/gamers/register",
 				"/platforms",
 				"/gamers",
+				"/error",
 				"/docs",
 				"/v2/api-docs/**",
 				"/v3/api-docs/**",

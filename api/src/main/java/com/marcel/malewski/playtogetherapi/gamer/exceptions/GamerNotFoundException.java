@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class GamerNotFoundException extends RuntimeException {
 	public GamerNotFoundException(Long id) {
-		super("Gamer with give id not found");
+		super("Gamer not found exception");
 	}
 }
