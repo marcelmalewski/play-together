@@ -10,9 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-//TODO jakies wieksze wymagania co do hasla
-//TODO dodac walidacje platforms size
-//TODO dodac messages
+//TODO dodać jakies wieksze wymagania co do hasla
+//TODO dodac walidacje platforms size i message
 @ValidatePlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = 3, max = 20)

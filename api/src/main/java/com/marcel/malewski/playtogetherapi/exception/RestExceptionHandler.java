@@ -22,7 +22,8 @@ public class RestExceptionHandler {
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ExceptionResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
-		System.out.println(methodArgumentNotValidException);
+		System.out.println(methodArgumentNotValidException.getBindingResult().getGlobalErrors());
+		System.out.println(methodArgumentNotValidException.getBindingResult().getFieldErrors());
 		ExceptionResponse exceptionResponse = new ExceptionResponse("method validation");
 		return exceptionResponse;
 	}

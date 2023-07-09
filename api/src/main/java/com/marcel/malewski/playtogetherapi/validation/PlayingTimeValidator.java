@@ -15,11 +15,6 @@ public class PlayingTimeValidator implements ConstraintValidator<ValidatePlaying
 		LocalTime playingTimeStart = requestDto.playingTimeStart();
 		LocalTime playingTimeEnd = requestDto.playingTimeEnd();
 
-		// Perform the validation
-		if (playingTimeStart != null && playingTimeEnd != null) {
-			return playingTimeEnd.isAfter(playingTimeStart);
-		}
-
-		return true;
+		return playingTimeEnd.isAfter(playingTimeStart);
 	}
 }
