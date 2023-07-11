@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.List;
-
 //TODO dodać tutaj logowanie tych exceptionow jako warningi
 @RestControllerAdvice
 public class RestExceptionHandler {
@@ -26,7 +24,7 @@ public class RestExceptionHandler {
 	public ExceptionResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
 		System.out.println(methodArgumentNotValidException.getBindingResult().getGlobalErrors());
 		System.out.println(methodArgumentNotValidException.getBindingResult().getFieldErrors());
-		List<String> globalErrorsMessages = new
+//		List<String> globalErrorsMessages = new
 		String exceptionMessage = "";
 
 		ExceptionResponse exceptionResponse = new ExceptionResponse("method validation");
