@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.platform;
+package com.marcel.malewski.playtogetherapi.entity.platform;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

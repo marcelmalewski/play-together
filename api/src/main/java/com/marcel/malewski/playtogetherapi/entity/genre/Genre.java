@@ -1,6 +1,6 @@
-package com.marcel.malewski.playtogetherapi.genre;
+package com.marcel.malewski.playtogetherapi.entity.genre;
 
-import com.marcel.malewski.playtogetherapi.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

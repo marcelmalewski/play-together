@@ -1,8 +1,8 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
-import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
-import com.marcel.malewski.playtogetherapi.platform.PlatformRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
+import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

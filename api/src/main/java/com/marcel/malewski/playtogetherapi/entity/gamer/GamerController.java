@@ -1,7 +1,7 @@
-package com.marcel.malewski.playtogetherapi.gamer;
+package com.marcel.malewski.playtogetherapi.entity.gamer;
 
-import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
-import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;

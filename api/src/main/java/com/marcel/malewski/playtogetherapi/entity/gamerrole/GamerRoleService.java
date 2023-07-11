@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.gamerrole;
+package com.marcel.malewski.playtogetherapi.entity.gamerrole;
 
 import org.springframework.stereotype.Service;
 

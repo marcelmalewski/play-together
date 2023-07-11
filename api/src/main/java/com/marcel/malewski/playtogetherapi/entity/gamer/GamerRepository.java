@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.gamer;
+package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

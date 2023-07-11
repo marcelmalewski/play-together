@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.gamer.dto;
+package com.marcel.malewski.playtogetherapi.entity.gamer.dto;
 
 import java.time.LocalTime;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.auth;
 
-import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

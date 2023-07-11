@@ -1,10 +1,10 @@
-package com.marcel.malewski.playtogetherapi.gamer;
+package com.marcel.malewski.playtogetherapi.entity.gamer;
 
-import com.marcel.malewski.playtogetherapi.game.Game;
-import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
-import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPublicResponseDto;
-import com.marcel.malewski.playtogetherapi.genre.Genre;
-import com.marcel.malewski.playtogetherapi.platform.Platform;
+import com.marcel.malewski.playtogetherapi.entity.game.Game;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
+import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDate;

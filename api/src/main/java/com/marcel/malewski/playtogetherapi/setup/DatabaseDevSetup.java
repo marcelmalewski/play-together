@@ -1,11 +1,11 @@
 package com.marcel.malewski.playtogetherapi.setup;
 
-import com.marcel.malewski.playtogetherapi.gamer.Gamer;
-import com.marcel.malewski.playtogetherapi.gamer.GamerRepository;
-import com.marcel.malewski.playtogetherapi.gamerrole.GamerRoleRepository;
-import com.marcel.malewski.playtogetherapi.platform.Platform;
-import com.marcel.malewski.playtogetherapi.platform.PlatformEnum;
-import com.marcel.malewski.playtogetherapi.platform.PlatformRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
+import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
+import com.marcel.malewski.playtogetherapi.entity.platform.PlatformEnum;
+import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;

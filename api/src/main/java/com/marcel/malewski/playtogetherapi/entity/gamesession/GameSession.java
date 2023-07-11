@@ -1,9 +1,9 @@
-package com.marcel.malewski.playtogetherapi.gamesession;
+package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
+import com.marcel.malewski.playtogetherapi.entity.game.Game;
+import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.enums.PrivacyLevelEnum;
-import com.marcel.malewski.playtogetherapi.game.Game;
-import com.marcel.malewski.playtogetherapi.gamer.Gamer;
-import com.marcel.malewski.playtogetherapi.platform.Platform;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

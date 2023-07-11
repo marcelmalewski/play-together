@@ -1,7 +1,7 @@
-package com.marcel.malewski.playtogetherapi.gamer;
+package com.marcel.malewski.playtogetherapi.entity.gamer;
 
-import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPrivateResponseDto;
-import com.marcel.malewski.playtogetherapi.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

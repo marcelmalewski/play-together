@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.platform;
+package com.marcel.malewski.playtogetherapi.entity.platform;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.gamer.exceptions;
+package com.marcel.malewski.playtogetherapi.entity.gamer.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

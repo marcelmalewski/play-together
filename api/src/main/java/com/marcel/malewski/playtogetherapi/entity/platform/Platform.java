@@ -1,8 +1,8 @@
-package com.marcel.malewski.playtogetherapi.platform;
+package com.marcel.malewski.playtogetherapi.entity.platform;
 //TODO moze ten enum nie jest potrzebny
 
-import com.marcel.malewski.playtogetherapi.gamer.Gamer;
-import com.marcel.malewski.playtogetherapi.gamesession.GameSession;
+import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
