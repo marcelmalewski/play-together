@@ -38,6 +38,7 @@ public class RegisterService {
 //		);
 //
 //		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
+//    // TODO dodac sprawdzanie czy rola istnieje
 //		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(
 //			gamerRole
 //		);
