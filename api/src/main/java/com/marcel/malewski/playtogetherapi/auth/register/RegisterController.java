@@ -19,6 +19,7 @@ public class RegisterController {
 		this.registerService = registerService;
 	}
 
+	//TODO dostęp ma niezalogowana osoba
 	@PostMapping(value="/auth/gamers/register")
 	public void registerUser(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto) {
 		//TODO dodac jezeli principal nie jest nullem to nie moze dokonac rejestracji
