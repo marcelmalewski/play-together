@@ -8,9 +8,9 @@ import java.time.LocalTime;
 
 public class PlayingTimeValidator implements ConstraintValidator<ValidatePlayingTime, GamerRegisterRequestDto> {
 	@Override
-	public boolean isValid(GamerRegisterRequestDto requestDto, ConstraintValidatorContext context) {
-		LocalTime playingTimeStart = requestDto.playingTimeStart();
-		LocalTime playingTimeEnd = requestDto.playingTimeEnd();
+	public boolean isValid(GamerRegisterRequestDto gamerRegisterRequestDto, ConstraintValidatorContext context) {
+		LocalTime playingTimeStart = gamerRegisterRequestDto.playingTimeStart();
+		LocalTime playingTimeEnd = gamerRegisterRequestDto.playingTimeEnd();
 
 		return playingTimeEnd.isAfter(playingTimeStart);
 	}

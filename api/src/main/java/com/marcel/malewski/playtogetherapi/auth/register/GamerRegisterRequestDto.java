@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+//TODO przerobic na zwykla klase i konstruktor gdzie daty to najpierw stringi
 //TODO dodać jakies wieksze wymagania co do hasla
 //TODO customowa walidacja formatu dat
 @ValidatePlayingTime
@@ -22,6 +23,7 @@ public record GamerRegisterRequestDto(
 	@NotNull
 	String password,
 	@Email
+	@NotNull
 	String email,
 	@PastOrPresent
 	LocalDate birthDate,
