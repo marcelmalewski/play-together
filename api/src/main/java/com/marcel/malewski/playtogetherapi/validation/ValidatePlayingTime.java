@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidatePlayingTime {
-	String message() default "Start time must be earlier than end time.";
+	String message() default "start time must be earlier than end time";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }

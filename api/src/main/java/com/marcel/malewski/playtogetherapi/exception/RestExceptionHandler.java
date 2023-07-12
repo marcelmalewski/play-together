@@ -28,11 +28,11 @@ public class RestExceptionHandler {
 		List<String> globalErrorMessages = methodArgumentNotValidException.getBindingResult().getGlobalErrors().stream().map(globalError ->
 			globalError.getObjectName() + ": " + globalError.getDefaultMessage()
 		).toList();
-		List<String> fieldErrorMessages = methodArgumentNotValidException.getBindingResult().getFieldErrors().stream().map(globalError ->
-			globalError.getObjectName() + ": " + globalError.getDefaultMessage()
+		List<String> fieldErrorMessages = methodArgumentNotValidException.getBindingResult().getFieldErrors().stream().map(fieldError ->
+			fieldError.getField() + ": " + fieldError.getDefaultMessage()
 		).toList();
 
-		String allErrorMessages = String.join(";", globalErrorMessages) + String.join(";", fieldErrorMessages);
+		String allErrorMessages = String.join("; ", globalErrorMessages) + "; " + String.join("; ", fieldErrorMessages);
 		return new ExceptionResponse(allErrorMessages);
 	}
 }
