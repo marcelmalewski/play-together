@@ -14,12 +14,14 @@ import java.util.List;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
-	//TODO dlaczego trzeba to obsłużyć to constraintViolationException
+	//TODO dlaczego trzeba to obsłużyć to constraintViolationException i co wywołyje taki wyjątek
 	@ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ExceptionResponse handleConstraintViolation(ConstraintViolationException constraintViolationException) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse("yes");
-		return exceptionResponse;
+		List<String> constraintViolations = constraintViolationException.getConstraintViolations().stream().map(constraintViolation ->
+			constraintViolation.getPropertyPath() + ": " + constraintViolation.getMessage()
+		).toList();
+		return new ExceptionResponse(String.join(",", constraintViolations));
 	}
 
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
