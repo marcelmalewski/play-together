@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.List;
+
 //TODO dodać tutaj logowanie tych exceptionow jako warningi
+//TODO dodać logowanie jak string.formatowanie sie wywali
 @RestControllerAdvice
 public class RestExceptionHandler {
 
@@ -22,12 +25,14 @@ public class RestExceptionHandler {
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ExceptionResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
-		System.out.println(methodArgumentNotValidException.getBindingResult().getGlobalErrors());
-		System.out.println(methodArgumentNotValidException.getBindingResult().getFieldErrors());
-//		List<String> globalErrorsMessages = new
-		String exceptionMessage = "";
+		List<String> globalErrorMessages = methodArgumentNotValidException.getBindingResult().getGlobalErrors().stream().map(globalError ->
+			globalError.getObjectName() + ": " + globalError.getDefaultMessage()
+		).toList();
+		List<String> fieldErrorMessages = methodArgumentNotValidException.getBindingResult().getFieldErrors().stream().map(globalError ->
+			globalError.getObjectName() + ": " + globalError.getDefaultMessage()
+		).toList();
 
-		ExceptionResponse exceptionResponse = new ExceptionResponse("method validation");
-		return exceptionResponse;
+		String allErrorMessages = String.join(";", globalErrorMessages) + String.join(";", fieldErrorMessages);
+		return new ExceptionResponse(allErrorMessages);
 	}
 }
