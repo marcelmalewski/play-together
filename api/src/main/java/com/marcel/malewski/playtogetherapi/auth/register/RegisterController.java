@@ -33,7 +33,7 @@ public class RegisterController {
 		this.registerService.register(gamerRegisterRequestDto, gamerRole);
 	}
 
-	//TODO dodać jeszcze, że może to zrobić tylko moderator
+	//TODO dodać jeszcze, że może to zrobić tylko zalogowany moderator
 	@PostMapping(value="/auth/moderators/register")
 	public void registerModerator(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto, Principal principal) {
 		if(principal == null) {
