@@ -34,6 +34,7 @@ public class RestExceptionHandler {
 			fieldError.getField() + ": " + fieldError.getDefaultMessage()
 		).toList();
 
+		//TODO co jak globalErrorMessages jest puste wtedy jest ";" na początku zdania niezbyt dobre
 		String allErrorMessages = String.join("; ", globalErrorMessages) + "; " + String.join("; ", fieldErrorMessages);
 		return new ExceptionResponse(allErrorMessages);
 	}
