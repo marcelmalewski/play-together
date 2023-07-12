@@ -15,7 +15,6 @@ import java.util.List;
 //TODO dodać jakies wieksze wymagania co do hasla
 //TODO zeby nadpisac walidacje dat potrzebuje zwyklej klasy ktora przyjmuje string w konstruktorze i patrzy czy to poprawne daty i je parsuje
 // chyba wtedy muzse dodac reczną walidacje wszystkiego
-//TODO czemu nie działa walidacja loginu?
 //TODO notnull nie pomaga tym datom trzeba ja jakos inaczej obsluzyc
 @ValidatePlayingTime
 public record GamerRegisterRequestDto(
