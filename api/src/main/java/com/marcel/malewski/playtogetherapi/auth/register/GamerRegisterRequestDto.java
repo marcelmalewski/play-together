@@ -1,14 +1,12 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
 import com.marcel.malewski.playtogetherapi.validation.ValidatePlayingTime;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.UniqueElements;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 //TODO przerobic na zwykla klase i konstruktor gdzie daty to najpierw stringi
@@ -27,11 +25,13 @@ public record GamerRegisterRequestDto(
 	@Email
 	@NotNull
 	String email,
-	@PastOrPresent
+//	@PastOrPresent
+//	@NotNull
+	@Schema(name = "birthDate", example = "2000-02-02", format = "YYYY-MM-DD")
 	@NotNull
-	LocalDate birthDate,
-	LocalTime playingTimeStart,
-	LocalTime playingTimeEnd,
+	String birthDate,
+	String playingTimeStart,
+	String playingTimeEnd,
 	@Size(min = 1, message = "you have to add at least one platform")
 	@NotNull
 	@UniqueElements(message = "must only contain unique platforms")

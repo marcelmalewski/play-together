@@ -4,14 +4,13 @@ import com.marcel.malewski.playtogetherapi.auth.register.GamerRegisterRequestDto
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-import java.time.LocalTime;
-
 public class PlayingTimeValidator implements ConstraintValidator<ValidatePlayingTime, GamerRegisterRequestDto> {
 	@Override
 	public boolean isValid(GamerRegisterRequestDto gamerRegisterRequestDto, ConstraintValidatorContext context) {
-		LocalTime playingTimeStart = gamerRegisterRequestDto.playingTimeStart();
-		LocalTime playingTimeEnd = gamerRegisterRequestDto.playingTimeEnd();
-
-		return playingTimeEnd.isAfter(playingTimeStart);
+//		LocalTime playingTimeStart = gamerRegisterRequestDto.playingTimeStart();
+//		LocalTime playingTimeEnd = gamerRegisterRequestDto.playingTimeEnd();
+//
+//		return playingTimeEnd.isAfter(playingTimeStart);
+		return true;
 	}
 }

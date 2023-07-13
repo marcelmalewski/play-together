@@ -7,8 +7,6 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,9 +23,9 @@ public class TestValidatePlayingTime {
 			"username",
 			"test1234534563456",
 			"yes@yes.com",
-			LocalDate.now(),
-			LocalTime.of(19, 0),
-			LocalTime.of(10, 0),
+			"LocalDate.now()",
+			"LocalTime.of(19, 0)",
+			"LocalTime.of(10, 0)",
 			null
 //			List.of(PlatformEnum.PC)
 		);
