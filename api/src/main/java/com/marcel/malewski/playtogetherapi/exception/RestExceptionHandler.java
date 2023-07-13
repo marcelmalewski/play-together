@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.exception;
 
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,6 +22,7 @@ public class RestExceptionHandler {
 		List<String> constraintViolations = constraintViolationException.getConstraintViolations().stream().map(constraintViolation ->
 			constraintViolation.getPropertyPath() + ": " + constraintViolation.getMessage()
 		).toList();
+
 		return new ExceptionResponse(String.join(",", constraintViolations));
 	}
 
@@ -34,8 +36,17 @@ public class RestExceptionHandler {
 			fieldError.getField() + ": " + fieldError.getDefaultMessage()
 		).toList();
 
+		System.out.println("yes");
 		//TODO co jak globalErrorMessages jest puste wtedy jest ";" na początku zdania niezbyt dobre
 		String allErrorMessages = String.join("; ", globalErrorMessages) + "; " + String.join("; ", fieldErrorMessages);
 		return new ExceptionResponse(allErrorMessages);
+	}
+
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ExceptionResponse handleParseException(HttpMessageNotReadableException methodArgumentNotValidException) {
+
+		System.out.println("yes");
+		return new ExceptionResponse("allErrorMessages");
 	}
 }

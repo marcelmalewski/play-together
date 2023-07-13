@@ -51,7 +51,7 @@ public class GamerController {
 		if (principal != null) {
 			String gamerIdAsString = principal.getName();
 			Long gamerId = Long.parseLong(gamerIdAsString);
-			GamerPrivateResponseDto gamerPrivateInfo = gamerService.getGamerPrivateInfo(gamerId);
+			GamerPrivateResponseDto gamerPrivateInfo = this.gamerService.getGamerPrivateInfo(gamerId);
 
 			return new ResponseEntity<>(gamerPrivateInfo, HttpStatus.OK);
 		}
