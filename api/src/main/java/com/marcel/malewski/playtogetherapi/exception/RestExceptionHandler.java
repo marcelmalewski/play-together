@@ -18,8 +18,8 @@ public class RestExceptionHandler {
 	//TODO dlaczego trzeba to obsłużyć to constraintViolationException i co wywołyje taki wyjątek
 	@ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ExceptionResponse handleConstraintViolation(ConstraintViolationException constraintViolationException) {
-		List<String> constraintViolations = constraintViolationException.getConstraintViolations().stream().map(constraintViolation ->
+	public ExceptionResponse handleConstraintViolation(ConstraintViolationException exception) {
+		List<String> constraintViolations = exception.getConstraintViolations().stream().map(constraintViolation ->
 			constraintViolation.getPropertyPath() + ": " + constraintViolation.getMessage()
 		).toList();
 
@@ -28,15 +28,14 @@ public class RestExceptionHandler {
 
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ExceptionResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
-		List<String> globalErrorMessages = methodArgumentNotValidException.getBindingResult().getGlobalErrors().stream().map(globalError ->
+	public ExceptionResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+		List<String> globalErrorMessages = exception.getBindingResult().getGlobalErrors().stream().map(globalError ->
 			globalError.getObjectName() + ": " + globalError.getDefaultMessage()
 		).toList();
-		List<String> fieldErrorMessages = methodArgumentNotValidException.getBindingResult().getFieldErrors().stream().map(fieldError ->
+		List<String> fieldErrorMessages = exception.getBindingResult().getFieldErrors().stream().map(fieldError ->
 			fieldError.getField() + ": " + fieldError.getDefaultMessage()
 		).toList();
 
-		System.out.println("yes");
 		//TODO co jak globalErrorMessages jest puste wtedy jest ";" na początku zdania niezbyt dobre
 		String allErrorMessages = String.join("; ", globalErrorMessages) + "; " + String.join("; ", fieldErrorMessages);
 		return new ExceptionResponse(allErrorMessages);
@@ -44,7 +43,7 @@ public class RestExceptionHandler {
 
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ExceptionResponse handleParseException(HttpMessageNotReadableException methodArgumentNotValidException) {
+	public ExceptionResponse handleParseException(HttpMessageNotReadableException exception) {
 
 		System.out.println("yes");
 		return new ExceptionResponse("allErrorMessages");
