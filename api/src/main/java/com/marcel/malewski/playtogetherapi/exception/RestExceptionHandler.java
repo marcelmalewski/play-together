@@ -2,7 +2,6 @@ package com.marcel.malewski.playtogetherapi.exception;
 
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -39,13 +38,5 @@ public class RestExceptionHandler {
 		//TODO co jak globalErrorMessages jest puste wtedy jest ";" na początku zdania niezbyt dobre
 		String allErrorMessages = String.join("; ", globalErrorMessages) + "; " + String.join("; ", fieldErrorMessages);
 		return new ExceptionResponse(allErrorMessages);
-	}
-
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ExceptionResponse handleParseException(HttpMessageNotReadableException exception) {
-
-		System.out.println("yes");
-		return new ExceptionResponse("allErrorMessages");
 	}
 }
