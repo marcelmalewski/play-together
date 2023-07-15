@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.validation;
+package com.marcel.malewski.playtogetherapi.validation.playingtime;
 
 import com.marcel.malewski.playtogetherapi.auth.register.GamerRegisterRequestDto;
 import jakarta.validation.ConstraintValidator;

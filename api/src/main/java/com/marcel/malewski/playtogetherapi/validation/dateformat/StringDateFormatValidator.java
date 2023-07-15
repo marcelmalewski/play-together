@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-public class DateFormatValidator implements ConstraintValidator<ValidateDateFormat, String> {
+public class StringDateFormatValidator implements ConstraintValidator<ValidateDateFormat, String> {
 	@Override
 	public boolean isValid(String date, ConstraintValidatorContext context) {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withResolverStyle(ResolverStyle.STRICT);
