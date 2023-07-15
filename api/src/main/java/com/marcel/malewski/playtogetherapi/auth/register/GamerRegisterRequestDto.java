@@ -1,7 +1,7 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
-import com.marcel.malewski.playtogetherapi.validation.ValidateStringPastOrPresent;
 import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidateDateFormat;
+import com.marcel.malewski.playtogetherapi.validation.pastorpresent.ValidateStringPastOrPresent;
 import com.marcel.malewski.playtogetherapi.validation.playingtime.ValidatePlayingTime;
 import com.marcel.malewski.playtogetherapi.validation.timeformat.ValidateTimeFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
