@@ -19,7 +19,7 @@ public class PlayingTimeValidator implements ConstraintValidator<ValidatePlaying
 		LocalTime playingTimeStartAsDate;
 		try {
 			playingTimeStartAsDate = LocalTime.parse(playingTimeStart, timeFormatter);
-		} catch (DateTimeParseException exception) {
+		} catch (DateTimeParseException | NullPointerException exception) {
 			return true;
 		}
 
@@ -27,7 +27,7 @@ public class PlayingTimeValidator implements ConstraintValidator<ValidatePlaying
 		LocalTime playingTimeEndAsDate;
 		try {
 			playingTimeEndAsDate = LocalTime.parse(playingTimeEnd, timeFormatter);
-		} catch (DateTimeParseException exception) {
+		} catch (DateTimeParseException | NullPointerException exception) {
 			return true;
 		}
 

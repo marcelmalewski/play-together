@@ -13,9 +13,10 @@ public class StringPastOrPresentValidator implements ConstraintValidator<Validat
 	public boolean isValid(String dateAsString, ConstraintValidatorContext context) {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withResolverStyle(ResolverStyle.STRICT);
 		LocalDate date;
+		System.out.println("Yes");
 		try {
 			date = LocalDate.parse(dateAsString, dateFormatter);
-		} catch (DateTimeParseException exception) {
+		} catch (DateTimeParseException | NullPointerException exception) {
 			return true;
 		}
 
