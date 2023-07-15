@@ -47,6 +47,8 @@ export function RegisterPage() {
     //TODO z time pobrać tylko czas i jako string wyslac
     console.log(values);
     console.log("registerd in");
+    //dodac field error dla playingTime i robic tutaj reczne walidowanie i ez
+    formikHelpers.setFieldError("birthDate", "yes");
     formikHelpers.setSubmitting(false);
   }
 
