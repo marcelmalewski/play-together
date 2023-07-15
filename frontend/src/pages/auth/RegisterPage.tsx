@@ -1,4 +1,4 @@
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikHelpers, FormikValues } from "formik";
 import * as Yup from "yup";
 import { FormikInput } from "../../components/formik/FormikInput";
 import { FullScreenFormLayout } from "../../layouts/FullScreenFormLayout";
@@ -40,8 +40,14 @@ export function RegisterPage() {
       .required("Playing time is required"),
   });
 
-  function tryToRegister() {
+  function tryToRegister(
+    values: FormikValues,
+    formikHelpers: FormikHelpers<RegisterFormValues>
+  ) {
+    //TODO z time pobrać tylko czas i jako string wyslac
+    console.log(values);
     console.log("registerd in");
+    formikHelpers.setSubmitting(false);
   }
 
   //TODO ograniczenie wiekowe i startowa data inna? od birthdate
@@ -81,30 +87,38 @@ export function RegisterPage() {
                 <div className="flex flex-row items-center gap-2">
                   <DatePicker
                     id="playingTimeStart"
-                    selected={formik.values.playingTimeStart}
                     className="block w-full rounded-lg border border-form-border bg-form-bg p-2 placeholder-placeholder focus:outline-none"
                     onChange={(val: any) =>
                       formik.setFieldValue("playingTimeStart", val)
                     }
+                    selected={formik.values.playingTimeStart}
+                    minTime={defaultPlayingTimeStart}
+                    maxTime={formik.values.playingTimeEnd}
+                    excludeTimes={[formik.values.playingTimeEnd]}
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={60}
                     timeCaption="Time"
-                    dateFormat="h:mm aa"
+                    timeFormat="HH:mm"
+                    dateFormat="HH:mm"
                   />
                   <p>-</p>
                   <DatePicker
                     id="playingTimeEnd"
-                    selected={formik.values.playingTimeEnd}
                     className="block w-full rounded-lg border border-form-border bg-form-bg p-2 placeholder-placeholder focus:outline-none"
                     onChange={(val: any) =>
                       formik.setFieldValue("playingTimeEnd", val)
                     }
+                    selected={formik.values.playingTimeEnd}
+                    minTime={formik.values.playingTimeStart}
+                    maxTime={defaultPlayingTimeEnd}
+                    excludeTimes={[formik.values.playingTimeStart]}
                     showTimeSelect
                     showTimeSelectOnly
                     timeIntervals={60}
                     timeCaption="Time"
-                    dateFormat="h:mm aa"
+                    timeFormat="HH:mm"
+                    dateFormat="HH:mm"
                   />
                 </div>
               </div>
@@ -114,7 +128,7 @@ export function RegisterPage() {
               className="mt-8 h-12 w-40 rounded-md bg-base-button text-2xl duration-200 enabled:hover:bg-base-button-hov disabled:cursor-not-allowed disabled:opacity-40"
               disabled={formik.isSubmitting || formik.isValidating}
             >
-              create
+              Create
             </button>
           </Form>
         )}
