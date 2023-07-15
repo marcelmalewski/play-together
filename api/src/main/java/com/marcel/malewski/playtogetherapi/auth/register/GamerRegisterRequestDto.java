@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
+import com.marcel.malewski.playtogetherapi.validation.ValidateDateFormat;
 import com.marcel.malewski.playtogetherapi.validation.ValidatePlayingTime;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
@@ -28,11 +29,14 @@ public record GamerRegisterRequestDto(
 	@Email
 	@NotNull
 	String email,
-//	@PastOrPresent
+
+//	@PastOrPresentString
 	@Schema(example = "2000-02-02", format = "yyyy-MM-dd")
-//	@ValidatePastPresentString
+	@NotNull
+	@ValidateDateFormat
 	String birthDate,
 	@Schema(example = "20:00", format = "HH:mm")
+	@NotNull
 //	@ValidateFormat
 	String playingTimeStart,
 	@Schema(example = "22:00", format = "HH:mm")
