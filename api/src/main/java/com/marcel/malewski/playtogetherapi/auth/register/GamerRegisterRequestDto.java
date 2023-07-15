@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
+import com.marcel.malewski.playtogetherapi.validation.ValidateStringPastOrPresent;
 import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidateDateFormat;
 import com.marcel.malewski.playtogetherapi.validation.playingtime.ValidatePlayingTime;
 import com.marcel.malewski.playtogetherapi.validation.timeformat.ValidateTimeFormat;
@@ -23,10 +24,9 @@ public record GamerRegisterRequestDto(
 	@Email
 	@NotNull
 	String email,
-
-//	@PastOrPresentString
 	@Schema(example = "2000-02-02", format = "yyyy-MM-dd")
 	@ValidateDateFormat
+	@ValidateStringPastOrPresent
 	@NotNull
 	String birthDate,
 	@Schema(example = "20:00", format = "HH:mm")
