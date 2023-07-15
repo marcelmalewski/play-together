@@ -1,7 +1,7 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
-import com.marcel.malewski.playtogetherapi.validation.ValidateDateFormat;
 import com.marcel.malewski.playtogetherapi.validation.ValidatePlayingTime;
+import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidateDateFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -42,8 +42,8 @@ public record GamerRegisterRequestDto(
 	@Schema(example = "22:00", format = "HH:mm")
 	String playingTimeEnd,
 	@Size(min = 1, message = "you have to add at least one platform")
-	@NotNull
 	@UniqueElements(message = "must only contain unique platforms")
+	@NotNull
 	List<Long> platforms
 ) {
 }

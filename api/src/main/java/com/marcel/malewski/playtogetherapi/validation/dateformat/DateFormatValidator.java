@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.validation;
+package com.marcel.malewski.playtogetherapi.validation.dateformat;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
