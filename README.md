@@ -33,6 +33,7 @@ SPRING_PROFILES_ACTIVE=dev
    
 ## Start local backend
 1. clean build with gradle (poprawić) dać komende
+2. bootRun + env variables
 
 ## Start backend with docker images
 1. command: `./gradlew build`
