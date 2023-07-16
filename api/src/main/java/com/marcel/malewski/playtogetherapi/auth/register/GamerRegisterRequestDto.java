@@ -12,7 +12,8 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.List;
 
-//TODO dodać jakies wieksze wymagania co do hasla
+//TODO dodać jakies wieksze wymagania co do hasla api/front
+//TODO dodać wymagania co do wieku api/front i wtedy data startowa na front to nie today tylko ten minmalny wiek
 @ValidatePlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = 3, max = 20)
