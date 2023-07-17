@@ -6,14 +6,14 @@ import {
   FormikValues,
 } from "formik";
 import * as Yup from "yup";
-import { FormikInput } from "../../components/formik/FormikInput";
-import { FullScreenFormLayout } from "../../layouts/FullScreenFormLayout";
-import { FormikDatePicker } from "../../components/formik/FormikDatePicker";
+import {FormikInput} from "../../components/formik/FormikInput";
+import {FullScreenFormLayout} from "../../layouts/FullScreenFormLayout";
+import {FormikDatePicker} from "../../components/formik/FormikDatePicker";
 import React from "react";
 // @ts-ignore
 import DatePicker from "react-datepicker";
-import { RegisterFormValues } from "../../interfaces/authInterfaces";
-import { FormikTextError } from "../../components/formik/FormikTextError";
+import {RegisterFormValues} from "../../interfaces/authInterfaces";
+import {FormikTextError} from "../../components/formik/FormikTextError";
 
 export function RegisterPage() {
   const defaultPlayingTimeStart = new Date();
@@ -22,15 +22,19 @@ export function RegisterPage() {
   const defaultPlayingTimeEnd = new Date();
   defaultPlayingTimeEnd.setHours(23);
   defaultPlayingTimeEnd.setMinutes(59);
+  const today = new Date();
+  const minAge = 15;
+  const minBirthDate = subtractYears(today, minAge)
 
   const initialValues: RegisterFormValues = {
     login: "",
     password: "",
     email: "",
-    birthDate: new Date(),
+    birthDate: minBirthDate,
     playingTimeStart: defaultPlayingTimeStart,
     playingTimeEnd: defaultPlayingTimeEnd,
   };
+
   const registerSchema = Yup.object().shape({
     login: Yup.string().min(3).max(20).required("login is required"),
     //TODO do testow wymagania hasla obnizone z min 8
@@ -40,17 +44,26 @@ export function RegisterPage() {
     birthDate: Yup.date()
       .typeError("birth date is required")
       .required("birth date is required")
-      .max(new Date(), "birth date can't be in future"),
+      .max(minBirthDate, "minimum age is 15 years"),
     playingTimeStart: Yup.date()
       .typeError("playing time is required")
-      .required("playing time is required"),
+      .required("playing time is required")
+      .test("start time is before end time", "start time must be before end time", (value, ctx) => {
+        return value > ctx.parent.playingTimeStart;
+      }),
     playingTimeEnd: Yup.date()
       .typeError("playing time is required")
       .required("playing time is required")
-      .test("end is after start", "must be after", (value, ctx) => {
+      .test("end time is after start time", "end time must be after start time", (value, ctx) => {
         return value > ctx.parent.playingTimeStart;
       }),
   });
+
+  function subtractYears(date: Date, years: number) {
+    const result = new Date(date);
+    result.setFullYear(date.getFullYear() - years);
+    return result;
+  }
 
   function tryToRegister(
     values: FormikValues,
@@ -103,18 +116,12 @@ export function RegisterPage() {
                   <DatePicker
                     id="playingTimeStart"
                     className="block w-full rounded-lg border border-form-border bg-form-bg p-2 placeholder-placeholder focus:outline-none"
-                    onChange={(newPlayingStartTime: any) => {
-                      if (newPlayingStartTime < formik.values.playingTimeEnd) {
-                        formik.setFieldValue(
-                          "playingTimeStart",
-                          newPlayingStartTime
-                        );
-                      }
+                    onChange={(newPlayingStartTime: any) =>
                       formik.setFieldValue(
                         "playingTimeStart",
                         newPlayingStartTime
-                      );
-                    }}
+                      )
+                    }
                     selected={formik.values.playingTimeStart}
                     minTime={defaultPlayingTimeStart}
                     maxTime={formik.values.playingTimeEnd}
@@ -130,15 +137,9 @@ export function RegisterPage() {
                   <DatePicker
                     id="playingTimeEnd"
                     className="block w-full rounded-lg border border-form-border bg-form-bg p-2 placeholder-placeholder focus:outline-none"
-                    onChange={(newPlayingEndTime: Date) => {
-                      if (newPlayingEndTime > formik.values.playingTimeStart) {
-                        formik.setFieldValue(
-                          "playingTimeEnd",
-                          newPlayingEndTime
-                        );
-                      }
-                      formik.setFieldValue("playingTimeEnd", newPlayingEndTime);
-                    }}
+                    onChange={(newPlayingEndTime: Date) =>
+                      formik.setFieldValue("playingTimeEnd", newPlayingEndTime)
+                    }
                     selected={formik.values.playingTimeEnd}
                     minTime={formik.values.playingTimeStart}
                     maxTime={defaultPlayingTimeEnd}
