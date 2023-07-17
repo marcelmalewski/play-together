@@ -17,4 +17,11 @@ export interface RegisterFormValues {
   playingTimeEnd: Date;
 }
 
-export interface RegisterBody {}
+export interface RegisterBody {
+  login: string;
+  password: string;
+  email: string;
+  birthDate: string;
+  playingTimeStart: string;
+  playingTimeEnd: string;
+}

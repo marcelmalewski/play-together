@@ -2,7 +2,7 @@ import React, { PropsWithChildren, ReactNode } from "react";
 import { CircularProgress } from "@mui/material";
 import { useGetMyDataQuery } from "../store/apiSlice";
 import { Navigate } from "react-router-dom";
-import { useErrorSnackbarWithMessage } from "../hooks/sharedHooks";
+import { useErrorSnackbarWithMessage } from "../other/hooks";
 
 export function MoveIfLoggedInGuard({ children }: PropsWithChildren) {
   const { isSuccess, isError } = useGetMyDataQuery();

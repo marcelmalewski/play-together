@@ -10,10 +10,12 @@ import {FormikInput} from "../../components/formik/FormikInput";
 import {FullScreenFormLayout} from "../../layouts/FullScreenFormLayout";
 import {FormikDatePicker} from "../../components/formik/FormikDatePicker";
 import React from "react";
+import { format } from 'date-fns'
 // @ts-ignore
 import DatePicker from "react-datepicker";
-import {RegisterFormValues} from "../../interfaces/authInterfaces";
+import {RegisterBody, RegisterFormValues} from "../../interfaces/authInterfaces";
 import {FormikTextError} from "../../components/formik/FormikTextError";
+import {DATE_FORMAT, MIN_AGE, TIME_FORMAT} from "../../other/consts";
 
 export function RegisterPage() {
   const defaultPlayingTimeStart = new Date();
@@ -23,8 +25,7 @@ export function RegisterPage() {
   defaultPlayingTimeEnd.setHours(23);
   defaultPlayingTimeEnd.setMinutes(59);
   const today = new Date();
-  const minAge = 15;
-  const minBirthDate = subtractYears(today, minAge)
+  const minBirthDate = subtractYears(today, MIN_AGE)
 
   const initialValues: RegisterFormValues = {
     login: "",
@@ -47,10 +48,7 @@ export function RegisterPage() {
       .max(minBirthDate, "minimum age is 15 years"),
     playingTimeStart: Yup.date()
       .typeError("playing time is required")
-      .required("playing time is required")
-      .test("start time is before end time", "start time must be before end time", (value, ctx) => {
-        return value > ctx.parent.playingTimeStart;
-      }),
+      .required("playing time is required"),
     playingTimeEnd: Yup.date()
       .typeError("playing time is required")
       .required("playing time is required")
@@ -69,14 +67,20 @@ export function RegisterPage() {
     values: FormikValues,
     formikHelpers: FormikHelpers<RegisterFormValues>
   ) {
-    //TODO z time pobrać tylko czas i jako string wyslac
-    console.log(values);
-    console.log("registerd in");
-    //dodac field error dla playingTime i robic tutaj reczne walidowanie i ez
-    formikHelpers.setFieldError("birthDate", "yes");
     formikHelpers.setSubmitting(false);
+    const registerFormValues = values as RegisterFormValues
 
-    // zmienic daty na odpowiedni format
+    // zmienic daty na odpowiedni format date-fns
+    const registerBody: RegisterBody = {
+      login: registerFormValues.login,
+      password: registerFormValues.password,
+      email: registerFormValues.email,
+      birthDate: format(registerFormValues.birthDate, DATE_FORMAT),
+      playingTimeStart: format(registerFormValues.playingTimeStart, TIME_FORMAT),
+      playingTimeEnd: format(registerFormValues.playingTimeEnd, TIME_FORMAT)
+    }
+    console.log(registerBody);
+    //TODO udana rejestracj to przeniesienie do logowania
   }
 
   return (
