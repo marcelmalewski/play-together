@@ -1,5 +1,7 @@
 # Play together
 
+## Technologies
+
 ## Docker files + content
 1. database...
 
