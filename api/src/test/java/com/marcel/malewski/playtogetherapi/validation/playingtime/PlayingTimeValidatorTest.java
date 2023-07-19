@@ -41,22 +41,21 @@ class PlayingTimeValidatorTest {
     assertEquals(0, violations.size());
   }
 
-  //TODO finish
-//  @Test
-//  void shouldFindNoViolationsWhenPlayingTimesAreNulls() {
-//    registerRequestDto = new GamerRegisterRequestDto(
-//      "username",
-//      "test1234534563456",
-//      "yes@yes.com",
-//      "2000-01-01",
-//      null,
-//      null,
-//      List.of(1L)
-//    );
-//
-//    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
-//    assertEquals(0, violations.size());
-//  }
+  @Test
+  void shouldFind2ViolationsWhenPlayingTimesAreNulls() {
+    registerRequestDto = new GamerRegisterRequestDto(
+      "username",
+      "test1234534563456",
+      "yes@yes.com",
+      "2000-01-01",
+      null,
+      null,
+      List.of(1L)
+    );
+
+    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
+    assertEquals(2, violations.size());
+  }
 
   @Test
   void shouldFindViolationWhenEndTimeIsBeforeStartTime() {
