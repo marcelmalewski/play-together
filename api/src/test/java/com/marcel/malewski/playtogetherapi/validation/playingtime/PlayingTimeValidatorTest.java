@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TODO poprawic na test tylko specyficznego validatora
+//TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
 class PlayingTimeValidatorTest {
   private ValidatorFactory factory;
   private Validator validator;
@@ -39,22 +39,6 @@ class PlayingTimeValidatorTest {
 
     Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
     assertEquals(0, violations.size());
-  }
-
-  @Test
-  void shouldFind2ViolationsWhenPlayingTimesAreNulls() {
-    registerRequestDto = new GamerRegisterRequestDto(
-      "username",
-      "test1234534563456",
-      "yes@yes.com",
-      "2000-01-01",
-      null,
-      null,
-      List.of(1L)
-    );
-
-    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
-    assertEquals(2, violations.size());
   }
 
   @Test

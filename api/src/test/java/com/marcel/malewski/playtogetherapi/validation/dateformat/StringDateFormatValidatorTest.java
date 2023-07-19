@@ -13,6 +13,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
 class StringDateFormatValidatorTest {
   private ValidatorFactory factory;
   private Validator validator;
