@@ -1,19 +1,19 @@
-package com.marcel.malewski.playtogetherapi.validation.playingtime;
+package com.marcel.malewski.playtogetherapi.validation.dateformat;
 
 import com.marcel.malewski.playtogetherapi.auth.register.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.entity.platform.PlatformEnum;
-import jakarta.validation.*;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TODO poprawic na test tylko specyficznego validatora
-class PlayingTimeValidatorTest {
+class StringDateFormatValidatorTest {
   private ValidatorFactory factory;
   private Validator validator;
   private GamerRegisterRequestDto registerRequestDto;
@@ -25,7 +25,7 @@ class PlayingTimeValidatorTest {
   }
 
   @Test
-  void shouldFindNoViolationsWhenPlayingTimesAreValid() {
+  void shouldFindNoViolationsWhenDateFormatIsValid() {
     registerRequestDto = new GamerRegisterRequestDto(
       "username",
       "test1234534563456",
@@ -40,32 +40,15 @@ class PlayingTimeValidatorTest {
     assertEquals(0, violations.size());
   }
 
-  //TODO finish
-//  @Test
-//  void shouldFindNoViolationsWhenPlayingTimesAreNulls() {
-//    registerRequestDto = new GamerRegisterRequestDto(
-//      "username",
-//      "test1234534563456",
-//      "yes@yes.com",
-//      "2000-01-01",
-//      null,
-//      null,
-//      List.of(1L)
-//    );
-//
-//    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
-//    assertEquals(0, violations.size());
-//  }
-
   @Test
-  void shouldFindViolationWhenEndTimeIsBeforeStartTime() {
+  void shouldFindViolationWhenDateFormatIsNotValid() {
     registerRequestDto = new GamerRegisterRequestDto(
       "username",
       "test1234534563456",
       "yes@yes.com",
-      "2000-01-01",
-      "15:00",
+      "2000-01.01",
       "14:00",
+      "15:00",
       List.of(1L)
     );
 
