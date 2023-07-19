@@ -1,15 +1,34 @@
 # Play together
 
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Features](#features)
+* [How to launch](#how-to-launch)
+
+## General Info
+
+
 ## Technologies
 
-## Docker files + content
-1. database...
 
-## Local dev environment
+## Features
+
+
+## How to launch
+
+### Dev docker file
+Path: local-dev/docker-compose-dev.yml
+
+Docker file will start:
+1. Postgres data base
+2. Proxy
+
+### Local dev environment
 1. create .env file
-2. start `./local-dev/docker-compose.yml` with environment variables file: `.env`
+2. start `./local-dev/docker-compose.yml` with env variables file: `.env`
 
-## example values for `.env`
+example of values for `.env`
 ```
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
@@ -19,25 +38,25 @@ PORT=5000
 SPRING_PROFILES_ACTIVE=dev
 ```
 
-# Frontend
-## Before coding frontend
+## Frontend
+### Before coding frontend
 1. set `yarn` as package manager
 2. set prettier
    
-## Start local frontend
+### Start local frontend
 1. go to `./frontend`
 2. yarn install
 3. yarn dev
 
-# Backend
-## Before coding backend
+## Backend
+### Before coding backend
 1. set environment variables for api from `.env`
    
-## Start local backend
-1. clean build with gradle (poprawić) dać komende
-2. bootRun + env variables
+### Start local backend
+1. clean build (poprawić dać komende)
+2. start bootRun with env variables
 
-## Start backend with docker images
+### Start backend with docker image
 1. command: `./gradlew build`
 2. command: `docker build -t play-together-api .`
    optional parametr: --build-arg JAR_FILE=build/libs/api-1.0.0.jar
