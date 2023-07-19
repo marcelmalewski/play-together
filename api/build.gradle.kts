@@ -19,7 +19,7 @@ repositories {
     mavenCentral()
 }
 
-//TODO co oznaczają te imp compileOny annot itd. ?
+//TODO co dokładnie oznaczają te imp compileOny annot itd. ?
 //TODO co robi spring devtools
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
