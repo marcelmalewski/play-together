@@ -24,6 +24,7 @@ class PlayingTimeValidatorTest {
     validator = factory.getValidator();
   }
 
+  //TODO w paru testach validatorow jest jeden bardzo podobny test zweryfikowac czy to okej
   @Test
   void shouldFindNoViolationsWhenPlayingTimesAreValid() {
     registerRequestDto = new GamerRegisterRequestDto(
