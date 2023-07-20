@@ -11,17 +11,17 @@ Web application where you can create game sessions and groups to better organise
 
 ## Technologies
 Not all technologies are included
-Java 17
-Spring 3.0.1
-Spring security 6.0.1
-Springdoc openapi 2.1.0
-JUnit 5
-Vite 4.1.0
-React 18.2.0
-Redux 4.2.1
-Typescript 4.9.3
-Tailwindcss 3.2.6
-PostgreSQL
+* Java 17
+* Spring 3.0.1
+* Spring security 6.0.1
+* Springdoc openapi 2.1.0
+* JUnit 5
+* Vite 4.1.0
+* React 18.2.0
+* Redux 4.2.1
+* Typescript 4.9.3
+* Tailwindcss 3.2.6
+* PostgreSQL
 
 ## Features
 1. Login/Register
