@@ -33,7 +33,7 @@ Path: local-dev/docker-compose-dev.yml
 
 Docker file will start:
 1. Postgres data base
-2. Proxy
+2. Dev Proxy
 
 ### Local dev environment
 1. create .env file
