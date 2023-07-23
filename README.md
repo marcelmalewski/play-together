@@ -74,4 +74,4 @@ SPRING_PROFILES_ACTIVE=dev
 3. command: `docker tag play-together-api 6745345/play-together-api:1.0`
 4. command: `docker push 6745345/play-together-api:1.0`
 5. docker-compose.yml
-Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalic dockercompose
+Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalić dockercompose
