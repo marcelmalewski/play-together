@@ -52,19 +52,19 @@ public class RegisterService {
 //		);
 
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
-
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withResolverStyle(ResolverStyle.STRICT);
-		LocalDate birthDate = LocalDate.parse(gamerRegisterRequestDto.birthDateAsString(), dateFormatter);
+//co sie sanie jak dam ujemna dae
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
+		LocalDate birthDateAsDate = LocalDate.parse(gamerRegisterRequestDto.birthDate(), dateFormatter);
 
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
-		LocalTime playingTimeStartAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeStartAsString(), timeFormatter);
-		LocalTime playingTimeEndAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeEndAsString(), timeFormatter);
+		LocalTime playingTimeStartAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeStart(), timeFormatter);
+		LocalTime playingTimeEndAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeEnd(), timeFormatter);
 
 		Gamer newGamer = new Gamer();
 		newGamer.setLogin(gamerRegisterRequestDto.login());
 		newGamer.setPassword(encodedPassword);
 		newGamer.setEmail(gamerRegisterRequestDto.email());
-		newGamer.setBirthDate(birthDate);
+		newGamer.setBirthDate(birthDateAsDate);
 		newGamer.setPlayingTimeStart(playingTimeStartAsDate);
 		newGamer.setPlayingTimeEnd(playingTimeEndAsDate);
 		newGamer.setCreatedAt(LocalDate.now());

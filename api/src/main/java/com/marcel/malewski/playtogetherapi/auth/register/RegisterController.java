@@ -26,7 +26,7 @@ public class RegisterController {
 
 	//TODO temporary @Valid deleted
 	@PostMapping(value="/auth/gamers/register")
-	public void registerUser(@RequestBody GamerRegisterRequestDto gamerRegisterRequestDto, Principal principal) {
+	public void registerUser(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto, Principal principal) {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedException();
 		}

@@ -10,7 +10,7 @@ import java.time.format.ResolverStyle;
 public class StringDateFormatValidator implements ConstraintValidator<ValidateDateFormat, String> {
 	@Override
 	public boolean isValid(String date, ConstraintValidatorContext context) {
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withResolverStyle(ResolverStyle.STRICT);
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
 		if(date == null) {
 			return true;
 		}

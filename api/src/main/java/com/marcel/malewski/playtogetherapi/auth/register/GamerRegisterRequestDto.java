@@ -29,15 +29,15 @@ public record GamerRegisterRequestDto(
 	@ValidateDateFormat
 	@ValidateStringPastOrPresent
 	@NotNull
-	String birthDateAsString,
+	String birthDate,
 	@Schema(example = "20:00", format = "HH:mm")
 	@ValidateTimeFormat
 	@NotNull
-	String playingTimeStartAsString,
+	String playingTimeStart,
 	@Schema(example = "22:00", format = "HH:mm")
 	@ValidateTimeFormat
 	@NotNull
-	String playingTimeEndAsString,
+	String playingTimeEnd,
 	@Size(min = 1, message = "you have to add at least one platform")
 	@UniqueElements(message = "must only contain unique platforms")
 	@NotNull

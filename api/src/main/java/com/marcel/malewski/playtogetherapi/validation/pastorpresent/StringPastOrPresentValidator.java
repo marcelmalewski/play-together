@@ -11,7 +11,7 @@ import java.time.format.ResolverStyle;
 public class StringPastOrPresentValidator implements ConstraintValidator<ValidateStringPastOrPresent, String> {
 	@Override
 	public boolean isValid(String dateAsString, ConstraintValidatorContext context) {
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withResolverStyle(ResolverStyle.STRICT);
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
 		LocalDate date;
 		try {
 			date = LocalDate.parse(dateAsString, dateFormatter);
@@ -23,3 +23,5 @@ public class StringPastOrPresentValidator implements ConstraintValidator<Validat
 		return !today.isAfter(date);
 	}
 }
+
+//zwrfikowac ze wszedzie jes uuuu i zrobie sala globalna deeforma i imeforma jak na froncie

@@ -59,6 +59,7 @@ public class Gamer implements UserDetails {
 	@ToString.Exclude
 	@NotNull
 	private List<GameSession> createdGameSessions = new ArrayList<>();
+	//TODO add min one role
 	@ManyToMany
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
