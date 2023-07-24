@@ -7,7 +7,7 @@ import java.util.List;
 public record GamerPrivateResponseDto(
 	String login,
 	String email,
-	LocalDate birthDate,
+	LocalDate birthdate,
 	String bio,
 	String avatarUrl,
 	LocalTime playingTimeStart,

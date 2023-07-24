@@ -39,7 +39,7 @@ public class DatabaseDevSetup implements CommandLineRunner {
 			admin.setLogin("admin");
 			admin.setPassword(passwordEncoder.encode("admin.123"));
 			admin.setEmail("admin@admin.com");
-			admin.setBirthDate(LocalDate.of(2000, 1, 1));
+			admin.setBirthdate(LocalDate.of(2000, 1, 1));
 			admin.setPlayingTimeStart(LocalTime.of(15, 0));
 			admin.setPlayingTimeEnd(LocalTime.of(19, 0));
 			admin.setCreatedAt(LocalDate.now());

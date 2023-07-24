@@ -22,7 +22,7 @@ abstract class GamerMapper {
 		return new GamerPrivateResponseDto(
 			gamer.getLogin(),
 			gamer.getEmail(),
-			gamer.getBirthDate(),
+			gamer.getBirthdate(),
 			gamer.getBio(),
 			gamer.getAvatarUrl(),
 			gamer.getPlayingTimeStart(),
@@ -36,7 +36,7 @@ abstract class GamerMapper {
 	public GamerPublicResponseDto toGamerPublicResponseDto(Gamer gamer) {
 		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?
 		LocalDate currentDay = LocalDate.now();
-		int age = Period.between(gamer.getBirthDate(), currentDay).getYears();
+		int age = Period.between(gamer.getBirthdate(), currentDay).getYears();
 		List<String> platforms = gamer.getPlatforms().stream().map(Platform::getName).toList();
 		List<String> games = gamer.getFavouriteGames().stream().map(Game::getName).toList();
 		List<String> genres = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();

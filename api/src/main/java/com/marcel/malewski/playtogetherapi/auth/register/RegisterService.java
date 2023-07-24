@@ -15,6 +15,8 @@ import java.time.format.ResolverStyle;
 
 //TODO repository zmienic na serwisy?
 //upewnic sie ze wszedie jes uuuu i zrobic z formau zmienna globalna
+//poprawic birhDae i brih dae na jedno ciagle birhdae
+//poem sprobowac dodac role
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;
@@ -55,7 +57,7 @@ public class RegisterService {
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
 //co sie sanie jak dam ujemna dae
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
-		LocalDate birthDateAsDate = LocalDate.parse(gamerRegisterRequestDto.birthdate(), dateFormatter);
+		LocalDate birthdateAsDate = LocalDate.parse(gamerRegisterRequestDto.birthdate(), dateFormatter);
 
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
 		LocalTime playingTimeStartAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeStart(), timeFormatter);
@@ -65,7 +67,7 @@ public class RegisterService {
 		newGamer.setLogin(gamerRegisterRequestDto.login());
 		newGamer.setPassword(encodedPassword);
 		newGamer.setEmail(gamerRegisterRequestDto.email());
-		newGamer.setBirthDate(birthDateAsDate);
+		newGamer.setBirthdate(birthdateAsDate);
 		newGamer.setPlayingTimeStart(playingTimeStartAsDate);
 		newGamer.setPlayingTimeEnd(playingTimeEndAsDate);
 		newGamer.setCreatedAt(LocalDate.now());

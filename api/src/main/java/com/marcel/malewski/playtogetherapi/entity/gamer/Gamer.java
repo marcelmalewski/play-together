@@ -6,9 +6,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,7 +42,7 @@ public class Gamer implements UserDetails {
 	@Column(unique = true)
 	private String email;
 	@NotNull
-	private LocalDate birthDate;
+	private LocalDate birthdate;
 	@NotNull
 	private LocalTime playingTimeStart;
 	@NotNull
