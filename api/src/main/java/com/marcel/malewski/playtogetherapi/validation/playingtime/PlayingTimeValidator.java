@@ -9,11 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
+import static com.marcel.malewski.playtogetherapi.consts.DateConstants.TIME_FORMAT;
+
 //TODO sprobować użyć bezpośrednio formatter.parse()
 public class PlayingTimeValidator implements ConstraintValidator<ValidatePlayingTime, GamerRegisterRequestDto> {
 	@Override
 	public boolean isValid(GamerRegisterRequestDto gamerRegisterRequestDto, ConstraintValidatorContext context) {
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 
 		String playingTimeStart = gamerRegisterRequestDto.playingTimeStart();
 		LocalTime playingTimeStartAsDate;

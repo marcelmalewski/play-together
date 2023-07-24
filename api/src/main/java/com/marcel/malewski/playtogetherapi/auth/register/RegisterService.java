@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
 import static com.marcel.malewski.playtogetherapi.consts.DateConstants.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.consts.DateConstants.TIME_FORMAT;
 
 //TODO repository zmienic na serwisy?
 @Service
@@ -58,7 +59,7 @@ public class RegisterService {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 		LocalDate birthdateAsDate = LocalDate.parse(gamerRegisterRequestDto.birthdate(), dateFormatter);
 
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 		LocalTime playingTimeStartAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeStart(), timeFormatter);
 		LocalTime playingTimeEndAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeEnd(), timeFormatter);
 

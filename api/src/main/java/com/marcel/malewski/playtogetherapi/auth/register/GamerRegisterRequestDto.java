@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.consts.DateConstants.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.consts.DateConstants.TIME_FORMAT;
 
 //TODO dodać jakies wieksze wymagania co do hasla api/front
 //TODO dodać wymagania co do wieku api/front i wtedy data startowa na front to nie today tylko ten minmalny wiek
@@ -32,11 +33,11 @@ public record GamerRegisterRequestDto(
 	@ValidateStringPastOrPresent
 	@NotNull
 	String birthdate,
-	@Schema(example = "20:00", format = "HH:mm")
+	@Schema(example = "20:00", format = TIME_FORMAT)
 	@ValidateTimeFormat
 	@NotNull
 	String playingTimeStart,
-	@Schema(example = "22:00", format = "HH:mm")
+	@Schema(example = "22:00", format = TIME_FORMAT)
 	@ValidateTimeFormat
 	@NotNull
 	String playingTimeEnd,
