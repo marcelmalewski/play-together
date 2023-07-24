@@ -1,0 +1,286 @@
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2005-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T163916.400.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T163603.400.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T140505.500.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T140105.500.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T135838.500.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T135716.500.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T134854.500.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T134550.500.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T134219.400.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+<> 2023-07-24T134014.500.json
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+###
+
+POST http://localhost:5000/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 195
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "username",
+  "password": "test1234534563456",
+  "email": "yes@yes.com",
+  "birthDate": "2050-01-01",
+  "playingTimeStart": "14:00",
+  "playingTimeEnd": "15:00",
+  "platforms": [1]
+}
+
+###
+

@@ -29,7 +29,7 @@ public record GamerRegisterRequestDto(
 	@ValidateDateFormat
 	@ValidateStringPastOrPresent
 	@NotNull
-	String birthDate,
+	String birthdate,
 	@Schema(example = "20:00", format = "HH:mm")
 	@ValidateTimeFormat
 	@NotNull

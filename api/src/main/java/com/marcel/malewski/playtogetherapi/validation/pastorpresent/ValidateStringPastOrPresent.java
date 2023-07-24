@@ -10,7 +10,8 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidateStringPastOrPresent {
-	String message() default "expected date format is yyyy-MM-dd";
+	//todo cz tee zdanie js git?
+	String message() default "birthdate can not be in future";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }

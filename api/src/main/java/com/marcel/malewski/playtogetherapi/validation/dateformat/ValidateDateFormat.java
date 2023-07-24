@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidateDateFormat {
-	String message() default "expected date format is yyyy-MM-dd";
+	String message() default "expected date format is uuuu-MM-dd";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }
