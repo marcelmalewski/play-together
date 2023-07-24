@@ -16,7 +16,6 @@ import java.time.format.ResolverStyle;
 //TODO repository zmienic na serwisy?
 //upewnic sie ze wszedie jes uuuu i zrobic z formau zmienna globalna
 //poprawic birhDae i brih dae na jedno ciagle birhdae
-//poem sprobowac dodac role
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;

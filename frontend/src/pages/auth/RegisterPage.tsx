@@ -6,16 +6,19 @@ import {
   FormikValues,
 } from "formik";
 import * as Yup from "yup";
-import {FormikInput} from "../../components/formik/FormikInput";
-import {FullScreenFormLayout} from "../../layouts/FullScreenFormLayout";
-import {FormikDatePicker} from "../../components/formik/FormikDatePicker";
+import { FormikInput } from "../../components/formik/FormikInput";
+import { FullScreenFormLayout } from "../../layouts/FullScreenFormLayout";
+import { FormikDatePicker } from "../../components/formik/FormikDatePicker";
 import React from "react";
-import { format } from 'date-fns'
+import { format } from "date-fns";
 // @ts-ignore
 import DatePicker from "react-datepicker";
-import {RegisterBody, RegisterFormValues} from "../../interfaces/authInterfaces";
-import {FormikTextError} from "../../components/formik/FormikTextError";
-import {DATE_FORMAT, MIN_AGE, TIME_FORMAT} from "../../other/consts";
+import {
+  RegisterBody,
+  RegisterFormValues,
+} from "../../interfaces/authInterfaces";
+import { FormikTextError } from "../../components/formik/FormikTextError";
+import { DATE_FORMAT, MIN_AGE, TIME_FORMAT } from "../../other/consts";
 
 export function RegisterPage() {
   const defaultPlayingTimeStart = new Date();
@@ -25,13 +28,13 @@ export function RegisterPage() {
   defaultPlayingTimeEnd.setHours(23);
   defaultPlayingTimeEnd.setMinutes(59);
   const today = new Date();
-  const minBirthDate = subtractYears(today, MIN_AGE)
+  const minBirthDate = subtractYears(today, MIN_AGE);
 
   const initialValues: RegisterFormValues = {
     login: "",
     password: "",
     email: "",
-    birthDate: minBirthDate,
+    birthdate: minBirthDate,
     playingTimeStart: defaultPlayingTimeStart,
     playingTimeEnd: defaultPlayingTimeEnd,
   };
@@ -42,7 +45,7 @@ export function RegisterPage() {
     password: Yup.string().min(3).max(20).required("password is required"),
     //TODO do zweryfikowania co dokladnie akceptuje .email() w porównaniu do api
     email: Yup.string().email().required("email is required"),
-    birthDate: Yup.date()
+    birthdate: Yup.date()
       .typeError("birth date is required")
       .required("birth date is required")
       .max(minBirthDate, "minimum age is 15 years"),
@@ -52,9 +55,13 @@ export function RegisterPage() {
     playingTimeEnd: Yup.date()
       .typeError("playing time is required")
       .required("playing time is required")
-      .test("end time is after start time", "end time must be after start time", (value, ctx) => {
-        return value > ctx.parent.playingTimeStart;
-      }),
+      .test(
+        "end time is after start time",
+        "end time must be after start time",
+        (value, ctx) => {
+          return value > ctx.parent.playingTimeStart;
+        }
+      ),
   });
 
   function subtractYears(date: Date, years: number) {
@@ -68,17 +75,20 @@ export function RegisterPage() {
     formikHelpers: FormikHelpers<RegisterFormValues>
   ) {
     formikHelpers.setSubmitting(false);
-    const registerFormValues = values as RegisterFormValues
+    const registerFormValues = values as RegisterFormValues;
 
     // zmienic daty na odpowiedni format date-fns
     const registerBody: RegisterBody = {
       login: registerFormValues.login,
       password: registerFormValues.password,
       email: registerFormValues.email,
-      birthDate: format(registerFormValues.birthDate, DATE_FORMAT),
-      playingTimeStart: format(registerFormValues.playingTimeStart, TIME_FORMAT),
-      playingTimeEnd: format(registerFormValues.playingTimeEnd, TIME_FORMAT)
-    }
+      birthdate: format(registerFormValues.birthdate, DATE_FORMAT),
+      playingTimeStart: format(
+        registerFormValues.playingTimeStart,
+        TIME_FORMAT
+      ),
+      playingTimeEnd: format(registerFormValues.playingTimeEnd, TIME_FORMAT),
+    };
     console.log(registerBody);
     //TODO udana rejestracj to przeniesienie do logowania
   }
@@ -111,7 +121,7 @@ export function RegisterPage() {
               />
               <FormikDatePicker
                 label="Birth date"
-                name="birthDate"
+                name="birthdate"
                 className="block w-full rounded-lg border border-form-border bg-form-bg p-2 placeholder-placeholder focus:outline-none"
               />
               <div>

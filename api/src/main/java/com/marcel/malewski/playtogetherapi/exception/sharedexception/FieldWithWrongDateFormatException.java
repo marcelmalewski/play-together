@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class FieldWithWrongDateFormatException extends RuntimeException {
 	public FieldWithWrongDateFormatException(String field) {
-		super(field + ": expected date format is yyyy-MM-dd");
+		super(field + ": expected date format is uuuu-MM-dd");
 	}
 }

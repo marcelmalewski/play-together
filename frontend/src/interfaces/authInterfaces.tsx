@@ -12,7 +12,7 @@ export interface RegisterFormValues {
   login: string;
   password: string;
   email: string;
-  birthDate: Date;
+  birthdate: Date;
   playingTimeStart: Date;
   playingTimeEnd: Date;
 }
@@ -21,7 +21,7 @@ export interface RegisterBody {
   login: string;
   password: string;
   email: string;
-  birthDate: string;
+  birthdate: string;
   playingTimeStart: string;
   playingTimeEnd: string;
 }

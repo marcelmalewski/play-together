@@ -25,7 +25,7 @@ public record GamerRegisterRequestDto(
 	@Email
 	@NotNull
 	String email,
-	@Schema(example = "2000-02-02", format = "yyyy-MM-dd")
+	@Schema(example = "2000-02-02", format = "uuuu-MM-dd")
 	@ValidateDateFormat
 	@ValidateStringPastOrPresent
 	@NotNull
