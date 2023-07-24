@@ -40,11 +40,9 @@ public class Gamer implements UserDetails {
 	private String login;
 	@NotNull
 	private String password;
-	@Email
 	@NotNull
 	@Column(unique = true)
 	private String email;
-	@PastOrPresent
 	@NotNull
 	private LocalDate birthDate;
 	@NotNull

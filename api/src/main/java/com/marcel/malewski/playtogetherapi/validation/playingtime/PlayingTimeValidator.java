@@ -15,7 +15,7 @@ public class PlayingTimeValidator implements ConstraintValidator<ValidatePlaying
 	public boolean isValid(GamerRegisterRequestDto gamerRegisterRequestDto, ConstraintValidatorContext context) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
 
-		String playingTimeStart = gamerRegisterRequestDto.playingTimeStart();
+		String playingTimeStart = gamerRegisterRequestDto.playingTimeStartAsString();
 		LocalTime playingTimeStartAsDate;
 		try {
 			playingTimeStartAsDate = LocalTime.parse(playingTimeStart, timeFormatter);
@@ -23,7 +23,7 @@ public class PlayingTimeValidator implements ConstraintValidator<ValidatePlaying
 			return true;
 		}
 
-		String playingTimeEnd = gamerRegisterRequestDto.playingTimeEnd();
+		String playingTimeEnd = gamerRegisterRequestDto.playingTimeEndAsString();
 		LocalTime playingTimeEndAsDate;
 		try {
 			playingTimeEndAsDate = LocalTime.parse(playingTimeEnd, timeFormatter);

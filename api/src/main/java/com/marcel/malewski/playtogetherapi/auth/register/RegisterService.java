@@ -1,10 +1,17 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
+import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
+import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 //TODO repository zmienic na serwisy?
 @Service
@@ -23,6 +30,7 @@ public class RegisterService {
 
 	void register(GamerRegisterRequestDto gamerRegisterRequestDto, String gamerRole) {
 		String login = gamerRegisterRequestDto.login();
+		//TODO dokonczyc walidacje
 //		if (gamerRepository.existsByLogin(login)) {
 //			//error
 //		}
@@ -32,34 +40,41 @@ public class RegisterService {
 //			//error
 //		}
 //
-//		//TODO czy platforma istnieje, dodac obsluge dla paru platform
-//		Platform pcPlatform = platformRepository.getReferenceById(
-//			gamerRegisterRequestDto.platforms().get(0)
-//		);
-//
-//		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
+		//TODO czy platforma istnieje, dodac obsluge dla paru platform
+		Platform gamerPlatform = platformRepository.getReferenceById(
+			gamerRegisterRequestDto.platforms().get(0)
+		);
+
 //    // TODO dodac sprawdzanie czy rola istnieje
+		//TODO dodac dodwanie roli
 //		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(
 //			gamerRole
 //		);
-//
-//		Gamer newGamer = new Gamer();
-//		newGamer.setLogin(gamerRegisterRequestDto.login());
-//		newGamer.setPassword(encodedPassword);
-//		newGamer.setEmail(gamerRegisterRequestDto.email());
-//		newGamer.setBirthDate(gamerRegisterRequestDto.birthDate());
-//		newGamer.setPlayingTimeStart(gamerRegisterRequestDto.playingTimeStart());
-//		newGamer.setPlayingTimeEnd(gamerRegisterRequestDto.playingTimeEnd());
-//		newGamer.setCreatedAt(LocalDate.now());
-//
-//		Gamer savedGamer = gamerRepository.save(newGamer);
+
+		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
+
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withResolverStyle(ResolverStyle.STRICT);
+		LocalDate birthDate = LocalDate.parse(gamerRegisterRequestDto.birthDateAsString(), dateFormatter);
+
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
+		LocalTime playingTimeStartAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeStartAsString(), timeFormatter);
+		LocalTime playingTimeEndAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeEndAsString(), timeFormatter);
+
+		Gamer newGamer = new Gamer();
+		newGamer.setLogin(gamerRegisterRequestDto.login());
+		newGamer.setPassword(encodedPassword);
+		newGamer.setEmail(gamerRegisterRequestDto.email());
+		newGamer.setBirthDate(birthDate);
+		newGamer.setPlayingTimeStart(playingTimeStartAsDate);
+		newGamer.setPlayingTimeEnd(playingTimeEndAsDate);
+		newGamer.setCreatedAt(LocalDate.now());
+
+		Gamer savedGamer = gamerRepository.save(newGamer);
+		savedGamer.getPlatforms().add(gamerPlatform);
+		gamerRepository.save(savedGamer);
 //		savedGamer.getRoles().add(userGamerRole);
 //		userGamerRole.getGamers().add(savedGamer);
-//		savedGamer.getPlatforms().add(pcPlatform);
-//		pcPlatform.getGamers().add(savedGamer);
-//
-//		gamerRepository.save(savedGamer);
 //		gamerRoleRepository.save(userGamerRole);
-//		platformRepository.save(pcPlatform);
+//		pcPlatform.getGamers().add(savedGamer);
 	}
 }
