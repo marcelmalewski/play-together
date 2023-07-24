@@ -11,17 +11,17 @@ Web application where you can create game sessions and groups to better organise
 
 ## Technologies
 Not all technologies are included
-Java 17
-Spring 3.0.1
-Spring security 6.0.1
-Springdoc openapi 2.1.0
-JUnit 5
-Vite 4.1.0
-React 18.2.0
-Redux 4.2.1
-Typescript 4.9.3
-Tailwindcss 3.2.6
-PostgreSQL
+* Java 17
+* Spring 3.0.1
+* Spring security 6.0.1
+* Springdoc openapi 2.1.0
+* JUnit 5
+* Vite 4.1.0
+* React 18.2.0
+* Redux 4.2.1
+* Typescript 4.9.3
+* Tailwindcss 3.2.6
+* PostgreSQL
 
 ## Features
 1. Login/Register
@@ -33,7 +33,7 @@ Path: local-dev/docker-compose-dev.yml
 
 Docker file will start:
 1. Postgres data base
-2. Proxy
+2. Dev Proxy
 
 ### Local dev environment
 1. create .env file
@@ -74,4 +74,4 @@ SPRING_PROFILES_ACTIVE=dev
 3. command: `docker tag play-together-api 6745345/play-together-api:1.0`
 4. command: `docker push 6745345/play-together-api:1.0`
 5. docker-compose.yml
-Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalic dockercompose
+Czasami po pushu nie załapie wtedy usunąć lokalny image i jeszcze raz odpalić dockercompose
