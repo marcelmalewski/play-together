@@ -46,8 +46,8 @@ export function RegisterPage() {
     //TODO do zweryfikowania co dokladnie akceptuje .email() w porównaniu do api
     email: Yup.string().email().required("email is required"),
     birthdate: Yup.date()
-      .typeError("birth date is required")
-      .required("birth date is required")
+      .typeError("birthdate is required")
+      .required("birthdate is required")
       .max(minBirthDate, "minimum age is 15 years"),
     playingTimeStart: Yup.date()
       .typeError("playing time is required")
