@@ -18,7 +18,7 @@ import {
   RegisterFormValues,
 } from "../../interfaces/authInterfaces";
 import { FormikTextError } from "../../components/formik/FormikTextError";
-import { DATE_FORMAT, MIN_AGE, TIME_FORMAT } from "../../other/consts";
+import { DATE_FORMAT, MIN_AGE, TIME_FORMAT } from "../../other/constants";
 
 export function RegisterPage() {
   const defaultPlayingTimeStart = new Date();

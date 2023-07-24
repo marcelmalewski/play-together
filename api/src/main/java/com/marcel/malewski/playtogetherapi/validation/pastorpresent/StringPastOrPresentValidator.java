@@ -8,10 +8,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
+import static com.marcel.malewski.playtogetherapi.consts.DateConstants.DATE_FORMAT;
+
 public class StringPastOrPresentValidator implements ConstraintValidator<ValidateStringPastOrPresent, String> {
 	@Override
 	public boolean isValid(String dateAsString, ConstraintValidatorContext context) {
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 		LocalDate date;
 		try {
 			date = LocalDate.parse(dateAsString, dateFormatter);
@@ -23,5 +25,3 @@ public class StringPastOrPresentValidator implements ConstraintValidator<Validat
 		return !today.isAfter(date);
 	}
 }
-
-//zwrfikowac ze wszedzie jes uuuu i zrobie sala globalna deeforma i imeforma jak na froncie

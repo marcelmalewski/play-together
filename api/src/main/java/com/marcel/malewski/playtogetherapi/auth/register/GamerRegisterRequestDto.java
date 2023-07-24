@@ -12,6 +12,8 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.List;
 
+import static com.marcel.malewski.playtogetherapi.consts.DateConstants.DATE_FORMAT;
+
 //TODO dodać jakies wieksze wymagania co do hasla api/front
 //TODO dodać wymagania co do wieku api/front i wtedy data startowa na front to nie today tylko ten minmalny wiek
 @ValidatePlayingTime
@@ -25,7 +27,7 @@ public record GamerRegisterRequestDto(
 	@Email
 	@NotNull
 	String email,
-	@Schema(example = "2000-02-02", format = "uuuu-MM-dd")
+	@Schema(example = "2000-02-02", format = DATE_FORMAT)
 	@ValidateDateFormat
 	@ValidateStringPastOrPresent
 	@NotNull

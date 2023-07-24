@@ -13,9 +13,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
+import static com.marcel.malewski.playtogetherapi.consts.DateConstants.DATE_FORMAT;
+
 //TODO repository zmienic na serwisy?
-//upewnic sie ze wszedie jes uuuu i zrobic z formau zmienna globalna
-//poprawic birhDae i brih dae na jedno ciagle birhdae
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;
@@ -55,7 +55,7 @@ public class RegisterService {
 
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
 //co sie sanie jak dam ujemna dae
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 		LocalDate birthdateAsDate = LocalDate.parse(gamerRegisterRequestDto.birthdate(), dateFormatter);
 
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
