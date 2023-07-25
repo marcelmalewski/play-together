@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
+//TODO mamy powtorzenie
+
 @Mapper(componentModel = "spring")
 abstract class GamerMapper {
 	public GamerPrivateResponseDto toGamerPrivateResponseDto(Gamer gamer) {
@@ -35,6 +37,7 @@ abstract class GamerMapper {
 
 	public GamerPublicResponseDto toGamerPublicResponseDto(Gamer gamer) {
 		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?
+		System.out.println(gamer.getRoles());
 		LocalDate currentDay = LocalDate.now();
 		int age = Period.between(gamer.getBirthdate(), currentDay).getYears();
 		List<String> platforms = gamer.getPlatforms().stream().map(Platform::getName).toList();

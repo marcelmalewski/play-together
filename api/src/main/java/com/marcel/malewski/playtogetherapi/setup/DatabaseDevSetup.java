@@ -33,6 +33,7 @@ public class DatabaseDevSetup implements CommandLineRunner {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	//TODO czy potrzebuje aż tyle ".save"
 	@Override
 	public void run(String... args) {
 		if (!gamerRepository.existsByLogin("admin")) {
@@ -68,7 +69,7 @@ public class DatabaseDevSetup implements CommandLineRunner {
 
 			savedAdmin.getPlatforms().add(savedPc);
 			savedPc.getGamers().add(savedAdmin);
-			platformRepository.save(pcPlatform);
+			platformRepository.save(savedPc);
 
 			gamerRepository.save(savedAdmin);
 		}
