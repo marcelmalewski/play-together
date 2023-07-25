@@ -13,8 +13,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
-import static com.marcel.malewski.playtogetherapi.consts.DateConstants.DATE_FORMAT;
-import static com.marcel.malewski.playtogetherapi.consts.DateConstants.TIME_FORMAT;
+import static com.marcel.malewski.playtogetherapi.consts.DateUtils.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.consts.DateUtils.TIME_FORMAT;
 
 //TODO repository zmienic na serwisy?
 @Service

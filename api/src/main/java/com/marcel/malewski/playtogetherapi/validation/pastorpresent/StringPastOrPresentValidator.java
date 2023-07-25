@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-import static com.marcel.malewski.playtogetherapi.consts.DateConstants.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.consts.DateUtils.DATE_FORMAT;
 
 public class StringPastOrPresentValidator implements ConstraintValidator<ValidateStringPastOrPresent, String> {
 	@Override

@@ -5,7 +5,7 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-import static com.marcel.malewski.playtogetherapi.consts.DateConstants.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.consts.DateUtils.DATE_FORMAT;
 
 @Documented
 @Constraint(validatedBy = StringDateFormatValidator.class)
