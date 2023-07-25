@@ -30,8 +30,7 @@ public class RegisterController {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedException();
 		}
-		String gamerRole = GamerRoleEnum.USER.name();
-		this.registerService.register(gamerRegisterRequestDto, gamerRole);
+		this.registerService.register(gamerRegisterRequestDto,  GamerRoleEnum.USER);
 	}
 
 	//TODO dodać jeszcze, że może to zrobić tylko zalogowany moderator
@@ -40,7 +39,6 @@ public class RegisterController {
 		if(principal == null) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 		}
-		String gamerRole = GamerRoleEnum.USER.name();
-		this.registerService.register(gamerRegisterRequestDto, gamerRole);
+		this.registerService.register(gamerRegisterRequestDto, GamerRoleEnum.MODERATOR);
 	}
 }

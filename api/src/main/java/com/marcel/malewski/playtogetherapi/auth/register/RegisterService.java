@@ -1,10 +1,12 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
 import com.marcel.malewski.playtogetherapi.auth.exception.EmailAlreadyUsedException;
+import com.marcel.malewski.playtogetherapi.auth.exception.GivenPlatformDoesNotExistException;
 import com.marcel.malewski.playtogetherapi.auth.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
@@ -15,7 +17,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
-import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.consts.DateUtils.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.consts.DateUtils.TIME_FORMAT;
@@ -35,7 +36,7 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	void register(GamerRegisterRequestDto gamerRegisterRequestDto, String gamerRole) {
+	void register(GamerRegisterRequestDto gamerRegisterRequestDto, GamerRoleEnum gamerRole) {
 		String login = gamerRegisterRequestDto.login();
 		if (gamerRepository.existsByLogin(login)) {
 			throw new LoginAlreadyUsedException(login);
@@ -46,17 +47,12 @@ public class RegisterService {
 			throw new EmailAlreadyUsedException(email);
 		}
 
-		//TODO czy platforma istnieje, dodac obsluge dla paru platform
-		Platform gamerPlatform = platformRepository.getReferenceById(
-			gamerRegisterRequestDto.platforms().get(0)
-		);
-		List<Platform> gamerPlatforms = gamerRegisterRequestDto.platformsIds().stream().map(platformId -> {
-			if(!platformRepository.existsById(platformId)) {
-
+		gamerRegisterRequestDto.platformsIds().forEach(platformId -> {
+			if (!platformRepository.existsById(platformId)) {
+				throw new GivenPlatformDoesNotExistException(platformId);
 			}
-		})
+		});
 
-		// TODO dodac sprawdzanie czy rola istnieje
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
 
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
@@ -67,23 +63,24 @@ public class RegisterService {
 		LocalTime playingTimeEndAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeEnd(), timeFormatter);
 
 		Gamer newGamer = new Gamer();
-		newGamer.setLogin(gamerRegisterRequestDto.login());
+		newGamer.setLogin(login);
 		newGamer.setPassword(encodedPassword);
-		newGamer.setEmail(gamerRegisterRequestDto.email());
+		newGamer.setEmail(email);
 		newGamer.setBirthdate(birthdateAsDate);
 		newGamer.setPlayingTimeStart(playingTimeStartAsDate);
 		newGamer.setPlayingTimeEnd(playingTimeEndAsDate);
 		newGamer.setCreatedAt(LocalDate.now());
 		Gamer savedGamer = gamerRepository.save(newGamer);
 
+		gamerRegisterRequestDto.platformsIds().forEach(platformId -> {
+			Platform platform = platformRepository.getReferenceById(platformId);
 
-		savedGamer.getPlatforms().add(gamerPlatform);
-		gamerPlatform.getGamers().add(savedGamer);
-		platformRepository.save(gamerPlatform);
+			savedGamer.getPlatforms().add(platform);
+			platform.getGamers().add(savedGamer);
+			platformRepository.save(platform);
+		});
 
-		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(
-			gamerRole
-		);
+		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(gamerRole.name());
 		savedGamer.getRoles().add(userGamerRole);
 		userGamerRole.getGamers().add(savedGamer);
 		gamerRoleRepository.save(userGamerRole);
