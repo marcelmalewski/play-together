@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidateStringPastOrPresent {
-	//todo cz tee zdanie js git?
+	//TODO czy ten message jest ok?
 	String message() default "birthdate can not be in future";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};

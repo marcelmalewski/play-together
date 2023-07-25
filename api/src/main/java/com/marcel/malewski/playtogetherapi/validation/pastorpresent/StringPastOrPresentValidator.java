@@ -22,6 +22,6 @@ public class StringPastOrPresentValidator implements ConstraintValidator<Validat
 		}
 
 		LocalDate today = LocalDate.now();
-		return !today.isAfter(date);
+		return !date.isAfter(today);
 	}
 }
