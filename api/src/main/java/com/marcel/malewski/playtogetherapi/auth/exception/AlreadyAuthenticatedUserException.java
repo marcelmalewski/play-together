@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class AlreadyAuthenticatedException extends RuntimeException {
-	public AlreadyAuthenticatedException() {
+public class AlreadyAuthenticatedUserException extends RuntimeException {
+	public AlreadyAuthenticatedUserException() {
 		super("User is already authenticated");
 	}
 }

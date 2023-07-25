@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
-import com.marcel.malewski.playtogetherapi.auth.exception.AlreadyAuthenticatedException;
+import com.marcel.malewski.playtogetherapi.auth.exception.AlreadyAuthenticatedUserException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ public class RegisterController {
 	@PostMapping(value="/auth/gamers/register")
 	public void registerUser(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto, Principal principal) {
 		if(principal != null) {
-			throw new AlreadyAuthenticatedException();
+			throw new AlreadyAuthenticatedUserException();
 		}
 		this.registerService.register(gamerRegisterRequestDto,  GamerRoleEnum.USER);
 	}
