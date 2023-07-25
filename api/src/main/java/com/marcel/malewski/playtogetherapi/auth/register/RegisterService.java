@@ -55,7 +55,7 @@ public class RegisterService {
 //		);
 
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
-//co sie sanie jak dam ujemna dae
+
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 		LocalDate birthdateAsDate = LocalDate.parse(gamerRegisterRequestDto.birthdate(), dateFormatter);
 
