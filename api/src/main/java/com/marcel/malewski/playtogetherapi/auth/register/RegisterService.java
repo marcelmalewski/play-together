@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
+import com.marcel.malewski.playtogetherapi.auth.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
@@ -34,17 +35,15 @@ public class RegisterService {
 
 	void register(GamerRegisterRequestDto gamerRegisterRequestDto, String gamerRole) {
 		String login = gamerRegisterRequestDto.login();
-		//Najpier weryfukacja czy wszystko co musi istniec istnieje potem uzywanie czegokolwiek
-		//TODO dokonczyc walidacje
-//		if (gamerRepository.existsByLogin(login)) {
-//			//error
-//		}
-//
-//		String email = gamerRegisterRequestDto.email();
-//		if (gamerRepository.existsByEmail(email)) {
-//			//error
-//		}
-//
+		if (gamerRepository.existsByLogin(login)) {
+			throw new LoginAlreadyUsedException(login);
+		}
+
+		String email = gamerRegisterRequestDto.email();
+		if (gamerRepository.existsByEmail(email)) {
+			//error
+		}
+
 		//TODO czy platforma istnieje, dodac obsluge dla paru platform
 
 		// TODO dodac sprawdzanie czy rola istnieje
