@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
+import com.marcel.malewski.playtogetherapi.auth.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.auth.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
+import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.consts.DateUtils.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.consts.DateUtils.TIME_FORMAT;
@@ -41,10 +43,18 @@ public class RegisterService {
 
 		String email = gamerRegisterRequestDto.email();
 		if (gamerRepository.existsByEmail(email)) {
-			//error
+			throw new EmailAlreadyUsedException(email);
 		}
 
 		//TODO czy platforma istnieje, dodac obsluge dla paru platform
+		Platform gamerPlatform = platformRepository.getReferenceById(
+			gamerRegisterRequestDto.platforms().get(0)
+		);
+		List<Platform> gamerPlatforms = gamerRegisterRequestDto.platformsIds().stream().map(platformId -> {
+			if(!platformRepository.existsById(platformId)) {
+
+			}
+		})
 
 		// TODO dodac sprawdzanie czy rola istnieje
 		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
@@ -66,9 +76,7 @@ public class RegisterService {
 		newGamer.setCreatedAt(LocalDate.now());
 		Gamer savedGamer = gamerRepository.save(newGamer);
 
-		Platform gamerPlatform = platformRepository.getReferenceById(
-			gamerRegisterRequestDto.platforms().get(0)
-		);
+
 		savedGamer.getPlatforms().add(gamerPlatform);
 		gamerPlatform.getGamers().add(savedGamer);
 		platformRepository.save(gamerPlatform);
