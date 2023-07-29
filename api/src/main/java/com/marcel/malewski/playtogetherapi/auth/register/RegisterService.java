@@ -10,6 +10,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	void register(GamerRegisterRequestDto gamerRegisterRequestDto, GamerRoleEnum gamerRole) {
+	void register(@NotNull GamerRegisterRequestDto gamerRegisterRequestDto, @NotNull GamerRoleEnum gamerRole) {
 		String login = gamerRegisterRequestDto.login();
 		if (gamerRepository.existsByLogin(login)) {
 			throw new LoginAlreadyUsedException(login);
