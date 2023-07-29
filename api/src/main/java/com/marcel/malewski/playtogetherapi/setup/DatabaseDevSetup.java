@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-//TODO moze zmienic repozytoria na serwisy
-
 @Profile("dev")
 @Component
 public class DatabaseDevSetup implements CommandLineRunner {
@@ -33,7 +31,6 @@ public class DatabaseDevSetup implements CommandLineRunner {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	//TODO czy potrzebuje aż tyle ".save"
 	@Override
 	public void run(String... args) {
 		if (!gamerRepository.existsByLogin("admin")) {
@@ -46,7 +43,6 @@ public class DatabaseDevSetup implements CommandLineRunner {
 			admin.setPlayingTimeStart(LocalTime.of(15, 0));
 			admin.setPlayingTimeEnd(LocalTime.of(19, 0));
 			admin.setCreatedAt(LocalDate.now());
-
 			Gamer savedAdmin = gamerRepository.save(admin);
 
 			//Role
@@ -57,19 +53,13 @@ public class DatabaseDevSetup implements CommandLineRunner {
 			GamerRole moderatorRole = new GamerRole();
 			moderatorRole.setName(GamerRoleEnum.MODERATOR.name());
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
-
 			savedAdmin.getRoles().add(savedModeratorRole);
-			savedModeratorRole.getGamers().add(savedAdmin);
-			gamerRoleRepository.save(savedModeratorRole);
 
 			//Platform
 			Platform pcPlatform = new Platform();
 			pcPlatform.setName(PlatformEnum.PC.name());
 			Platform savedPc = platformRepository.save(pcPlatform);
-
 			savedAdmin.getPlatforms().add(savedPc);
-			savedPc.getGamers().add(savedAdmin);
-			platformRepository.save(savedPc);
 
 			gamerRepository.save(savedAdmin);
 		}
