@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { LoginPage } from "./pages/auth/LoginPage";
 import { RegisterPage } from "./pages/auth/RegisterPage";
 import { WelcomePage } from "./pages/welcome/WelcomePage";
-import { MyProfilePage } from "./pages/gamer/MyProfilePage";
+import { MyProfilePage } from "./pages/profile/MyProfilePage";
 import { MoveIfNotLoggedInGuard } from "./guards/MoveIfNotLoggedInGuard";
 import { MoveIfLoggedInGuard } from "./guards/MoveIfLoggedInGuard";
 
