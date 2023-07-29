@@ -19,9 +19,16 @@ import {
 } from "../../interfaces/authInterfaces";
 import { FormikTextError } from "../../components/formik/FormikTextError";
 import { DATE_FORMAT, MIN_AGE, TIME_FORMAT } from "../../other/constants";
+import { useRegisterMutation } from "../../store/apiSlice";
+import { useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
+import { handleErrorMessage } from "../../other/basicUtils";
 
-//TODO obsługa login/mail już użyty
+//TODO obsługa login/mail jak już użyty
 export function RegisterPage() {
+  const navigate = useNavigate();
+  const [register, { isLoading }] = useRegisterMutation();
+
   const defaultPlayingTimeStart = new Date();
   defaultPlayingTimeStart.setHours(0);
   defaultPlayingTimeStart.setMinutes(0);
@@ -74,9 +81,7 @@ export function RegisterPage() {
     values: FormikValues,
     formikHelpers: FormikHelpers<RegisterFormValues>
   ) {
-    formikHelpers.setSubmitting(false);
     const registerFormValues = values as RegisterFormValues;
-
     const registerBody: RegisterBody = {
       login: registerFormValues.login,
       password: registerFormValues.password,
@@ -88,8 +93,23 @@ export function RegisterPage() {
       ),
       playingTimeEnd: format(registerFormValues.playingTimeEnd, TIME_FORMAT),
     };
-    console.log(registerBody);
-    //TODO udana rejestracj to przeniesienie do logowania
+
+    register(registerBody)
+      .unwrap()
+      .then(() => {
+        enqueueSnackbar("Registered successfully", {
+          variant: "success",
+        });
+        formikHelpers.resetForm();
+        navigate("/login");
+      })
+      .catch((error) => {
+        enqueueSnackbar(handleErrorMessage(error), {
+          variant: "error",
+        });
+      });
+
+    formikHelpers.setSubmitting(false);
   }
 
   return (

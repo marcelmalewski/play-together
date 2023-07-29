@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { RegisterBody } from "../interfaces/authInterfaces";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -18,19 +19,21 @@ export const apiSlice = createApi({
         },
       }),
     }),
-    // registerGamerAsUser: builder.mutation<void, RegisterBody>({
-    //   query: (body) => ({
-    //     url: "/auth/gamers/register",
-    //     body: body,
-    //     method: "POST",
-    //   }),
-    // }),
+    register: builder.mutation<void, RegisterBody>({
+      query: (body) => ({
+        url: "/auth/gamers/register",
+        body: body,
+        method: "POST",
+        //invalidatesTags: () => ["MyData"],
+      }),
+    }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: "/logout",
         method: "POST",
       }),
     }),
+
     getMyData: builder.query<any, void>({
       query: () => "/gamers/@me",
       providesTags: ["MyData"],
@@ -38,5 +41,9 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useGetMyDataQuery } =
-  apiSlice;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useLogoutMutation,
+  useGetMyDataQuery,
+} = apiSlice;
