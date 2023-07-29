@@ -21,7 +21,8 @@ import java.time.format.ResolverStyle;
 import static com.marcel.malewski.playtogetherapi.constants.DateUtils.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constants.DateUtils.TIME_FORMAT;
 
-//TODO repository zmienic na serwisy?
+//TODO use service instead of repository?
+//TODO czy potrzebuje aż tyle ".save"
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;
@@ -74,16 +75,11 @@ public class RegisterService {
 
 		gamerRegisterRequestDto.platformsIds().forEach(platformId -> {
 			Platform platform = platformRepository.getReferenceById(platformId);
-
 			savedGamer.getPlatforms().add(platform);
-			platform.getGamers().add(savedGamer);
-			platformRepository.save(platform);
 		});
 
 		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(gamerRole.name());
 		savedGamer.getRoles().add(userGamerRole);
-		userGamerRole.getGamers().add(savedGamer);
-		gamerRoleRepository.save(userGamerRole);
 
 		gamerRepository.save(newGamer);
 	}

@@ -20,6 +20,7 @@ import {
 import { FormikTextError } from "../../components/formik/FormikTextError";
 import { DATE_FORMAT, MIN_AGE, TIME_FORMAT } from "../../other/constants";
 
+//TODO obsługa login/mail już użyty
 export function RegisterPage() {
   const defaultPlayingTimeStart = new Date();
   defaultPlayingTimeStart.setHours(0);
@@ -76,7 +77,6 @@ export function RegisterPage() {
     formikHelpers.setSubmitting(false);
     const registerFormValues = values as RegisterFormValues;
 
-    // zmienic daty na odpowiedni format date-fns
     const registerBody: RegisterBody = {
       login: registerFormValues.login,
       password: registerFormValues.password,
