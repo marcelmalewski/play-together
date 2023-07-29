@@ -10,6 +10,28 @@ Accept-Encoding: br,deflate,gzip,x-gzip
   "login": "aaaa",
   "password": "121234123412341",
   "email": "yes@yes.yes",
+  "birthdate": "2024-01-01",
+  "playingTimeStart": "16:00",
+  "playingTimeEnd": "17:00",
+  "platformsIds": [1]
+}
+
+<> 2023-07-29T192052.400.json
+
+###
+
+POST http://localhost/api/auth/gamers/register
+Content-Type: application/json
+Content-Length: 192
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=D2C1553B95B206EE6D5E1B476F8DA3E6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "aaaa",
+  "password": "121234123412341",
+  "email": "yes@yes.yes",
   "birthdate": "2000-01-01",
   "playingTimeStart": "16:00",
   "playingTimeEnd": "17:00",

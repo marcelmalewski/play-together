@@ -1,13 +1,12 @@
 package com.marcel.malewski.playtogetherapi.validation.minage;
 
-import com.marcel.malewski.playtogetherapi.validation.pastorpresent.StringPastOrPresentValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = StringPastOrPresentValidator.class)
+@Constraint(validatedBy = MinAgeValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidateMinAge {

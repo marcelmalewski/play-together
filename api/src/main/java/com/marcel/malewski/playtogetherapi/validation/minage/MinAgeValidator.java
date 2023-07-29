@@ -22,7 +22,7 @@ public class MinAgeValidator implements ConstraintValidator<ValidateMinAge, Stri
 			return true;
 		}
 
-		LocalDate fifteenYearsAfterToday = LocalDate.now().minusYears(MIN_AGE);
-		return !date.isAfter(fifteenYearsAfterToday);
+		LocalDate fifteenYearsBeforeToday = LocalDate.now().minusYears(MIN_AGE);
+		return !date.isAfter(fifteenYearsBeforeToday);
 	}
 }

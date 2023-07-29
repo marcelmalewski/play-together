@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.validation.pastorpresent;
+package com.marcel.malewski.playtogetherapi.validation.minage;
 
 import com.marcel.malewski.playtogetherapi.auth.register.GamerRegisterRequestDto;
 import jakarta.validation.ConstraintViolation;
@@ -9,14 +9,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
-class StringPastOrPresentValidatorTest {
+class MinAgeValidatorTest {
   private ValidatorFactory factory;
   private Validator validator;
   private GamerRegisterRequestDto registerRequestDto;
@@ -28,7 +27,7 @@ class StringPastOrPresentValidatorTest {
   }
 
   @Test
-  void shouldFindNoViolationsWhenBirthDateIsInPastOrPresent() {
+  void shouldFindNoViolationsWhenAgeIsMinFifteenYears() {
     registerRequestDto = new GamerRegisterRequestDto(
       "username",
       "test1234534563456",
@@ -44,14 +43,14 @@ class StringPastOrPresentValidatorTest {
   }
 
   @Test
-  void shouldFindViolationWhenBirthDateIsInFuture() {
+  void shouldFindViolationWhenAgeIsLessThanFifteenYears() {
     LocalDate today = LocalDate.now();
-    LocalDate tomorrow = today.plusDays(1);
+    LocalDate fifteenYearsBeforeTodayPlusOneDay = today.minusYears(15).plusDays(1);
     registerRequestDto = new GamerRegisterRequestDto(
       "username",
       "test1234534563456",
       "yes@yes.com",
-      tomorrow.toString(),
+      fifteenYearsBeforeTodayPlusOneDay.toString(),
       "14:00",
       "15:00",
       List.of(1L)
