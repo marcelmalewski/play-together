@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.validation.pastorpresent;
+package com.marcel.malewski.playtogetherapi.validation.minage;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -8,9 +8,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-import static com.marcel.malewski.playtogetherapi.consts.DateUtils.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constants.DateUtils.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constants.DateUtils.MIN_AGE;
 
-public class StringPastOrPresentValidator implements ConstraintValidator<ValidateStringPastOrPresent, String> {
+public class MinAgeValidator implements ConstraintValidator<ValidateMinAge, String>{
 	@Override
 	public boolean isValid(String dateAsString, ConstraintValidatorContext context) {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
@@ -21,7 +22,7 @@ public class StringPastOrPresentValidator implements ConstraintValidator<Validat
 			return true;
 		}
 
-		LocalDate today = LocalDate.now();
-		return !date.isAfter(today);
+		LocalDate fifteenYearsAfterToday = LocalDate.now().minusYears(MIN_AGE);
+		return !date.isAfter(fifteenYearsAfterToday);
 	}
 }

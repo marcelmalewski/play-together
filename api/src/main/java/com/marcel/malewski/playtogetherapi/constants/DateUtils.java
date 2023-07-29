@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.consts;
+package com.marcel.malewski.playtogetherapi.constants;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,6 +8,7 @@ import java.time.format.ResolverStyle;
 public final class DateUtils {
 	public static final String DATE_FORMAT = "uuuu-MM-dd";
 	public static final String TIME_FORMAT = "HH:mm";
+	public static final int MIN_AGE = 15;
 
 	public static boolean ValidateDateTimeFormat(String time, String timeFormat) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timeFormat).withResolverStyle(ResolverStyle.STRICT);

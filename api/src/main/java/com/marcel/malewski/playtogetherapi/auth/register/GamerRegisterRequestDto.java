@@ -12,8 +12,8 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.consts.DateUtils.DATE_FORMAT;
-import static com.marcel.malewski.playtogetherapi.consts.DateUtils.TIME_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constants.DateUtils.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constants.DateUtils.TIME_FORMAT;
 
 //TODO dodać jakies wieksze wymagania co do hasla api/front
 //TODO dodać wymagania co do wieku api/front i wtedy data startowa na front to nie today tylko ten minmalny wiek

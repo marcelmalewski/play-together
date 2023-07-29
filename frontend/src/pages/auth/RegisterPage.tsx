@@ -42,7 +42,7 @@ export function RegisterPage() {
   const registerSchema = Yup.object().shape({
     login: Yup.string().min(3).max(20).required("login is required"),
     password: Yup.string().min(8).max(20).required("password is required"),
-    //TODO do zweryfikowania co dokladnie akceptuje .email() w porównaniu do api
+    //TODO jak dokładnie waliduje .email()?
     email: Yup.string().email().required("email is required"),
     birthdate: Yup.date()
       .typeError("birthdate is required")

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-import static com.marcel.malewski.playtogetherapi.consts.DateUtils.TIME_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constants.DateUtils.TIME_FORMAT;
 
 //TODO sprobować użyć bezpośrednio formatter.parse()
 public class PlayingTimeValidator implements ConstraintValidator<ValidatePlayingTime, GamerRegisterRequestDto> {
