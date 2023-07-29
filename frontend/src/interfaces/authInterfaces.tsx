@@ -24,4 +24,5 @@ export interface RegisterBody {
   birthdate: string;
   playingTimeStart: string;
   playingTimeEnd: string;
+  platformsIds: number[];
 }

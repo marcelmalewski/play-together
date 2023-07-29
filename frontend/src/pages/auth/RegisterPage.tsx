@@ -25,6 +25,7 @@ import { enqueueSnackbar } from "notistack";
 import { handleErrorMessage } from "../../other/basicUtils";
 
 //TODO obsługa login/mail jak już użyty
+//TODO dodać platformy
 export function RegisterPage() {
   const navigate = useNavigate();
   const [register, { isLoading }] = useRegisterMutation();
@@ -92,6 +93,7 @@ export function RegisterPage() {
         TIME_FORMAT
       ),
       playingTimeEnd: format(registerFormValues.playingTimeEnd, TIME_FORMAT),
+      platformsIds: [1],
     };
 
     register(registerBody)
