@@ -38,31 +38,31 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	void register(@NotNull GamerRegisterRequestDto gamerRegisterRequestDto, @NotNull GamerRoleEnum gamerRole) {
-		String login = gamerRegisterRequestDto.login();
+	void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleEnum gamerRole) {
+		String login = registerDto.login();
 		if (gamerRepository.existsByLogin(login)) {
 			throw new LoginAlreadyUsedException(login);
 		}
 
-		String email = gamerRegisterRequestDto.email();
+		String email = registerDto.email();
 		if (gamerRepository.existsByEmail(email)) {
 			throw new EmailAlreadyUsedException(email);
 		}
 
-		gamerRegisterRequestDto.platformsIds().forEach(platformId -> {
+		registerDto.platformsIds().forEach(platformId -> {
 			if (!platformRepository.existsById(platformId)) {
 				throw new GivenPlatformDoesNotExistException(platformId);
 			}
 		});
 
-		String encodedPassword = passwordEncoder.encode(gamerRegisterRequestDto.password());
+		String encodedPassword = passwordEncoder.encode(registerDto.password());
 
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalDate birthdateAsDate = LocalDate.parse(gamerRegisterRequestDto.birthdate(), dateFormatter);
+		LocalDate birthdateAsDate = LocalDate.parse(registerDto.birthdate(), dateFormatter);
 
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalTime playingTimeStartAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeStart(), timeFormatter);
-		LocalTime playingTimeEndAsDate = LocalTime.parse(gamerRegisterRequestDto.playingTimeEnd(), timeFormatter);
+		LocalTime playingTimeStartAsDate = LocalTime.parse(registerDto.playingTimeStart(), timeFormatter);
+		LocalTime playingTimeEndAsDate = LocalTime.parse(registerDto.playingTimeEnd(), timeFormatter);
 
 		Gamer newGamer = new Gamer();
 		newGamer.setLogin(login);
@@ -74,7 +74,7 @@ public class RegisterService {
 		newGamer.setCreatedAt(LocalDate.now());
 		Gamer savedGamer = gamerRepository.save(newGamer);
 
-		gamerRegisterRequestDto.platformsIds().forEach(platformId -> {
+		registerDto.platformsIds().forEach(platformId -> {
 			Platform platform = platformRepository.getReferenceById(platformId);
 			savedGamer.getPlatforms().add(platform);
 		});

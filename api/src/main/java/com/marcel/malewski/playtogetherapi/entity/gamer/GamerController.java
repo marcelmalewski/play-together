@@ -69,14 +69,22 @@ public class GamerController {
 
 	@PutMapping(value = "/gamers/@me/profile")
 	@Operation(summary = "Update the authenticated gamers's public profile data")
-	public ResponseEntity<GamerPublicResponseDto> updateGamerProfile(long gamerId) {
+	public ResponseEntity<GamerPublicResponseDto> updateGamerProfile(long gamerId, Principal principal) {
+		if (principal == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+
 		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
 	@PatchMapping(value = "/gamers/@me/private")
 	@Operation(summary = "Update the authenticated gamers's private data")
-	public ResponseEntity<GamerPublicResponseDto> updateGamerPrivateData(long gamerId) {
+	public ResponseEntity<GamerPublicResponseDto> updateGamerPrivateData(long gamerId, Principal principal) {
+		if (principal == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+
 		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}

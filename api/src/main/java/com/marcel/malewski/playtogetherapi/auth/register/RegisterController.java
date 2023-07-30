@@ -25,19 +25,19 @@ public class RegisterController {
 	}
 
 	@PostMapping(value="/auth/gamers/register")
-	public void registerGamer(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto, Principal principal) {
+	public void registerGamer(@Valid @RequestBody GamerRegisterRequestDto registerDto, Principal principal) {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedGamerException();
 		}
-		this.registerService.register(gamerRegisterRequestDto,  GamerRoleEnum.USER);
+		this.registerService.register(registerDto,  GamerRoleEnum.USER);
 	}
 
 	//TODO dodać jeszcze, że może to zrobić tylko zalogowany moderator, jak tu użyć role on spring security hm
 	@PostMapping(value="/auth/moderators/register")
-	public void registerModerator(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto, Principal principal) {
+	public void registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto, Principal principal) {
 		if(principal == null) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 		}
-		this.registerService.register(gamerRegisterRequestDto, GamerRoleEnum.MODERATOR);
+		this.registerService.register(registerDto, GamerRoleEnum.MODERATOR);
 	}
 }
