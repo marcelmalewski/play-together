@@ -15,7 +15,8 @@ import java.util.List;
 import static com.marcel.malewski.playtogetherapi.constants.DateUtils.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constants.DateUtils.TIME_FORMAT;
 
-//TODO dodać jakies wieksze wymagania co do hasla api/front
+//TODO dodać większe wymagania hasła
+//TODO czy spacje przejdą przez min?
 @ValidatePlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = 3, max = 20)

@@ -30,4 +30,13 @@ public class GamerService {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 		return gamerMapper.toGamerPrivateResponseDto(gamer);
 	}
+
+	public GamerPrivateResponseDto updateGamerProfile() {
+		return null;
+	}
+
+	public GamerPrivateResponseDto updateGamerAuth() {
+		return null;
+	}
+
 }

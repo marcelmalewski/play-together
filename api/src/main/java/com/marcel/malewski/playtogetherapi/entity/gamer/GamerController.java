@@ -13,14 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 
-//TODO dodac v1? po co ?
+//TODO czy dodać v1?
 @RestController
 @RequestMapping(value = "")
 @Tag(name = "Gamers", description = "Gamers API")
@@ -46,7 +44,7 @@ public class GamerController {
 	}
 
 	@GetMapping(value = "/gamers/@me")
-	@Operation(summary = "Get private info about an authenticated gamer")
+	@Operation(summary = "Get private info about the authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
 		if (principal == null) {
@@ -67,6 +65,20 @@ public class GamerController {
 
 			throw new AuthenticatedGamerNotFoundException();
 		}
+	}
+
+	@PutMapping(value = "/gamers/@me/profile")
+	@Operation(summary = "Update the authenticated gamers's public profile data")
+	public ResponseEntity<GamerPublicResponseDto> updateGamerProfile(long gamerId) {
+		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
+		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
+	}
+
+	@PatchMapping(value = "/gamers/@me/private")
+	@Operation(summary = "Update the authenticated gamers's private data")
+	public ResponseEntity<GamerPublicResponseDto> updateGamerPrivateData(long gamerId) {
+		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
+		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
 //	@GetMapping("/{id}")
