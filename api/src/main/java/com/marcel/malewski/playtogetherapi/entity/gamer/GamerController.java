@@ -40,7 +40,7 @@ public class GamerController {
 
 	@GetMapping(value = "/gamers/:gamerId")
 	@Operation(summary = "Get public info about a gamer by id")
-	public ResponseEntity<GamerPublicResponseDto> getGamerPublic(Long gamerId) {
+	public ResponseEntity<GamerPublicResponseDto> getGamerPublic(long gamerId) {
 		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
@@ -54,7 +54,7 @@ public class GamerController {
 		}
 
 		String gamerIdAsString = principal.getName();
-		Long gamerId = Long.parseLong(gamerIdAsString);
+		long gamerId = Long.parseLong(gamerIdAsString);
 
 		try {
 			GamerPrivateResponseDto gamerPrivateInfo = this.gamerService.getGamerPrivateInfo(gamerId);

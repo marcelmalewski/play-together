@@ -12,7 +12,6 @@ import java.time.Period;
 import java.util.List;
 
 //TODO tu jest powtórzenie
-
 @Mapper(componentModel = "spring")
 abstract class GamerMapper {
 	public GamerPrivateResponseDto toGamerPrivateResponseDto(Gamer gamer) {

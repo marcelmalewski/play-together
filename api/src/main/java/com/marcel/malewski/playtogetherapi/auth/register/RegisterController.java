@@ -32,7 +32,7 @@ public class RegisterController {
 		this.registerService.register(gamerRegisterRequestDto,  GamerRoleEnum.USER);
 	}
 
-	//TODO dodać jeszcze, że może to zrobić tylko zalogowany moderator
+	//TODO dodać jeszcze, że może to zrobić tylko zalogowany moderator, jak tu użyć role on spring security hm
 	@PostMapping(value="/auth/moderators/register")
 	public void registerModerator(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto, Principal principal) {
 		if(principal == null) {

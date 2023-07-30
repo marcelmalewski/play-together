@@ -21,12 +21,12 @@ public class GamerService {
 		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPublicResponseDto).toList();
 	}
 
-	public GamerPublicResponseDto getGamerPublicInfo(Long id) {
+	public GamerPublicResponseDto getGamerPublicInfo(long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 		return gamerMapper.toGamerPublicResponseDto(gamer);
 	}
 
-	public GamerPrivateResponseDto getGamerPrivateInfo(Long id) {
+	public GamerPrivateResponseDto getGamerPrivateInfo(long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 		return gamerMapper.toGamerPrivateResponseDto(gamer);
 	}
