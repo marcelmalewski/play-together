@@ -79,8 +79,8 @@ public class RegisterService {
 			savedGamer.getPlatforms().add(platform);
 		});
 
-		GamerRole userGamerRole = gamerRoleRepository.getReferenceByName(gamerRole.name());
-		savedGamer.getRoles().add(userGamerRole);
+		GamerRole userRole = gamerRoleRepository.getReferenceByName(gamerRole.name());
+		savedGamer.getRoles().add(userRole);
 
 		gamerRepository.save(newGamer);
 	}

@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class EmailAlreadyUsedException extends RuntimeException {
 	public EmailAlreadyUsedException(String email) {
-		super("Another user already uses this email, email: " + email);
+		super("Another gamer already uses this email, email: " + email);
 	}
 }

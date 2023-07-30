@@ -38,8 +38,8 @@ public class GamerController {
 
 	@GetMapping(value = "/gamers/:gamerId")
 	@Operation(summary = "Get public info about a gamer by id")
-	public ResponseEntity<GamerPublicResponseDto> getGamerPublic(Long id) {
-		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(id);
+	public ResponseEntity<GamerPublicResponseDto> getGamerPublic(Long gamerId) {
+		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
@@ -82,13 +82,6 @@ public class GamerController {
 //		GamerResponseDto result = gamerService.updateGamer();
 //		return new ResponseEntity<>(result, HttpStatus.OK);
 //	}
-
-//   @PatchMapping
-//   @Operation(summary = "Partially update gamer")
-//   public ResponseEntity<String> partiallyUpdateGamer() {
-//      String result = "gamer2";
-//      return new ResponseEntity<>(result, HttpStatus.OK);
-//   }
 
 //	@DeleteMapping("/{id}")
 //	@Operation(summary = "Delete gamer by id")

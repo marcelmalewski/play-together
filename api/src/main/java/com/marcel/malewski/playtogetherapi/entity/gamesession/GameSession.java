@@ -38,7 +38,7 @@ public class GameSession {
 	private int numberOfMembers;
 	private int maxMembers;
 	private int minAge;
-	private boolean isCurrentUserMember;
+	private boolean isCurrentGamerMember;
 
 
 	private String description;
