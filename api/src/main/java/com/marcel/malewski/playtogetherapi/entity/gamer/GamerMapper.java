@@ -21,6 +21,7 @@ public abstract class GamerMapper {
 		List<String> genres = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
 
 		return new GamerPrivateResponseDto(
+			gamer.getId(),
 			gamer.getLogin(),
 			gamer.getEmail(),
 			gamer.getBirthdate(),
@@ -43,6 +44,7 @@ public abstract class GamerMapper {
 		List<String> genres = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
 
 		return new GamerPublicResponseDto(
+			gamer.getId(),
 			gamer.getLogin(),
 			age,
 			gamer.getBio(),

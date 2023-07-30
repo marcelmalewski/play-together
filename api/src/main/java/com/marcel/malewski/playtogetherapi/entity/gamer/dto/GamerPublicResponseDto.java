@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public record GamerPublicResponseDto(
+	Long id,
 	String login,
 	int age,
 	String bio,
