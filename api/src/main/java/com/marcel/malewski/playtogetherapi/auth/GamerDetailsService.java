@@ -14,9 +14,8 @@ public class GamerDetailsService implements UserDetailsService {
 		this.gamerRepository = gamerRepository;
 	}
 
-	//TODO username not found
 	@Override
-	public UserDetails loadUserByUsername(String loginOrEmail) throws UsernameNotFoundException {
-		return gamerRepository.findByLoginOrEmail(loginOrEmail, loginOrEmail).get();
+	public UserDetails loadUserByUsername(String loginOrEmail) {
+		return gamerRepository.findByLoginOrEmail(loginOrEmail, loginOrEmail).orElseThrow(() -> new UsernameNotFoundException(loginOrEmail));
 	}
 }

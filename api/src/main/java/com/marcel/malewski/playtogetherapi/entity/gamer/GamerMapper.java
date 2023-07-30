@@ -13,7 +13,7 @@ import java.util.List;
 
 //TODO tu jest powtórzenie
 @Mapper(componentModel = "spring")
-abstract class GamerMapper {
+public abstract class GamerMapper {
 	public GamerPrivateResponseDto toGamerPrivateResponseDto(Gamer gamer) {
 		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?
 		List<String> platforms = gamer.getPlatforms().stream().map(Platform::getName).toList();
