@@ -55,7 +55,6 @@ public class GamerController {
 
 		String gamerIdAsString = principal.getName();
 		Long gamerId = Long.parseLong(gamerIdAsString);
-		gamerId = 123L;
 
 		try {
 			GamerPrivateResponseDto gamerPrivateInfo = this.gamerService.getGamerPrivateInfo(gamerId);
