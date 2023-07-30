@@ -2,6 +2,8 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.AuthenticatedGamerNotFoundException;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,19 +49,24 @@ public class GamerController {
 	@Operation(summary = "Get private info about an authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
-		//TODO co jak zalogowany do konta ktore nie istnieje, dodać try catch obsługe gdy get gamer wywali wyjątek
-		if (principal != null) {
-			String gamerIdAsString = principal.getName();
-			Long gamerId = Long.parseLong(gamerIdAsString);
+		if (principal == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+
+		String gamerIdAsString = principal.getName();
+		Long gamerId = Long.parseLong(gamerIdAsString);
+
+		try {
 			GamerPrivateResponseDto gamerPrivateInfo = this.gamerService.getGamerPrivateInfo(gamerId);
 
 			return new ResponseEntity<>(gamerPrivateInfo, HttpStatus.OK);
-		}
+		} catch (GamerNotFoundException exception) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
+			securityContextLogoutHandler.logout(request, response, auth);
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
-		securityContextLogoutHandler.logout(request, response, auth);
-		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			throw new AuthenticatedGamerNotFoundException();
+		}
 	}
 
 //	@GetMapping("/{id}")

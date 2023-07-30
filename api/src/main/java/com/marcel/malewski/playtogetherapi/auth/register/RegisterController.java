@@ -25,7 +25,7 @@ public class RegisterController {
 	}
 
 	@PostMapping(value="/auth/gamers/register")
-	public void registerUser(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto, Principal principal) {
+	public void registerGamer(@Valid @RequestBody GamerRegisterRequestDto gamerRegisterRequestDto, Principal principal) {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedGamerException();
 		}

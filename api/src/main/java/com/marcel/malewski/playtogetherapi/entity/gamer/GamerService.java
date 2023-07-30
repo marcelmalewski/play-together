@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,10 +22,12 @@ public class GamerService {
 	}
 
 	public GamerPublicResponseDto getGamerPublicInfo(Long id) {
-		return gamerMapper.toGamerPublicResponseDto(gamerRepository.findById(id).get());
+		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+		return gamerMapper.toGamerPublicResponseDto(gamer);
 	}
 
 	public GamerPrivateResponseDto getGamerPrivateInfo(Long id) {
-		return gamerMapper.toGamerPrivateResponseDto(gamerRepository.findById(id).get());
+		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+		return gamerMapper.toGamerPrivateResponseDto(gamer);
 	}
 }
