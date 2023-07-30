@@ -23,7 +23,6 @@ import static com.marcel.malewski.playtogetherapi.constants.DateUtils.DATE_FORMA
 import static com.marcel.malewski.playtogetherapi.constants.DateUtils.TIME_FORMAT;
 
 //TODO use service instead of repository?
-//TODO czy potrzebuje aż tyle ".save"
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;

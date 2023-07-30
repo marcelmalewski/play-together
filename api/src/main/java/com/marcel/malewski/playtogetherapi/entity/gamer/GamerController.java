@@ -77,8 +77,8 @@ public class GamerController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		GamerPrivateResponseDto gamerPublic = this.gamerService.updateGamerProfile();
-		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
+		GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto);
+		return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 	}
 
 	@PatchMapping(value = "/gamers/@me/private")
@@ -88,8 +88,8 @@ public class GamerController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		GamerPrivateResponseDto gamerPublic = this.gamerService.updateGamerAuth();
-		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
+		GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuth(updateAuthDto);
+		return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 	}
 
 //	@GetMapping("/{id}")

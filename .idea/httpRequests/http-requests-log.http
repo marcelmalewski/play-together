@@ -1,5 +1,27 @@
 POST http://localhost/api/auth/gamers/register
 Content-Type: application/json
+Content-Length: 196
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=D2C1553B95B206EE6D5E1B476F8DA3E6
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "aaa",
+  "password": "121234123412341",
+  "email": "ye2s@yes.yes",
+  "birthdate": "-2008-07-29",
+  "playingTimeStart": "16:00:00",
+  "playingTimeEnd": "17:00",
+  "platformsIds": [1]
+}
+
+<> 2023-07-30T205036.400.json
+
+###
+
+POST http://localhost/api/auth/gamers/register
+Content-Type: application/json
 Content-Length: 193
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
@@ -989,25 +1011,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2023-07-24T134014.500.json
-
-###
-
-POST http://localhost:5000/api/auth/gamers/register
-Content-Type: application/json
-Content-Length: 195
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "login": "username",
-  "password": "test1234534563456",
-  "email": "yes@yes.com",
-  "birthDate": "2050-01-01",
-  "playingTimeStart": "14:00",
-  "playingTimeEnd": "15:00",
-  "platforms": [1]
-}
 
 ###
 
