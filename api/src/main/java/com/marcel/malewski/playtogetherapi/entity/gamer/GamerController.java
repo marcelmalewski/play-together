@@ -2,12 +2,15 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthRequestDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.AuthenticatedGamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -69,23 +72,23 @@ public class GamerController {
 
 	@PutMapping(value = "/gamers/@me/profile")
 	@Operation(summary = "Update the authenticated gamers's public profile data")
-	public ResponseEntity<GamerPublicResponseDto> updateGamerProfile(long gamerId, Principal principal) {
+	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal) {
 		if (principal == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
+		GamerPrivateResponseDto gamerPublic = this.gamerService.updateGamerProfile();
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
 	@PatchMapping(value = "/gamers/@me/private")
 	@Operation(summary = "Update the authenticated gamers's private data")
-	public ResponseEntity<GamerPublicResponseDto> updateGamerPrivateData(long gamerId, Principal principal) {
+	public ResponseEntity<GamerPrivateResponseDto> updateGamerPrivateData(@Valid @RequestBody GamerUpdateAuthRequestDto updateAuthDto, Principal principal) {
 		if (principal == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
+		GamerPrivateResponseDto gamerPublic = this.gamerService.updateGamerAuth();
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
