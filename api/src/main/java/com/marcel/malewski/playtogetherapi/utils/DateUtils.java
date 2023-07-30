@@ -1,10 +1,9 @@
-package com.marcel.malewski.playtogetherapi.constants;
+package com.marcel.malewski.playtogetherapi.utils;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-//TODO może enum lepszy?
 public final class DateUtils {
 	public static final String DATE_FORMAT = "uuuu-MM-dd";
 	public static final String TIME_FORMAT = "HH:mm";

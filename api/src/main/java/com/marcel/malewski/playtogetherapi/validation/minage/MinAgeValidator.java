@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-import static com.marcel.malewski.playtogetherapi.constants.DateUtils.DATE_FORMAT;
-import static com.marcel.malewski.playtogetherapi.constants.DateUtils.MIN_AGE;
+import static com.marcel.malewski.playtogetherapi.utils.DateUtils.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.utils.DateUtils.MIN_AGE;
 
 public class MinAgeValidator implements ConstraintValidator<ValidateMinAge, String>{
 	@Override

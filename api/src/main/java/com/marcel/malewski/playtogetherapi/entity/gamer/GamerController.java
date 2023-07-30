@@ -13,13 +13,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+
+import static com.marcel.malewski.playtogetherapi.utils.AuthUtils.LogoutManually;
 
 //TODO czy dodać v1?
 @RestController
@@ -62,34 +61,49 @@ public class GamerController {
 
 			return new ResponseEntity<>(gamerPrivateInfo, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
-			securityContextLogoutHandler.logout(request, response, auth);
-
+			LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 	}
 
 	@PutMapping(value = "/gamers/@me/profile")
 	@Operation(summary = "Update the authenticated gamers's public profile data")
-	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal) {
+	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
+	                                                                  HttpServletResponse response) {
 		if (principal == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto);
-		return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
+		String gamerIdAsString = principal.getName();
+		long gamerId = Long.parseLong(gamerIdAsString);
+
+		try {
+			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto, gamerId);
+			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
+		} catch (GamerNotFoundException exception) {
+			LogoutManually(request, response);
+			throw new AuthenticatedGamerNotFoundException();
+		}
 	}
 
 	@PatchMapping(value = "/gamers/@me/private")
 	@Operation(summary = "Update the authenticated gamers's private data")
-	public ResponseEntity<GamerPrivateResponseDto> updateGamerPrivateData(@Valid @RequestBody GamerUpdateAuthRequestDto updateAuthDto, Principal principal) {
+	public ResponseEntity<GamerPrivateResponseDto> updateGamerPrivateData(@Valid @RequestBody GamerUpdateAuthRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
+	                                                                      HttpServletResponse response) {
 		if (principal == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuth(updateAuthDto);
-		return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
+		String gamerIdAsString = principal.getName();
+		long gamerId = Long.parseLong(gamerIdAsString);
+
+		try {
+			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuth(updateAuthDto, gamerId);
+			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
+		} catch (GamerNotFoundException exception) {
+			LogoutManually(request, response);
+			throw new AuthenticatedGamerNotFoundException();
+		}
 	}
 
 //	@GetMapping("/{id}")
