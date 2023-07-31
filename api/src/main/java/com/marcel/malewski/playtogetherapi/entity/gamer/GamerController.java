@@ -58,7 +58,6 @@ public class GamerController {
 
 		try {
 			GamerPrivateResponseDto gamerPrivateInfo = this.gamerService.getGamerPrivateInfo(gamerId);
-
 			return new ResponseEntity<>(gamerPrivateInfo, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
