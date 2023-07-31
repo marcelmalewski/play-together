@@ -1,7 +1,6 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
 import com.marcel.malewski.playtogetherapi.auth.exception.EmailAlreadyUsedException;
-import com.marcel.malewski.playtogetherapi.auth.exception.GivenPlatformDoesNotExistException;
 import com.marcel.malewski.playtogetherapi.auth.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
@@ -10,6 +9,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
+import com.marcel.malewski.playtogetherapi.exception.sharedexception.GivenPlatformDoesNotExistException;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

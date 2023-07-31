@@ -36,11 +36,15 @@ public class GamerService {
 
 	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+
+		//TODO zweryfikować czy podane platformy, gry, gatunki istnieją
+
 		return null;
 	}
 
 	public GamerPrivateResponseDto updateGamerAuth(@NotNull GamerUpdateAuthRequestDto updateAuthDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+
 		return null;
 	}
 
