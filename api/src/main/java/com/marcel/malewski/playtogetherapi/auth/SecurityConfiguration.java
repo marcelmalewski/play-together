@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
+	//TODO ograniczyć dostęp linków
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
@@ -30,6 +31,7 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests()
 			.requestMatchers(
 				"/",
+				"/gamers/@me/profile",
 				"/auth/gamers/register",
 				"/platforms",
 				"/gamers",

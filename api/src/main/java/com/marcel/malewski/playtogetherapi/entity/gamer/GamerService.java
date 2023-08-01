@@ -50,7 +50,7 @@ public class GamerService {
 	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
-		List<Platform> platforms = updateProfileDto.platforms().stream().map(platformId -> {
+		List<Platform> platforms = updateProfileDto.platformsIds().stream().map(platformId -> {
 			if (!platformRepository.existsById(platformId)) {
 				throw new GivenPlatformDoesNotExistException(platformId);
 			}
@@ -58,7 +58,7 @@ public class GamerService {
 			return platformRepository.getReferenceById(platformId);
 		}).toList();
 
-		List<Game> favouriteGames = updateProfileDto.favouriteGames().stream().map(favouriteGameId -> {
+		List<Game> favouriteGames = updateProfileDto.favouriteGamesIds().stream().map(favouriteGameId -> {
 			if (!gameRepository.existsById(favouriteGameId)) {
 				throw new GivenPlatformDoesNotExistException(favouriteGameId);
 			}
@@ -66,7 +66,7 @@ public class GamerService {
 			return gameRepository.getReferenceById(favouriteGameId);
 		}).toList();
 
-		List<Genre> favouriteGenres = updateProfileDto.favouriteGenres().stream().map(favouriteGenreId -> {
+		List<Genre> favouriteGenres = updateProfileDto.favouriteGenresIds().stream().map(favouriteGenreId -> {
 			if (!genreRepository.existsById(favouriteGenreId)) {
 				throw new GivenPlatformDoesNotExistException(favouriteGenreId);
 			}

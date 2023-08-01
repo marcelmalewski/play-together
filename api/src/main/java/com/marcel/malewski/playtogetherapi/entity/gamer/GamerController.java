@@ -49,10 +49,6 @@ public class GamerController {
 	@Operation(summary = "Get private info about the authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
-		if (principal == null) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-
 		String gamerIdAsString = principal.getName();
 		long gamerId = Long.parseLong(gamerIdAsString);
 
@@ -69,15 +65,11 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's public profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
-		if (principal == null) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-
-		String gamerIdAsString = principal.getName();
-		long gamerId = Long.parseLong(gamerIdAsString);
+//		String gamerIdAsString = principal.getName();
+//		long gamerId = Long.parseLong(gamerIdAsString);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto, gamerId);
+			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto, 1L);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
@@ -89,10 +81,6 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's private data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerPrivateData(@Valid @RequestBody GamerUpdateAuthRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
-		if (principal == null) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-
 		String gamerIdAsString = principal.getName();
 		long gamerId = Long.parseLong(gamerIdAsString);
 
