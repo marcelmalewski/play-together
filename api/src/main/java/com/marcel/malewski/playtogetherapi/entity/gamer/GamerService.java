@@ -11,6 +11,8 @@ import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.genre.GenreRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
+import com.marcel.malewski.playtogetherapi.exception.sharedexception.GivenGameDoesNotExistException;
+import com.marcel.malewski.playtogetherapi.exception.sharedexception.GivenGenreDoesNotExistException;
 import com.marcel.malewski.playtogetherapi.exception.sharedexception.GivenPlatformDoesNotExistException;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
@@ -50,41 +52,44 @@ public class GamerService {
 	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
-		List<Platform> platforms = updateProfileDto.platformsIds().stream().map(platformId -> {
-			if (!platformRepository.existsById(platformId)) {
-				throw new GivenPlatformDoesNotExistException(platformId);
-			}
-
-			return platformRepository.getReferenceById(platformId);
-		}).toList();
-
-		List<Game> favouriteGames = updateProfileDto.favouriteGamesIds().stream().map(favouriteGameId -> {
-			if (!gameRepository.existsById(favouriteGameId)) {
-				throw new GivenPlatformDoesNotExistException(favouriteGameId);
-			}
-
-			return gameRepository.getReferenceById(favouriteGameId);
-		}).toList();
-
-		List<Genre> favouriteGenres = updateProfileDto.favouriteGenresIds().stream().map(favouriteGenreId -> {
-			if (!genreRepository.existsById(favouriteGenreId)) {
-				throw new GivenPlatformDoesNotExistException(favouriteGenreId);
-			}
-
-			return genreRepository.getReferenceById(favouriteGenreId);
-		}).toList();
-
 		gamer.setLogin(updateProfileDto.login());
 		gamer.setBirthdate(updateProfileDto.birthdate());
 		gamer.setBio(updateProfileDto.bio());
 		gamer.setAvatarUrl(updateProfileDto.avatarUrl());
 		gamer.setPlayingTimeStart(updateProfileDto.playingTimeStart());
 		gamer.setPlayingTimeEnd(updateProfileDto.playingTimeEnd());
-		gamer.setPlatforms(platforms);
-		gamer.setFavouriteGames(favouriteGames);
-		gamer.setFavouriteGenres(favouriteGenres);
-		Gamer updatedGamer = gamerRepository.save(gamer);
 
+		gamer.getPlatforms().clear();
+		updateProfileDto.platformsIds().forEach(platformId -> {
+			if (!platformRepository.existsById(platformId)) {
+				throw new GivenPlatformDoesNotExistException(platformId);
+			}
+
+			Platform platform = platformRepository.getReferenceById(platformId);
+			gamer.getPlatforms().add(platform);
+		});
+
+		gamer.getFavouriteGames().clear();
+		updateProfileDto.favouriteGamesIds().forEach(favouriteGameId -> {
+			if (!gameRepository.existsById(favouriteGameId)) {
+				throw new GivenGameDoesNotExistException(favouriteGameId);
+			}
+
+			Game favouriteGame = gameRepository.getReferenceById(favouriteGameId);
+			gamer.getFavouriteGames().add(favouriteGame);
+		});
+
+		gamer.getFavouriteGenres().clear();
+		updateProfileDto.favouriteGenresIds().forEach(favouriteGenreId -> {
+			if (!genreRepository.existsById(favouriteGenreId)) {
+				throw new GivenGenreDoesNotExistException(favouriteGenreId);
+			}
+
+			Genre favouriteGenre = genreRepository.getReferenceById(favouriteGenreId);
+			gamer.getFavouriteGenres().add(favouriteGenre);
+		});
+
+		Gamer updatedGamer = gamerRepository.save(gamer);
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
