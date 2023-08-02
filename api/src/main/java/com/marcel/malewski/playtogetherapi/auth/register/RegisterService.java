@@ -1,9 +1,8 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
-import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
-import com.marcel.malewski.playtogetherapi.entity.gamer.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
@@ -25,13 +24,13 @@ import static com.marcel.malewski.playtogetherapi.utils.DateUtils.TIME_FORMAT;
 //TODO use service instead of repository
 @Service
 public class RegisterService {
-	private final GamerRepository gamerRepository;
+	private final GamerService gamerService;
 	private final GamerRoleRepository gamerRoleRepository;
 	private final PlatformRepository platformRepository;
 	private final PasswordEncoder passwordEncoder;
 
-	public RegisterService(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
-		this.gamerRepository = gamerRepository;
+	public RegisterService(GamerService gamerService, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
+		this.gamerService = gamerService;
 		this.gamerRoleRepository = gamerRoleRepository;
 		this.platformRepository = platformRepository;
 		this.passwordEncoder = passwordEncoder;
@@ -39,9 +38,7 @@ public class RegisterService {
 
 	void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleEnum gamerRole) {
 		String login = registerDto.login();
-		if (gamerRepository.existsByLogin(login)) {
-			throw new LoginAlreadyUsedException(login);
-		}
+		gamerService.throwExceptionIfLoginIsAlreadyUsed(login);
 
 		String email = registerDto.email();
 		if (gamerRepository.existsByEmail(email)) {

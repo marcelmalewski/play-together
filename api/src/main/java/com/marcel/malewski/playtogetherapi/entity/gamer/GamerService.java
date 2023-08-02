@@ -9,6 +9,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthReque
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.genre.GenreService;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
@@ -36,6 +37,12 @@ public class GamerService {
 		this.gamerMapper = gamerMapper;
 		this.gameService = gameService;
 		this.passwordEncoder = passwordEncoder;
+	}
+
+	public void throwExceptionIfLoginIsAlreadyUsed(String login) {
+		if (gamerRepository.existsByLogin(login)) {
+			throw new LoginAlreadyUsedException(login);
+		}
 	}
 
 	public List<GamerPublicResponseDto> findAllGamers() {
