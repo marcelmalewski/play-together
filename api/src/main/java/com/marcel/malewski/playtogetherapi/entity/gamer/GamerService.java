@@ -2,8 +2,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import com.marcel.malewski.playtogetherapi.auth.exception.InvalidPasswordException;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
-import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
-import com.marcel.malewski.playtogetherapi.entity.game.exception.GivenGameDoesNotExistException;
+import com.marcel.malewski.playtogetherapi.entity.game.exception.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthRequestDto;
@@ -25,17 +24,17 @@ import java.util.List;
 public class GamerService {
 	private final GamerRepository gamerRepository;
 	private final PlatformService platformService;
-	private final GameRepository gameRepository;
+	private final GameService gameService;
 	private final GenreRepository genreRepository;
 	private final GamerMapper gamerMapper;
 	private final PasswordEncoder passwordEncoder;
 
 
-	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GamerMapper gamerMapper, GameRepository gameRepository, GenreRepository genreRepository, PasswordEncoder passwordEncoder) {
+	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GamerMapper gamerMapper, GameService gameService, GenreRepository genreRepository, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.platformService = platformService;
 		this.gamerMapper = gamerMapper;
-		this.gameRepository = gameRepository;
+		this.gameService = gameService;
 		this.genreRepository = genreRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
@@ -72,11 +71,7 @@ public class GamerService {
 
 		gamer.getFavouriteGames().clear();
 		updateProfileDto.favouriteGamesIds().forEach(favouriteGameId -> {
-			if (!gameRepository.existsById(favouriteGameId)) {
-				throw new GivenGameDoesNotExistException(favouriteGameId);
-			}
-
-			Game favouriteGame = gameRepository.getReferenceById(favouriteGameId);
+			Game favouriteGame = gameService.getReferenceOfGivenGame(favouriteGameId);
 			gamer.getFavouriteGames().add(favouriteGame);
 		});
 
