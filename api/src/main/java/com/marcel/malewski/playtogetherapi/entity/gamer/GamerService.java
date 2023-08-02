@@ -10,8 +10,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRe
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
-import com.marcel.malewski.playtogetherapi.entity.genre.GenreRepository;
-import com.marcel.malewski.playtogetherapi.entity.genre.exception.GivenGenreDoesNotExistException;
+import com.marcel.malewski.playtogetherapi.entity.genre.GenreService;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import jakarta.validation.constraints.NotNull;
@@ -25,17 +24,17 @@ public class GamerService {
 	private final GamerRepository gamerRepository;
 	private final PlatformService platformService;
 	private final GameService gameService;
-	private final GenreRepository genreRepository;
+	private final GenreService genreService;
 	private final GamerMapper gamerMapper;
 	private final PasswordEncoder passwordEncoder;
 
 
-	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GamerMapper gamerMapper, GameService gameService, GenreRepository genreRepository, PasswordEncoder passwordEncoder) {
+	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GenreService genreService, GamerMapper gamerMapper, GameService gameService, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.platformService = platformService;
+		this.genreService = genreService;
 		this.gamerMapper = gamerMapper;
 		this.gameService = gameService;
-		this.genreRepository = genreRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -77,11 +76,7 @@ public class GamerService {
 
 		gamer.getFavouriteGenres().clear();
 		updateProfileDto.favouriteGenresIds().forEach(favouriteGenreId -> {
-			if (!genreRepository.existsById(favouriteGenreId)) {
-				throw new GivenGenreDoesNotExistException(favouriteGenreId);
-			}
-
-			Genre favouriteGenre = genreRepository.getReferenceById(favouriteGenreId);
+			Genre favouriteGenre = genreService.getReferenceOfGivenGame(favouriteGenreId);
 			gamer.getFavouriteGenres().add(favouriteGenre);
 		});
 
