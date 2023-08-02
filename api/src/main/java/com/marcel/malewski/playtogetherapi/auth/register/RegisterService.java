@@ -2,7 +2,6 @@ package com.marcel.malewski.playtogetherapi.auth.register;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
-import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
@@ -41,9 +40,7 @@ public class RegisterService {
 		gamerService.throwExceptionIfLoginIsAlreadyUsed(login);
 
 		String email = registerDto.email();
-		if (gamerRepository.existsByEmail(email)) {
-			throw new EmailAlreadyUsedException(email);
-		}
+		gamerService.throwExceptionIfEmailIsAlreadyUsed(email);
 
 		registerDto.platformsIds().forEach(platformId -> {
 			if (!platformRepository.existsById(platformId)) {

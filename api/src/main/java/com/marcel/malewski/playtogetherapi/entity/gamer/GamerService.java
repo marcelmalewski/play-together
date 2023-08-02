@@ -45,6 +45,12 @@ public class GamerService {
 		}
 	}
 
+	public void throwExceptionIfEmailIsAlreadyUsed(String email) {
+		if (gamerRepository.existsByEmail(email)) {
+			throw new EmailAlreadyUsedException(email);
+		}
+	}
+
 	public List<GamerPublicResponseDto> findAllGamers() {
 		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPublicResponseDto).toList();
 	}
