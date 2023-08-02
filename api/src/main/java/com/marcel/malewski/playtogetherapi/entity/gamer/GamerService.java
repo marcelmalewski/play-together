@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
+import com.marcel.malewski.playtogetherapi.auth.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
@@ -7,6 +8,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseD
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.InvalidPasswordException;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.genre.GenreRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
@@ -15,6 +17,7 @@ import com.marcel.malewski.playtogetherapi.exception.sharedexception.GivenGameDo
 import com.marcel.malewski.playtogetherapi.exception.sharedexception.GivenGenreDoesNotExistException;
 import com.marcel.malewski.playtogetherapi.exception.sharedexception.GivenPlatformDoesNotExistException;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +29,16 @@ public class GamerService {
 	private final GameRepository gameRepository;
 	private final GenreRepository genreRepository;
 	private final GamerMapper gamerMapper;
+	private final PasswordEncoder passwordEncoder;
 
-	public GamerService(GamerRepository gamerRepository, GamerMapper gamerMapper, PlatformRepository platformRepository, GameRepository gameRepository, GenreRepository genreRepository) {
+
+	public GamerService(GamerRepository gamerRepository, GamerMapper gamerMapper, PlatformRepository platformRepository, GameRepository gameRepository, GenreRepository genreRepository, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.gamerMapper = gamerMapper;
 		this.platformRepository = platformRepository;
 		this.gameRepository = gameRepository;
 		this.genreRepository = genreRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	public List<GamerPublicResponseDto> findAllGamers() {
@@ -95,6 +101,15 @@ public class GamerService {
 
 	public GamerPrivateResponseDto updateGamerAuth(@NotNull GamerUpdateAuthRequestDto updateAuthDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+
+		String email = updateAuthDto.email();
+		if (gamerRepository.existsByEmail(email)) {
+			throw new EmailAlreadyUsedException(email);
+		}
+
+		if (!passwordEncoder.matches(updateAuthDto.currentPassword(), gamer.getPassword())) {
+			throw new InvalidPasswordException();
+		}
 
 		return null;
 	}
