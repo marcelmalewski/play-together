@@ -6,8 +6,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
-import com.marcel.malewski.playtogetherapi.entity.platform.exception.GivenPlatformDoesNotExistException;
+import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,13 +24,13 @@ import static com.marcel.malewski.playtogetherapi.utils.DateUtils.TIME_FORMAT;
 public class RegisterService {
 	private final GamerService gamerService;
 	private final GamerRoleRepository gamerRoleRepository;
-	private final PlatformRepository platformRepository;
+	private final PlatformService platformService;
 	private final PasswordEncoder passwordEncoder;
 
-	public RegisterService(GamerService gamerService, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
+	public RegisterService(GamerService gamerService, GamerRoleRepository gamerRoleRepository, PlatformService platformService, PasswordEncoder passwordEncoder) {
 		this.gamerService = gamerService;
 		this.gamerRoleRepository = gamerRoleRepository;
-		this.platformRepository = platformRepository;
+		this.platformService = platformService;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -42,11 +41,7 @@ public class RegisterService {
 		String email = registerDto.email();
 		gamerService.throwExceptionIfEmailIsAlreadyUsed(email);
 
-		registerDto.platformsIds().forEach(platformId -> {
-			if (!platformRepository.existsById(platformId)) {
-				throw new GivenPlatformDoesNotExistException(platformId);
-			}
-		});
+		platformService.throwExceptionIfGivenPlatformDoesNotExist(registerDto.platformsIds());
 
 		String encodedPassword = passwordEncoder.encode(registerDto.password());
 
@@ -68,7 +63,7 @@ public class RegisterService {
 		Gamer savedGamer = gamerRepository.save(newGamer);
 
 		registerDto.platformsIds().forEach(platformId -> {
-			Platform platform = platformRepository.getReferenceById(platformId);
+			Platform platform = platformService.getPlatformReference(platformId);
 			savedGamer.getPlatforms().add(platform);
 		});
 

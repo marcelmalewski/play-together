@@ -17,11 +17,23 @@ public class PlatformService {
 		return platformRepository.findAll();
 	}
 
+	public Platform getPlatformReference(long id) {
+		return platformRepository.getReferenceById(id);
+	}
+
 	public Platform getReferenceOfGivenPlatform(long id) {
 		if (!platformRepository.existsById(id)) {
 			throw new GivenPlatformDoesNotExistException(id);
 		}
 
 		return platformRepository.getReferenceById(id);
+	}
+
+	public void throwExceptionIfGivenPlatformDoesNotExist(List<Long> platforms) {
+		platforms.forEach(platformId -> {
+			if (!platformRepository.existsById(platformId)) {
+				throw new GivenPlatformDoesNotExistException(platformId);
+			}
+		});
 	}
 }
