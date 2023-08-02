@@ -60,7 +60,7 @@ public class RegisterService {
 		newGamer.setPlayingTimeStart(playingTimeStartAsDate);
 		newGamer.setPlayingTimeEnd(playingTimeEndAsDate);
 		newGamer.setCreatedAt(LocalDate.now());
-		Gamer savedGamer = gamerRepository.save(newGamer);
+		Gamer savedGamer = gamerService.saveGamer(newGamer);
 
 		registerDto.platformsIds().forEach(platformId -> {
 			Platform platform = platformService.getPlatformReference(platformId);
@@ -70,6 +70,6 @@ public class RegisterService {
 		GamerRole userRole = gamerRoleRepository.getReferenceByName(gamerRole.name());
 		savedGamer.getRoles().add(userRole);
 
-		gamerRepository.save(newGamer);
+		gamerService.saveGamer(newGamer);
 	}
 }

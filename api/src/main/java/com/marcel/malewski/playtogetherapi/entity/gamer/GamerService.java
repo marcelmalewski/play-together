@@ -112,4 +112,7 @@ public class GamerService {
 		return null;
 	}
 
+	public Gamer saveGamer(Gamer gamer) {
+		return gamerRepository.save(gamer);
+	}
 }
