@@ -1,9 +1,9 @@
 package com.marcel.malewski.playtogetherapi.auth.register;
 
-import com.marcel.malewski.playtogetherapi.auth.exception.EmailAlreadyUsedException;
-import com.marcel.malewski.playtogetherapi.auth.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;

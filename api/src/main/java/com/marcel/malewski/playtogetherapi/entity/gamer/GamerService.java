@@ -1,6 +1,5 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
-import com.marcel.malewski.playtogetherapi.auth.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.auth.exception.InvalidPasswordException;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
@@ -9,6 +8,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponse
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.genre.GenreRepository;
