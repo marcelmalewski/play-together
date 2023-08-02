@@ -9,7 +9,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
-import com.marcel.malewski.playtogetherapi.exception.sharedexception.GivenPlatformDoesNotExistException;
+import com.marcel.malewski.playtogetherapi.entity.platform.exception.GivenPlatformDoesNotExistException;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.time.format.ResolverStyle;
 import static com.marcel.malewski.playtogetherapi.utils.DateUtils.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.utils.DateUtils.TIME_FORMAT;
 
-//TODO use service instead of repository?
+//TODO use service instead of repository
 @Service
 public class RegisterService {
 	private final GamerRepository gamerRepository;

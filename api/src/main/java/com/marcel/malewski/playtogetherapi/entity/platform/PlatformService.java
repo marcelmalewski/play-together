@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.platform;
 
+import com.marcel.malewski.playtogetherapi.entity.platform.exception.GivenPlatformDoesNotExistException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,5 +15,13 @@ public class PlatformService {
 
 	public List<Platform> findAllPlatforms() {
 		return platformRepository.findAll();
+	}
+
+	public Platform getReferenceOfGivenPlatform(long id) {
+		if (!platformRepository.existsById(id)) {
+			throw new GivenPlatformDoesNotExistException(id);
+		}
+
+		return platformRepository.getReferenceById(id);
 	}
 }

@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.exception.sharedexception;
+package com.marcel.malewski.playtogetherapi.entity.platform.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
