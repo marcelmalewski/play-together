@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.gamerrole;
 
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.exception.GamerRoleNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,10 @@ public class GamerRoleService {
 	}
 
 	public GamerRole getGamerRoleReference(long id) {
+		if (!gamerRoleRepository.existsById(id)) {
+			throw new GamerRoleNotFoundException(id);
+		}
+
 		return gamerRoleRepository.getReferenceById(id);
 	}
 }
