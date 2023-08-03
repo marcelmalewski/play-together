@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-	//TODO ograniczyć dostęp linków
+	//TODO czy swagger powinien być publicznie dostępny?
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
@@ -31,10 +31,8 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests()
 			.requestMatchers(
 				"/",
-				"/gamers/@me/profile",
+				"/gamers/@me",
 				"/auth/gamers/register",
-				"/platforms",
-				"/gamers",
 				"/error",
 				"/docs",
 				"/v2/api-docs/**",
