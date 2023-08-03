@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface GamerRoleRepository extends JpaRepository<GamerRole, Long> {
 	Optional<GamerRole> findByName(String name);
 	GamerRole getReferenceByName(String name);
+	boolean existsByName(String name);
 }
