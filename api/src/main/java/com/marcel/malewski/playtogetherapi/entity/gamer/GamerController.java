@@ -86,11 +86,11 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's auth data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerPrivateData(@Valid @RequestBody GamerUpdateAuthRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
-//		String gamerIdAsString = principal.getName();
-//		long gamerId = Long.parseLong(gamerIdAsString);
+		String gamerIdAsString = principal.getName();
+		long gamerId = Long.parseLong(gamerIdAsString);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuth(updateAuthDto, 1L);
+			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuth(updateAuthDto, gamerId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);

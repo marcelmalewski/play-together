@@ -39,18 +39,6 @@ public class GamerService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public void throwExceptionIfLoginIsAlreadyUsed(String login) {
-		if (gamerRepository.existsByLogin(login)) {
-			throw new LoginAlreadyUsedException(login);
-		}
-	}
-
-	public void throwExceptionIfEmailIsAlreadyUsed(String email) {
-		if (gamerRepository.existsByEmail(email)) {
-			throw new EmailAlreadyUsedException(email);
-		}
-	}
-
 	public List<GamerPublicResponseDto> findAllGamers() {
 		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPublicResponseDto).toList();
 	}
@@ -63,6 +51,10 @@ public class GamerService {
 	public GamerPrivateResponseDto getGamerPrivateInfo(long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 		return gamerMapper.toGamerPrivateResponseDto(gamer);
+	}
+
+	public Gamer saveGamer(Gamer gamer) {
+		return gamerRepository.save(gamer);
 	}
 
 	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long id) {
@@ -122,7 +114,15 @@ public class GamerService {
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
-	public Gamer saveGamer(Gamer gamer) {
-		return gamerRepository.save(gamer);
+	public void throwExceptionIfLoginIsAlreadyUsed(String login) {
+		if (gamerRepository.existsByLogin(login)) {
+			throw new LoginAlreadyUsedException(login);
+		}
+	}
+
+	public void throwExceptionIfEmailIsAlreadyUsed(String email) {
+		if (gamerRepository.existsByEmail(email)) {
+			throw new EmailAlreadyUsedException(email);
+		}
 	}
 }
