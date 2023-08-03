@@ -45,10 +45,15 @@ public class GamerController {
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
+	//TODO może dać ten endpoint dostępny tylko dla zalogowanych w SecurityConfiguration i usunąć sprawdzanie principal i zobaczyć czy frontend dobrze na to zareaguje
 	@GetMapping(value = "/gamers/@me")
 	@Operation(summary = "Get private info about the authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
+		if (principal == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+
 		String gamerIdAsString = principal.getName();
 		long gamerId = Long.parseLong(gamerIdAsString);
 
@@ -65,11 +70,11 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's public profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
-//		String gamerIdAsString = principal.getName();
-//		long gamerId = Long.parseLong(gamerIdAsString);
+		String gamerIdAsString = principal.getName();
+		long gamerId = Long.parseLong(gamerIdAsString);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto, 1L);
+			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto, gamerId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
