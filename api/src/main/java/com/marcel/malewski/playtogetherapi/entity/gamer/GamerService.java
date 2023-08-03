@@ -68,7 +68,12 @@ public class GamerService {
 	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
-		gamer.setLogin(updateProfileDto.login());
+		String newLogin = updateProfileDto.login();
+		if (!gamer.getLogin().equals(newLogin) && gamerRepository.existsByLogin(newLogin)) {
+			throw new LoginAlreadyUsedException(newLogin);
+		}
+
+		gamer.setLogin(newLogin);
 		gamer.setBirthdate(updateProfileDto.birthdate());
 		gamer.setBio(updateProfileDto.bio());
 		gamer.setAvatarUrl(updateProfileDto.avatarUrl());
@@ -101,15 +106,20 @@ public class GamerService {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
 		String email = updateAuthDto.email();
-		if (gamerRepository.existsByEmail(email)) {
+		if (!gamer.getEmail().equals(updateAuthDto.email()) && gamerRepository.existsByEmail(email)) {
 			throw new EmailAlreadyUsedException(email);
 		}
 
 		if (!passwordEncoder.matches(updateAuthDto.currentPassword(), gamer.getPassword())) {
 			throw new InvalidPasswordException();
 		}
+		String updatedPassword = passwordEncoder.encode(updateAuthDto.newPassword());
 
-		return null;
+		gamer.setLogin(email);
+		gamer.setPassword(updatedPassword);
+
+		Gamer updatedGamer = gamerRepository.save(gamer);
+		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
 	public Gamer saveGamer(Gamer gamer) {
