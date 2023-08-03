@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
-import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import jakarta.validation.constraints.NotNull;
@@ -23,13 +23,13 @@ import static com.marcel.malewski.playtogetherapi.utils.DateUtils.TIME_FORMAT;
 @Service
 public class RegisterService {
 	private final GamerService gamerService;
-	private final GamerRoleRepository gamerRoleRepository;
+	private final GamerRoleService gamerRoleService;
 	private final PlatformService platformService;
 	private final PasswordEncoder passwordEncoder;
 
-	public RegisterService(GamerService gamerService, GamerRoleRepository gamerRoleRepository, PlatformService platformService, PasswordEncoder passwordEncoder) {
+	public RegisterService(GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, PasswordEncoder passwordEncoder) {
 		this.gamerService = gamerService;
-		this.gamerRoleRepository = gamerRoleRepository;
+		this.gamerRoleService = gamerRoleService;
 		this.platformService = platformService;
 		this.passwordEncoder = passwordEncoder;
 	}
@@ -67,7 +67,7 @@ public class RegisterService {
 			savedGamer.getPlatforms().add(platform);
 		});
 
-		GamerRole userRole = gamerRoleRepository.getReferenceByName(gamerRole.name());
+		GamerRole userRole = gamerRoleService.getGamerRoleReference(gamerRole.name());
 		savedGamer.getRoles().add(userRole);
 
 		gamerService.saveGamer(newGamer);

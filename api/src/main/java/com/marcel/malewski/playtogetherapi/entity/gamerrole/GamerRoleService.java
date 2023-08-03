@@ -16,11 +16,11 @@ public class GamerRoleService {
 		return gamerRoleRepository.findByName(name).get();
 	}
 
-	public GamerRole getGamerRoleReference(long id) {
+	public GamerRole getGamerRoleReference(String name) {
 		if (!gamerRoleRepository.existsById(id)) {
 			throw new GamerRoleNotFoundException(id);
 		}
 
-		return gamerRoleRepository.getReferenceById(id);
+		return gamerRoleRepository.getReferenceByName(name);
 	}
 }
