@@ -10,7 +10,12 @@ public class GamerRoleService {
 		this.gamerRoleRepository = gamerRoleRepository;
 	}
 
+	//TODO poprawić get
 	public GamerRole getGamerRole(String name) {
 		return gamerRoleRepository.findByName(name).get();
+	}
+
+	public GamerRole getGamerRoleReference(long id) {
+		return gamerRoleRepository.getReferenceById(id);
 	}
 }
