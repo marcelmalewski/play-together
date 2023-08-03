@@ -105,18 +105,18 @@ public class GamerService {
 	public GamerPrivateResponseDto updateGamerAuth(@NotNull GamerUpdateAuthRequestDto updateAuthDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
-		String email = updateAuthDto.email();
-		if (!gamer.getEmail().equals(updateAuthDto.email()) && gamerRepository.existsByEmail(email)) {
-			throw new EmailAlreadyUsedException(email);
-		}
-
 		if (!passwordEncoder.matches(updateAuthDto.currentPassword(), gamer.getPassword())) {
 			throw new InvalidPasswordException();
 		}
-		String updatedPassword = passwordEncoder.encode(updateAuthDto.newPassword());
+		String updatedPassword = updateAuthDto.newPassword() != null ? passwordEncoder.encode(updateAuthDto.newPassword()) : null;
 
-		gamer.setLogin(email);
-		gamer.setPassword(updatedPassword);
+		String updatedEmail = updateAuthDto.email();
+		if (updatedEmail != null && !gamer.getEmail().equals(updateAuthDto.email()) && gamerRepository.existsByEmail(updatedEmail)) {
+			throw new EmailAlreadyUsedException(updatedEmail);
+		}
+
+		gamer.setLogin(updatedEmail != null ? updatedEmail : gamer.getEmail());
+		gamer.setPassword(updatedPassword != null ? updatedPassword : gamer.getPassword());
 
 		Gamer updatedGamer = gamerRepository.save(gamer);
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);

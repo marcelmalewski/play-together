@@ -32,6 +32,7 @@ public class SecurityConfiguration {
 			.requestMatchers(
 				"/",
 				"/gamers/@me",
+				"/gamers/@me/auth",
 				"/auth/gamers/register",
 				"/error",
 				"/docs",
