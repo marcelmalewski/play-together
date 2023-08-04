@@ -98,31 +98,11 @@ public class GamerController {
 		}
 	}
 
-//	@GetMapping("/{id}")
-//	@Operation(summary = "Get gamer by id")
-//	public ResponseEntity<GamerResponseDto> getGamer(@PathVariable Long id) {
-//		GamerResponseDto result = gamerService.getGamer(id);
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
-
-//	@PostMapping
-//	@Operation(summary = "Create new gamer")
-//	public ResponseEntity<GamerResponseDto> createGamer() {
-//		GamerResponseDto result = gamerService.createGamer();
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
-//
-//	@PutMapping
-//	@Operation(summary = "Update gamer by id")
-//	public ResponseEntity<GamerResponseDto> updateGamer() {
-//		GamerResponseDto result = gamerService.updateGamer();
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
-
-//	@DeleteMapping("/{id}")
-//	@Operation(summary = "Delete gamer by id")
-//	public ResponseEntity<Void> deleteGamer(@PathVariable Long id) {
-//		gamerService.deleteGamer(id);
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
+	//TODO dać ten endpoint tylko dla zalogowanych w SecurityConfiguration
+	@DeleteMapping("/gamers/@me")
+	@Operation(summary = "Delete the authenticated gamers's account")
+	public ResponseEntity<Void> deleteGamer(@PathVariable Long id) {
+		gamerService.deleteGamer(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }

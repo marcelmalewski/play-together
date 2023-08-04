@@ -114,6 +114,10 @@ public class GamerService {
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
+	public void deleteGamer(long id) {
+
+	}
+
 	public void throwExceptionIfLoginIsAlreadyUsed(String login) {
 		if (gamerRepository.existsByLogin(login)) {
 			throw new LoginAlreadyUsedException(login);
