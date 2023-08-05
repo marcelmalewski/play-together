@@ -115,7 +115,7 @@ public class GamerService {
 	}
 
 	public void deleteGamer(long id) {
-		if (gamerRepository.existsById(id)) {
+		if (!gamerRepository.existsById(id)) {
 			throw new GamerNotFoundException(id);
 		}
 

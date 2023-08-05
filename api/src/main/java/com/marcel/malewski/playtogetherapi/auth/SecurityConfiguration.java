@@ -42,12 +42,19 @@ public class SecurityConfiguration {
 				HttpMethod.GET,
 				"/",
 				"/gamers/@me",
+				"/gamers",
 				"/docs",
 				"/v2/api-docs/**",
 				"/v3/api-docs/**",
 				"/swagger-resources/**",
 				"/swagger-ui/**",
 				"/swagger-ui.html"
+			)
+			.permitAll()
+
+			.requestMatchers(
+				HttpMethod.DELETE,
+				"/gamers/@me"
 			)
 			.permitAll()
 

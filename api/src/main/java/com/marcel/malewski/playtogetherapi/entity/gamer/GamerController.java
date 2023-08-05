@@ -106,7 +106,12 @@ public class GamerController {
 		String gamerIdAsString = principal.getName();
 		long gamerId = Long.parseLong(gamerIdAsString);
 
-		gamerService.deleteGamer(gamerId);
-		return new ResponseEntity<>(HttpStatus.OK);
+		try {
+			gamerService.deleteGamer(gamerId);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (GamerNotFoundException exception) {
+			LogoutManually(request, response);
+			throw new AuthenticatedGamerNotFoundException();
+		}
 	}
 }
