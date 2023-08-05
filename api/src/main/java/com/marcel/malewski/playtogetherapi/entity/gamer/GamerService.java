@@ -115,7 +115,11 @@ public class GamerService {
 	}
 
 	public void deleteGamer(long id) {
+		if (gamerRepository.existsById(id)) {
+			throw new GamerNotFoundException(id);
+		}
 
+		gamerRepository.deleteById(id);
 	}
 
 	public void throwExceptionIfLoginIsAlreadyUsed(String login) {

@@ -40,7 +40,7 @@ public class GamerController {
 
 	@GetMapping(value = "/gamers/:gamerId")
 	@Operation(summary = "Get public info about a gamer by id")
-	public ResponseEntity<GamerPublicResponseDto> getGamerPublic(long gamerId) {
+	public ResponseEntity<GamerPublicResponseDto> getGamer(long gamerId) {
 		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
@@ -83,7 +83,7 @@ public class GamerController {
 	}
 
 	@PatchMapping(value = "/gamers/@me/auth")
-	@Operation(summary = "Update the authenticated gamers's auth data")
+	@Operation(summary = "Update the authenticated gamers's authentication data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerPrivateData(@Valid @RequestBody GamerUpdateAuthRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
 		String gamerIdAsString = principal.getName();
@@ -98,11 +98,15 @@ public class GamerController {
 		}
 	}
 
-	//TODO dać ten endpoint tylko dla zalogowanych w SecurityConfiguration
+	//TODO admin nie może tak po prostu usunąć konta
 	@DeleteMapping("/gamers/@me")
-	@Operation(summary = "Delete the authenticated gamers's account")
-	public ResponseEntity<Void> deleteGamer(@PathVariable Long id) {
-		gamerService.deleteGamer(id);
+	@Operation(summary = "Delete the authenticated gamer and log out")
+	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
+	                                        HttpServletResponse response) {
+		String gamerIdAsString = principal.getName();
+		long gamerId = Long.parseLong(gamerIdAsString);
+
+		gamerService.deleteGamer(gamerId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
