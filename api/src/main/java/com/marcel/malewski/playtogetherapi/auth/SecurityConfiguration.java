@@ -1,10 +1,10 @@
 package com.marcel.malewski.playtogetherapi.auth;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 //				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
 
 	//TODO czy swagger powinien być publicznie dostępny?
@@ -42,7 +42,6 @@ public class SecurityConfiguration {
 				HttpMethod.GET,
 				"/",
 				"/gamers/@me",
-				"/gamers",
 				"/docs",
 				"/v2/api-docs/**",
 				"/v3/api-docs/**",
