@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -24,6 +26,7 @@ import static com.marcel.malewski.playtogetherapi.utils.AuthUtils.LogoutManually
 @RestController
 @RequestMapping(value = "")
 @Tag(name = "Gamers", description = "Gamers API")
+@Validated
 public class GamerController {
 	private final GamerService gamerService;
 
@@ -33,6 +36,7 @@ public class GamerController {
 
 	@GetMapping(value = "/gamers")
 	@Operation(summary = "Find all gamers public info")
+	@Secured("MODERATOR")
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers() {
 		List<GamerPublicResponseDto> allGamers = this.gamerService.findAllGamers();
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);

@@ -29,7 +29,7 @@ public class RegisterController {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedGamerException();
 		}
-		this.registerService.register(registerDto,  GamerRoleEnum.USER);
+		this.registerService.register(registerDto,  GamerRoleEnum.ROLE_USER);
 	}
 
 	//TODO dodać jeszcze, że może to zrobić tylko zalogowany moderator, jak tu użyć role on spring security hm
@@ -38,6 +38,6 @@ public class RegisterController {
 		if(principal == null) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 		}
-		this.registerService.register(registerDto, GamerRoleEnum.MODERATOR);
+		this.registerService.register(registerDto, GamerRoleEnum.ROLE_MODERATOR);
 	}
 }

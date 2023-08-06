@@ -106,7 +106,7 @@ public class Gamer implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		//TODO użyć tego jakoś lepiej
+//		//TODO czy to działa czy przy dodaniu roli to samo się zaktualizuje?
 //		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
 		return Collections.emptyList();
 	}

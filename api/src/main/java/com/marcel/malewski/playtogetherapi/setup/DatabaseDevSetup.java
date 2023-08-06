@@ -48,11 +48,11 @@ public class DatabaseDevSetup implements CommandLineRunner {
 
 			//Role
 			GamerRole userRole = new GamerRole();
-			userRole.setName(GamerRoleEnum.USER.name());
+			userRole.setName(GamerRoleEnum.ROLE_USER.name());
 			gamerRoleRepository.save(userRole);
 
 			GamerRole moderatorRole = new GamerRole();
-			moderatorRole.setName(GamerRoleEnum.MODERATOR.name());
+			moderatorRole.setName(GamerRoleEnum.ROLE_MODERATOR.name());
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 			savedAdmin.getRoles().add(savedModeratorRole);
 
