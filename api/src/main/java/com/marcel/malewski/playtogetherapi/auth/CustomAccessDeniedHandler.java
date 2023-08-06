@@ -21,10 +21,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 			.getAuthentication();
 		if (auth != null) {
 			LOG.warn("User: " + auth.getName() + " attempted to access the protected URL: " + request.getRequestURI());
-			System.out.println(auth.getAuthorities());
-			System.out.println(request);
 		}
 
 		//TODO dodać redeirecty na jakis error endtpoint ktory zwroci 403 i wypisze wymagane role i moze obecne
+//		response.sendRedirect(request.getContextPath() + "/accessDenied");
 	}
 }

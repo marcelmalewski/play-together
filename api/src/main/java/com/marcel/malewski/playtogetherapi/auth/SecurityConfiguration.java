@@ -84,5 +84,4 @@ public class SecurityConfiguration {
 	public AccessDeniedHandler accessDeniedHandler(){
 		return new CustomAccessDeniedHandler();
 	}
-
 }
