@@ -9,18 +9,19 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 //TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
 //TODO może dodać tutaj walidacje zbliżoną do registerDto?
 //TODO co dokladnie znaczy joincolumn i inversejoin
+//TODO co to dokładnie robi i czy jest to dobra opcja: @ManyToMany(fetch = FetchType.EAGER)
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -58,7 +59,7 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<GameSession> createdGameSessions = new ArrayList<>();
 	//TODO add min one role
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "gamerrole_id"))
@@ -106,9 +107,7 @@ public class Gamer implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		//TODO czy to działa czy przy dodaniu roli to samo się zaktualizuje?
-//		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
-		return Collections.emptyList();
+		return this.roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();
 	}
 
 	@Override
