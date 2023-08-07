@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
@@ -21,10 +23,10 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 			.getAuthentication();
 		if (auth != null) {
 			LOG.warn("User: " + auth.getName() + " attempted to access the protected URL: " + request.getRequestURI());
-			auth.getAuthorities().forEach(a -> System.out.println(a.getAuthority()));
+			LOG.warn("User roles: " + Arrays.toString(new Collection[]{auth.getAuthorities()}));
 		}
 
-		//TODO dodać redeirecty na jakis error endtpoint ktory zwroci 403 i wypisze wymagane role i moze obecne
-//		response.sendRedirect(request.getContextPath() + "/accessDenied");
+		//TODO dodać wypisywanie wymaganych ról
+		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 	}
 }
