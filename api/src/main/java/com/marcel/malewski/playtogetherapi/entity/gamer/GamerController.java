@@ -36,7 +36,7 @@ public class GamerController {
 
 	@GetMapping(value = "/gamers")
 	@Operation(summary = "Find all gamers public info")
-	@Secured("ROLE_MODERATOR")
+	@Secured("ROLE_MODERATOR_3")
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers() {
 		List<GamerPublicResponseDto> allGamers = this.gamerService.findAllGamers();
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
