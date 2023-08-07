@@ -25,7 +25,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 			String userRolesAString = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(", "));
 			LOG.warn("User roles: " + userRolesAString);
 
-			//TODO dodać wypisywanie wymaganych ról
+			//TODO dodać wypisywanie wymaganych ról i ich przekazanie jako message
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		}
 	}
