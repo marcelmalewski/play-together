@@ -8,14 +8,14 @@ public final class DateTimeValidator {
 	private DateTimeValidator() {
 	}
 
-	public static boolean ValidateDateTimeFormat(String time, String timeFormat) {
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timeFormat).withResolverStyle(ResolverStyle.STRICT);
-		if (time == null) {
+	public static boolean ValidateDateTimeFormat(String dateTime, String formatPattern) {
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(formatPattern).withResolverStyle(ResolverStyle.STRICT);
+		if (dateTime == null) {
 			return true;
 		}
 
 		try {
-			timeFormatter.parse(time);
+			timeFormatter.parse(dateTime);
 		} catch (DateTimeParseException exception) {
 			return false;
 		}
