@@ -5,10 +5,6 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
 public final class DateUtils {
-	public static final String DATE_FORMAT = "uuuu-MM-dd";
-	public static final String TIME_FORMAT = "HH:mm";
-	public static final int MIN_AGE = 15;
-
 	private DateUtils() {
 	}
 
