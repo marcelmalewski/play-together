@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-//TODO czy w linku powinno być coś ala "moderator" hm? po co?
 @RestController
 @Tag(name = "Moderator Gamers", description = "Gamers API for Moderators")
 public class ModeratorGamerController {
