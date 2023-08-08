@@ -4,8 +4,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-public final class DateUtils {
-	private DateUtils() {
+public final class DateTimeValidator {
+	private DateTimeValidator() {
 	}
 
 	public static boolean ValidateDateTimeFormat(String time, String timeFormat) {

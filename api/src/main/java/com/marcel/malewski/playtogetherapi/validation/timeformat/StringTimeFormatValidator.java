@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.TIME_FORMAT;
-import static com.marcel.malewski.playtogetherapi.utils.DateUtils.ValidateDateTimeFormat;
+import static com.marcel.malewski.playtogetherapi.utils.DateTimeValidator.ValidateDateTimeFormat;
 
 public class StringTimeFormatValidator implements ConstraintValidator<ValidateTimeFormat, String>  {
 	@Override
