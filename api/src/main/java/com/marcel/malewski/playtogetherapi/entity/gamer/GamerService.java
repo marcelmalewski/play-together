@@ -39,8 +39,12 @@ public class GamerService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public List<GamerPublicResponseDto> findAllGamers() {
+	public List<GamerPublicResponseDto> findAllGamersPublicInfo() {
 		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPublicResponseDto).toList();
+	}
+
+	public List<GamerPrivateResponseDto> findAllGamersPrivateInfo() {
+		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPrivateResponseDto).toList();
 	}
 
 	public GamerPublicResponseDto getGamerPublicInfo(long id) {
@@ -94,7 +98,7 @@ public class GamerService {
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
-	public GamerPrivateResponseDto updateGamerAuth(@NotNull GamerUpdateAuthRequestDto updateAuthDto, long id) {
+	public GamerPrivateResponseDto updateGamerAuthData(@NotNull GamerUpdateAuthRequestDto updateAuthDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
 		if (!passwordEncoder.matches(updateAuthDto.currentPassword(), gamer.getPassword())) {

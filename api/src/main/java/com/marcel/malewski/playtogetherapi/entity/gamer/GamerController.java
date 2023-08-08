@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -33,9 +32,8 @@ public class GamerController {
 
 	@GetMapping(value = "/gamers")
 	@Operation(summary = "Find all gamers public info")
-	@Secured("ROLE_MODERATOR_3")
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers() {
-		List<GamerPublicResponseDto> allGamers = this.gamerService.findAllGamers();
+		List<GamerPublicResponseDto> allGamers = this.gamerService.findAllGamersPublicInfo();
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
@@ -68,7 +66,7 @@ public class GamerController {
 	}
 
 	@PutMapping(value = "/gamers/@me/profile")
-	@Operation(summary = "Update the authenticated gamers's public profile data")
+	@Operation(summary = "Update the authenticated gamers's profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		String gamerIdAsString = principal.getName();
@@ -85,13 +83,13 @@ public class GamerController {
 
 	@PatchMapping(value = "/gamers/@me/auth")
 	@Operation(summary = "Update the authenticated gamers's authentication data")
-	public ResponseEntity<GamerPrivateResponseDto> updateGamerPrivateData(@Valid @RequestBody GamerUpdateAuthRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
+	public ResponseEntity<GamerPrivateResponseDto> updateGamerAuthData(@Valid @RequestBody GamerUpdateAuthRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
 		String gamerIdAsString = principal.getName();
 		long gamerId = Long.parseLong(gamerIdAsString);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuth(updateAuthDto, gamerId);
+			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuthData(updateAuthDto, gamerId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
@@ -99,7 +97,7 @@ public class GamerController {
 		}
 	}
 
-	//TODO dodać, że admin nie może tak po prostu usunąć konta
+	//TODO dodać, że admin nie może tak po prostu usuną swojego konta
 	@DeleteMapping("/gamers/@me")
 	@Operation(summary = "Delete the authenticated gamer and log out")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
