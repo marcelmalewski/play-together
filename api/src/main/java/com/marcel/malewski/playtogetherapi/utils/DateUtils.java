@@ -9,9 +9,12 @@ public final class DateUtils {
 	public static final String TIME_FORMAT = "HH:mm";
 	public static final int MIN_AGE = 15;
 
+	private DateUtils() {
+	}
+
 	public static boolean ValidateDateTimeFormat(String time, String timeFormat) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timeFormat).withResolverStyle(ResolverStyle.STRICT);
-		if(time == null) {
+		if (time == null) {
 			return true;
 		}
 

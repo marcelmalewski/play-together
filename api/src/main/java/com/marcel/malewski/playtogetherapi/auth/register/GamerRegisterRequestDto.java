@@ -12,8 +12,8 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.utils.DateUtils.DATE_FORMAT;
-import static com.marcel.malewski.playtogetherapi.utils.DateUtils.TIME_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constants.DateConstants.TIME_FORMAT;
 
 //TODO dodać większe wymagania hasła
 //TODO czy spacje przejdą przez min?
