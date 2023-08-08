@@ -30,13 +30,6 @@ public class ModeratorGamerController {
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
-//	@DeleteMapping("/moderator/users/{id}")
-//	@Operation(summary = "Force-delete a user by id")
-//	@Secured("ROLE_MODERATOR")
-//	fun deleteUser(@PathVariable id: UUID) {
-//		userService.deleteUserUnconditionally(id)
-//	}
-
 	@DeleteMapping("/gamers/:gamerId")
 	@Operation(summary = "Delete gamer by id")
 	@Secured("ROLE_MODERATOR")
