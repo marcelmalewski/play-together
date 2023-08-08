@@ -13,7 +13,6 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import java.util.stream.Collectors;
 
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
-
 	public static final Logger LOG = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
 
 	@Override
