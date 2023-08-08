@@ -16,7 +16,7 @@ spring:
         jdbc:
           time_zone: UTC
           lob:
-#            non_contextual_creation: true
+            non_contextual_creation: true
         validator:
           apply_to_ddl: true
     hibernate:
