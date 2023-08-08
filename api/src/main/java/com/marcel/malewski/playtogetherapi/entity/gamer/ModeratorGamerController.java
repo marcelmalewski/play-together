@@ -6,11 +6,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+//TODO czy w linku powinno być coś ala "moderator" hm? po co?
 @RestController
 @Tag(name = "Moderator Gamers", description = "Gamers API for Moderators")
 public class ModeratorGamerController {
@@ -20,7 +22,7 @@ public class ModeratorGamerController {
 		this.gamerService = gamerService;
 	}
 
-	@GetMapping("/moderator/users")
+	@GetMapping("/moderator/gamers")
 	@Operation(summary = "Find all gamers private info")
 	@Secured("ROLE_MODERATOR")
 	public ResponseEntity<List<GamerPrivateResponseDto>> findAllGamers() {
@@ -34,22 +36,12 @@ public class ModeratorGamerController {
 //	fun deleteUser(@PathVariable id: UUID) {
 //		userService.deleteUserUnconditionally(id)
 //	}
-//
-//	@GetMapping("/moderator/users")
-//	@Operation(summary = "Get all users")
-//	@Secured("ROLE_MODERATOR")
-//	fun getAllUsers(
-//		@Min(0) @RequestParam(defaultValue = "0") page: Int,
-//		@Min(1) @Max(100) @RequestParam(defaultValue = "10") size: Int,
-//		@RequestParam sort: UserSearchSort?,
-//		principal: Principal
-//	): Page<UserPublicResponseDto> {
-//		val principalId = principal.name.toUuid()
-//
-//		val pageable = PageRequest.of(page, size)
-//			.withSort((sort ?: UserSearchSort.DEFAULT_SORT).sort)
-//
-//		return userService.getAllUsers(pageable, principalId)
-//	}
 
+	@DeleteMapping("/gamers/:gamerId")
+	@Operation(summary = "Delete gamer by id")
+	@Secured("ROLE_MODERATOR")
+	public ResponseEntity<Void> deleteGamer(long gamerId) {
+		gamerService.deleteGamer(gamerId);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }
