@@ -40,7 +40,7 @@ public class ModeratorGamerController {
 	}
 
 	@DeleteMapping("/moderator-panel/moderators/:moderatorId")
-	@Operation(summary = "Delete gamer by id")
+	@Operation(summary = "Delete gamer with role moderator by id")
 	@Secured("ROLE_OWNER")
 	public ResponseEntity<Void> deleteModerator(long moderatorId) {
 		this.gamerService.deleteGamer(moderatorId);
