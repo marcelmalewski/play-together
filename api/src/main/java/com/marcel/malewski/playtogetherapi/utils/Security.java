@@ -6,8 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
-//TODO jak to lepiej nazwać?
-public final class AuthUtils {
+public final class Security {
 	public static void LogoutManually(HttpServletRequest request,
 	                                  HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

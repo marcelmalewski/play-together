@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.utils.AuthUtils.LogoutManually;
+import static com.marcel.malewski.playtogetherapi.utils.Security.LogoutManually;
 
 //TODO czy dodać v1?
 @RestController
