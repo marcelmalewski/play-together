@@ -2,7 +2,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
-import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthRequestDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
@@ -65,7 +65,7 @@ public class GamerController {
 		}
 	}
 
-	@PutMapping(value = "/gamers/@me/profile")
+	@PutMapping(value = "/gamers/@me/profile-data")
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
@@ -81,15 +81,15 @@ public class GamerController {
 		}
 	}
 
-	@PatchMapping(value = "/gamers/@me/auth")
+	@PatchMapping(value = "/gamers/@me/authentication-data")
 	@Operation(summary = "Update the authenticated gamers's authentication data")
-	public ResponseEntity<GamerPrivateResponseDto> updateGamerAuthData(@Valid @RequestBody GamerUpdateAuthRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
-	                                                                      HttpServletResponse response) {
+	public ResponseEntity<GamerPrivateResponseDto> updateGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
+	                                                                             HttpServletResponse response) {
 		String gamerIdAsString = principal.getName();
 		long gamerId = Long.parseLong(gamerIdAsString);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuthData(updateAuthDto, gamerId);
+			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuthenticationData(updateAuthDto, gamerId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
