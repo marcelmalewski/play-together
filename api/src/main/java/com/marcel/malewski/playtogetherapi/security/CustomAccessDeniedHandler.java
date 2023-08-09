@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.auth;
+package com.marcel.malewski.playtogetherapi.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

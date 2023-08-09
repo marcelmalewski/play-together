@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.auth.register;
+package com.marcel.malewski.playtogetherapi.security.register;
 
 import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidateDateFormat;
 import com.marcel.malewski.playtogetherapi.validation.minage.ValidateMinAge;

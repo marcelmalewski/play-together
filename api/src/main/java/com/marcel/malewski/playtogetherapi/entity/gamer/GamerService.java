@@ -1,6 +1,5 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
-import com.marcel.malewski.playtogetherapi.auth.exception.InvalidPasswordException;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.game.exception.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
@@ -14,6 +13,7 @@ import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.genre.GenreService;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
+import com.marcel.malewski.playtogetherapi.security.exception.InvalidPasswordException;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

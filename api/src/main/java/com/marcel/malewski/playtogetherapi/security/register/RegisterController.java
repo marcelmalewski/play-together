@@ -1,7 +1,7 @@
-package com.marcel.malewski.playtogetherapi.auth.register;
+package com.marcel.malewski.playtogetherapi.security.register;
 
-import com.marcel.malewski.playtogetherapi.auth.exception.AlreadyAuthenticatedGamerException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
+import com.marcel.malewski.playtogetherapi.security.exception.AlreadyAuthenticatedGamerException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.auth;
+package com.marcel.malewski.playtogetherapi.security;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import org.springframework.security.core.userdetails.UserDetails;

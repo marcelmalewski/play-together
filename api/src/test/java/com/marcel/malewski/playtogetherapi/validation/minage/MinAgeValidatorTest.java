@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.validation.minage;
 
-import com.marcel.malewski.playtogetherapi.auth.register.GamerRegisterRequestDto;
+import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

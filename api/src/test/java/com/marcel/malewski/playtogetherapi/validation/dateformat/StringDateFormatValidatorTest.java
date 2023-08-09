@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.validation.dateformat;
 
-import com.marcel.malewski.playtogetherapi.auth.register.GamerRegisterRequestDto;
+import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
 class StringDateFormatValidatorTest {

@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.auth;
+package com.marcel.malewski.playtogetherapi.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
