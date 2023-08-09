@@ -34,7 +34,7 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleEnum gamerRole) {
+	void register(@NotNull GamerRegisterRequestDto registerDto) {
 		String login = registerDto.login();
 		gamerService.throwExceptionIfLoginIsAlreadyUsed(login);
 
@@ -67,7 +67,7 @@ public class RegisterService {
 			savedGamer.getPlatforms().add(platform);
 		});
 
-		GamerRole userRole = gamerRoleService.getGamerRoleReference(gamerRole.name());
+		GamerRole userRole = gamerRoleService.getGamerRoleReference(GamerRoleEnum.ROLE_USER.name());
 		savedGamer.getRoles().add(userRole);
 
 		gamerService.saveGamer(newGamer);
