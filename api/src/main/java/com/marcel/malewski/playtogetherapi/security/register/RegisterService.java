@@ -19,7 +19,6 @@ import java.time.format.ResolverStyle;
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.TIME_FORMAT;
 
-//TODO use service instead of repository
 @Service
 public class RegisterService {
 	private final GamerService gamerService;
@@ -34,7 +33,7 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	void register(@NotNull GamerRegisterRequestDto registerDto) {
+	void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleEnum gamerRole) {
 		String login = registerDto.login();
 		gamerService.throwExceptionIfLoginIsAlreadyUsed(login);
 
@@ -67,7 +66,7 @@ public class RegisterService {
 			savedGamer.getPlatforms().add(platform);
 		});
 
-		GamerRole userRole = gamerRoleService.getGamerRoleReference(GamerRoleEnum.ROLE_USER.name());
+		GamerRole userRole = gamerRoleService.getGamerRoleReference(gamerRole.name());
 		savedGamer.getRoles().add(userRole);
 
 		gamerService.saveGamer(newGamer);

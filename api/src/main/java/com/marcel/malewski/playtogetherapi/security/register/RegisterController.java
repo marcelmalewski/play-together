@@ -1,8 +1,11 @@
 package com.marcel.malewski.playtogetherapi.security.register;
 
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
 import com.marcel.malewski.playtogetherapi.security.exception.AlreadyAuthenticatedGamerException;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,11 +24,19 @@ public class RegisterController {
 		this.registerService = registerService;
 	}
 
-	@PostMapping(value="/registration")
+	@PostMapping(value="/registration/gamers")
+	@Operation(summary = "Register gamer")
 	public void registerGamer(@Valid @RequestBody GamerRegisterRequestDto registerDto, Principal principal) {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedGamerException();
 		}
-		this.registerService.register(registerDto);
+		this.registerService.register(registerDto, GamerRoleEnum.ROLE_USER);
+	}
+
+	@PostMapping(value="/moderator-panel/registration/moderators")
+	@Operation(summary = "Register gamer with role moderator")
+	@Secured("ROLE_MODERATOR")
+	public void registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
+		this.registerService.register(registerDto, GamerRoleEnum.ROLE_MODERATOR);
 	}
 }
