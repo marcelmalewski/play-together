@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.game.exception.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
-import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthRequestDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
@@ -98,7 +98,7 @@ public class GamerService {
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
-	public GamerPrivateResponseDto updateGamerAuthData(@NotNull GamerUpdateAuthRequestDto updateAuthDto, long id) {
+	public GamerPrivateResponseDto updateGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
 		if (!passwordEncoder.matches(updateAuthDto.currentPassword(), gamer.getPassword())) {
