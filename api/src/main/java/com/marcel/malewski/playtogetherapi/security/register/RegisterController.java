@@ -33,6 +33,7 @@ public class RegisterController {
 		this.registerService.register(registerDto, GamerRoleEnum.ROLE_USER);
 	}
 
+	//TODO może tylko rola owner może tworzyć moderatorów?
 	@PostMapping(value="/moderator-panel/registration/moderators")
 	@Operation(summary = "Register gamer with role moderator")
 	@Secured("ROLE_MODERATOR")

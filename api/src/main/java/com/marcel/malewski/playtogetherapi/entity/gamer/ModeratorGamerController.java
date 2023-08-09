@@ -21,6 +21,7 @@ public class ModeratorGamerController {
 		this.gamerService = gamerService;
 	}
 
+	//TODO jakiś filtr, żeby pobrać tylko moderatorów
 	@GetMapping("/moderator-panel/gamers")
 	@Operation(summary = "Find all gamers private info")
 	@Secured("ROLE_MODERATOR")
@@ -29,6 +30,7 @@ public class ModeratorGamerController {
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
+	//TODO moderator nie może usunąć moderatora? moderatora może usunąć owner?
 	@DeleteMapping("/moderator-panel/gamers/:gamerId")
 	@Operation(summary = "Delete gamer by id")
 	@Secured("ROLE_MODERATOR")
@@ -37,17 +39,11 @@ public class ModeratorGamerController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	//TODO get moderators
-	@GetMapping("/moderator-panel/gamers")
-	@Operation(summary = "Find all gamers private info")
-	@Secured("ROLE_MODERATOR")
-	public ResponseEntity<List<GamerPrivateResponseDto>> findAllModerators() {
-		List<GamerPrivateResponseDto> allGamers = this.gamerService.findAllGamersPrivateInfo();
-		return new ResponseEntity<>(allGamers, HttpStatus.OK);
+	@DeleteMapping("/moderator-panel/moderators/:moderatorId")
+	@Operation(summary = "Delete gamer by id")
+	@Secured("ROLE_OWNER")
+	public ResponseEntity<Void> deleteModerator(long moderatorId) {
+		this.gamerService.deleteGamer(moderatorId);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
-	//TODO może tylko rola owner może tworzyć moderatorów?
-	//TODO może lepiej to nazwać
-
-	//TODO delete moderator
 }
