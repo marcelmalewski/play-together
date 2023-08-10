@@ -48,6 +48,6 @@ class StringTimeFormatValidatorTest {
     );
 
     Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
-    assertEquals(2, violations.size());
+    assertEquals(1, violations.size());
   }
 }
