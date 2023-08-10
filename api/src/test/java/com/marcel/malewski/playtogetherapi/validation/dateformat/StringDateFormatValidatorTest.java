@@ -8,9 +8,9 @@ import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Set;
 
+import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
@@ -28,13 +28,13 @@ class StringDateFormatValidatorTest {
   @Test
   void shouldFindNoViolationsWhenDateFormatIsValid() {
     registerRequestDto = new GamerRegisterRequestDto(
-      "username",
-      "test1234534563456",
-      "yes@yes.com",
-      "2000-01-01",
-      "15:00",
-      "18:00",
-      List.of(1L)
+      LOGIN,
+      PASSWORD,
+      EMAIL,
+      BIRTH_DATE,
+      PLAYING_TIME_START,
+      PLAYING_TIME_END,
+      PLATFORMS_IDS
     );
 
     Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
@@ -44,13 +44,13 @@ class StringDateFormatValidatorTest {
   @Test
   void shouldFindViolationWhenDateFormatIsNotValid() {
     registerRequestDto = new GamerRegisterRequestDto(
-      "username",
-      "test1234534563456",
-      "yes@yes.com",
-      "2000-01.01",
-      "14:00",
-      "15:00",
-      List.of(1L)
+      LOGIN,
+      PASSWORD,
+      EMAIL,
+      INVALID_FORMAT_BIRTH_DATE,
+      PLAYING_TIME_START,
+      PLAYING_TIME_END,
+      PLATFORMS_IDS
     );
 
     Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
