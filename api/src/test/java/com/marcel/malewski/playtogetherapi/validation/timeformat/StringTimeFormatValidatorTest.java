@@ -16,14 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
 class StringTimeFormatValidatorTest {
-
-  private ValidatorFactory factory;
   private Validator validator;
   private GamerRegisterRequestDto registerRequestDto;
 
   @BeforeEach
   void init() {
-    factory = Validation.buildDefaultValidatorFactory();
+    //TODO warning
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     validator = factory.getValidator();
   }
 

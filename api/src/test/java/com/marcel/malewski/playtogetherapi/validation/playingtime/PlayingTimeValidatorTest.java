@@ -16,17 +16,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
 class PlayingTimeValidatorTest {
-  private ValidatorFactory factory;
   private Validator validator;
   private GamerRegisterRequestDto registerRequestDto;
 
   @BeforeEach
   void init() {
-    factory = Validation.buildDefaultValidatorFactory();
+    //TODO warning
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     validator = factory.getValidator();
   }
 
-  //TODO w paru testach validatorow jest jeden bardzo podobny test zweryfikowac czy to okej
   @Test
   void shouldFindNoViolationsWhenPlayingTimesAreValid() {
     registerRequestDto = ValidGamerRegisterRequestDto.getValidGamerRegisterRequestDto();
