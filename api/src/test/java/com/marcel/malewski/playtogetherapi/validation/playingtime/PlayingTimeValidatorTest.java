@@ -42,8 +42,8 @@ class PlayingTimeValidatorTest {
       PASSWORD,
       EMAIL,
       BIRTH_DATE,
-      "15:00",
-      "14:00",
+      PLAYING_TIME_TEN_O_CLOCK,
+      PLAYING_TIME_NINE_O_CLOCK,
       PLATFORMS_IDS
     );
 

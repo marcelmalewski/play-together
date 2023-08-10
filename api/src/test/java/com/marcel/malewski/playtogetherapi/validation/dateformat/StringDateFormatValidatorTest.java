@@ -41,8 +41,8 @@ class StringDateFormatValidatorTest {
       PASSWORD,
       EMAIL,
       BIRTH_DATE_INVALID_FORMAT,
-      PLAYING_TIME_START,
-      PLAYING_TIME_END,
+      PLAYING_TIME_NINE_O_CLOCK,
+      PLAYING_TIME_TEN_O_CLOCK,
       PLATFORMS_IDS
     );
 
