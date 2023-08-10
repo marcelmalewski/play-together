@@ -1,6 +1,7 @@
 package com.marcel.malewski.playtogetherapi.validation.dateformat;
 
 import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
+import com.marcel.malewski.playtogetherapi.validation.ValidGamerRegisterRequestDto;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -27,15 +28,7 @@ class StringDateFormatValidatorTest {
 
   @Test
   void shouldFindNoViolationsWhenDateFormatIsValid() {
-    registerRequestDto = new GamerRegisterRequestDto(
-      LOGIN,
-      PASSWORD,
-      EMAIL,
-      BIRTH_DATE,
-      PLAYING_TIME_START,
-      PLAYING_TIME_END,
-      PLATFORMS_IDS
-    );
+    registerRequestDto = ValidGamerRegisterRequestDto.getValidGamerRegisterRequestDto();
 
     Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
     assertEquals(0, violations.size());
