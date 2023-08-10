@@ -40,7 +40,7 @@ class StringDateFormatValidatorTest {
       LOGIN,
       PASSWORD,
       EMAIL,
-      INVALID_FORMAT_BIRTH_DATE,
+      BIRTH_DATE_INVALID_FORMAT,
       PLAYING_TIME_START,
       PLAYING_TIME_END,
       PLATFORMS_IDS
