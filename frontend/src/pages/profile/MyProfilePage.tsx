@@ -10,6 +10,10 @@ import { Slide } from "@mui/material";
 import React from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
+//TODO
+//updateGamerProfile
+//updateGamerAuthenticationData
+//deleteGamer
 export function MyProfilePage() {
   const { data: myData, isSuccess, isError, error } = useGetMyDataQuery();
   const [logout] = useLogoutMutation();
