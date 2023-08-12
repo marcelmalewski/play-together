@@ -30,6 +30,7 @@ public class GamerController {
 		this.gamerService = gamerService;
 	}
 
+	//TODO endpoint not used
 	@GetMapping(value = "/gamers")
 	@Operation(summary = "Find all gamers public info")
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers() {
