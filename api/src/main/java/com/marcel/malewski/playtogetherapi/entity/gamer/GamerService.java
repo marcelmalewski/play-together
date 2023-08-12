@@ -1,7 +1,7 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
-import com.marcel.malewski.playtogetherapi.entity.game.exception.GameService;
+import com.marcel.malewski.playtogetherapi.entity.game.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;

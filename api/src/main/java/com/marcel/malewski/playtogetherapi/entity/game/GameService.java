@@ -1,7 +1,6 @@
-package com.marcel.malewski.playtogetherapi.entity.game.exception;
+package com.marcel.malewski.playtogetherapi.entity.game;
 
-import com.marcel.malewski.playtogetherapi.entity.game.Game;
-import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
+import com.marcel.malewski.playtogetherapi.entity.game.exception.GivenGameDoesNotExistException;
 import org.springframework.stereotype.Service;
 
 @Service
