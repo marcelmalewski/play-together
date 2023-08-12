@@ -8,12 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@Tag(name = "Moderator Gamers", description = "Gamers API for Moderators")
+@RequestMapping(path = "v1")
+@Tag(name = "Moderator Gamers v1", description = "Gamers API v1 for Moderators")
 public class ModeratorGamerController {
 	private final GamerService gamerService;
 

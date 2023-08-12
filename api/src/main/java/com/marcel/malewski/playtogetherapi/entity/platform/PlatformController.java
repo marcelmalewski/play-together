@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "")
-@Tag(name = "Platforms", description = "Platforms API")
+@RequestMapping(path = "v1")
+@Tag(name = "Platforms v1", description = "Platforms API v1")
 public class PlatformController {
 	private final PlatformService platformService;
 

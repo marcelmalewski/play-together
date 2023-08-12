@@ -8,14 +8,16 @@ import jakarta.validation.Valid;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
 @RestController
+@RequestMapping(path = "v1")
 @Tag(
-	name = "Registration",
-	description = "Gamer registration. Login, and logout are handled by Spring Security"
+	name = "Registration v1",
+	description = "Gamer registration v1. Login, and logout are handled by Spring Security"
 )
 public class RegisterController {
 	private final RegisterService registerService;
