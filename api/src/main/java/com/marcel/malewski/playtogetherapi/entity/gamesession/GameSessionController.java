@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "v1")
-@Tag(name = "Game sessions", description = "Game sessions API")
+@Tag(name = "Game sessions v1", description = "Game sessions API v1")
 public class GameSessionController {
 }

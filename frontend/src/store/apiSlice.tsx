@@ -4,7 +4,7 @@ import { RegisterBody } from "../interfaces/authInterfaces";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: "/api/v1",
   }),
   tagTypes: ["MyData"],
   endpoints: (builder) => ({
