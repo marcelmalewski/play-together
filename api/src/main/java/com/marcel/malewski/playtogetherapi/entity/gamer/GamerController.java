@@ -94,7 +94,7 @@ public class GamerController {
 		}
 	}
 
-	//TODO dodać, że admin nie może tak po prostu usuną swojego konta
+	//TODO dodać, że moderator nie może tak po prostu usuną swojego konta
 	@DeleteMapping("/gamers/@me")
 	@Operation(summary = "Delete the authenticated gamer and log out")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
