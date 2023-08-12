@@ -2,8 +2,11 @@ package com.marcel.malewski.playtogetherapi.setup;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import javax.sql.DataSource;
@@ -11,7 +14,11 @@ import java.util.Properties;
 
 //TODO jak to będzie dzialac i bede mial sessionFactory to wtedy dodać open-in-view: false
 
+//TODO do i need all this annotations?
 @Configuration
+@ComponentScan({"com.marcel.malewski"})
+@EntityScan(basePackages = "com.marcel.malewski")
+@EnableJpaRepositories(basePackages = "com.marcel.malewski")
 public class HibernateConfig {
 	@Autowired
 	private DataSource dataSource;
@@ -40,6 +47,7 @@ public class HibernateConfig {
 			= new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
 		sessionFactory.setHibernateProperties(hibernateProperties());
+		sessionFactory.setPackagesToScan("com.marcel.malewski");
 
 		return sessionFactory;
 	}

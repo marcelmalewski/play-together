@@ -23,7 +23,7 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
-#    open-in-view: false, commented temporary
+#    open-in-view: # false, commented temporary
     database: postgresql
 
 springdoc:
