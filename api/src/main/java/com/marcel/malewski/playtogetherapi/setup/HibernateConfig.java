@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.sql.DataSource;
 import java.util.Properties;
+
+//TODO jak to będzie dzialac i bede mial sessionFactory to wtedy dodać open-in-view: false
 
 @Configuration
 public class HibernateConfig {
@@ -34,7 +34,7 @@ public class HibernateConfig {
 	@Value("${spring.jpa.show-sql}")
 	private String hibernateShowSql;
 
-	@Bean
+	@Bean(name="entityManagerFactory")
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory
 			= new LocalSessionFactoryBean();
@@ -42,19 +42,6 @@ public class HibernateConfig {
 		sessionFactory.setHibernateProperties(hibernateProperties());
 
 		return sessionFactory;
-	}
-
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactory.setDataSource(dataSource);
-		entityManagerFactory.setPackagesToScan("com.marcel.malewski.playtogetherapi.entity");
-
-		HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-		entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
-		entityManagerFactory.setJpaProperties(hibernateProperties());
-
-		return entityManagerFactory;
 	}
 
 	private Properties hibernateProperties() {
@@ -69,22 +56,3 @@ public class HibernateConfig {
 		return properties;
 	}
 }
-
-//TODO jak z hibernate6 dodać sessionFactory i wtedy dodać open-in-view: false
-
-//	@Bean
-//	public DataSource dataSource() {
-//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//		dataSource.setDriverClassName("org.postgresql.Driver");
-//		dataSource.setUrl("jdbc:mysql://localhost:5432/play_together");
-//		dataSource.setUsername("postgres");
-//		dataSource.setPassword("postgres");
-//		return dataSource;
-//	}
-
-//	@Bean
-//	public HibernateTransactionManager transactionManager() {
-//		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory());
-//		transactionManager.setDataSource(dataSource);
-//		return transactionManager;
-//	}
