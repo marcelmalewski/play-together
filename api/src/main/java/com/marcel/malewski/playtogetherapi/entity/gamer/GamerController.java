@@ -22,6 +22,7 @@ import static com.marcel.malewski.playtogetherapi.utils.Security.LogoutManually;
 
 //TODO czy dodać v1?
 @RestController
+@RequestMapping(path = "v1")
 @Tag(name = "Gamers", description = "Gamers API")
 public class GamerController {
 	private final GamerService gamerService;
