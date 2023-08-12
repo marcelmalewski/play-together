@@ -40,20 +40,16 @@ public class GamerController {
 
 	@GetMapping(value = "/gamers/:gamerId")
 	@Operation(summary = "Get public info about a gamer by id")
+
 	public ResponseEntity<GamerPublicResponseDto> getGamer(long gamerId) {
 		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
-	//TODO może dać ten endpoint dostępny tylko dla zalogowanych w SecurityConfiguration i usunąć sprawdzanie principal i zobaczyć czy frontend dobrze na to zareaguje
 	@GetMapping(value = "/gamers/@me")
 	@Operation(summary = "Get private info about the authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
-		if (principal == null) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-
 		String gamerIdAsString = principal.getName();
 		long gamerId = Long.parseLong(gamerIdAsString);
 

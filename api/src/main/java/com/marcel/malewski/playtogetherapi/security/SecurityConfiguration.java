@@ -42,7 +42,6 @@ public class SecurityConfiguration {
 			.requestMatchers(
 				HttpMethod.GET,
 				"/",
-				"/gamers/@me",
 				"/docs",
 				"/v2/api-docs/**",
 				"/v3/api-docs/**",
