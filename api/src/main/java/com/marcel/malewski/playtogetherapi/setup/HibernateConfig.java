@@ -20,6 +20,7 @@ import java.util.Properties;
 @EntityScan(basePackages = "com.marcel.malewski")
 @EnableJpaRepositories(basePackages = "com.marcel.malewski")
 public class HibernateConfig {
+	//TODO pozbyć field injection - zastąpić go constructor injection
 	@Autowired
 	private DataSource dataSource;
 
