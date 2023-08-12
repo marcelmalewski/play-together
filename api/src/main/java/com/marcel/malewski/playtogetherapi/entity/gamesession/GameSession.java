@@ -40,11 +40,10 @@ public class GameSession {
 	private int minAge;
 	private boolean isCurrentGamerMember;
 
-
 	private String description;
-
 	private String pendingMembers;//TODO to na potem
 	private String availabilityTimes;
+
 	@ManyToOne
 	@JoinColumn(name = "gamer_id")
 	@NotNull
