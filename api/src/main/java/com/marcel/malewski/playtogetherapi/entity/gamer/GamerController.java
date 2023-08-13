@@ -41,7 +41,6 @@ public class GamerController {
 
 	@GetMapping(value = "/gamers/:gamerId")
 	@Operation(summary = "Get public info about a gamer by id")
-
 	public ResponseEntity<GamerPublicResponseDto> getGamer(long gamerId) {
 		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);

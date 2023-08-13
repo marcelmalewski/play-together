@@ -27,4 +27,11 @@ public class GameSessionController {
 		List<GameSessionResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions();
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/game-sessions/:gameSessionId")
+	@Operation(summary = "Get game session by id")
+	public ResponseEntity<GameSessionResponseDto> getGameSession(long gameSessionId) {
+		GameSessionResponseDto gameSession = this.gameSessionService.getGameSession(gameSessionId);
+		return new ResponseEntity<>(gameSession, HttpStatus.OK);
+	}
 }
