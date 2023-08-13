@@ -3,6 +3,8 @@ package com.marcel.malewski.playtogetherapi.constants;
 import lombok.Getter;
 import org.springframework.data.domain.Sort;
 
+
+//TODO zmienić date i createdAt na consty?
 @Getter
 public enum GameSessionSort {
 	DATE_ASC(Sort.by("date").ascending()),

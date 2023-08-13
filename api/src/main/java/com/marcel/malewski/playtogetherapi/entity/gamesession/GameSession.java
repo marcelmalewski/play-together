@@ -3,7 +3,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamesession;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import com.marcel.malewski.playtogetherapi.enums.PrivacyLevelEnum;
+import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -28,13 +28,15 @@ public class GameSession {
 	private String name;
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private PrivacyLevelEnum visibilityType;
+	private PrivacyLevel visibilityType;
 	private boolean isCompetitive;
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private PrivacyLevelEnum accessType;
+	private PrivacyLevel accessType;
 	@NotNull
 	private LocalDate date;
+	@NotNull
+	private LocalDate createdAt;
 	private int numberOfMembers;
 	private int maxMembers;
 	private int minAge;

@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.enums;
 
-public enum PrivacyLevelEnum {
+public enum PrivacyLevel {
 	PUBLIC,
 	FRIENDS,
 	PRIVATE
