@@ -18,7 +18,7 @@ public record GameSessionResponseDto(
 	String description,
 	String pendingMembers,
 	String availabilityTimes,
-	String creatorName,
+	String creatorLogin,
 	String gameName,
 	List<String> platforms
 ) {
