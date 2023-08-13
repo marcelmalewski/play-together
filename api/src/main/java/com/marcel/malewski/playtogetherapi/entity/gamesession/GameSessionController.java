@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "v1")
@@ -29,14 +28,15 @@ public class GameSessionController {
 		this.gameSessionService = gameSessionService;
 	}
 
+	//TODO dodać filtr, żeby nie pokazały się te w których już jestem
 	@GetMapping(value = "/game-sessions")
 	@Operation(summary = "Find all game sessions")
-	public ResponseEntity<List<GameSessionResponseDto>> findAllGameSessions(@RequestParam(defaultValue = "0") @Min(0) @Max(100)  int page,
+	public ResponseEntity<Page<GameSessionResponseDto>> findAllGameSessions(@RequestParam(defaultValue = "0") @Min(0) @Max(100)  int page,
 	                                                                        @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size,
 	                                                                        @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSort sort
 	) {
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
-		List<GameSessionResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable);
+		Page<GameSessionResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable);
 
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
 	}

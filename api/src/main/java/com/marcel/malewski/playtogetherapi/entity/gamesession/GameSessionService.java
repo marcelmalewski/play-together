@@ -6,8 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class GameSessionService {
 	private final GameSessionRepository gameSessionRepository;
@@ -18,9 +16,8 @@ public class GameSessionService {
 		this.gameSessionMapper = gameSessionMapper;
 	}
 
-	public List<GameSessionResponseDto> findAllGameSessions(Pageable pageable) {
-		Page<GameSession> page = gameSessionRepository.findAll(pageable);
-		return gameSessionRepository.findAll().stream().map(gameSessionMapper::toGameSessionResponseDto).toList();
+	public Page<GameSessionResponseDto> findAllGameSessions(Pageable pageable) {
+		return gameSessionRepository.findAll(pageable).map(gameSessionMapper::toGameSessionResponseDto);
 	}
 
 	public GameSessionResponseDto getGameSession(long id) {
