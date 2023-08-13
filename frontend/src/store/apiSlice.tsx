@@ -4,7 +4,7 @@ import { RegisterBody } from "../interfaces/authInterfaces";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api/v1",
+    baseUrl: "/api",
   }),
   tagTypes: ["MyData"],
   endpoints: (builder) => ({
@@ -35,7 +35,7 @@ export const apiSlice = createApi({
     }),
 
     getMyData: builder.query<any, void>({
-      query: () => "/gamers/@me",
+      query: () => "/v1/gamers/@me",
       providesTags: ["MyData"],
     }),
   }),
