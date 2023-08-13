@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.security.register;
 
-import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleEnum;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleValue;
 import com.marcel.malewski.playtogetherapi.security.exception.AlreadyAuthenticatedGamerException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,7 +32,7 @@ public class RegisterController {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedGamerException();
 		}
-		this.registerService.register(registerDto, GamerRoleEnum.ROLE_USER);
+		this.registerService.register(registerDto, GamerRoleValue.ROLE_USER);
 	}
 
 	//TODO może tylko rola owner może tworzyć moderatorów?
@@ -40,6 +40,6 @@ public class RegisterController {
 	@Operation(summary = "Register gamer with role moderator")
 	@Secured("ROLE_MODERATOR")
 	public void registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
-		this.registerService.register(registerDto, GamerRoleEnum.ROLE_MODERATOR);
+		this.registerService.register(registerDto, GamerRoleValue.ROLE_MODERATOR);
 	}
 }

@@ -33,12 +33,9 @@ public class GameSessionController {
 	@Operation(summary = "Find all game sessions")
 	public ResponseEntity<List<GameSessionResponseDto>> findAllGameSessions(@RequestParam(defaultValue = "0") @Min(0) @Max(100)  int page,
 	                                                                        @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size,
-	                                                                        @RequestParam GameSessionSort sort
-//	                                                                        @RequestParam String sortOrder
+	                                                                        @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSort sort
 	) {
-		//TODO defaultowe sortowanie po danie utworzenia i mozliwosc sortowanie po dacie kiedy to sie stanie
-		System.out.println(sort);
-		Pageable pageable = PageRequest.of(page, size);
+		Pageable pageable = PageRequest.of(page, size, sort.getSort());
 
 		List<GameSessionResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions();
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
