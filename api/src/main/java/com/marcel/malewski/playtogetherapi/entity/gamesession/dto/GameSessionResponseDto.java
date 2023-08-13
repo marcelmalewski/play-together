@@ -16,8 +16,6 @@ public record GameSessionResponseDto(
 	int minAge,
 	boolean isCurrentGamerMember,
 	String description,
-	String pendingMembers,
-	String availabilityTimes,
 	String creatorLogin,
 	String gameName,
 	List<String> platforms

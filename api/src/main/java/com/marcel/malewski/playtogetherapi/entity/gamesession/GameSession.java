@@ -43,8 +43,8 @@ public class GameSession {
 	private boolean isCurrentGamerMember;
 
 	private String description;
-	private String pendingMembers;//TODO to na potem
-	private String availabilityTimes;
+	private String pendingMembers;//TODO to na potem, może jakaś paginacja
+	private String availabilityTimes;//TODO to na potem, może jakaś paginacja
 
 	@ManyToOne
 	@JoinColumn(name = "gamer_id")
