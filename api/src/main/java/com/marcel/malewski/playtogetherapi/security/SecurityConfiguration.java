@@ -34,8 +34,7 @@ public class SecurityConfiguration {
 
 			.requestMatchers(
 				HttpMethod.POST,
-				"/v1/registration/gamers",
-				"/error"
+				"/v1/registration/gamers"
 			)
 			.permitAll()
 
@@ -54,6 +53,11 @@ public class SecurityConfiguration {
 			.requestMatchers(
 				HttpMethod.DELETE,
 				"/v1/gamers/@me"
+			)
+			.permitAll()
+
+			.requestMatchers(
+				"/error"
 			)
 			.permitAll()
 
