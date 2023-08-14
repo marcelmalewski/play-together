@@ -29,7 +29,6 @@ public class GamerService {
 	private final GamerMapper gamerMapper;
 	private final PasswordEncoder passwordEncoder;
 
-
 	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GenreService genreService, GamerMapper gamerMapper, GameService gameService, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.platformService = platformService;
