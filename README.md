@@ -24,6 +24,7 @@ Not all technologies are included
 * PostgreSQL
 
 ## Features
+Please note that as the project is currently in progress, not all features will always be included here.
 1. Login/Register
 
 ## How to launch
