@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession.converter;
 
-import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionSortOption;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
 import org.springframework.core.convert.converter.Converter;
 
 public class StringToGameSessionSortOption implements Converter<String, GameSessionSortOption> {

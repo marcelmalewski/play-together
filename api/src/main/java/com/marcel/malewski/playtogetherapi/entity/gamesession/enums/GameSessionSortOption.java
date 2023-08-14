@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.entity.gamesession;
+package com.marcel.malewski.playtogetherapi.entity.gamesession.enums;
 
 import lombok.Getter;
 import org.springframework.data.domain.Sort;
