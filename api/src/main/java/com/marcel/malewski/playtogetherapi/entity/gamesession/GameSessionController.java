@@ -32,7 +32,7 @@ public class GameSessionController {
 	@Operation(summary = "Find all game sessions")
 	public ResponseEntity<Page<GameSessionResponseDto>> findAllGameSessions(@RequestParam(defaultValue = "0") @Min(0) @Max(100)  int page,
 	                                                                        @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size,
-	                                                                        @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSort sort
+	                                                                        @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort
 	) {
 		System.out.println(sort);
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());

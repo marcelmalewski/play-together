@@ -7,7 +7,7 @@ import static com.marcel.malewski.playtogetherapi.constants.SortConstants.CREATE
 import static com.marcel.malewski.playtogetherapi.constants.SortConstants.DATE_FIELD;
 
 @Getter
-public enum GameSessionSort {
+public enum GameSessionSortOption {
 	DATE_ASC(Sort.by(DATE_FIELD).ascending()),
 	DATE_DESC(Sort.by(DATE_FIELD).descending()),
 	CREATED_AT_ASC(Sort.by(CREATED_AT_FIELD).ascending()),
@@ -15,7 +15,7 @@ public enum GameSessionSort {
 
 	private final Sort sort;
 
-	GameSessionSort(Sort sort) {
+	GameSessionSortOption(Sort sort) {
 		this.sort = sort;
 	}
 }
