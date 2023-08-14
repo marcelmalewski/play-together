@@ -40,7 +40,7 @@ public class SecurityConfiguration {
 
 			.requestMatchers(
 				HttpMethod.GET,
-				"/v1/game-sessions",
+				"/v1/game-sessions",//TODO temp for tests
 				"/docs",
 				"/v2/api-docs/**",
 				"/v3/api-docs/**",

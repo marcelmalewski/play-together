@@ -1,6 +1,5 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
-import com.marcel.malewski.playtogetherapi.constants.GameSessionSort;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +34,7 @@ public class GameSessionController {
 	                                                                        @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size,
 	                                                                        @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSort sort
 	) {
+		System.out.println(sort);
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
 		Page<GameSessionResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable);
 
