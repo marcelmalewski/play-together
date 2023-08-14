@@ -1,6 +1,7 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession.converter;
 
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.exception.InvalidGameSessionSortOptionException;
 import org.springframework.core.convert.converter.Converter;
 
 public class StringToGameSessionSortOption implements Converter<String, GameSessionSortOption> {
@@ -9,7 +10,7 @@ public class StringToGameSessionSortOption implements Converter<String, GameSess
 		try {
 			return GameSessionSortOption.valueOf(source.toUpperCase());
 		} catch (IllegalArgumentException e) {
-			return null;
+			throw new InvalidGameSessionSortOptionException(source);
 		}
 	}
 }
