@@ -25,7 +25,7 @@ public abstract class GameSessionMapper {
 			gameSession.getMinAge(),
 			gameSession.isCurrentGamerMember(),
 			gameSession.getDescription(),
-			gameSession.getPendingMembers(),
+			null,
 			gameSession.getCreator().getLogin(),
 			platforms
 		);

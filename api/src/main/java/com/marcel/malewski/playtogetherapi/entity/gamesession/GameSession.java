@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.entity.pendingmember.PendingMember;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
 import jakarta.persistence.*;
@@ -45,7 +46,6 @@ public class GameSession {
 	private boolean isCurrentGamerMember;
 
 	private String description;
-	private String pendingMembers;//TODO to na potem, może jakaś paginacja
 	private String availabilityTimes;//TODO to na potem, może jakaś paginacja
 
 	@ManyToOne
@@ -63,6 +63,11 @@ public class GameSession {
 	@ToString.Exclude
 	@NotNull
 	private List<Gamer> members = new ArrayList<>();
+
+	@OneToMany(mappedBy = "gameSession")
+	@NotNull
+	private List<PendingMember> pendingMembers = new ArrayList<>();
+
 	@ManyToMany
 	@JoinTable(name = "gamesession_platform",
 		joinColumns = @JoinColumn(name = "gamesession_id"),

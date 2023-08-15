@@ -1,4 +1,4 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession.dto;
 
-public record PendingMemberResponseDto() {
+public record PendingMemberDto() {
 }

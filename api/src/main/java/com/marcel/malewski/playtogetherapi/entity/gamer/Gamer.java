@@ -4,6 +4,7 @@ import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
+import com.marcel.malewski.playtogetherapi.entity.pendingmember.PendingMember;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -77,6 +78,11 @@ public class Gamer implements UserDetails {
 	@ToString.Exclude
 	@NotNull
 	private List<GameSession> joinedGameSessions = new ArrayList<>();
+
+	@OneToMany(mappedBy = "gamer")
+	@NotNull
+	private List<PendingMember> pendingMembers = new ArrayList<>();
+
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_game",
 		joinColumns = @JoinColumn(name = "gamer_id"),
