@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
+import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerBasicInfoResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
@@ -26,9 +27,11 @@ import java.security.Principal;
 @Validated
 public class GameSessionController {
 	private final GameSessionService gameSessionService;
+	private final GamerService gamerService;
 
-	public GameSessionController(GameSessionService gameSessionService) {
+	public GameSessionController(GameSessionService gameSessionService, GamerService gamerService) {
 		this.gameSessionService = gameSessionService;
+		this.gamerService = gamerService;
 	}
 
 	//TODO dodać filtr, żeby nie pokazały się te w których już jestem
@@ -36,17 +39,23 @@ public class GameSessionController {
 	@Operation(summary = "Find all game sessions")
 	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = "0") @Min(0) @Max(100) int page,
 	                                                                              @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size,
-	                                                                              @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort
+	                                                                              @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort,
+	                                                                              Principal principal, HttpServletRequest request,
+	                                                                              HttpServletResponse response
 	) {
+		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
 		Page<GameSessionPublicResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable);
-
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/game-sessions/:gameSessionId")
 	@Operation(summary = "Get game session by id")
-	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(long gameSessionId) {
+	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(long gameSessionId, Principal principal, HttpServletRequest request,
+	                                                                   HttpServletResponse response) {
+		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+
 		GameSessionPublicResponseDto gameSession = this.gameSessionService.getGameSession(gameSessionId);
 		return new ResponseEntity<>(gameSession, HttpStatus.OK);
 	}

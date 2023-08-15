@@ -40,19 +40,12 @@ public class SecurityConfiguration {
 
 			.requestMatchers(
 				HttpMethod.GET,
-				"/v1/game-sessions",//TODO temp for tests
 				"/docs",
 				"/v2/api-docs/**",
 				"/v3/api-docs/**",
 				"/swagger-resources/**",
 				"/swagger-ui/**",
 				"/swagger-ui.html"
-			)
-			.permitAll()
-
-			.requestMatchers(
-				HttpMethod.DELETE,
-				"/v1/gamers/@me"
 			)
 			.permitAll()
 

@@ -12,6 +12,7 @@ public abstract class GameSessionMapper {
 	public GameSessionPublicResponseDto toGameSessionResponseDto(@NotNull GameSession gameSession) {
 		List<String> platforms = gameSession.getPlatforms().stream().map(Platform::getName).toList();
 
+		//TODO uaktualnić
 		return new GameSessionPublicResponseDto(
 			gameSession.getId(),
 			gameSession.getName(),
