@@ -1,7 +1,6 @@
 package com.marcel.malewski.playtogetherapi.exception;
 
 import jakarta.validation.ConstraintViolationException;
-import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,13 +37,5 @@ public class RestExceptionHandler {
 		String separator = globalErrorMessages.isEmpty() ? "" : ";";
 		String allErrorMessages = String.join("; ", globalErrorMessages) + separator + String.join("; ", fieldErrorMessages);
 		return new ExceptionResponse(allErrorMessages);
-	}
-
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(ConversionFailedException.class)
-	public ExceptionResponse handleMethodArgumentNotValidException(ConversionFailedException exception) {
-		System.out.println("yers");
-		System.out.println(exception.getMessage());
-		return new ExceptionResponse("yes");
 	}
 }
