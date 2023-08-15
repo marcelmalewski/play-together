@@ -59,6 +59,7 @@ public class Gamer implements UserDetails {
 	@ToString.Exclude
 	@NotNull
 	private List<GameSession> createdGameSessions = new ArrayList<>();
+
 	//TODO add min one role
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "gamer_gamerrole",
@@ -67,6 +68,7 @@ public class Gamer implements UserDetails {
 	@ToString.Exclude
 	@NotNull
 	private List<GamerRole> roles = new ArrayList<>();
+
 	@ManyToMany
 	@JoinTable(name = "gamer_platform",
 		joinColumns = @JoinColumn(name = "gamer_id"),
@@ -74,6 +76,7 @@ public class Gamer implements UserDetails {
 	@ToString.Exclude
 	@NotNull
 	private List<Platform> platforms = new ArrayList<>();
+
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
 	@NotNull
@@ -90,6 +93,7 @@ public class Gamer implements UserDetails {
 	@ToString.Exclude
 	@NotNull
 	private List<Game> favouriteGames = new ArrayList<>();
+
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_genre",
 		joinColumns = @JoinColumn(name = "gamer_id"),

@@ -52,10 +52,12 @@ public class GameSession {
 	@JoinColumn(name = "gamer_id")
 	@NotNull
 	private Gamer creator;
+
 	@ManyToOne
 	@JoinColumn(name = "game_id")
 	@NotNull
 	private Game game;
+
 	@ManyToMany
 	@JoinTable(name = "gamesession_member",
 					joinColumns = @JoinColumn(name = "gamesession_id"),
