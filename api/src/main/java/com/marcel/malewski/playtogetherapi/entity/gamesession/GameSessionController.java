@@ -47,4 +47,12 @@ public class GameSessionController {
 		GameSessionPublicResponseDto gameSession = this.gameSessionService.getGameSession(gameSessionId);
 		return new ResponseEntity<>(gameSession, HttpStatus.OK);
 	}
+
+//	@PostMapping(value = "/game-sessions")
+//	@Operation(summary = "Update the authenticated gamers's profile data")
+//	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
+//	                                                                  HttpServletResponse response) {
+//		String gamerIdAsString = principal.getName();
+//		long gamerId = Long.parseLong(gamerIdAsString);
+//	}
 }

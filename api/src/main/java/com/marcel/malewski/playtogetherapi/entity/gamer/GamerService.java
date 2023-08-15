@@ -13,12 +13,18 @@ import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.genre.GenreService;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
+import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.security.exception.InvalidPasswordException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
+
+import static com.marcel.malewski.playtogetherapi.util.Security.LogoutManually;
 
 @Service
 public class GamerService {
@@ -134,6 +140,21 @@ public class GamerService {
 	public void throwExceptionIfEmailIsAlreadyUsed(String email) {
 		if (gamerRepository.existsByEmail(email)) {
 			throw new EmailAlreadyUsedException(email);
+		}
+	}
+
+	public long extractGamerIdFromPrincipal(@NotNull Principal principal) {
+		String gamerIdAsString = principal.getName();
+		return Long.parseLong(gamerIdAsString);
+	}
+
+	public void throwExceptionAndLogoutIfAuthenticatedGamerNotFound(@NotNull Principal principal, HttpServletRequest request,
+	                                                                HttpServletResponse response) {
+		long gamerId = this.extractGamerIdFromPrincipal(principal);
+
+		if (gamerRepository.existsById(gamerId)) {
+			LogoutManually(request, response);
+			throw new AuthenticatedGamerNotFoundException();
 		}
 	}
 }

@@ -34,14 +34,20 @@ public class GamerController {
 	//TODO endpoint not used
 	@GetMapping(value = "/gamers")
 	@Operation(summary = "Find all gamers public info")
-	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers() {
+	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(Principal principal, HttpServletRequest request,
+	                                                                  HttpServletResponse response) {
+		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+
 		List<GamerPublicResponseDto> allGamers = this.gamerService.findAllGamersPublicInfo();
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/gamers/:gamerId")
 	@Operation(summary = "Get public info about a gamer by id")
-	public ResponseEntity<GamerPublicResponseDto> getGamer(long gamerId) {
+	public ResponseEntity<GamerPublicResponseDto> getGamer(long gamerId, Principal principal, HttpServletRequest request,
+	                                                       HttpServletResponse response) {
+		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+
 		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
@@ -50,8 +56,7 @@ public class GamerController {
 	@Operation(summary = "Get private info about the authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
-		String gamerIdAsString = principal.getName();
-		long gamerId = Long.parseLong(gamerIdAsString);
+		long gamerId = this.gamerService.extractGamerIdFromPrincipal(principal);
 
 		try {
 			GamerPrivateResponseDto gamerPrivateInfo = this.gamerService.getGamerPrivateInfo(gamerId);
@@ -66,8 +71,7 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
-		String gamerIdAsString = principal.getName();
-		long gamerId = Long.parseLong(gamerIdAsString);
+		long gamerId = this.gamerService.extractGamerIdFromPrincipal(principal);
 
 		try {
 			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto, gamerId);
@@ -82,8 +86,7 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
-		String gamerIdAsString = principal.getName();
-		long gamerId = Long.parseLong(gamerIdAsString);
+		long gamerId = this.gamerService.extractGamerIdFromPrincipal(principal);
 
 		try {
 			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuthenticationData(updateAuthDto, gamerId);
@@ -99,8 +102,7 @@ public class GamerController {
 	@Operation(summary = "Delete the authenticated gamer and log out")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
-		String gamerIdAsString = principal.getName();
-		long gamerId = Long.parseLong(gamerIdAsString);
+		long gamerId = this.gamerService.extractGamerIdFromPrincipal(principal);
 
 		try {
 			gamerService.deleteGamer(gamerId);
