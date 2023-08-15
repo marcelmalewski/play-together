@@ -11,6 +11,8 @@ public record GameSessionPublicResponseDto(
 	boolean isCompetitive,
 	PrivacyLevel accessType,
 	LocalDate date,
+	LocalDate createdAt,
+	LocalDate modifiedAt,
 	int numberOfMembers,
 	int maxMembers,
 	int minAge,
