@@ -18,6 +18,8 @@ public abstract class GameSessionMapper {
 			gameSession.isCompetitive(),
 			gameSession.getAccessType(),
 			gameSession.getDate(),
+			gameSession.getCreatedAt(),
+			gameSession.getModifiedAt(),
 			gameSession.getNumberOfMembers(),
 			gameSession.getMaxMembers(),
 			gameSession.getMinAge(),
