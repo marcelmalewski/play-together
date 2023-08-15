@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractGamerIdFromPrincipal;
 import static com.marcel.malewski.playtogetherapi.util.Security.LogoutManually;
 
 //TODO czy dodać v1?
@@ -56,7 +57,7 @@ public class GamerController {
 	@Operation(summary = "Get private info about the authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
-		long gamerId = this.gamerService.extractGamerIdFromPrincipal(principal);
+		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		try {
 			GamerPrivateResponseDto gamerPrivateInfo = this.gamerService.getGamerPrivateInfo(gamerId);
@@ -71,7 +72,7 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
-		long gamerId = this.gamerService.extractGamerIdFromPrincipal(principal);
+		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		try {
 			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto, gamerId);
@@ -86,7 +87,7 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
-		long gamerId = this.gamerService.extractGamerIdFromPrincipal(principal);
+		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		try {
 			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuthenticationData(updateAuthDto, gamerId);
@@ -102,7 +103,7 @@ public class GamerController {
 	@Operation(summary = "Delete the authenticated gamer and log out")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
-		long gamerId = this.gamerService.extractGamerIdFromPrincipal(principal);
+		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		try {
 			gamerService.deleteGamer(gamerId);

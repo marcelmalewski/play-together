@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.List;
 
+import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractGamerIdFromPrincipal;
 import static com.marcel.malewski.playtogetherapi.util.Security.LogoutManually;
 
 @Service
@@ -143,14 +144,9 @@ public class GamerService {
 		}
 	}
 
-	public long extractGamerIdFromPrincipal(@NotNull Principal principal) {
-		String gamerIdAsString = principal.getName();
-		return Long.parseLong(gamerIdAsString);
-	}
-
 	public void throwExceptionAndLogoutIfAuthenticatedGamerNotFound(@NotNull Principal principal, HttpServletRequest request,
 	                                                                HttpServletResponse response) {
-		long gamerId = this.extractGamerIdFromPrincipal(principal);
+		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		if (gamerRepository.existsById(gamerId)) {
 			LogoutManually(request, response);

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractGamerIdFromPrincipal;
+
 @RestController
 @RequestMapping(path = "v1")
 @Tag(name = "Game sessions v1", description = "Game sessions API v1")
@@ -64,8 +66,7 @@ public class GameSessionController {
 	@Operation(summary = "Create a game session")
 	public ResponseEntity<GamerBasicInfoResponseDto> updateGamerProfile(@Valid @RequestBody GamerBasicInfoResponseDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                    HttpServletResponse response) {
-		String gamerIdAsString = principal.getName();
-		long gamerId = Long.parseLong(gamerIdAsString);
+		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		return null;
 	}
