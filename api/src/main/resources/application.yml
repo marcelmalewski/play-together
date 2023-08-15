@@ -28,6 +28,7 @@ spring:
 
 springdoc:
   swagger-ui:
+    docExpansion: none
     tagsSorter: alpha
     operations-sorter: alpha
     path: /docs
