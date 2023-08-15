@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
-import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.exception.GameSessionNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,11 +16,11 @@ public class GameSessionService {
 		this.gameSessionMapper = gameSessionMapper;
 	}
 
-	public Page<GameSessionResponseDto> findAllGameSessions(Pageable pageable) {
+	public Page<GameSessionPublicResponseDto> findAllGameSessions(Pageable pageable) {
 		return gameSessionRepository.findAll(pageable).map(gameSessionMapper::toGameSessionResponseDto);
 	}
 
-	public GameSessionResponseDto getGameSession(long id) {
+	public GameSessionPublicResponseDto getGameSession(long id) {
 		GameSession gameSession = gameSessionRepository.findById(id).orElseThrow(() -> new GameSessionNotFoundException(id));
 		return gameSessionMapper.toGameSessionResponseDto(gameSession);
 	}

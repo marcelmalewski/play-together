@@ -5,7 +5,7 @@ import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
 import java.time.LocalDate;
 import java.util.List;
 
-public record GameSessionResponseDto(
+public record GameSessionPublicResponseDto(
 	Long id,
 	String name,
 	boolean isCompetitive,

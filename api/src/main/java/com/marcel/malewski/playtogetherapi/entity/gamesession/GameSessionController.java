@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
-import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,20 +31,20 @@ public class GameSessionController {
 	//TODO dodać filtr, żeby nie pokazały się te w których już jestem
 	@GetMapping(value = "/game-sessions")
 	@Operation(summary = "Find all game sessions")
-	public ResponseEntity<Page<GameSessionResponseDto>> findAllGameSessions(@RequestParam(defaultValue = "0") @Min(0) @Max(100)  int page,
-	                                                                        @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size,
-	                                                                        @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort
+	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = "0") @Min(0) @Max(100)  int page,
+	                                                                              @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size,
+	                                                                              @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort
 	) {
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
-		Page<GameSessionResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable);
+		Page<GameSessionPublicResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable);
 
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/game-sessions/:gameSessionId")
 	@Operation(summary = "Get game session by id")
-	public ResponseEntity<GameSessionResponseDto> getGameSession(long gameSessionId) {
-		GameSessionResponseDto gameSession = this.gameSessionService.getGameSession(gameSessionId);
+	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(long gameSessionId) {
+		GameSessionPublicResponseDto gameSession = this.gameSessionService.getGameSession(gameSessionId);
 		return new ResponseEntity<>(gameSession, HttpStatus.OK);
 	}
 }
