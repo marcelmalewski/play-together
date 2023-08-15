@@ -23,6 +23,7 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_sequence")
 	private int id;
 	@NotNull
+	@Column(unique = true)
 	private String name;
 
 	@OneToMany(mappedBy = "game")
