@@ -35,7 +35,6 @@ public class GameSessionController {
 	                                                                        @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size,
 	                                                                        @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort
 	) {
-		System.out.println(sort);
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
 		Page<GameSessionResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable);
 
