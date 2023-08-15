@@ -37,6 +37,8 @@ public class GameSession {
 	private LocalDate date;
 	@NotNull
 	private LocalDate createdAt;
+	@NotNull
+	private LocalDate modifiedAt;
 	private int numberOfMembers;
 	private int maxMembers;
 	private int minAge;
