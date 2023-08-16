@@ -63,8 +63,8 @@ public class GamerService {
 		return gamerMapper.toGamerPrivateResponseDto(gamer);
 	}
 
-	public Gamer saveGamer(Gamer gamer) {
-		return gamerRepository.save(gamer);
+	public void saveGamer(Gamer gamer) {
+		gamerRepository.save(gamer);
 	}
 
 	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long id) {
