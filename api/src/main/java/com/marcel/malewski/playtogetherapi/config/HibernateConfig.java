@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.setup;
+package com.marcel.malewski.playtogetherapi.config;
 
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Value;

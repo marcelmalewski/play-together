@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.setup;
+package com.marcel.malewski.playtogetherapi.config;
 
 import com.marcel.malewski.playtogetherapi.entity.gamesession.converter.StringToGameSessionSortOption;
 import org.springframework.context.annotation.Configuration;

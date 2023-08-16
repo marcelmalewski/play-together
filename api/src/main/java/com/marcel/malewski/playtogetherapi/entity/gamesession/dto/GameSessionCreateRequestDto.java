@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record GameSessionCreateRequestDto(
-	Long id,
 	String name,
+	PrivacyLevel visibilityType,
 	boolean isCompetitive,
 	PrivacyLevel accessType,
 	LocalDate date,

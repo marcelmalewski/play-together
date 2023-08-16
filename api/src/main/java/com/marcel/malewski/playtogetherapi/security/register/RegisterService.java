@@ -33,7 +33,7 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleValue gamerRole) {
+	public void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleValue gamerRole) {
 		String login = registerDto.login();
 		gamerService.throwExceptionIfLoginIsAlreadyUsed(login);
 
@@ -51,23 +51,23 @@ public class RegisterService {
 		LocalTime playingTimeStartAsDate = LocalTime.parse(registerDto.playingTimeStart(), timeFormatter);
 		LocalTime playingTimeEndAsDate = LocalTime.parse(registerDto.playingTimeEnd(), timeFormatter);
 
-		Gamer newGamer = new Gamer();
-		newGamer.setLogin(login);
-		newGamer.setPassword(encodedPassword);
-		newGamer.setEmail(email);
-		newGamer.setBirthdate(birthdateAsDate);
-		newGamer.setPlayingTimeStart(playingTimeStartAsDate);
-		newGamer.setPlayingTimeEnd(playingTimeEndAsDate);
-		newGamer.setCreatedAt(LocalDate.now());
-		Gamer savedGamer = gamerService.saveGamer(newGamer);
+		Gamer newGamer = Gamer.builder()
+			.login(login)
+			.password(encodedPassword)
+			.email(email)
+			.birthdate(birthdateAsDate)
+			.playingTimeStart(playingTimeStartAsDate)
+			.playingTimeEnd(playingTimeEndAsDate)
+			.createdAt(LocalDate.now())
+			.build();
 
 		registerDto.platformsIds().forEach(platformId -> {
 			Platform platform = platformService.getPlatformReference(platformId);
-			savedGamer.getPlatforms().add(platform);
+			newGamer.getPlatforms().add(platform);
 		});
 
 		GamerRole userRole = gamerRoleService.getGamerRoleReference(gamerRole.name());
-		savedGamer.getRoles().add(userRole);
+		newGamer.getRoles().add(userRole);
 
 		gamerService.saveGamer(newGamer);
 	}

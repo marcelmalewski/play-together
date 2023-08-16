@@ -24,11 +24,11 @@ public abstract class GameSessionMapper {
 			gameSession.getNumberOfMembers(),
 			gameSession.getMaxMembers(),
 			gameSession.getMinAge(),
-			gameSession.isCurrentGamerMember(),
 			gameSession.getDescription(),
-			null,
 			gameSession.getCreator().getLogin(),
-			platforms
+			"yes",
+			platforms,
+			false
 		);
 	}
 }

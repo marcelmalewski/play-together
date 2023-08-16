@@ -21,7 +21,6 @@ import java.util.List;
 import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractGamerIdFromPrincipal;
 import static com.marcel.malewski.playtogetherapi.util.Security.LogoutManually;
 
-//TODO czy dodać v1?
 @RestController
 @RequestMapping(path = "v1")
 @Tag(name = "Gamers v1", description = "Gamers API v1")

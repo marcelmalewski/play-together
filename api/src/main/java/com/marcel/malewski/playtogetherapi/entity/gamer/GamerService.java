@@ -148,7 +148,7 @@ public class GamerService {
 	                                                                HttpServletResponse response) {
 		long gamerId = extractGamerIdFromPrincipal(principal);
 
-		if (gamerRepository.existsById(gamerId)) {
+		if (!gamerRepository.existsById(gamerId)) {
 			LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}

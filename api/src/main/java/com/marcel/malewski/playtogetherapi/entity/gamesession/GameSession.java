@@ -15,6 +15,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @ToString
@@ -43,7 +44,6 @@ public class GameSession {
 	private int numberOfMembers;
 	private int maxMembers;
 	private int minAge;
-	private boolean isCurrentGamerMember;
 
 	private String description;
 	private String availabilityTimes;//TODO to na potem, może jakaś paginacja
@@ -63,10 +63,12 @@ public class GameSession {
 					joinColumns = @JoinColumn(name = "gamesession_id"),
 					inverseJoinColumns = @JoinColumn(name = "gamer_id"))
 	@ToString.Exclude
+	@Builder.Default
 	@NotNull
 	private List<Gamer> members = new ArrayList<>();
 
 	@OneToMany(mappedBy = "gameSession")
+	@Builder.Default
 	@NotNull
 	private List<PendingMember> pendingMembers = new ArrayList<>();
 
@@ -75,6 +77,7 @@ public class GameSession {
 		joinColumns = @JoinColumn(name = "gamesession_id"),
 		inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	@ToString.Exclude
+	@Builder.Default
 	@NotNull
 	private List<Platform> platforms = new ArrayList<>();
 

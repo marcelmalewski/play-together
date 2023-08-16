@@ -25,6 +25,7 @@ import java.util.List;
 //TODO co to dokładnie robi i czy jest to dobra opcja: @ManyToMany(fetch = FetchType.EAGER)
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @ToString
 @Getter
 @Setter
@@ -57,6 +58,7 @@ public class Gamer implements UserDetails {
 
 	@OneToMany(mappedBy = "creator")
 	@ToString.Exclude
+	@Builder.Default
 	@NotNull
 	private List<GameSession> createdGameSessions = new ArrayList<>();
 
@@ -66,6 +68,7 @@ public class Gamer implements UserDetails {
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "gamerrole_id"))
 	@ToString.Exclude
+	@Builder.Default
 	@NotNull
 	private List<GamerRole> roles = new ArrayList<>();
 
@@ -74,15 +77,18 @@ public class Gamer implements UserDetails {
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	@ToString.Exclude
+	@Builder.Default
 	@NotNull
 	private List<Platform> platforms = new ArrayList<>();
 
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
+	@Builder.Default
 	@NotNull
 	private List<GameSession> joinedGameSessions = new ArrayList<>();
 
 	@OneToMany(mappedBy = "gamer")
+	@Builder.Default
 	@NotNull
 	private List<PendingMember> pendingMembers = new ArrayList<>();
 
@@ -91,6 +97,7 @@ public class Gamer implements UserDetails {
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "game_id"))
 	@ToString.Exclude
+	@Builder.Default
 	@NotNull
 	private List<Game> favouriteGames = new ArrayList<>();
 
@@ -99,6 +106,7 @@ public class Gamer implements UserDetails {
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "genre_id"))
 	@ToString.Exclude
+	@Builder.Default
 	@NotNull
 	private List<Genre> favouriteGenres = new ArrayList<>();
 

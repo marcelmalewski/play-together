@@ -16,10 +16,10 @@ public record GameSessionPublicResponseDto(
 	int numberOfMembers,
 	int maxMembers,
 	int minAge,
-	boolean isCurrentGamerMember,
 	String description,
 	String creatorLogin,
 	String gameName,
-	List<String> platforms
+	List<String> platforms,
+	boolean isCurrentGamerMember
 ) {
 }
