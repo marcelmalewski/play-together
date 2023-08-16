@@ -40,8 +40,6 @@ public class RegisterService {
 		String email = registerDto.email();
 		gamerService.throwExceptionIfEmailIsAlreadyUsed(email);
 
-		platformService.throwExceptionIfGivenPlatformDoesNotExist(registerDto.platformsIds());
-
 		String encodedPassword = passwordEncoder.encode(registerDto.password());
 
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
@@ -62,7 +60,7 @@ public class RegisterService {
 			.build();
 
 		registerDto.platformsIds().forEach(platformId -> {
-			Platform platform = platformService.getPlatformReference(platformId);
+			Platform platform = platformService.getReferenceOfGivenPlatform(platformId);
 			newGamer.getPlatforms().add(platform);
 		});
 
