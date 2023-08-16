@@ -26,4 +26,8 @@ public class GamerRole {
 	@ManyToMany(mappedBy = "roles")
 	@NotNull
 	private List<Gamer> gamers = new ArrayList<>();
+
+	public GamerRole(@NotNull String name) {
+		this.name = name;
+	}
 }

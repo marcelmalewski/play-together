@@ -23,6 +23,7 @@ import java.util.List;
 //TODO może dodać tutaj walidacje zbliżoną do registerDto?
 //TODO co dokladnie znaczy joincolumn i inversejoin
 //TODO co to dokładnie robi i czy jest to dobra opcja: @ManyToMany(fetch = FetchType.EAGER)
+//TODO add modifiedAt?
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

@@ -28,7 +28,12 @@ public class Platform {
 	@ManyToMany(mappedBy = "platforms")
 	@NotNull
 	private List<Gamer> gamers = new ArrayList<>();
+
 	@ManyToMany(mappedBy = "platforms")
 	@NotNull
 	private List<GameSession> gameSessions = new ArrayList<>();
+
+	public Platform(@NotNull String name) {
+		this.name = name;
+	}
 }

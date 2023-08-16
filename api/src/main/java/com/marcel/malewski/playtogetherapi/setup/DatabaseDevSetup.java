@@ -36,33 +36,30 @@ public class DatabaseDevSetup implements CommandLineRunner {
 	public void run(String... args) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Gamer
-			Gamer admin = new Gamer();
-			admin.setLogin("admin");
-			admin.setPassword(passwordEncoder.encode("admin.123"));
-			admin.setEmail("admin@admin.com");
-			admin.setBirthdate(LocalDate.of(2000, 1, 1));
-			admin.setPlayingTimeStart(LocalTime.of(15, 0));
-			admin.setPlayingTimeEnd(LocalTime.of(19, 0));
-			admin.setCreatedAt(LocalDate.now());
-			Gamer savedAdmin = gamerRepository.save(admin);
+			Gamer admin = Gamer.builder()
+				.login("admin")
+				.password(passwordEncoder.encode("admin.123"))
+				.email("admin@admin.com")
+				.birthdate(LocalDate.of(2000, 1, 1))
+				.playingTimeStart(LocalTime.of(15, 0))
+				.playingTimeEnd(LocalTime.of(19, 0))
+				.createdAt(LocalDate.now())
+				.build();
 
 			//Role
-			GamerRole userRole = new GamerRole();
-			userRole.setName(GamerRoleValue.ROLE_USER.name());
+			GamerRole userRole = new GamerRole(GamerRoleValue.ROLE_USER.name());
 			gamerRoleRepository.save(userRole);
 
-			GamerRole moderatorRole = new GamerRole();
-			moderatorRole.setName(GamerRoleValue.ROLE_MODERATOR.name());
+			GamerRole moderatorRole = new GamerRole(GamerRoleValue.ROLE_MODERATOR.name());
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
-			savedAdmin.getRoles().add(savedModeratorRole);
+			admin.getRoles().add(savedModeratorRole);
 
 			//Platform
-			Platform pcPlatform = new Platform();
-			pcPlatform.setName(PlatformEnum.PC.name());
-			Platform savedPc = platformRepository.save(pcPlatform);
-			savedAdmin.getPlatforms().add(savedPc);
+			Platform pcPlatform = new Platform(PlatformEnum.PC.name());
+			Platform savedPcPlatform = platformRepository.save(pcPlatform);
+			admin.getPlatforms().add(savedPcPlatform);
 
-			gamerRepository.save(savedAdmin);
+			gamerRepository.save(admin);
 		}
 	}
 }
