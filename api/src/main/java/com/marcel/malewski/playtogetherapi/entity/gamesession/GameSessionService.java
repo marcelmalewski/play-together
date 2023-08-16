@@ -1,5 +1,7 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
+import com.marcel.malewski.playtogetherapi.entity.game.Game;
+import com.marcel.malewski.playtogetherapi.entity.game.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.exception.GameSessionNotFoundException;
@@ -16,11 +18,13 @@ public class GameSessionService {
 	private final GameSessionRepository gameSessionRepository;
 	private final GameSessionMapper gameSessionMapper;
 	private final PlatformService platformService;
+	private final GameService gameService;
 
-	public GameSessionService(GameSessionRepository gameSessionRepository, GameSessionMapper gameSessionMapper, PlatformService platformService) {
+	public GameSessionService(GameSessionRepository gameSessionRepository, GameSessionMapper gameSessionMapper, PlatformService platformService, GameService gameService) {
 		this.gameSessionRepository = gameSessionRepository;
 		this.gameSessionMapper = gameSessionMapper;
 		this.platformService = platformService;
+		this.gameService = gameService;
 	}
 
 	public Page<GameSessionPublicResponseDto> findAllGameSessions(@NotNull Pageable pageable) {
@@ -35,7 +39,7 @@ public class GameSessionService {
 
 	//TODO co jak enum jest niepoprawny
 	public void createGameSession(@NotNull GameSessionCreateRequestDto gameSessionCreateDto) {
-		platformService.throwExceptionIfGivenPlatformDoesNotExist(gameSessionCreateDto.platformsIds());
+		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 
 		LocalDate today = LocalDate.now();
 		GameSession newGameSession = GameSession.builder()

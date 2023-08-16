@@ -18,10 +18,4 @@ public class GameService {
 
 		return gameRepository.getReferenceById(id);
 	}
-
-	public void throwExceptionIfGivenGameDoesNotExist(long gameId) {
-			if (!gameRepository.existsById(gameId)) {
-				throw new GivenGameDoesNotExistException(gameId);
-			}
-	}
 }
