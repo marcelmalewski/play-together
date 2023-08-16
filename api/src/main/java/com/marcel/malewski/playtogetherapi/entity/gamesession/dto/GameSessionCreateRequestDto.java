@@ -14,7 +14,7 @@ public record GameSessionCreateRequestDto(
 	int maxMembers,
 	int minAge,
 	String description,
-	String gameName,
-	List<Long> platforms
+	long gameId,
+	List<Long> platformsIds
 ) {
 }

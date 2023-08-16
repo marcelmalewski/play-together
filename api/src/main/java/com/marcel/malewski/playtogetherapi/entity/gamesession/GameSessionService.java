@@ -3,6 +3,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamesession;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.exception.GameSessionNotFoundException;
+import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,10 +15,12 @@ import java.time.LocalDate;
 public class GameSessionService {
 	private final GameSessionRepository gameSessionRepository;
 	private final GameSessionMapper gameSessionMapper;
+	private final PlatformService platformService;
 
-	public GameSessionService(GameSessionRepository gameSessionRepository, GameSessionMapper gameSessionMapper) {
+	public GameSessionService(GameSessionRepository gameSessionRepository, GameSessionMapper gameSessionMapper, PlatformService platformService) {
 		this.gameSessionRepository = gameSessionRepository;
 		this.gameSessionMapper = gameSessionMapper;
+		this.platformService = platformService;
 	}
 
 	public Page<GameSessionPublicResponseDto> findAllGameSessions(@NotNull Pageable pageable) {
@@ -32,8 +35,9 @@ public class GameSessionService {
 
 	//TODO co jak enum jest niepoprawny
 	public void createGameSession(@NotNull GameSessionCreateRequestDto gameSessionCreateDto) {
-		LocalDate today = LocalDate.now();
+		platformService.throwExceptionIfGivenPlatformDoesNotExist(gameSessionCreateDto.platformsIds());
 
+		LocalDate today = LocalDate.now();
 		GameSession newGameSession = GameSession.builder()
 			.name(gameSessionCreateDto.name())
 			.visibilityType(gameSessionCreateDto.visibilityType())
@@ -48,11 +52,5 @@ public class GameSessionService {
 			.description(gameSessionCreateDto.description())
 			.build();
 
-
-//			today,
-//			today,
-//			1,
-//
-//		);
 	}
 }

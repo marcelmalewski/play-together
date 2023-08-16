@@ -42,7 +42,7 @@ public record GamerRegisterRequestDto(
 	@NotNull
 	String playingTimeEnd,
 	@Size(min = 1, message = "you have to add at least one platform")
-	@UniqueElements(message = "must only contain unique platforms")
+	@UniqueElements(message = "must only contain unique platformsIds")
 	@NotNull
 	List<Long> platformsIds
 ) {

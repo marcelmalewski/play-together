@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.entity.platform;
 
 import com.marcel.malewski.playtogetherapi.entity.platform.exception.GivenPlatformDoesNotExistException;
 import com.marcel.malewski.playtogetherapi.entity.platform.exception.PlatformNotFoundException;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +35,9 @@ public class PlatformService {
 		return platformRepository.getReferenceById(id);
 	}
 
-	public void throwExceptionIfGivenPlatformDoesNotExist(List<Long> platforms) {
-		platforms.forEach(platformId -> {
+	//TODO może lepsza nazwa
+	public void throwExceptionIfGivenPlatformDoesNotExist(@NotNull List<Long> platformsIds) {
+		platformsIds.forEach(platformId -> {
 			if (!platformRepository.existsById(platformId)) {
 				throw new GivenPlatformDoesNotExistException(platformId);
 			}
