@@ -11,11 +11,6 @@ public class GamerRoleService {
 		this.gamerRoleRepository = gamerRoleRepository;
 	}
 
-	//TODO to jest nieużywane
-	public GamerRole getGamerRole(String name) {
-		return gamerRoleRepository.findByName(name).orElseThrow(() -> new GamerRoleNotFoundException(name));
-	}
-
 	public GamerRole getGamerRoleReference(String name) {
 		if (!gamerRoleRepository.existsByName(name)) {
 			throw new GamerRoleNotFoundException(name);
