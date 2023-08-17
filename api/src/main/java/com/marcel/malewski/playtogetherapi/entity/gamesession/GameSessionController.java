@@ -1,7 +1,7 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
-import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerBasicInfoResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
 import io.swagger.v3.oas.annotations.Operation;
@@ -64,8 +64,9 @@ public class GameSessionController {
 
 	@PostMapping(value = "/game-sessions")
 	@Operation(summary = "Create a game session")
-	public ResponseEntity<GamerBasicInfoResponseDto> updateGamerProfile(@Valid @RequestBody GamerBasicInfoResponseDto updateProfileDto, Principal principal, HttpServletRequest request,
-	                                                                    HttpServletResponse response) {
+	public ResponseEntity<GameSessionPublicResponseDto> updateGamerProfile(@Valid @RequestBody GameSessionCreateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
+	                                                                       HttpServletResponse response) {
+		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		return null;

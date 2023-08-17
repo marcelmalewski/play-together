@@ -4,6 +4,5 @@ public record GameSessionPrivateResponseDto(
 	String pendingMembers,
 	String availabilityTimes,
 	String members
-
 ) {
 }

@@ -63,6 +63,14 @@ public class GamerService {
 		return gamerMapper.toGamerPrivateResponseDto(gamer);
 	}
 
+	public Gamer getGamerReference(long id) {
+		if(!gamerRepository.existsById(id)) {
+			throw new GamerNotFoundException(id);
+		}
+
+		return gamerRepository.getReferenceById(id);
+	}
+
 	public void saveGamer(Gamer gamer) {
 		gamerRepository.save(gamer);
 	}

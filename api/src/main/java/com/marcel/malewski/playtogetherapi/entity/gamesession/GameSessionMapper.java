@@ -9,10 +9,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class GameSessionMapper {
-	public GameSessionPublicResponseDto toGameSessionResponseDto(@NotNull GameSession gameSession) {
+	public GameSessionPublicResponseDto toGameSessionResponseDto(@NotNull GameSession gameSession, long principalId) {
 		List<String> platforms = gameSession.getPlatforms().stream().map(Platform::getName).toList();
+		boolean currentGamerIsMember = !gameSession.getMembers().stream().filter(gamer -> gamer.getId().equals(principalId)).toList().isEmpty();
 
-		//TODO uaktualnić
 		return new GameSessionPublicResponseDto(
 			gameSession.getId(),
 			gameSession.getName(),
@@ -26,9 +26,9 @@ public abstract class GameSessionMapper {
 			gameSession.getMinAge(),
 			gameSession.getDescription(),
 			gameSession.getCreator().getLogin(),
-			"yes",
+			gameSession.getGame().getName(),
 			platforms,
-			false
+			currentGamerIsMember
 		);
 	}
 }
