@@ -30,6 +30,7 @@ public class Game {
 	@ToString.Exclude
 	@NotNull
 	private Set<GameSession> gameSessions;
+
 	@ManyToMany(mappedBy = "favouriteGames")
 	@ToString.Exclude
 	@NotNull

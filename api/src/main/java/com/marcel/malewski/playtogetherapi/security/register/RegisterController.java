@@ -5,6 +5,8 @@ import com.marcel.malewski.playtogetherapi.security.exception.AlreadyAuthenticat
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,18 +30,21 @@ public class RegisterController {
 
 	@PostMapping(value="/registration/gamers")
 	@Operation(summary = "Register gamer")
-	public void registerGamer(@Valid @RequestBody GamerRegisterRequestDto registerDto, Principal principal) {
+	public ResponseEntity<Void> registerGamer(@Valid @RequestBody GamerRegisterRequestDto registerDto, Principal principal) {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedGamerException();
 		}
+
 		this.registerService.register(registerDto, GamerRoleValue.ROLE_USER);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	//TODO może tylko rola owner może tworzyć moderatorów?
 	@PostMapping(value="/moderator-panel/registration/moderators")
 	@Operation(summary = "Register gamer with role moderator")
 	@Secured("ROLE_MODERATOR")
-	public void registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
+	public ResponseEntity<Void> registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
 		this.registerService.register(registerDto, GamerRoleValue.ROLE_MODERATOR);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
