@@ -132,13 +132,13 @@ public class GamerService {
 		gamerRepository.deleteById(id);
 	}
 
-	public void throwExceptionIfLoginIsAlreadyUsed(String login) {
+	public void throwExceptionIfLoginIsAlreadyUsed(@NotNull String login) {
 		if (gamerRepository.existsByLogin(login)) {
 			throw new LoginAlreadyUsedException(login);
 		}
 	}
 
-	public void throwExceptionIfEmailIsAlreadyUsed(String email) {
+	public void throwExceptionIfEmailIsAlreadyUsed(@NotNull String email) {
 		if (gamerRepository.existsByEmail(email)) {
 			throw new EmailAlreadyUsedException(email);
 		}
