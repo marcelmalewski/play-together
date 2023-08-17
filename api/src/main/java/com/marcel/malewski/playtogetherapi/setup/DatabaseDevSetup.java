@@ -1,5 +1,7 @@
 package com.marcel.malewski.playtogetherapi.setup;
 
+import com.marcel.malewski.playtogetherapi.entity.game.Game;
+import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
@@ -23,12 +25,14 @@ public class DatabaseDevSetup implements CommandLineRunner {
 	private final GamerRepository gamerRepository;
 	private final GamerRoleRepository gamerRoleRepository;
 	private final PlatformRepository platformRepository;
+	private final GameRepository gameRepository;
 	private final PasswordEncoder passwordEncoder;
 
-	public DatabaseDevSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder) {
+	public DatabaseDevSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, GameRepository gameRepository, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.gamerRoleRepository = gamerRoleRepository;
 		this.platformRepository = platformRepository;
+		this.gameRepository = gameRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -55,11 +59,16 @@ public class DatabaseDevSetup implements CommandLineRunner {
 			admin.getRoles().add(savedModeratorRole);
 
 			//Platform
-			Platform pcPlatform = new Platform(PlatformEnum.PC.name());
-			Platform savedPcPlatform = platformRepository.save(pcPlatform);
+			Platform pc = new Platform(PlatformEnum.PC.name());
+			Platform savedPcPlatform = platformRepository.save(pc);
 			admin.getPlatforms().add(savedPcPlatform);
 
 			gamerRepository.save(admin);
+
+			//Game
+			Game fortnite = new Game("fortnite");
+			gameRepository.save(fortnite);
+
 		}
 	}
 }

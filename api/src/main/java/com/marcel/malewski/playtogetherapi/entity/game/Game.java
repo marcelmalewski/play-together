@@ -8,7 +8,6 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,10 +28,14 @@ public class Game {
 	@OneToMany(mappedBy = "game")
 	@ToString.Exclude
 	@NotNull
-	private Set<GameSession> gameSessions;
+	private List<GameSession> gameSessions = new ArrayList<>();
 
 	@ManyToMany(mappedBy = "favouriteGames")
 	@ToString.Exclude
 	@NotNull
 	private List<Gamer> gamers = new ArrayList<>();
+
+	public Game(@NotNull String name) {
+		this.name = name;
+	}
 }
