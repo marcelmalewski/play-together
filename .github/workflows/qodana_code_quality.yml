@@ -16,4 +16,4 @@ jobs:
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2023.2
         env:
-          QODANA_TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb24iOiJ6cWQ2ZCIsInByb2plY3QiOiIzak1MTiIsInRva2VuIjoiQUdxRDIifQ.lkDq218rlzJqK9l-BqKo28pf7ciT3fbPpu_hUIhxAfo
+          QODANA_TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb24iOiJBTmV5aiIsInByb2plY3QiOiJBWXFleCIsInRva2VuIjoiM3dMMTcifQ.EBYjrDAQmF-ZE6JV0CwchDFyvYVBvQDkqsdPf8giyQU
