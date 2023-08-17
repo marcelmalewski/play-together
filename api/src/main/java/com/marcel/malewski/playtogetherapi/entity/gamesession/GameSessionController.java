@@ -46,9 +46,10 @@ public class GameSessionController {
 	                                                                              HttpServletResponse response
 	) {
 		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		long principalId = extractGamerIdFromPrincipal(principal);
 
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
-		Page<GameSessionPublicResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable);
+		Page<GameSessionPublicResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable, principalId);
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
 	}
 
@@ -57,8 +58,9 @@ public class GameSessionController {
 	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(long gameSessionId, Principal principal, HttpServletRequest request,
 	                                                                   HttpServletResponse response) {
 		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		long principalId = extractGamerIdFromPrincipal(principal);
 
-		GameSessionPublicResponseDto gameSession = this.gameSessionService.getGameSession(gameSessionId);
+		GameSessionPublicResponseDto gameSession = this.gameSessionService.getGameSession(gameSessionId, principalId);
 		return new ResponseEntity<>(gameSession, HttpStatus.OK);
 	}
 
