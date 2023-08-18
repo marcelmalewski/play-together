@@ -11,11 +11,11 @@ public class GamerRoleService {
 		this.gamerRoleRepository = gamerRoleRepository;
 	}
 
-	public GamerRole getGamerRoleReference(String name) {
-		if (!gamerRoleRepository.existsByName(name)) {
-			throw new GamerRoleNotFoundException(name);
+	public GamerRole getGamerRoleReference(String gamerRoleName) {
+		if (!gamerRoleRepository.existsByName(gamerRoleName)) {
+			throw new GamerRoleNotFoundException(gamerRoleName);
 		}
 
-		return gamerRoleRepository.getReferenceByName(name);
+		return gamerRoleRepository.getReferenceByName(gamerRoleName);
 	}
 }

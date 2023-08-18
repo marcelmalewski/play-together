@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractGamerIdFromPrincipal;
+import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractIdFromPrincipal;
 
 @RestController
 @RequestMapping(path = "v1")
@@ -46,7 +46,7 @@ public class GameSessionController {
 	                                                                              HttpServletResponse response
 	) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
 		Page<GameSessionPublicResponseDto> allGameSessions = gameSessionService.findAllGameSessions(pageable, principalId);
@@ -58,7 +58,7 @@ public class GameSessionController {
 	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(@PathVariable long gameSessionId, Principal principal, HttpServletRequest request,
 	                                                                   HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 
 		GameSessionPublicResponseDto gameSession = gameSessionService.getGameSession(gameSessionId, principalId);
 		return new ResponseEntity<>(gameSession, HttpStatus.OK);
@@ -69,7 +69,7 @@ public class GameSessionController {
 	public ResponseEntity<GameSessionPublicResponseDto> createGameSession(@Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 
 		GameSessionPublicResponseDto savedGameSession = gameSessionService.saveGameSession(gameSessionCreateDto, principalId);
 		return new ResponseEntity<>(savedGameSession, HttpStatus.CREATED);
@@ -80,7 +80,7 @@ public class GameSessionController {
 	public ResponseEntity<GameSessionPublicResponseDto> updateGameSession(@PathVariable long gameSessionId, @Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 
 		GameSessionPublicResponseDto updatedGameSession = gameSessionService.updateGameSession(gameSessionCreateDto, principalId, gameSessionId);
 		return new ResponseEntity<>(updatedGameSession, HttpStatus.OK);
@@ -90,7 +90,7 @@ public class GameSessionController {
 	public ResponseEntity<GameSessionPublicResponseDto> deleteGameSession(@PathVariable long gameSessionId, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 		gameSessionService.deleteGameSession(principalId, gameSessionId);
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

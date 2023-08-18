@@ -23,7 +23,7 @@ public class PlatformController {
 	@GetMapping(value = "/platforms")
 	@Operation(summary = "Find all platformsIds")
 	public ResponseEntity<List<Platform>> findAllPlatforms() {
-		List<Platform> result = platformService.findAllPlatforms();
-		return new ResponseEntity<>(result, HttpStatus.OK);
+		List<Platform> allPlatforms = platformService.findAllPlatforms();
+		return new ResponseEntity<>(allPlatforms, HttpStatus.OK);
 	}
 }

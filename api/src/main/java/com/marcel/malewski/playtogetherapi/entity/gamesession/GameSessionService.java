@@ -37,8 +37,8 @@ public class GameSessionService {
 		return gameSessionRepository.findAll(pageable).map(gameSession -> gameSessionMapper.toGameSessionResponseDto(gameSession, principalId));
 	}
 
-	public GameSessionPublicResponseDto getGameSession(long id, long principalId) {
-		GameSession gameSession = gameSessionRepository.findById(id).orElseThrow(() -> new GameSessionNotFoundException(id));
+	public GameSessionPublicResponseDto getGameSession(long gameSessionId, long principalId) {
+		GameSession gameSession = gameSessionRepository.findById(gameSessionId).orElseThrow(() -> new GameSessionNotFoundException(gameSessionId));
 		return gameSessionMapper.toGameSessionResponseDto(gameSession, principalId);
 	}
 

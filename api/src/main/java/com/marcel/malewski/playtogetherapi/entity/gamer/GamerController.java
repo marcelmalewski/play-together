@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractGamerIdFromPrincipal;
+import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractIdFromPrincipal;
 import static com.marcel.malewski.playtogetherapi.util.Security.LogoutManually;
 
 @RestController
@@ -56,10 +56,10 @@ public class GamerController {
 	@Operation(summary = "Get private info about the authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
-		long gamerId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 
 		try {
-			GamerPrivateResponseDto gamerPrivateInfo = gamerService.getGamerPrivateInfo(gamerId);
+			GamerPrivateResponseDto gamerPrivateInfo = gamerService.getGamerPrivateInfo(principalId);
 			return new ResponseEntity<>(gamerPrivateInfo, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
@@ -71,10 +71,10 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
-		long gamerId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = gamerService.updateGamerProfile(updateProfileDto, gamerId);
+			GamerPrivateResponseDto updatedGamer = gamerService.updateGamerProfile(updateProfileDto, principalId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
@@ -86,10 +86,10 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
-		long gamerId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = gamerService.updatePartiallyGamerAuthenticationData(updateAuthDto, gamerId);
+			GamerPrivateResponseDto updatedGamer = gamerService.updatePartiallyGamerAuthenticationData(updateAuthDto, principalId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
@@ -102,10 +102,10 @@ public class GamerController {
 	@Operation(summary = "Delete the authenticated gamer and log out")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
-		long gamerId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 
 		try {
-			gamerService.deleteGamer(gamerId);
+			gamerService.deleteGamer(principalId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);

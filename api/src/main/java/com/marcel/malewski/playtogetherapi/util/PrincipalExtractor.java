@@ -8,7 +8,7 @@ public final class PrincipalExtractor {
 	private PrincipalExtractor() {
 	}
 
-	public static long extractGamerIdFromPrincipal(@NotNull Principal principal) {
+	public static long extractIdFromPrincipal(@NotNull Principal principal) {
 		String gamerIdAsString = principal.getName();
 		return Long.parseLong(gamerIdAsString);
 	}

@@ -11,11 +11,11 @@ public class GenreService {
 		this.genreRepository = genreRepository;
 	}
 
-	public Genre getReferenceOfGivenGame(long id) {
-		if (!genreRepository.existsById(id)) {
-			throw new GivenGenreDoesNotExistException(id);
+	public Genre getReferenceOfGivenGenre(long genreId) {
+		if (!genreRepository.existsById(genreId)) {
+			throw new GivenGenreDoesNotExistException(genreId);
 		}
 
-		return genreRepository.getReferenceById(id);
+		return genreRepository.getReferenceById(genreId);
 	}
 }

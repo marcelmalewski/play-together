@@ -17,11 +17,11 @@ public class PlatformService {
 		return platformRepository.findAll();
 	}
 
-	public Platform getReferenceOfGivenPlatform(long id) {
-		if (!platformRepository.existsById(id)) {
-			throw new GivenPlatformDoesNotExistException(id);
+	public Platform getReferenceOfGivenPlatform(long platformId) {
+		if (!platformRepository.existsById(platformId)) {
+			throw new GivenPlatformDoesNotExistException(platformId);
 		}
 
-		return platformRepository.getReferenceById(id);
+		return platformRepository.getReferenceById(platformId);
 	}
 }

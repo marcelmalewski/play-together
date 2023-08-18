@@ -11,11 +11,11 @@ public class GameService {
 		this.gameRepository = gameRepository;
 	}
 
-	public Game getReferenceOfGivenGame(long id) {
-		if (!gameRepository.existsById(id)) {
-			throw new GivenGameDoesNotExistException(id);
+	public Game getReferenceOfGivenGame(long gameId) {
+		if (!gameRepository.existsById(gameId)) {
+			throw new GivenGameDoesNotExistException(gameId);
 		}
 
-		return gameRepository.getReferenceById(id);
+		return gameRepository.getReferenceById(gameId);
 	}
 }

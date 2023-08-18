@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractGamerIdFromPrincipal;
+import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractIdFromPrincipal;
 import static com.marcel.malewski.playtogetherapi.util.Security.LogoutManually;
 
 @Service
@@ -53,30 +53,30 @@ public class GamerService {
 		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPrivateResponseDto).toList();
 	}
 
-	public GamerPublicResponseDto getGamerPublicInfo(long id) {
-		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+	public GamerPublicResponseDto getGamerPublicInfo(long gamerId) {
+		Gamer gamer = gamerRepository.findById(gamerId).orElseThrow(() -> new GamerNotFoundException(gamerId));
 		return gamerMapper.toGamerPublicResponseDto(gamer);
 	}
 
-	public GamerPrivateResponseDto getGamerPrivateInfo(long id) {
-		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+	public GamerPrivateResponseDto getGamerPrivateInfo(long gamerId) {
+		Gamer gamer = gamerRepository.findById(gamerId).orElseThrow(() -> new GamerNotFoundException(gamerId));
 		return gamerMapper.toGamerPrivateResponseDto(gamer);
 	}
 
-	public Gamer getGamerReference(long id) {
-		if(!gamerRepository.existsById(id)) {
-			throw new GamerNotFoundException(id);
+	public Gamer getGamerReference(long gamerId) {
+		if(!gamerRepository.existsById(gamerId)) {
+			throw new GamerNotFoundException(gamerId);
 		}
 
-		return gamerRepository.getReferenceById(id);
+		return gamerRepository.getReferenceById(gamerId);
 	}
 
 	public void saveGamer(Gamer gamer) {
 		gamerRepository.save(gamer);
 	}
 
-	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long id) {
-		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long gamerId) {
+		Gamer gamer = gamerRepository.findById(gamerId).orElseThrow(() -> new GamerNotFoundException(gamerId));
 
 		String newLogin = updateProfileDto.login();
 		if (!gamer.getLogin().equals(newLogin) && gamerRepository.existsByLogin(newLogin)) {
@@ -104,7 +104,7 @@ public class GamerService {
 
 		gamer.getFavouriteGenres().clear();
 		updateProfileDto.favouriteGenresIds().forEach(favouriteGenreId -> {
-			Genre favouriteGenre = genreService.getReferenceOfGivenGame(favouriteGenreId);
+			Genre favouriteGenre = genreService.getReferenceOfGivenGenre(favouriteGenreId);
 			gamer.getFavouriteGenres().add(favouriteGenre);
 		});
 
@@ -112,8 +112,8 @@ public class GamerService {
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
-	public GamerPrivateResponseDto updatePartiallyGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long id) {
-		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+	public GamerPrivateResponseDto updatePartiallyGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long gamerId) {
+		Gamer gamer = gamerRepository.findById(gamerId).orElseThrow(() -> new GamerNotFoundException(gamerId));
 
 		if (!passwordEncoder.matches(updateAuthDto.currentPassword(), gamer.getPassword())) {
 			throw new InvalidPasswordException();
@@ -137,12 +137,12 @@ public class GamerService {
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
-	public void deleteGamer(long id) {
-		if (!gamerRepository.existsById(id)) {
-			throw new GamerNotFoundException(id);
+	public void deleteGamer(long gamerId) {
+		if (!gamerRepository.existsById(gamerId)) {
+			throw new GamerNotFoundException(gamerId);
 		}
 
-		gamerRepository.deleteById(id);
+		gamerRepository.deleteById(gamerId);
 	}
 
 	public void throwExceptionIfLoginIsAlreadyUsed(@NotNull String login) {
@@ -159,9 +159,9 @@ public class GamerService {
 
 	public void throwExceptionAndLogoutIfAuthenticatedGamerNotFound(@NotNull Principal principal, HttpServletRequest request,
 	                                                                HttpServletResponse response) {
-		long gamerId = extractGamerIdFromPrincipal(principal);
+		long principalId = extractIdFromPrincipal(principal);
 
-		if (!gamerRepository.existsById(gamerId)) {
+		if (!gamerRepository.existsById(principalId)) {
 			LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
