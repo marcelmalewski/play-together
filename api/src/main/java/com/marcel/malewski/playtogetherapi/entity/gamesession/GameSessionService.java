@@ -7,6 +7,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateOrUpdateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.exception.GameSessionNotFoundException;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.exception.TryToUpdateGameSessionWithoutRoleGameSessionOwnerException;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import jakarta.validation.constraints.NotNull;
@@ -41,8 +42,8 @@ public class GameSessionService {
 		return gameSessionMapper.toGameSessionResponseDto(gameSession, principalId);
 	}
 
-	public GameSessionPublicResponseDto saveGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long creatorId) {
-		Gamer creator = gamerService.getGamerReference(creatorId);
+	public GameSessionPublicResponseDto saveGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long principalId) {
+		Gamer creator = gamerService.getGamerReference(principalId);
 		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 
 		LocalDate today = LocalDate.now();
@@ -69,13 +70,16 @@ public class GameSessionService {
 		});
 
 		GameSession savedNewGameSession = gameSessionRepository.save(newGameSession);
-		return gameSessionMapper.toGameSessionResponseDto(savedNewGameSession, creatorId);
+		return gameSessionMapper.toGameSessionResponseDto(savedNewGameSession, principalId);
 	}
 
-	public GameSessionPublicResponseDto updateGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long creatorId, long gameSessionId) {
+	public GameSessionPublicResponseDto updateGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long principalId, long gameSessionId) {
 		GameSession gameSession = gameSessionRepository.findById(gameSessionId).orElseThrow(() -> new GameSessionNotFoundException(gameSessionId));
-		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
+		if(!gameSession.getCreator().getId().equals(principalId)) {
+			throw new TryToUpdateGameSessionWithoutRoleGameSessionOwnerException();
+		}
 
+		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 		gameSession.setName(gameSessionCreateDto.name());
 		gameSession.setVisibilityType(gameSessionCreateDto.visibilityType());
 		gameSession.setCompetitive(gameSessionCreateDto.isCompetitive());
@@ -93,6 +97,10 @@ public class GameSessionService {
 		});
 
 		GameSession updatedGameSession = gameSessionRepository.save(gameSession);
-		return gameSessionMapper.toGameSessionResponseDto(updatedGameSession, creatorId);
+		return gameSessionMapper.toGameSessionResponseDto(updatedGameSession, principalId);
+	}
+
+	public void deleteGameSession(long creatorId, long gameSessionId) {
+
 	}
 }
