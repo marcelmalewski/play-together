@@ -34,11 +34,11 @@ public class GameSessionService {
 	}
 
 	public Page<GameSessionPublicResponseDto> findAllGameSessions(@NotNull Pageable pageable, long principalId) {
-		return this.gameSessionRepository.findAll(pageable).map(gameSession -> gameSessionMapper.toGameSessionResponseDto(gameSession, principalId));
+		return gameSessionRepository.findAll(pageable).map(gameSession -> gameSessionMapper.toGameSessionResponseDto(gameSession, principalId));
 	}
 
 	public GameSessionPublicResponseDto getGameSession(long id, long principalId) {
-		GameSession gameSession = this.gameSessionRepository.findById(id).orElseThrow(() -> new GameSessionNotFoundException(id));
+		GameSession gameSession = gameSessionRepository.findById(id).orElseThrow(() -> new GameSessionNotFoundException(id));
 		return gameSessionMapper.toGameSessionResponseDto(gameSession, principalId);
 	}
 
@@ -69,12 +69,12 @@ public class GameSessionService {
 			newGameSession.getPlatforms().add(platform);
 		});
 
-		GameSession savedNewGameSession = this.gameSessionRepository.save(newGameSession);
+		GameSession savedNewGameSession = gameSessionRepository.save(newGameSession);
 		return gameSessionMapper.toGameSessionResponseDto(savedNewGameSession, principalId);
 	}
 
 	public GameSessionPublicResponseDto updateGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long principalId, long gameSessionId) {
-		GameSession gameSession = this.gameSessionRepository.findById(gameSessionId).orElseThrow(() -> new GameSessionNotFoundException(gameSessionId));
+		GameSession gameSession = gameSessionRepository.findById(gameSessionId).orElseThrow(() -> new GameSessionNotFoundException(gameSessionId));
 		if (!gameSession.getCreator().getId().equals(principalId)) {
 			throw new TryToUpdateGameSessionWithoutRoleGameSessionOwnerException();
 		}
@@ -96,16 +96,16 @@ public class GameSessionService {
 			gameSession.getPlatforms().add(platform);
 		});
 
-		GameSession updatedGameSession = this.gameSessionRepository.save(gameSession);
+		GameSession updatedGameSession = gameSessionRepository.save(gameSession);
 		return gameSessionMapper.toGameSessionResponseDto(updatedGameSession, principalId);
 	}
 
 	public void deleteGameSession(long principalId, long gameSessionId) {
-		GameSession gameSession = this.gameSessionRepository.findById(gameSessionId).orElseThrow(() -> new GameSessionNotFoundException(gameSessionId));
+		GameSession gameSession = gameSessionRepository.findById(gameSessionId).orElseThrow(() -> new GameSessionNotFoundException(gameSessionId));
 		if (!gameSession.getCreator().getId().equals(principalId)) {
 			throw new TryToUpdateGameSessionWithoutRoleGameSessionOwnerException();
 		}
 
-		this.gameSessionRepository.deleteById(gameSessionId);
+		gameSessionRepository.deleteById(gameSessionId);
 	}
 }

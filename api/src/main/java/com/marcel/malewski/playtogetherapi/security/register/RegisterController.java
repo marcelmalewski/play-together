@@ -35,7 +35,7 @@ public class RegisterController {
 			throw new AlreadyAuthenticatedGamerException();
 		}
 
-		this.registerService.register(registerDto, GamerRoleValue.ROLE_USER);
+		registerService.register(registerDto, GamerRoleValue.ROLE_USER);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
@@ -44,7 +44,7 @@ public class RegisterController {
 	@Operation(summary = "Register gamer with role moderator")
 	@Secured("ROLE_MODERATOR")
 	public ResponseEntity<Void> registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
-		this.registerService.register(registerDto, GamerRoleValue.ROLE_MODERATOR);
+		registerService.register(registerDto, GamerRoleValue.ROLE_MODERATOR);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

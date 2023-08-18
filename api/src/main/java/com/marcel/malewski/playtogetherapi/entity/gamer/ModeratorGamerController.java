@@ -28,7 +28,7 @@ public class ModeratorGamerController {
 	@Operation(summary = "Find all gamers private info")
 	@Secured("ROLE_MODERATOR")
 	public ResponseEntity<List<GamerPrivateResponseDto>> findAllGamers() {
-		List<GamerPrivateResponseDto> allGamers = this.gamerService.findAllGamersPrivateInfo();
+		List<GamerPrivateResponseDto> allGamers = gamerService.findAllGamersPrivateInfo();
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
@@ -37,7 +37,7 @@ public class ModeratorGamerController {
 	@Operation(summary = "Delete gamer by id")
 	@Secured("ROLE_MODERATOR")
 	public ResponseEntity<Void> deleteGamer(long gamerId) {
-		this.gamerService.deleteGamer(gamerId);
+		gamerService.deleteGamer(gamerId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
@@ -45,7 +45,7 @@ public class ModeratorGamerController {
 	@Operation(summary = "Delete gamer with role moderator by id")
 	@Secured("ROLE_OWNER")
 	public ResponseEntity<Void> deleteModerator(long moderatorId) {
-		this.gamerService.deleteGamer(moderatorId);
+		gamerService.deleteGamer(moderatorId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

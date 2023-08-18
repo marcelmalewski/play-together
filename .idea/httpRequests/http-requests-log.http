@@ -1,3 +1,25 @@
+DELETE http://localhost/api/v1/game-sessions/1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Cookie: JSESSIONID=4146D0B8D940321FD9FF45B16FB85685
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost/v1/game-sessions/1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+DELETE http://localhost/v1/game-sessions/1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
 PUT http://localhost/api/v1/game-sessions/1
 Content-Type: application/json
 Content-Length: 259
@@ -707,60 +729,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2023-08-03T224649.401.json
-
-###
-
-PATCH http://localhost/api/gamers/@me/auth
-Content-Type: application/json
-Content-Length: 77
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Cookie: JSESSIONID=C51977F0AE119911853358D1E638F5EA
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "aaa",
-  "newPassword": "1234",
-  "currentPassword": "yes pls"
-}
-
-<> 2023-08-03T223156.401.json
-
-###
-
-PATCH http://localhost/api/gamers/@me/auth
-Content-Type: application/json
-Content-Length: 77
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Cookie: JSESSIONID=C51977F0AE119911853358D1E638F5EA
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "aaa",
-  "newPassword": "1234",
-  "currentPassword": "yes pls"
-}
-
-<> 2023-08-03T223140.500.json
-
-###
-
-PATCH http://localhost/api/gamers/@me/auth
-Content-Type: application/json
-Content-Length: 77
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Cookie: JSESSIONID=C51977F0AE119911853358D1E638F5EA
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "email": "aaa",
-  "newPassword": "1234",
-  "currentPassword": "yes pls"
-}
-
-<> 2023-08-03T223048.500.json
 
 ###
 

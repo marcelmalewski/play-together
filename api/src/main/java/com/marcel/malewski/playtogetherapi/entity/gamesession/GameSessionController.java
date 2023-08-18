@@ -45,11 +45,11 @@ public class GameSessionController {
 	                                                                              Principal principal, HttpServletRequest request,
 	                                                                              HttpServletResponse response
 	) {
-		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long principalId = extractGamerIdFromPrincipal(principal);
 
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
-		Page<GameSessionPublicResponseDto> allGameSessions = this.gameSessionService.findAllGameSessions(pageable, principalId);
+		Page<GameSessionPublicResponseDto> allGameSessions = gameSessionService.findAllGameSessions(pageable, principalId);
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
 	}
 
@@ -57,10 +57,10 @@ public class GameSessionController {
 	@Operation(summary = "Get game session by id")
 	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(@PathVariable long gameSessionId, Principal principal, HttpServletRequest request,
 	                                                                   HttpServletResponse response) {
-		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long principalId = extractGamerIdFromPrincipal(principal);
 
-		GameSessionPublicResponseDto gameSession = this.gameSessionService.getGameSession(gameSessionId, principalId);
+		GameSessionPublicResponseDto gameSession = gameSessionService.getGameSession(gameSessionId, principalId);
 		return new ResponseEntity<>(gameSession, HttpStatus.OK);
 	}
 
@@ -68,7 +68,7 @@ public class GameSessionController {
 	@Operation(summary = "Create a game session")
 	public ResponseEntity<GameSessionPublicResponseDto> createGameSession(@Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
-		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long principalId = extractGamerIdFromPrincipal(principal);
 
 		GameSessionPublicResponseDto savedGameSession = gameSessionService.saveGameSession(gameSessionCreateDto, principalId);
@@ -79,7 +79,7 @@ public class GameSessionController {
 	@Operation(summary = "Update a game session by id")
 	public ResponseEntity<GameSessionPublicResponseDto> updateGameSession(@PathVariable long gameSessionId, @Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
-		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long principalId = extractGamerIdFromPrincipal(principal);
 
 		GameSessionPublicResponseDto updatedGameSession = gameSessionService.updateGameSession(gameSessionCreateDto, principalId, gameSessionId);
@@ -89,9 +89,9 @@ public class GameSessionController {
 	@DeleteMapping(value = "/game-sessions/{gameSessionId}")
 	public ResponseEntity<GameSessionPublicResponseDto> deleteGameSession(@PathVariable long gameSessionId, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
-		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long principalId = extractGamerIdFromPrincipal(principal);
-		this.gameSessionService.deleteGameSession(principalId, gameSessionId);
+		gameSessionService.deleteGameSession(principalId, gameSessionId);
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}

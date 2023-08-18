@@ -46,40 +46,40 @@ public class GamerService {
 	}
 
 	public List<GamerPublicResponseDto> findAllGamersPublicInfo() {
-		return this.gamerRepository.findAll().stream().map(gamerMapper::toGamerPublicResponseDto).toList();
+		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPublicResponseDto).toList();
 	}
 
 	public List<GamerPrivateResponseDto> findAllGamersPrivateInfo() {
-		return this.gamerRepository.findAll().stream().map(gamerMapper::toGamerPrivateResponseDto).toList();
+		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPrivateResponseDto).toList();
 	}
 
 	public GamerPublicResponseDto getGamerPublicInfo(long id) {
-		Gamer gamer = this.gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 		return gamerMapper.toGamerPublicResponseDto(gamer);
 	}
 
 	public GamerPrivateResponseDto getGamerPrivateInfo(long id) {
-		Gamer gamer = this.gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 		return gamerMapper.toGamerPrivateResponseDto(gamer);
 	}
 
 	public Gamer getGamerReference(long id) {
-		if(!this.gamerRepository.existsById(id)) {
+		if(!gamerRepository.existsById(id)) {
 			throw new GamerNotFoundException(id);
 		}
 
-		return this.gamerRepository.getReferenceById(id);
+		return gamerRepository.getReferenceById(id);
 	}
 
 	public void saveGamer(Gamer gamer) {
-		this.gamerRepository.save(gamer);
+		gamerRepository.save(gamer);
 	}
 
 	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long id) {
-		Gamer gamer = this.gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
 		String newLogin = updateProfileDto.login();
-		if (!gamer.getLogin().equals(newLogin) && this.gamerRepository.existsByLogin(newLogin)) {
+		if (!gamer.getLogin().equals(newLogin) && gamerRepository.existsByLogin(newLogin)) {
 			throw new LoginAlreadyUsedException(newLogin);
 		}
 
@@ -108,12 +108,12 @@ public class GamerService {
 			gamer.getFavouriteGenres().add(favouriteGenre);
 		});
 
-		Gamer updatedGamer = this.gamerRepository.save(gamer);
+		Gamer updatedGamer = gamerRepository.save(gamer);
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
 	public GamerPrivateResponseDto updatePartiallyGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long id) {
-		Gamer gamer = this.gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
+		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
 		if (!passwordEncoder.matches(updateAuthDto.currentPassword(), gamer.getPassword())) {
 			throw new InvalidPasswordException();
@@ -121,7 +121,7 @@ public class GamerService {
 
 		if(updateAuthDto.email() != null) {
 			String newEmail = updateAuthDto.email();
-			if (!gamer.getEmail().equals(updateAuthDto.email()) && this.gamerRepository.existsByEmail(newEmail)) {
+			if (!gamer.getEmail().equals(updateAuthDto.email()) && gamerRepository.existsByEmail(newEmail)) {
 				throw new EmailAlreadyUsedException(newEmail);
 			}
 
@@ -133,26 +133,26 @@ public class GamerService {
 			gamer.setPassword(newPasswordEncoded);
 		}
 
-		Gamer updatedGamer = this.gamerRepository.save(gamer);
+		Gamer updatedGamer = gamerRepository.save(gamer);
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
 	public void deleteGamer(long id) {
-		if (!this.gamerRepository.existsById(id)) {
+		if (!gamerRepository.existsById(id)) {
 			throw new GamerNotFoundException(id);
 		}
 
-		this.gamerRepository.deleteById(id);
+		gamerRepository.deleteById(id);
 	}
 
 	public void throwExceptionIfLoginIsAlreadyUsed(@NotNull String login) {
-		if (this.gamerRepository.existsByLogin(login)) {
+		if (gamerRepository.existsByLogin(login)) {
 			throw new LoginAlreadyUsedException(login);
 		}
 	}
 
 	public void throwExceptionIfEmailIsAlreadyUsed(@NotNull String email) {
-		if (this.gamerRepository.existsByEmail(email)) {
+		if (gamerRepository.existsByEmail(email)) {
 			throw new EmailAlreadyUsedException(email);
 		}
 	}
@@ -161,7 +161,7 @@ public class GamerService {
 	                                                                HttpServletResponse response) {
 		long gamerId = extractGamerIdFromPrincipal(principal);
 
-		if (!this.gamerRepository.existsById(gamerId)) {
+		if (!gamerRepository.existsById(gamerId)) {
 			LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}

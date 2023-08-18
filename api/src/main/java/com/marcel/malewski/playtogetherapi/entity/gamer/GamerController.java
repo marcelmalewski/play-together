@@ -36,9 +36,9 @@ public class GamerController {
 	@Operation(summary = "Find all gamers public info")
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
-		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
-		List<GamerPublicResponseDto> allGamers = this.gamerService.findAllGamersPublicInfo();
+		List<GamerPublicResponseDto> allGamers = gamerService.findAllGamersPublicInfo();
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
@@ -46,9 +46,9 @@ public class GamerController {
 	@Operation(summary = "Get public info about a gamer by id")
 	public ResponseEntity<GamerPublicResponseDto> getGamer(@PathVariable long gamerId, Principal principal, HttpServletRequest request,
 	                                                       HttpServletResponse response) {
-		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
-		GamerPublicResponseDto gamerPublic = this.gamerService.getGamerPublicInfo(gamerId);
+		GamerPublicResponseDto gamerPublic = gamerService.getGamerPublicInfo(gamerId);
 		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
 	}
 
@@ -59,7 +59,7 @@ public class GamerController {
 		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		try {
-			GamerPrivateResponseDto gamerPrivateInfo = this.gamerService.getGamerPrivateInfo(gamerId);
+			GamerPrivateResponseDto gamerPrivateInfo = gamerService.getGamerPrivateInfo(gamerId);
 			return new ResponseEntity<>(gamerPrivateInfo, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
@@ -74,7 +74,7 @@ public class GamerController {
 		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerProfile(updateProfileDto, gamerId);
+			GamerPrivateResponseDto updatedGamer = gamerService.updateGamerProfile(updateProfileDto, gamerId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
@@ -89,7 +89,7 @@ public class GamerController {
 		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = this.gamerService.updatePartiallyGamerAuthenticationData(updateAuthDto, gamerId);
+			GamerPrivateResponseDto updatedGamer = gamerService.updatePartiallyGamerAuthenticationData(updateAuthDto, gamerId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
