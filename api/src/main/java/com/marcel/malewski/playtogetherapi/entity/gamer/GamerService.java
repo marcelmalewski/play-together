@@ -112,21 +112,26 @@ public class GamerService {
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
 	}
 
-	public GamerPrivateResponseDto updateGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long id) {
+	public GamerPrivateResponseDto updatePartiallyGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long id) {
 		Gamer gamer = gamerRepository.findById(id).orElseThrow(() -> new GamerNotFoundException(id));
 
 		if (!passwordEncoder.matches(updateAuthDto.currentPassword(), gamer.getPassword())) {
 			throw new InvalidPasswordException();
 		}
-		String updatedPassword = updateAuthDto.newPassword() != null ? passwordEncoder.encode(updateAuthDto.newPassword()) : null;
 
-		String updatedEmail = updateAuthDto.email();
-		if (updatedEmail != null && !gamer.getEmail().equals(updateAuthDto.email()) && gamerRepository.existsByEmail(updatedEmail)) {
-			throw new EmailAlreadyUsedException(updatedEmail);
+		if(updateAuthDto.email() != null) {
+			String newEmail = updateAuthDto.email();
+			if (!gamer.getEmail().equals(updateAuthDto.email()) && gamerRepository.existsByEmail(newEmail)) {
+				throw new EmailAlreadyUsedException(newEmail);
+			}
+
+			gamer.setEmail(newEmail);
 		}
 
-		gamer.setLogin(updatedEmail != null ? updatedEmail : gamer.getEmail());
-		gamer.setPassword(updatedPassword != null ? updatedPassword : gamer.getPassword());
+		if(updateAuthDto.newPassword() != null) {
+			String newPasswordEncoded = passwordEncoder.encode(updateAuthDto.newPassword());
+			gamer.setPassword(newPasswordEncoded);
+		}
 
 		Gamer updatedGamer = gamerRepository.save(gamer);
 		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);

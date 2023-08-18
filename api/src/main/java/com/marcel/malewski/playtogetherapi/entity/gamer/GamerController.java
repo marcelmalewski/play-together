@@ -84,12 +84,12 @@ public class GamerController {
 
 	@PatchMapping(value = "/gamers/@me/authentication-data")
 	@Operation(summary = "Update the authenticated gamers's authentication data")
-	public ResponseEntity<GamerPrivateResponseDto> updateGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
+	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
 		long gamerId = extractGamerIdFromPrincipal(principal);
 
 		try {
-			GamerPrivateResponseDto updatedGamer = this.gamerService.updateGamerAuthenticationData(updateAuthDto, gamerId);
+			GamerPrivateResponseDto updatedGamer = this.gamerService.updatePartiallyGamerAuthenticationData(updateAuthDto, gamerId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
