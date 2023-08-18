@@ -85,4 +85,6 @@ public class GameSessionController {
 		GameSessionPublicResponseDto updatedGameSession = gameSessionService.updateGameSession(gameSessionCreateDto, gamerId, gameSessionId);
 		return new ResponseEntity<>(updatedGameSession, HttpStatus.OK);
 	}
+
+	//TODO delete, może tylko owner
 }

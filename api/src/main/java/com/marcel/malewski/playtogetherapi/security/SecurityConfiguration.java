@@ -34,8 +34,7 @@ public class SecurityConfiguration {
 
 			.requestMatchers(
 				HttpMethod.POST,
-				"/v1/registration/gamers",
-				"/v1/game-sessions"
+				"/v1/registration/gamers"
 			)
 			.permitAll()
 

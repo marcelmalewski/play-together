@@ -7,9 +7,12 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleValue;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformEnum;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
+import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,13 +29,15 @@ public class DatabaseDevSetup implements CommandLineRunner {
 	private final GamerRoleRepository gamerRoleRepository;
 	private final PlatformRepository platformRepository;
 	private final GameRepository gameRepository;
+	private final GameSessionRepository gameSessionRepository;
 	private final PasswordEncoder passwordEncoder;
 
-	public DatabaseDevSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, GameRepository gameRepository, PasswordEncoder passwordEncoder) {
+	public DatabaseDevSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, GameRepository gameRepository, GameSessionRepository gameSessionRepository, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.gamerRoleRepository = gamerRoleRepository;
 		this.platformRepository = platformRepository;
 		this.gameRepository = gameRepository;
+		this.gameSessionRepository = gameSessionRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -63,12 +68,32 @@ public class DatabaseDevSetup implements CommandLineRunner {
 			Platform savedPcPlatform = platformRepository.save(pc);
 			admin.getPlatforms().add(savedPcPlatform);
 
-			gamerRepository.save(admin);
+			Gamer savedAdmin = gamerRepository.save(admin);
 
 			//Game
 			Game fortnite = new Game("fortnite");
-			gameRepository.save(fortnite);
+			Game savedFortnite = gameRepository.save(fortnite);
 
+			//GameSession
+			LocalDate today = LocalDate.now();
+			GameSession testGameSession = GameSession.builder()
+				.name("test game session")
+				.visibilityType(PrivacyLevel.PUBLIC)
+				.isCompetitive(false)
+				.accessType(PrivacyLevel.PUBLIC)
+				.date(today)
+				.createdAt(today)
+				.modifiedAt(today)
+				.numberOfMembers(1)
+				.maxMembers(20)
+				.minAge(15)
+				.description("yes pls")
+				.creator(savedAdmin)
+				.game(savedFortnite)
+				.build();
+
+			testGameSession.getPlatforms().add(savedPcPlatform);
+			gameSessionRepository.save(testGameSession);
 		}
 	}
 }
