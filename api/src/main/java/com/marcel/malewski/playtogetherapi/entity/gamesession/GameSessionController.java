@@ -1,7 +1,7 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
-import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateRequestDto;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateOrUpdateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,9 +53,9 @@ public class GameSessionController {
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/game-sessions/:gameSessionId")
+	@GetMapping(value = "/game-sessions/{gameSessionId}")
 	@Operation(summary = "Get game session by id")
-	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(long gameSessionId, Principal principal, HttpServletRequest request,
+	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(@PathVariable long gameSessionId, Principal principal, HttpServletRequest request,
 	                                                                   HttpServletResponse response) {
 		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long principalId = extractGamerIdFromPrincipal(principal);
@@ -66,11 +66,23 @@ public class GameSessionController {
 
 	@PostMapping(value = "/game-sessions")
 	@Operation(summary = "Create a game session")
-	public ResponseEntity<GameSessionPublicResponseDto> updateGamerProfile(@Valid @RequestBody GameSessionCreateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
-	                                                                       HttpServletResponse response) {
+	public ResponseEntity<GameSessionPublicResponseDto> createGameSession(@Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
+	                                                                      HttpServletResponse response) {
 		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long gamerId = extractGamerIdFromPrincipal(principal);
 
-		return null;
+		GameSessionPublicResponseDto savedGameSession = gameSessionService.saveGameSession(gameSessionCreateDto, gamerId);
+		return new ResponseEntity<>(savedGameSession, HttpStatus.CREATED);
+	}
+
+	@PutMapping(value = "/game-sessions/{gameSessionId}")
+	@Operation(summary = "Update a game session by id")
+	public ResponseEntity<GameSessionPublicResponseDto> updateGameSession(@PathVariable long gameSessionId, @Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
+	                                                                      HttpServletResponse response) {
+		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+		long gamerId = extractGamerIdFromPrincipal(principal);
+
+		GameSessionPublicResponseDto updatedGameSession = gameSessionService.updateGameSession(gameSessionCreateDto, gamerId, gameSessionId);
+		return new ResponseEntity<>(updatedGameSession, HttpStatus.OK);
 	}
 }

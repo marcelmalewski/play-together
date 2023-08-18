@@ -5,7 +5,7 @@ import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
 import java.time.LocalDate;
 import java.util.List;
 
-public record GameSessionCreateRequestDto(
+public record GameSessionCreateOrUpdateRequestDto(
 	String name,
 	PrivacyLevel visibilityType,
 	boolean isCompetitive,

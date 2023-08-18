@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.game.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
-import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateRequestDto;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateOrUpdateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.exception.GameSessionNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
@@ -41,8 +41,7 @@ public class GameSessionService {
 		return gameSessionMapper.toGameSessionResponseDto(gameSession, principalId);
 	}
 
-	//TODO dodać obsługe niepoprawnego enum
-	public GameSessionPublicResponseDto saveGameSession(@NotNull GameSessionCreateRequestDto gameSessionCreateDto, long creatorId) {
+	public GameSessionPublicResponseDto saveGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long creatorId) {
 		Gamer creator = gamerService.getGamerReference(creatorId);
 		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 
@@ -71,5 +70,29 @@ public class GameSessionService {
 
 		GameSession savedNewGameSession = gameSessionRepository.save(newGameSession);
 		return gameSessionMapper.toGameSessionResponseDto(savedNewGameSession, creatorId);
+	}
+
+	public GameSessionPublicResponseDto updateGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long creatorId, long gameSessionId) {
+		GameSession gameSession = gameSessionRepository.findById(gameSessionId).orElseThrow(() -> new GameSessionNotFoundException(gameSessionId));
+		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
+
+		gameSession.setName(gameSessionCreateDto.name());
+		gameSession.setVisibilityType(gameSessionCreateDto.visibilityType());
+		gameSession.setCompetitive(gameSessionCreateDto.isCompetitive());
+		gameSession.setAccessType(gameSessionCreateDto.accessType());
+		gameSession.setDate(gameSessionCreateDto.date());
+		gameSession.setModifiedAt(LocalDate.now());
+		gameSession.setMaxMembers(gameSessionCreateDto.maxMembers());//TODO jezlie maxMembers jest mniejsze niz aktualna ilosc members to error
+		gameSession.setMinAge(gameSessionCreateDto.minAge());
+		gameSession.setDescription(gameSessionCreateDto.description());
+		gameSession.setGame(game);
+
+		gameSessionCreateDto.platformsIds().forEach(platformId -> {
+			Platform platform = platformService.getReferenceOfGivenPlatform(platformId);
+			gameSession.getPlatforms().add(platform);
+		});
+
+		GameSession updatedGameSession = gameSessionRepository.save(gameSession);
+		return gameSessionMapper.toGameSessionResponseDto(updatedGameSession, creatorId);
 	}
 }

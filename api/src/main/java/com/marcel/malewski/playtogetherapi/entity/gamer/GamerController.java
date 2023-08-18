@@ -42,9 +42,9 @@ public class GamerController {
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/gamers/:gamerId")
+	@GetMapping(value = "/gamers/{gamerId}")
 	@Operation(summary = "Get public info about a gamer by id")
-	public ResponseEntity<GamerPublicResponseDto> getGamer(long gamerId, Principal principal, HttpServletRequest request,
+	public ResponseEntity<GamerPublicResponseDto> getGamer(@PathVariable long gamerId, Principal principal, HttpServletRequest request,
 	                                                       HttpServletResponse response) {
 		this.gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
