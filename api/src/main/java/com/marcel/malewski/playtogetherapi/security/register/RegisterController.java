@@ -36,7 +36,7 @@ public class RegisterController {
 		}
 
 		this.registerService.register(registerDto, GamerRoleValue.ROLE_USER);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	//TODO może tylko rola owner może tworzyć moderatorów?
@@ -45,6 +45,6 @@ public class RegisterController {
 	@Secured("ROLE_MODERATOR")
 	public ResponseEntity<Void> registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
 		this.registerService.register(registerDto, GamerRoleValue.ROLE_MODERATOR);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }
