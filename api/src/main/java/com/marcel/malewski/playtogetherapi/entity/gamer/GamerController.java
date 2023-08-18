@@ -106,7 +106,7 @@ public class GamerController {
 
 		try {
 			gamerService.deleteGamer(gamerId);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GamerNotFoundException exception) {
 			LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
