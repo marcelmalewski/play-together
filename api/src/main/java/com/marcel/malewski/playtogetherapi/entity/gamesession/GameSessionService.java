@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class GameSessionService {
@@ -61,9 +62,9 @@ public class GameSessionService {
 			.description(gameSessionCreateDto.description())
 			.creator(creator)
 			.game(game)
+			.members(List.of(creator))
 			.build();
 
-		newGameSession.getMembers().add(creator);
 		gameSessionCreateDto.platformsIds().forEach(platformId -> {
 			Platform platform = platformService.getReferenceOfGivenPlatform(platformId);
 			newGameSession.getPlatforms().add(platform);
