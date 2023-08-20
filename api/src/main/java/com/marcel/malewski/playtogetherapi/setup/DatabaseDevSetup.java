@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 //TODO use service instead of repository?
 @Profile("dev")
@@ -44,6 +45,17 @@ public class DatabaseDevSetup implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 		if (!gamerRepository.existsByLogin("admin")) {
+			//Role
+			GamerRole userRole = new GamerRole(GamerRoleValue.ROLE_USER.name());
+			gamerRoleRepository.save(userRole);
+
+			GamerRole moderatorRole = new GamerRole(GamerRoleValue.ROLE_MODERATOR.name());
+			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
+
+			//Platform
+			Platform pc = new Platform(PlatformEnum.PC.name());
+			Platform savedPcPlatform = platformRepository.save(pc);
+
 			//Gamer
 			Gamer admin = Gamer.builder()
 				.login("admin")
@@ -53,21 +65,10 @@ public class DatabaseDevSetup implements CommandLineRunner {
 				.playingTimeStart(LocalTime.of(15, 0))
 				.playingTimeEnd(LocalTime.of(19, 0))
 				.createdAt(LocalDate.now())
+				.bio("Hello, I am admin.")
+				.roles(List.of(savedModeratorRole))
+				.platforms(List.of(savedPcPlatform))
 				.build();
-
-			//Role
-			GamerRole userRole = new GamerRole(GamerRoleValue.ROLE_USER.name());
-			gamerRoleRepository.save(userRole);
-
-			GamerRole moderatorRole = new GamerRole(GamerRoleValue.ROLE_MODERATOR.name());
-			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
-			admin.getRoles().add(savedModeratorRole);
-
-			//Platform
-			Platform pc = new Platform(PlatformEnum.PC.name());
-			Platform savedPcPlatform = platformRepository.save(pc);
-			admin.getPlatforms().add(savedPcPlatform);
-
 			Gamer savedAdmin = gamerRepository.save(admin);
 
 			//Game
@@ -90,9 +91,8 @@ public class DatabaseDevSetup implements CommandLineRunner {
 				.description("yes pls")
 				.creator(savedAdmin)
 				.game(savedFortnite)
+				.platforms(List.of(savedPcPlatform))
 				.build();
-
-			testGameSession.getPlatforms().add(savedPcPlatform);
 			gameSessionRepository.save(testGameSession);
 		}
 	}
