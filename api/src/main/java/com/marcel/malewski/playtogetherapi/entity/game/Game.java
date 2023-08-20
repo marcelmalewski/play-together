@@ -20,7 +20,7 @@ public class Game {
 	@Id
 	@SequenceGenerator(name = "game_sequence", sequenceName = "game_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_sequence")
-	private int id;
+	private Long id;
 	@NotNull
 	@Column(unique = true)
 	private String name;
@@ -36,6 +36,11 @@ public class Game {
 	private List<Gamer> gamers = new ArrayList<>();
 
 	public Game(@NotNull String name) {
+		this.name = name;
+	}
+
+	public Game(Long id, @NotNull String name) {
+		this.id = id;
 		this.name = name;
 	}
 }

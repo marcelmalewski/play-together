@@ -36,4 +36,9 @@ public class Platform {
 	public Platform(@NotNull String name) {
 		this.name = name;
 	}
+
+	public Platform(Long id, @NotNull String name) {
+		this.id = id;
+		this.name = name;
+	}
 }
