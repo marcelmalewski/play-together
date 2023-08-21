@@ -1,7 +1,7 @@
 package com.marcel.malewski.playtogetherapi.validation.timeformat;
 
 import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.validation.ValidGamerRegisterRequestDto;
+import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.*;
+import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
@@ -28,7 +28,7 @@ class StringTimeFormatValidatorTest {
 
   @Test
   void shouldFindNoViolationsWhenTimeFormatIsValid() {
-    registerRequestDto = ValidGamerRegisterRequestDto.getValidGamerRegisterRequestDto();
+    registerRequestDto = TestGamerCreator.getValidGamerRegisterRequestDto();
 
     Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
     assertEquals(0, violations.size());

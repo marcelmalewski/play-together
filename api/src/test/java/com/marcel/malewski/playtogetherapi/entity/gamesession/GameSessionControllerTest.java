@@ -3,21 +3,30 @@ package com.marcel.malewski.playtogetherapi.entity.gamesession;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import com.marcel.malewski.playtogetherapi.entity.platform.PlatformEnum;
-import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
+import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
+import static com.marcel.malewski.playtogetherapi.util.TestGameSessionCreator.getTestGameSession;
+import static com.marcel.malewski.playtogetherapi.util.TestGameSessionCreator.toGameSessionResponseDto;
+import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
+import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatformsAsStrings;
+import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getTestRoles;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -36,62 +45,40 @@ class GameSessionControllerTest {
 	@MockBean
 	GamerService gamerService;
 
-	@Test
-	void getGameSessionById() throws Exception {
-		LocalDate today = LocalDate.now();
-		Platform pc = new Platform(1L, PlatformEnum.PC.name());
+	private Gamer testGamer;
+	private GameSession testGameSession;
+	private GameSessionPublicResponseDto testGameSessionPublicResponseDto;
+
+	@BeforeEach
+	public void setup() {
+		List<Platform> testPlatforms = getTestPlatforms();
+		List<GamerRole> testRoles = getTestRoles();
 		Game fortnite = new Game(1L, "fortnite");
 
-		Gamer testGamer = Gamer.builder()
-			.id(1L)
-			.login("admin")
-			.password("admin.123")
-			.email("admin@admin.com")
-			.birthdate(LocalDate.of(2000, 1, 1))
-			.playingTimeStart(LocalTime.of(15, 0))
-			.playingTimeEnd(LocalTime.of(19, 0))
-			.createdAt(today)
-			.build();
+		testGamer = TestGamerCreator.getTestGamer(testPlatforms, testRoles);
+		testGameSession = getTestGameSession(testGamer, fortnite, testPlatforms);
+		testGameSessionPublicResponseDto = toGameSessionResponseDto(testGameSession, getTestPlatformsAsStrings(), true);
+	}
 
-		GameSession testGameSession = GameSession.builder()
-			.id(1L)
-			.name("test game session")
-			.visibilityType(PrivacyLevel.PUBLIC)
-			.isCompetitive(false)
-			.accessType(PrivacyLevel.PUBLIC)
-			.date(today)
-			.createdAt(today)
-			.modifiedAt(today)
-			.numberOfMembers(1)
-			.maxMembers(20)
-			.minAge(15)
-			.description("test description")
-			.creator(testGamer)
-			.game(fortnite)
-			.build();
-		testGameSession.getPlatforms().add(pc);
+	@Test
+	void shouldReturnListWithOneGameSessionWhenOneGameSessionExist() throws Exception {
+		List<GameSessionPublicResponseDto> allGameSessions = List.of(testGameSessionPublicResponseDto);
+		Page<GameSessionPublicResponseDto> allGameSessionsAsPage = new PageImpl<>(allGameSessions);
+		Pageable pageable = PageRequest.of(0, 10, GameSessionSortOption.CREATED_AT_DESC.getSort());
 
-		GameSessionPublicResponseDto testGameSessionPublicResponseDto = new GameSessionPublicResponseDto(
-			testGameSession.getId(),
-			testGameSession.getName(),
-			testGameSession.isCompetitive(),
-			testGameSession.getAccessType(),
-			testGameSession.getDate(),
-			testGameSession.getCreatedAt(),
-			testGameSession.getModifiedAt(),
-			testGameSession.getNumberOfMembers(),
-			testGameSession.getMaxMembers(),
-			testGameSession.getMinAge(),
-			testGameSession.getDescription(),
-			testGameSession.getCreator().getLogin(),
-			testGameSession.getGame().getName(),
-			List.of(pc.getName()),
-			true
-		);
+		given(gameSessionService.findAllGameSessions(pageable, testGamer.getId())).willReturn(allGameSessionsAsPage);
 
+		mockMvc.perform(get("/v1/game-sessions").with(user(testGamer)).accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$.content.length()", is(1)));
+	}
 
+	@Test
+	void shouldReturnGameSessionWhenGameSessionWithGivenIdExist() throws Exception {
 		given(gameSessionService.getGameSession(testGameSession.getId(), testGamer.getId())).willReturn(testGameSessionPublicResponseDto);
-		mockMvc.perform(get("/v1/game-sessions/" + testGameSession.getId()).with(user(testGamer)))
+
+		mockMvc.perform(get("/v1/game-sessions/" + testGameSession.getId()).with(user(testGamer)).accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGameSession.getId()))))
