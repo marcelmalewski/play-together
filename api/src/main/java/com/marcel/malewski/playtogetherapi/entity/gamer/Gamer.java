@@ -73,6 +73,7 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<GamerRole> roles = new ArrayList<>();
 
+	//TODO add min one platform
 	@ManyToMany
 	@JoinTable(name = "gamer_platform",
 		joinColumns = @JoinColumn(name = "gamer_id"),
