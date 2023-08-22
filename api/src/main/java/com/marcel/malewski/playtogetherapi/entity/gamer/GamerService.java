@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.security.Principal;
 import java.util.List;
@@ -28,6 +29,7 @@ import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extrac
 import static com.marcel.malewski.playtogetherapi.util.Security.LogoutManually;
 
 @Service
+@Validated
 public class GamerService {
 	private final GamerRepository gamerRepository;
 	private final PlatformService platformService;
@@ -71,7 +73,7 @@ public class GamerService {
 		return gamerRepository.getReferenceById(gamerId);
 	}
 
-	public void saveGamer(Gamer gamer) {
+	public void saveGamer(@NotNull Gamer gamer) {
 		gamerRepository.save(gamer);
 	}
 
@@ -157,8 +159,8 @@ public class GamerService {
 		}
 	}
 
-	public void throwExceptionAndLogoutIfAuthenticatedGamerNotFound(@NotNull Principal principal, HttpServletRequest request,
-	                                                                HttpServletResponse response) {
+	public void throwExceptionAndLogoutIfAuthenticatedGamerNotFound(@NotNull Principal principal, @NotNull HttpServletRequest request,
+	                                                                @NotNull HttpServletResponse response) {
 		long principalId = extractIdFromPrincipal(principal);
 
 		if (!gamerRepository.existsById(principalId)) {

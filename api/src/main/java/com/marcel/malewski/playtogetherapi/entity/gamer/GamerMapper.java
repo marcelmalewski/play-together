@@ -7,6 +7,7 @@ import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import jakarta.validation.constraints.NotNull;
 import org.mapstruct.Mapper;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -14,6 +15,7 @@ import java.util.List;
 
 //TODO tu jest powtórzenie
 @Mapper(componentModel = "spring")
+@Validated
 public abstract class GamerMapper {
 	public GamerPrivateResponseDto toGamerPrivateResponseDto(@NotNull Gamer gamer) {
 		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?

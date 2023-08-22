@@ -10,6 +10,7 @@ import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +21,7 @@ import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_F
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.TIME_FORMAT;
 
 @Service
+@Validated
 public class RegisterService {
 	private final GamerService gamerService;
 	private final GamerRoleService gamerRoleService;

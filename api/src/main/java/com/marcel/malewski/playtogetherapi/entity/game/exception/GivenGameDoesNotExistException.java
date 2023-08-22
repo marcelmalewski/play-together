@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class GivenGameDoesNotExistException extends RuntimeException {
-	public GivenGameDoesNotExistException(Long gameId) {
+	public GivenGameDoesNotExistException(long gameId) {
 		super("Given game does not exist, gameId: " + gameId);
 	}
 }

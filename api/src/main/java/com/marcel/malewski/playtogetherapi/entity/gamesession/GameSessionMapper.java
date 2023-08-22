@@ -4,10 +4,12 @@ import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPub
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import jakarta.validation.constraints.NotNull;
 import org.mapstruct.Mapper;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
+@Validated
 public abstract class GameSessionMapper {
 	public GameSessionPublicResponseDto toGameSessionResponseDto(@NotNull GameSession gameSession, long principalId) {
 		List<String> platforms = gameSession.getPlatforms().stream().map(Platform::getName).toList();

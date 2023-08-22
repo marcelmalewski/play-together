@@ -30,4 +30,9 @@ public class GamerRole {
 	public GamerRole(@NotNull String name) {
 		this.name = name;
 	}
+
+	public GamerRole(Long id, @NotNull String name) {
+		this.id = id;
+		this.name = name;
+	}
 }
