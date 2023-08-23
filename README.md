@@ -62,11 +62,12 @@ SPRING_PROFILES_ACTIVE=dev
 
 ### Backend
 #### Before coding backend
-1. set environment variables for api from `.env`
+...
    
 #### Start local backend
-1. clean build (poprawić dać komende)
-2. start bootRun with env variables
+1. set environment variables for api from `.env`
+2. clean build (poprawić dać komende)
+3. start bootRun with env variables
 
 #### Start backend with docker image
 1. command: `./gradlew build`
