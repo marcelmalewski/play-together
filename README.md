@@ -26,7 +26,8 @@ Not all technologies are included.
 ## Features
 Please note that as the project is currently in progress, not all features will always be included here.
 1. Login/Register
-2. Update profile data
+2. Update profile/authentication data
+3. Delete account
 
 ## Launch Instructions
 ### Local Development Environment
