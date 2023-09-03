@@ -2,6 +2,8 @@ package com.marcel.malewski.playtogetherapi.security.register;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleValue;
@@ -37,10 +39,14 @@ public class RegisterService {
 
 	public void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleValue gamerRole) {
 		String login = registerDto.login();
-		gamerService.throwExceptionIfLoginIsAlreadyUsed(login);
+		if (gamerService.gamerExistsByLogin(login)) {
+			throw new LoginAlreadyUsedException(login);
+		}
 
 		String email = registerDto.email();
-		gamerService.throwExceptionIfEmailIsAlreadyUsed(email);
+		if (gamerService.gamerExistsByEmail(email)) {
+			throw new EmailAlreadyUsedException(email);
+		}
 
 		String encodedPassword = passwordEncoder.encode(registerDto.password());
 

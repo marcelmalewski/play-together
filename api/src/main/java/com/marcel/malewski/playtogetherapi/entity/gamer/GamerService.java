@@ -73,6 +73,14 @@ public class GamerService {
 		return gamerRepository.getReferenceById(gamerId);
 	}
 
+	public boolean gamerExistsByLogin(@NotNull String login) {
+		return gamerRepository.existsByLogin(login);
+	}
+
+	public boolean gamerExistsByEmail(@NotNull String email) {
+		return gamerRepository.existsByEmail(email);
+	}
+
 	public void saveGamer(@NotNull Gamer gamer) {
 		gamerRepository.save(gamer);
 	}
@@ -145,18 +153,6 @@ public class GamerService {
 		}
 
 		gamerRepository.deleteById(gamerId);
-	}
-
-	public void throwExceptionIfLoginIsAlreadyUsed(@NotNull String login) {
-		if (gamerRepository.existsByLogin(login)) {
-			throw new LoginAlreadyUsedException(login);
-		}
-	}
-
-	public void throwExceptionIfEmailIsAlreadyUsed(@NotNull String email) {
-		if (gamerRepository.existsByEmail(email)) {
-			throw new EmailAlreadyUsedException(email);
-		}
 	}
 
 	public void throwExceptionAndLogoutIfAuthenticatedGamerNotFound(@NotNull Principal principal, @NotNull HttpServletRequest request,
