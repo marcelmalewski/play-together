@@ -4,6 +4,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateOrUpdateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
+import com.marcel.malewski.playtogetherapi.util.PrincipalExtractor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,8 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractIdFromPrincipal;
-
 @RestController
 @RequestMapping(path = "v1")
 @Tag(name = "Game sessions v1", description = "Game sessions API v1")
@@ -30,10 +29,12 @@ import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extrac
 public class GameSessionController {
 	private final GameSessionService gameSessionService;
 	private final GamerService gamerService;
+	private final PrincipalExtractor principalExtractor;
 
-	public GameSessionController(GameSessionService gameSessionService, GamerService gamerService) {
+	public GameSessionController(GameSessionService gameSessionService, GamerService gamerService, PrincipalExtractor principalExtractor) {
 		this.gameSessionService = gameSessionService;
 		this.gamerService = gamerService;
+		this.principalExtractor = principalExtractor;
 	}
 
 	//TODO dodać filtr, żeby nie pokazały się te w których już jestem
@@ -46,7 +47,7 @@ public class GameSessionController {
 	                                                                              HttpServletResponse response
 	) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractIdFromPrincipal(principal);
+		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
 		Page<GameSessionPublicResponseDto> allGameSessions = gameSessionService.findAllGameSessions(pageable, principalId);
@@ -58,7 +59,7 @@ public class GameSessionController {
 	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(@PathVariable long gameSessionId, Principal principal, HttpServletRequest request,
 	                                                                   HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractIdFromPrincipal(principal);
+		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		GameSessionPublicResponseDto gameSession = gameSessionService.getGameSession(gameSessionId, principalId);
 		return new ResponseEntity<>(gameSession, HttpStatus.OK);
@@ -69,7 +70,7 @@ public class GameSessionController {
 	public ResponseEntity<GameSessionPublicResponseDto> createGameSession(@Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractIdFromPrincipal(principal);
+		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		GameSessionPublicResponseDto savedGameSession = gameSessionService.saveGameSession(gameSessionCreateDto, principalId);
 		return new ResponseEntity<>(savedGameSession, HttpStatus.CREATED);
@@ -80,7 +81,7 @@ public class GameSessionController {
 	public ResponseEntity<GameSessionPublicResponseDto> updateGameSession(@PathVariable long gameSessionId, @Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractIdFromPrincipal(principal);
+		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		GameSessionPublicResponseDto updatedGameSession = gameSessionService.updateGameSession(gameSessionCreateDto, principalId, gameSessionId);
 		return new ResponseEntity<>(updatedGameSession, HttpStatus.OK);
@@ -90,7 +91,7 @@ public class GameSessionController {
 	public ResponseEntity<GameSessionPublicResponseDto> deleteGameSession(@PathVariable long gameSessionId, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = extractIdFromPrincipal(principal);
+		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 		gameSessionService.deleteGameSession(principalId, gameSessionId);
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

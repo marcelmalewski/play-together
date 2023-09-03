@@ -6,6 +6,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthentic
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
+import com.marcel.malewski.playtogetherapi.util.PrincipalExtractor;
 import com.marcel.malewski.playtogetherapi.util.Security;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,18 +20,18 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractIdFromPrincipal;
-
 @RestController
 @RequestMapping(path = "v1")
 @Tag(name = "Gamers v1", description = "Gamers API v1")
 public class GamerController {
 	private final GamerService gamerService;
 	private final Security security;
+	private final PrincipalExtractor principalExtractor;
 
-	public GamerController(GamerService gamerService, Security security) {
+	public GamerController(GamerService gamerService, Security security, PrincipalExtractor principalExtractor) {
 		this.gamerService = gamerService;
 		this.security = security;
+		this.principalExtractor = principalExtractor;
 	}
 
 	//TODO endpoint not used
@@ -58,7 +59,7 @@ public class GamerController {
 	@Operation(summary = "Get private info about the authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
-		long principalId = extractIdFromPrincipal(principal);
+		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		try {
 			GamerPrivateResponseDto gamerPrivateInfo = gamerService.getGamerPrivateInfo(principalId);
@@ -73,7 +74,7 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
-		long principalId = extractIdFromPrincipal(principal);
+		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		try {
 			GamerPrivateResponseDto updatedGamer = gamerService.updateGamerProfile(updateProfileDto, principalId);
@@ -88,7 +89,7 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
-		long principalId = extractIdFromPrincipal(principal);
+		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		try {
 			GamerPrivateResponseDto updatedGamer = gamerService.updatePartiallyGamerAuthenticationData(updateAuthDto, principalId);
@@ -104,7 +105,7 @@ public class GamerController {
 	@Operation(summary = "Delete the authenticated gamer and log out")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
-		long principalId = extractIdFromPrincipal(principal);
+		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		try {
 			gamerService.deleteGamer(principalId);
