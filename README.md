@@ -4,6 +4,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Features](#features)
+* [Links](#Links)
 * [How to launch](#how-to-launch)
 
 ## General Info
@@ -24,10 +25,29 @@ Not all technologies are included.
 * PostgreSQL
 
 ## Features
-Please note that as the project is currently in progress, not all features will always be included here.
+Please note that this is a summary of features, and the complete list of features and their details can be found in the application's documentation: [documentation](#Links).
+Additionally, it's important to note that the project is currently in progress, and not all features may always be included in this summary.
+
+User and Moderator Role
 1. Login/Register
-2. Update profile/authentication data
-3. Delete account
+2. Update own profile/authentication data
+3. Delete own account
+4. Get private informations about own account
+5. Find all gamers public informations
+6. Get public informations about other gamer
+   
+1. Find all game sessions
+2. Get game session
+3. Create game session
+4. Update own game session informations
+5. Delete own game session
+
+Moderator Role
+...
+
+## Links
+Importont links in app.
+1. localhost/api/docs - Documentaion
 
 ## Launch Instructions
 ### Local Development Environment
