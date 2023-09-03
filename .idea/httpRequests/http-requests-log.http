@@ -1,3 +1,51 @@
+POST http://localhost/api/v1/game-sessions
+Content-Type: application/json
+Content-Length: 253
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=0E98B78E3AF57F15584C267AF5CD5C6B
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Sample Game Session",
+  "visibilityType": "PUBLIC",
+  "isCompetitive": true,
+  "accessType": "PUBLIC",
+  "date": "2023-08-17",
+  "maxMembers": 10,
+  "minAge": 18,
+  "description": "Sample description",
+  "gameId": 1,
+  "platformsIds": [1]
+}
+
+<> 2023-09-03T161845.201.json
+
+###
+
+POST http://localhost/api/v1/game-sessions
+Content-Type: application/json
+Content-Length: 253
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=9F071796A9A31E37050CD50C29B3F908
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Sample Game Session",
+  "visibilityType": "PUBLIC",
+  "isCompetitive": true,
+  "accessType": "PUBLIC",
+  "date": "2023-08-17",
+  "maxMembers": 10,
+  "minAge": 18,
+  "description": "Sample description",
+  "gameId": 1,
+  "platformsIds": [1]
+}
+
+###
+
 POST http://localhost/api/v1/registration/gamers
 Content-Type: application/json
 Content-Length: 193
@@ -746,36 +794,6 @@ Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
 Cookie: JSESSIONID=CFAD809AB51A1F4628BC6F24B1E81585
 Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-GET http://localhost/api/gamers
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Cookie: JSESSIONID=CFAD809AB51A1F4628BC6F24B1E81585
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-08-05T135125.200.json
-
-###
-
-POST http://localhost/api/auth/gamers/register
-Content-Type: application/json
-Content-Length: 192
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Cookie: JSESSIONID=CFAD809AB51A1F4628BC6F24B1E81585
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "login": "aaa",
-  "password": "121234123412341",
-  "email": "ye2s@yes.yes",
-  "birthdate": "2008-07-29",
-  "playingTimeStart": "16:00",
-  "playingTimeEnd": "17:00",
-  "platformsIds": [1]
-}
 
 ###
 

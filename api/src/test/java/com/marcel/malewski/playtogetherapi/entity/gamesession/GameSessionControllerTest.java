@@ -26,7 +26,7 @@ import static com.marcel.malewski.playtogetherapi.util.TestGameSessionCreator.ge
 import static com.marcel.malewski.playtogetherapi.util.TestGameSessionCreator.toGameSessionResponseDto;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatformsAsStrings;
-import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getTestRoles;
+import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -52,10 +52,10 @@ class GameSessionControllerTest {
 	@BeforeEach
 	public void setup() {
 		List<Platform> testPlatforms = getTestPlatforms();
-		List<GamerRole> testRoles = getTestRoles();
+		List<GamerRole> allRoles = getAllRoles();
 		Game fortnite = new Game(1L, "fortnite");
 
-		testGamer = TestGamerCreator.getTestGamer(testPlatforms, testRoles);
+		testGamer = TestGamerCreator.getTestGamer(testPlatforms, allRoles);
 		testGameSession = getTestGameSession(testGamer, fortnite, testPlatforms);
 		testGameSessionPublicResponseDto = toGameSessionResponseDto(testGameSession, getTestPlatformsAsStrings(), true);
 	}

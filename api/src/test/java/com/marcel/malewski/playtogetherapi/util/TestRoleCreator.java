@@ -9,8 +9,9 @@ public final class TestRoleCreator {
 	private TestRoleCreator() {
 	}
 
-	public static List<GamerRole> getTestRoles() {
+	public static List<GamerRole> getAllRoles() {
 		GamerRole userRole = new GamerRole(1L, GamerRoleValue.ROLE_USER.name());
-		return List.of(userRole);
+		GamerRole moderatorRole = new GamerRole(1L, GamerRoleValue.ROLE_MODERATOR.name());
+		return List.of(userRole, moderatorRole);
 	}
 }
