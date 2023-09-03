@@ -15,6 +15,7 @@ import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.security.exception.InvalidPasswordException;
+import com.marcel.malewski.playtogetherapi.util.Security;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
@@ -26,7 +27,6 @@ import java.security.Principal;
 import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.util.PrincipalExtractor.extractIdFromPrincipal;
-import static com.marcel.malewski.playtogetherapi.util.Security.LogoutManually;
 
 @Service
 @Validated
@@ -37,14 +37,17 @@ public class GamerService {
 	private final GenreService genreService;
 	private final GamerMapper gamerMapper;
 	private final PasswordEncoder passwordEncoder;
+	private final Security security;
 
-	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GenreService genreService, GamerMapper gamerMapper, GameService gameService, PasswordEncoder passwordEncoder) {
+
+	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GenreService genreService, GamerMapper gamerMapper, GameService gameService, PasswordEncoder passwordEncoder, Security security) {
 		this.gamerRepository = gamerRepository;
 		this.platformService = platformService;
 		this.genreService = genreService;
 		this.gamerMapper = gamerMapper;
 		this.gameService = gameService;
 		this.passwordEncoder = passwordEncoder;
+		this.security = security;
 	}
 
 	public List<GamerPublicResponseDto> findAllGamersPublicInfo() {
@@ -160,7 +163,7 @@ public class GamerService {
 		long principalId = extractIdFromPrincipal(principal);
 
 		if (!gamerRepository.existsById(principalId)) {
-			LogoutManually(request, response);
+			security.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 	}

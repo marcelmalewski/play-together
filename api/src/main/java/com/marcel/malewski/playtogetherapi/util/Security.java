@@ -6,13 +6,13 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
-public final class Security {
-	private Security() {
-	}
-
-	//TODO obsłyżyć jakoś tego nulla czy tylko warning od notnull
-	public static void LogoutManually(@NotNull HttpServletRequest request,
+@Component
+@Validated
+public class Security {
+	public void LogoutManually(@NotNull HttpServletRequest request,
 	                                  @NotNull HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();

@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.security.Principal;
 
+//TODO moge zrobić z tego bean, żeby @NotNull działało?
 public final class PrincipalExtractor {
 	private PrincipalExtractor() {
 	}
