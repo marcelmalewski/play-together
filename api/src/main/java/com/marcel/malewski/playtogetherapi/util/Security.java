@@ -11,7 +11,7 @@ public final class Security {
 	private Security() {
 	}
 
-	//TODO jakoś obsłyć nulla w request albo response czy tylko warning od notnull
+	//TODO obsłyżyć jakoś tego nulla czy tylko warning od notnull
 	public static void LogoutManually(@NotNull HttpServletRequest request,
 	                                  @NotNull HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

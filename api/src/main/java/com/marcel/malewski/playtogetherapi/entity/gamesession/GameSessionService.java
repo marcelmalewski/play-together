@@ -103,6 +103,7 @@ public class GameSessionService {
 		return gameSessionMapper.toGameSessionResponseDto(updatedGameSession, principalId);
 	}
 
+	//TODO przetestować i poprawić
 	public void deleteGameSession(long principalId, long gameSessionId) {
 		GameSession gameSession = gameSessionRepository.findById(gameSessionId).orElseThrow(() -> new GameSessionNotFoundException(gameSessionId));
 		if (!gameSession.getCreator().getId().equals(principalId)) {
