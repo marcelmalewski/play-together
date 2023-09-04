@@ -6,6 +6,7 @@ import com.marcel.malewski.playtogetherapi.validation.playingtime.ValidatePlayin
 import com.marcel.malewski.playtogetherapi.validation.timeformat.ValidateTimeFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.UniqueElements;
@@ -16,14 +17,13 @@ import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_F
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.TIME_FORMAT;
 
 //TODO dodać większe wymagania hasła
-//TODO czy spacje przejdą przez min?
 @ValidatePlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = 3, max = 20)
-	@NotNull
+	@NotBlank
 	String login,
 	@Size(min = 8, max = 20)
-	@NotNull
+	@NotBlank
 	String password,
 	@Email
 	@NotNull
