@@ -25,6 +25,7 @@ public final class TestGamerCreator {
 	private TestGamerCreator() {
 	}
 
+	//TODO te daty niżej to powinny być jakieś zmienne?
 	public static Gamer getTestGamer(List<Platform> platforms, List<GamerRole> roles) {
 		return Gamer.builder()
 			.id(1L)
@@ -33,7 +34,7 @@ public final class TestGamerCreator {
 			.email(EMAIL)
 			.birthdate(LocalDate.of(2000, 1, 1))
 			.playingTimeStart(LocalTime.of(15, 0))
-			.playingTimeEnd(LocalTime.of(19, 0))
+			.playingTimeEnd(LocalTime.of(18, 0))
 			.createdAt(LocalDate.now())
 			.roles(roles)
 			.platforms(platforms)

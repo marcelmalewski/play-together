@@ -39,7 +39,7 @@ public class RegisterController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
-	//TODO może tylko rola owner może tworzyć moderatorów?
+	//TODO moderatora tworzy inny moderator albo owner, owner może usunąć moderatora
 	@PostMapping(value="/moderator-panel/registration/moderators")
 	@Operation(summary = "Register gamer with role moderator")
 	@Secured("ROLE_MODERATOR")

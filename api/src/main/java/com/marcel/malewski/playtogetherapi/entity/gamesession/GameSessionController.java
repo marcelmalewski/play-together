@@ -72,7 +72,7 @@ public class GameSessionController {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
-		GameSessionPublicResponseDto savedGameSession = gameSessionService.saveGameSession(gameSessionCreateDto, principalId);
+		GameSessionPublicResponseDto savedGameSession = gameSessionService.createGameSession(gameSessionCreateDto, principalId);
 		return new ResponseEntity<>(savedGameSession, HttpStatus.CREATED);
 	}
 

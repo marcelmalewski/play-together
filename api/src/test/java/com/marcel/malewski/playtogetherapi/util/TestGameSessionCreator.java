@@ -3,6 +3,7 @@ package com.marcel.malewski.playtogetherapi.util;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateOrUpdateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
@@ -12,6 +13,23 @@ import java.util.List;
 
 public final class TestGameSessionCreator {
 	private TestGameSessionCreator() {
+	}
+
+	public static GameSessionCreateOrUpdateRequestDto getGameSessionCreateOrUpdateRequestDto(GameSession gameSession) {
+		List<Long> platformsIds = gameSession.getPlatforms().stream().map(Platform::getId).toList();
+
+		return new GameSessionCreateOrUpdateRequestDto(
+			gameSession.getName(),
+			gameSession.getVisibilityType(),
+			gameSession.isCompetitive(),
+			gameSession.getAccessType(),
+			gameSession.getDate(),
+			gameSession.getMaxMembers(),
+			gameSession.getMinAge(),
+			gameSession.getDescription(),
+			gameSession.getGame().getId(),
+			platformsIds
+		);
 	}
 
 	public static GameSession getTestGameSession(Gamer creator, Game game, List<Platform> platforms) {

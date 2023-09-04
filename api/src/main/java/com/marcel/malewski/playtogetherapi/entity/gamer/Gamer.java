@@ -24,6 +24,8 @@ import java.util.List;
 //TODO co dokladnie znaczy joincolumn i inversejoin
 //TODO co to dokładnie robi i czy jest to dobra opcja: @ManyToMany(fetch = FetchType.EAGER)
 //TODO add modifiedAt?
+//TODO add min one role
+//TODO add min one platform
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -63,7 +65,6 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<GameSession> createdGameSessions = new ArrayList<>();
 
-	//TODO add min one role
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
@@ -73,7 +74,6 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<GamerRole> roles = new ArrayList<>();
 
-	//TODO add min one platform
 	@ManyToMany
 	@JoinTable(name = "gamer_platform",
 		joinColumns = @JoinColumn(name = "gamer_id"),

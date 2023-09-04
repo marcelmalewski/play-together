@@ -45,7 +45,7 @@ public class GameSessionService {
 		return gameSessionMapper.toGameSessionResponseDto(gameSession, principalId);
 	}
 
-	public GameSessionPublicResponseDto saveGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long principalId) {
+	public GameSessionPublicResponseDto createGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long principalId) {
 		Gamer creator = gamerService.getGamerReference(principalId);
 		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 
