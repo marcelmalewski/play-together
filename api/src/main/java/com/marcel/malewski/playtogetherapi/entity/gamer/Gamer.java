@@ -20,12 +20,9 @@ import java.util.Collection;
 import java.util.List;
 
 //TODO bio wymaga walidacji null a jak nie null to niepuste i to samo avatarUrl
-//TODO może dodać tutaj walidacje zbliżoną do registerDto?
 //TODO co dokladnie znaczy joincolumn i inversejoin
 //TODO co to dokładnie robi i czy jest to dobra opcja: @ManyToMany(fetch = FetchType.EAGER)
 //TODO add modifiedAt?
-//TODO add min one role
-//TODO add min one platform
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
