@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamer.dto;
 
 import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidDateFormat;
 import com.marcel.malewski.playtogetherapi.validation.minage.ValidMinAge;
+import com.marcel.malewski.playtogetherapi.validation.notblankifexist.NotBlankIfExist;
 import com.marcel.malewski.playtogetherapi.validation.timeformat.ValidTimeFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +18,6 @@ import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_F
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.TIME_FORMAT;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidation.*;
 
-//TODO bio i avatarUrl może być nullem, ale nie może być pustym stringiem
 public record GamerUpdateProfileRequestDto(
 	@Size(min = LOGIN_MIN_SIZE, max = LOGIN_MAX_SIZE)
 	@NotBlank
@@ -27,7 +27,10 @@ public record GamerUpdateProfileRequestDto(
 	@ValidMinAge
 	@NotNull
 	LocalDate birthdate,
+	@Size(min = 3, max = 500)
+	@NotBlankIfExist
 	String bio,
+	@NotBlankIfExist //TODO dodać jakąś lepszą walidacje
 	String avatarUrl,
 	@Schema(example = TIME_START_EXAMPLE, format = TIME_FORMAT)
 	@ValidTimeFormat
