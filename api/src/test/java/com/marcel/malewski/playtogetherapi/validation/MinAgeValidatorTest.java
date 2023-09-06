@@ -21,7 +21,7 @@ class MinAgeValidatorTest {
   private GamerRegisterRequestDto registerRequestDto;
 
   @BeforeEach
-  void init() {
+  void setup() {
     //TODO warning
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     validator = factory.getValidator();
