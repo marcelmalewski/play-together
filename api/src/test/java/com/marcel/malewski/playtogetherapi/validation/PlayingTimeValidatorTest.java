@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.validation.playingtime;
+package com.marcel.malewski.playtogetherapi.validation;
 
 import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
 import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
