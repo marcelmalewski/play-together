@@ -15,11 +15,13 @@ import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.TIME_FORMAT;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidation.LOGIN_MAX_SIZE;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidation.LOGIN_MIN_SIZE;
 
 //TODO dodać większe wymagania hasła
 @ValidatePlayingTime
 public record GamerRegisterRequestDto(
-	@Size(min = 3, max = 20)
+	@Size(min = LOGIN_MIN_SIZE, max = LOGIN_MAX_SIZE)
 	@NotBlank
 	String login,
 	@Size(min = 8, max = 20)
