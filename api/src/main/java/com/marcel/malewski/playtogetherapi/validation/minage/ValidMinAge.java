@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = MinAgeValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidateMinAge {
+public @interface ValidMinAge {
 	//TODO czy ten message jest ok?
 	String message() default "minimum age is 15";
 	Class<?>[] groups() default {};

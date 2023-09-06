@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = StringTimeFormatValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidateTimeFormat {
+public @interface ValidTimeFormat {
 	String message() default "expected time format is HH:mm";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};

@@ -12,7 +12,7 @@ import java.time.format.ResolverStyle;
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.TIME_FORMAT;
 
 //TODO sprobować użyć bezpośrednio formatter.parse()
-public class PlayingTimeValidator implements ConstraintValidator<ValidatePlayingTime, GamerRegisterRequestDto> {
+public class PlayingTimeValidator implements ConstraintValidator<ValidPlayingTime, GamerRegisterRequestDto> {
 	@Override
 	public boolean isValid(GamerRegisterRequestDto gamerRegisterRequestDto, ConstraintValidatorContext context) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);

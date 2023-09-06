@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = PlayingTimeValidator.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidatePlayingTime {
+public @interface ValidPlayingTime {
 	String message() default "start time must be earlier than end time";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};

@@ -11,7 +11,7 @@ import java.time.format.ResolverStyle;
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.MIN_AGE;
 
-public class MinAgeValidator implements ConstraintValidator<ValidateMinAge, String>{
+public class MinAgeValidator implements ConstraintValidator<ValidMinAge, String>{
 	@Override
 	public boolean isValid(String dateAsString, ConstraintValidatorContext context) {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);

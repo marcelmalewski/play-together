@@ -1,9 +1,9 @@
 package com.marcel.malewski.playtogetherapi.security.register;
 
-import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidateDateFormat;
-import com.marcel.malewski.playtogetherapi.validation.minage.ValidateMinAge;
-import com.marcel.malewski.playtogetherapi.validation.playingtime.ValidatePlayingTime;
-import com.marcel.malewski.playtogetherapi.validation.timeformat.ValidateTimeFormat;
+import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidDateFormat;
+import com.marcel.malewski.playtogetherapi.validation.minage.ValidMinAge;
+import com.marcel.malewski.playtogetherapi.validation.playingtime.ValidPlayingTime;
+import com.marcel.malewski.playtogetherapi.validation.timeformat.ValidTimeFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -15,11 +15,10 @@ import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constants.DateConstants.TIME_FORMAT;
-import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidation.LOGIN_MAX_SIZE;
-import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidation.LOGIN_MIN_SIZE;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidation.*;
 
 //TODO dodać większe wymagania hasła
-@ValidatePlayingTime
+@ValidPlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = LOGIN_MIN_SIZE, max = LOGIN_MAX_SIZE)
 	@NotBlank
@@ -30,17 +29,17 @@ public record GamerRegisterRequestDto(
 	@Email
 	@NotNull
 	String email,
-	@Schema(example = "2000-02-02", format = DATE_FORMAT)
-	@ValidateDateFormat
-	@ValidateMinAge
+	@Schema(example = DATE_EXAMPLE, format = DATE_FORMAT)
+	@ValidDateFormat
+	@ValidMinAge
 	@NotNull
 	String birthdate,
-	@Schema(example = "20:00", format = TIME_FORMAT)
-	@ValidateTimeFormat
+	@Schema(example = TIME_START_EXAMPLE, format = TIME_FORMAT)
+	@ValidTimeFormat
 	@NotNull
 	String playingTimeStart,
-	@Schema(example = "22:00", format = TIME_FORMAT)
-	@ValidateTimeFormat
+	@Schema(example = TIME_END_EXAMPLE, format = TIME_FORMAT)
+	@ValidTimeFormat
 	@NotNull
 	String playingTimeEnd,
 	@Size(min = 1, message = "you have to add at least one platform")

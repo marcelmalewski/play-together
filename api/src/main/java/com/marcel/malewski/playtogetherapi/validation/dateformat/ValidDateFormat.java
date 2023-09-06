@@ -11,7 +11,7 @@ import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_F
 @Constraint(validatedBy = StringDateFormatValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidateDateFormat {
+public @interface ValidDateFormat {
 	String message() default "expected date format is " + DATE_FORMAT;
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
