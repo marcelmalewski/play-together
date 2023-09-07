@@ -17,22 +17,22 @@ public class PlayingTimeValidator implements ConstraintValidator<ValidPlayingTim
 	public boolean isValid(EntityWithPlayingTimeAsString gamerRegisterRequestDto, ConstraintValidatorContext context) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 
-		String playingTimeStart = gamerRegisterRequestDto.getPlayingTimeStartAsString();
-		LocalTime playingTimeStartAsDate;
+		String playingTimeStartAsString = gamerRegisterRequestDto.getPlayingTimeStartAsString();
+		LocalTime playingTimeStart;
 		try {
-			playingTimeStartAsDate = LocalTime.parse(playingTimeStart, timeFormatter);
+			playingTimeStart = LocalTime.parse(playingTimeStartAsString, timeFormatter);
 		} catch (DateTimeParseException | NullPointerException exception) {
 			return true;
 		}
 
-		String playingTimeEnd = gamerRegisterRequestDto.getPlayingTimeEndAsString();
-		LocalTime playingTimeEndAsDate;
+		String playingTimeEndAsString = gamerRegisterRequestDto.getPlayingTimeEndAsString();
+		LocalTime playingTimeEnd;
 		try {
-			playingTimeEndAsDate = LocalTime.parse(playingTimeEnd, timeFormatter);
+			playingTimeEnd = LocalTime.parse(playingTimeEndAsString, timeFormatter);
 		} catch (DateTimeParseException | NullPointerException exception) {
 			return true;
 		}
 
-		return playingTimeEndAsDate.isAfter(playingTimeStartAsDate);
+		return playingTimeEnd.isAfter(playingTimeStart);
 	}
 }
