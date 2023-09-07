@@ -19,8 +19,8 @@ public final class TestGamerCreator {
 	public static final String BIO = "test bio";
 	public static final String AVATAR_URL = "avatar url";
 
-	public static final String PLAYING_TIME_NINE_O_CLOCK = "09:00";
-	public static final String PLAYING_TIME_TEN_O_CLOCK = "10:00";
+	public static final String PLAYING_TIME_START = "09:00";
+	public static final String PLAYING_TIME_END = "10:00";
 	public static final String PLAYING_TIME_INVALID_FORMAT = "1800";
 
 	public static List<Long> PLATFORMS_IDS = List.of(1L);
@@ -52,8 +52,8 @@ public final class TestGamerCreator {
 			PASSWORD,
 			EMAIL,
 			BIRTH_DATE,
-			PLAYING_TIME_NINE_O_CLOCK,
-			PLAYING_TIME_TEN_O_CLOCK,
+			PLAYING_TIME_START,
+			PLAYING_TIME_END,
 			PLATFORMS_IDS
 		);
 	}
@@ -64,8 +64,8 @@ public final class TestGamerCreator {
 			BIRTH_DATE,
 			BIO,
 			AVATAR_URL,
-			PLAYING_TIME_NINE_O_CLOCK,
-			PLAYING_TIME_TEN_O_CLOCK,
+			PLAYING_TIME_START,
+			PLAYING_TIME_END,
 			PLATFORMS_IDS,
 			FAVOURITE_GAMES_IDS,
 			FAVOURITE_GENRES_IDS

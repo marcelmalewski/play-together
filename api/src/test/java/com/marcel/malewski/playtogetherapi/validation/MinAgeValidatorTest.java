@@ -44,8 +44,8 @@ class MinAgeValidatorTest {
       PASSWORD,
       EMAIL,
       fifteenYearsBeforeTodayPlusOneDay.toString(),
-      PLAYING_TIME_NINE_O_CLOCK,
-      PLAYING_TIME_TEN_O_CLOCK,
+      PLAYING_TIME_START,
+      PLAYING_TIME_END,
       PLATFORMS_IDS
     );
 

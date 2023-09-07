@@ -42,7 +42,7 @@ class StringTimeFormatValidatorTest {
       EMAIL,
       BIRTH_DATE,
       PLAYING_TIME_INVALID_FORMAT,
-	    PLAYING_TIME_TEN_O_CLOCK,
+	    PLAYING_TIME_END,
       PLATFORMS_IDS
     );
 
