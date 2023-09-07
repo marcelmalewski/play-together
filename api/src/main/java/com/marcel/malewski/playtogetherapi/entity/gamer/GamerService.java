@@ -106,18 +106,18 @@ public class GamerService {
 
 		//TODO duplicate
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalDate birthdateAsDate = LocalDate.parse(updateProfileDto.birthdate(), dateFormatter);
+		LocalDate birthdate = LocalDate.parse(updateProfileDto.birthdateAsString(), dateFormatter);
 
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalTime playingTimeStartAsDate = LocalTime.parse(updateProfileDto.playingTimeStart(), timeFormatter);
-		LocalTime playingTimeEndAsDate = LocalTime.parse(updateProfileDto.playingTimeEnd(), timeFormatter);
+		LocalTime playingTimeStart = LocalTime.parse(updateProfileDto.playingTimeStartAsString(), timeFormatter);
+		LocalTime playingTimeEnd = LocalTime.parse(updateProfileDto.playingTimeEndAsString(), timeFormatter);
 
 		gamer.setLogin(newLogin);
-		gamer.setBirthdate(birthdateAsDate);
+		gamer.setBirthdate(birthdate);
 		gamer.setBio(updateProfileDto.bio());
 		gamer.setAvatarUrl(updateProfileDto.avatarUrl());
-		gamer.setPlayingTimeStart(playingTimeStartAsDate);
-		gamer.setPlayingTimeEnd(playingTimeEndAsDate);
+		gamer.setPlayingTimeStart(playingTimeStart);
+		gamer.setPlayingTimeEnd(playingTimeEnd);
 
 		gamer.getPlatforms().clear();
 		updateProfileDto.platformsIds().forEach(platformId -> {

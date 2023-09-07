@@ -51,19 +51,19 @@ public class RegisterService {
 		String encodedPassword = passwordEncoder.encode(registerDto.password());
 
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalDate birthdateAsDate = LocalDate.parse(registerDto.birthdate(), dateFormatter);
+		LocalDate birthdate = LocalDate.parse(registerDto.birthdateAsString(), dateFormatter);
 
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalTime playingTimeStartAsDate = LocalTime.parse(registerDto.playingTimeStart(), timeFormatter);
-		LocalTime playingTimeEndAsDate = LocalTime.parse(registerDto.playingTimeEnd(), timeFormatter);
+		LocalTime playingTimeStart = LocalTime.parse(registerDto.playingTimeStartAsString(), timeFormatter);
+		LocalTime playingTimeEnd = LocalTime.parse(registerDto.playingTimeEndAsString(), timeFormatter);
 
 		Gamer newGamer = Gamer.builder()
 			.login(login)
 			.password(encodedPassword)
 			.email(email)
-			.birthdate(birthdateAsDate)
-			.playingTimeStart(playingTimeStartAsDate)
-			.playingTimeEnd(playingTimeEndAsDate)
+			.birthdate(birthdate)
+			.playingTimeStart(playingTimeStart)
+			.playingTimeEnd(playingTimeEnd)
 			.createdAt(LocalDate.now())
 			.build();
 
