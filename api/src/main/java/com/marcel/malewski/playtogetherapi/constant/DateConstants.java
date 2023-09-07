@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.constants;
+package com.marcel.malewski.playtogetherapi.constant;
 
 public final class DateConstants {
 	public static final String DATE_FORMAT = "uuuu-MM-dd";

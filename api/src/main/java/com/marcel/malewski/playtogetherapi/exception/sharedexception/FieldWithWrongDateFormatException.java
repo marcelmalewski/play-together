@@ -3,7 +3,7 @@ package com.marcel.malewski.playtogetherapi.exception.sharedexception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class FieldWithWrongDateFormatException extends RuntimeException {

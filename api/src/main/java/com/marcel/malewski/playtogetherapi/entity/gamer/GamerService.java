@@ -25,7 +25,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.List;
+
+import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constant.DateConstants.TIME_FORMAT;
 
 @Service
 @Validated
@@ -97,12 +104,20 @@ public class GamerService {
 			throw new LoginAlreadyUsedException(newLogin);
 		}
 
+		//TODO duplicate
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
+		LocalDate birthdateAsDate = LocalDate.parse(updateProfileDto.birthdate(), dateFormatter);
+
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
+		LocalTime playingTimeStartAsDate = LocalTime.parse(updateProfileDto.playingTimeStart(), timeFormatter);
+		LocalTime playingTimeEndAsDate = LocalTime.parse(updateProfileDto.playingTimeEnd(), timeFormatter);
+
 		gamer.setLogin(newLogin);
-		gamer.setBirthdate(updateProfileDto.birthdate());
+		gamer.setBirthdate(birthdateAsDate);
 		gamer.setBio(updateProfileDto.bio());
 		gamer.setAvatarUrl(updateProfileDto.avatarUrl());
-		gamer.setPlayingTimeStart(updateProfileDto.playingTimeStart());
-		gamer.setPlayingTimeEnd(updateProfileDto.playingTimeEnd());
+		gamer.setPlayingTimeStart(playingTimeStartAsDate);
+		gamer.setPlayingTimeEnd(playingTimeEndAsDate);
 
 		gamer.getPlatforms().clear();
 		updateProfileDto.platformsIds().forEach(platformId -> {

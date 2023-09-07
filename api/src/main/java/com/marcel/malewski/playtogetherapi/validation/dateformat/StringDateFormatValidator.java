@@ -3,7 +3,7 @@ package com.marcel.malewski.playtogetherapi.validation.dateformat;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-import static com.marcel.malewski.playtogetherapi.constants.DateConstants.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.util.DateTimeValidator.ValidateDateTimeFormat;
 
 public class StringDateFormatValidator implements ConstraintValidator<ValidDateFormat, String> {
