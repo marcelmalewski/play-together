@@ -6,8 +6,8 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthentic
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
-import com.marcel.malewski.playtogetherapi.util.PrincipalExtractor;
-import com.marcel.malewski.playtogetherapi.util.Security;
+import com.marcel.malewski.playtogetherapi.security.util.PrincipalExtractor;
+import com.marcel.malewski.playtogetherapi.security.util.SecurityHelper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,12 +25,12 @@ import java.util.List;
 @Tag(name = "Gamers v1", description = "Gamers API v1")
 public class GamerController {
 	private final GamerService gamerService;
-	private final Security security;
+	private final SecurityHelper securityHelper;
 	private final PrincipalExtractor principalExtractor;
 
-	public GamerController(GamerService gamerService, Security security, PrincipalExtractor principalExtractor) {
+	public GamerController(GamerService gamerService, SecurityHelper securityHelper, PrincipalExtractor principalExtractor) {
 		this.gamerService = gamerService;
-		this.security = security;
+		this.securityHelper = securityHelper;
 		this.principalExtractor = principalExtractor;
 	}
 
@@ -65,7 +65,7 @@ public class GamerController {
 			GamerPrivateResponseDto gamerPrivateInfo = gamerService.getGamerPrivateInfo(principalId);
 			return new ResponseEntity<>(gamerPrivateInfo, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
-			security.LogoutManually(request, response);
+			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 	}
@@ -80,7 +80,7 @@ public class GamerController {
 			GamerPrivateResponseDto updatedGamer = gamerService.updateGamerProfile(updateProfileDto, principalId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
-			security.LogoutManually(request, response);
+			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 	}
@@ -95,7 +95,7 @@ public class GamerController {
 			GamerPrivateResponseDto updatedGamer = gamerService.updatePartiallyGamerAuthenticationData(updateAuthDto, principalId);
 			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
-			security.LogoutManually(request, response);
+			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 	}
@@ -111,7 +111,7 @@ public class GamerController {
 			gamerService.deleteGamer(principalId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GamerNotFoundException exception) {
-			security.LogoutManually(request, response);
+			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 	}

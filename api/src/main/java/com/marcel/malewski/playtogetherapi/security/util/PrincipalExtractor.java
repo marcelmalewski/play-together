@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.util;
+package com.marcel.malewski.playtogetherapi.security.util;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;

@@ -1,11 +1,11 @@
-package com.marcel.malewski.playtogetherapi.util;
+package com.marcel.malewski.playtogetherapi.validation;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-public final class DateTimeValidator {
-	private DateTimeValidator() {
+public final class Validator {
+	private Validator() {
 	}
 
 	public static boolean ValidateDateTimeFormat(String dateTime, String formatPattern) {

@@ -9,7 +9,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCre
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import com.marcel.malewski.playtogetherapi.util.PrincipalExtractor;
+import com.marcel.malewski.playtogetherapi.security.util.PrincipalExtractor;
 import com.marcel.malewski.playtogetherapi.util.TestGameSessionCreator;
 import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
 import jakarta.servlet.http.HttpServletRequest;

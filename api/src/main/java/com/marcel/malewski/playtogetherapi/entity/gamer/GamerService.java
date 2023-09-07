@@ -15,8 +15,8 @@ import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.security.exception.InvalidPasswordException;
-import com.marcel.malewski.playtogetherapi.util.PrincipalExtractor;
-import com.marcel.malewski.playtogetherapi.util.Security;
+import com.marcel.malewski.playtogetherapi.security.util.PrincipalExtractor;
+import com.marcel.malewski.playtogetherapi.security.util.SecurityHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
@@ -43,18 +43,18 @@ public class GamerService {
 	private final GenreService genreService;
 	private final GamerMapper gamerMapper;
 	private final PasswordEncoder passwordEncoder;
-	private final Security security;
+	private final SecurityHelper securityHelper;
 	private final PrincipalExtractor principalExtractor;
 
 
-	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GenreService genreService, GamerMapper gamerMapper, GameService gameService, PasswordEncoder passwordEncoder, Security security, PrincipalExtractor principalExtractor) {
+	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GenreService genreService, GamerMapper gamerMapper, GameService gameService, PasswordEncoder passwordEncoder, SecurityHelper securityHelper, PrincipalExtractor principalExtractor) {
 		this.gamerRepository = gamerRepository;
 		this.platformService = platformService;
 		this.genreService = genreService;
 		this.gamerMapper = gamerMapper;
 		this.gameService = gameService;
 		this.passwordEncoder = passwordEncoder;
-		this.security = security;
+		this.securityHelper = securityHelper;
 		this.principalExtractor = principalExtractor;
 	}
 
@@ -179,7 +179,7 @@ public class GamerService {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		if (!gamerRepository.existsById(principalId)) {
-			security.LogoutManually(request, response);
+			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 	}

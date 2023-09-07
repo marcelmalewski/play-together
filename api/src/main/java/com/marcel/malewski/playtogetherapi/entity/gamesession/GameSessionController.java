@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateOrUpdateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.GameSessionSortOption;
-import com.marcel.malewski.playtogetherapi.util.PrincipalExtractor;
+import com.marcel.malewski.playtogetherapi.security.util.PrincipalExtractor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;

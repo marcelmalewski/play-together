@@ -19,7 +19,7 @@ import java.security.Principal;
 @RequestMapping(path = "v1")
 @Tag(
 	name = "Registration v1",
-	description = "Gamer registration v1. Login, and logout are handled by Spring Security"
+	description = "Gamer registration v1. Login, and logout are handled by Spring SecurityHelper"
 )
 public class RegisterController {
 	private final RegisterService registerService;

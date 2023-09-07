@@ -15,7 +15,7 @@ import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.TIME_FORMAT;
-import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidation.*;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationConstants.*;
 
 //TODO dodać większe wymagania hasła
 @ValidPlayingTime

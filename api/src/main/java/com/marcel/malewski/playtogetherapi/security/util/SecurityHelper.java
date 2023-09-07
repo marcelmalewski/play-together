@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.util;
+package com.marcel.malewski.playtogetherapi.security.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Component
 @Validated
-public class Security {
+public class SecurityHelper {
 	public void LogoutManually(@NotNull HttpServletRequest request,
 	                                  @NotNull HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
