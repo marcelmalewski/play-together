@@ -15,23 +15,6 @@ public final class TestGameSessionCreator {
 	private TestGameSessionCreator() {
 	}
 
-	public static GameSessionCreateOrUpdateRequestDto getGameSessionCreateOrUpdateRequestDto(GameSession gameSession) {
-		List<Long> platformsIds = gameSession.getPlatforms().stream().map(Platform::getId).toList();
-
-		return new GameSessionCreateOrUpdateRequestDto(
-			gameSession.getName(),
-			gameSession.getVisibilityType(),
-			gameSession.isCompetitive(),
-			gameSession.getAccessType(),
-			gameSession.getDate(),
-			gameSession.getMaxMembers(),
-			gameSession.getMinAge(),
-			gameSession.getDescription(),
-			gameSession.getGame().getId(),
-			platformsIds
-		);
-	}
-
 	public static GameSession getTestGameSession(Gamer creator, Game game, List<Platform> platforms) {
 		LocalDate today = LocalDate.now();
 
@@ -52,6 +35,23 @@ public final class TestGameSessionCreator {
 			.members(List.of(creator))
 			.platforms(platforms)
 			.build();
+	}
+
+	public static GameSessionCreateOrUpdateRequestDto getGameSessionCreateOrUpdateRequestDto(GameSession gameSession) {
+		List<Long> platformsIds = gameSession.getPlatforms().stream().map(Platform::getId).toList();
+
+		return new GameSessionCreateOrUpdateRequestDto(
+			gameSession.getName(),
+			gameSession.getVisibilityType(),
+			gameSession.isCompetitive(),
+			gameSession.getAccessType(),
+			gameSession.getDate(),
+			gameSession.getMaxMembers(),
+			gameSession.getMinAge(),
+			gameSession.getDescription(),
+			gameSession.getGame().getId(),
+			platformsIds
+		);
 	}
 
 	public static GameSessionPublicResponseDto toGameSessionResponseDto(GameSession gameSession, List<String> platforms, boolean currentGamerIsMember) {

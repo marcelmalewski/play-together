@@ -29,10 +29,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.security.Principal;
 import java.util.List;
 
+import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.DEFAULT_PAGEABLE_PAGE;
+import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.DEFAULT_PAGEABLE_SIZE;
 import static com.marcel.malewski.playtogetherapi.util.TestGameSessionCreator.getTestGameSession;
 import static com.marcel.malewski.playtogetherapi.util.TestGameSessionCreator.toGameSessionResponseDto;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
-import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatformsAsStrings;
+import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatformsNames;
 import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -72,18 +74,20 @@ class GameSessionControllerTest {
 
 		testGamer = TestGamerCreator.getTestGamer(testPlatforms, allRoles);
 		testGameSession = getTestGameSession(testGamer, fortnite, testPlatforms);
-		testGameSessionPublicResponseDto = toGameSessionResponseDto(testGameSession, getTestPlatformsAsStrings(), true);
+		testGameSessionPublicResponseDto = toGameSessionResponseDto(testGameSession, getTestPlatformsNames(), true);
 	}
 
 	@Test
 	void shouldReturnListWithOneGameSessionWhenOneGameSessionExist() throws Exception {
 		List<GameSessionPublicResponseDto> allGameSessions = List.of(testGameSessionPublicResponseDto);
 		Page<GameSessionPublicResponseDto> allGameSessionsAsPage = new PageImpl<>(allGameSessions);
-		Pageable pageable = PageRequest.of(0, 10, GameSessionSortOption.CREATED_AT_DESC.getSort());
+		Pageable pageable = PageRequest.of(DEFAULT_PAGEABLE_PAGE, DEFAULT_PAGEABLE_SIZE, GameSessionSortOption.CREATED_AT_DESC.getSort());
 
 		given(gameSessionService.findAllGameSessions(pageable, testGamer.getId())).willReturn(allGameSessionsAsPage);
 
-		mockMvc.perform(get("/v1/game-sessions").with(user(testGamer)).accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get("/v1/game-sessions")
+				.with(user(testGamer))
+				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 			.andExpect(jsonPath("$.content.length()", is(1)));
@@ -93,7 +97,9 @@ class GameSessionControllerTest {
 	void shouldReturnGameSessionWhenGameSessionWithGivenIdExist() throws Exception {
 		given(gameSessionService.getGameSession(testGameSession.getId(), testGamer.getId())).willReturn(testGameSessionPublicResponseDto);
 
-		mockMvc.perform(get("/v1/game-sessions/" + testGameSession.getId()).with(user(testGamer)).accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get("/v1/game-sessions/" + testGameSession.getId())
+				.with(user(testGamer))
+				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGameSession.getId()))))
@@ -114,7 +120,7 @@ class GameSessionControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(gameSessionCreateOrUpdateRequestDto)))
-				.andExpect(status().isCreated());
+			.andExpect(status().isCreated());
 //			.andExpect(header().exists("Location"));
 	}
 }

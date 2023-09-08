@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.DEFAULT_PAGEABLE_PAGE_AS_STRING;
+import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.DEFAULT_PAGEABLE_SIZE_AS_STRING;
+
 @RestController
 @RequestMapping(path = "v1")
 @Tag(name = "Game sessions v1", description = "Game sessions API v1")
@@ -40,8 +43,8 @@ public class GameSessionController {
 	//TODO dodać filtr, żeby nie pokazały się te w których już jestem
 	@GetMapping(value = "/game-sessions")
 	@Operation(summary = "Find all game sessions")
-	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = "0") @Min(0) @Max(100) int page,
-	                                                                              @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size,
+	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = DEFAULT_PAGEABLE_PAGE_AS_STRING) @Min(0) @Max(100) int page,
+	                                                                              @RequestParam(defaultValue = DEFAULT_PAGEABLE_SIZE_AS_STRING) @Min(1) @Max(100) int size,
 	                                                                              @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort,
 	                                                                              Principal principal, HttpServletRequest request,
 	                                                                              HttpServletResponse response

@@ -13,6 +13,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//TODO dokończyć test
 //TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
 public class NotBlankIfExistValidatorTest {
 	private Validator validator;

@@ -17,7 +17,7 @@ public final class TestPlatformCreator {
 		return List.of(pc);
 	}
 
-	public static List<String> getTestPlatformsAsStrings() {
+	public static List<String> getTestPlatformsNames() {
 		return List.of(PLATFORM_NAME);
 	}
 }
