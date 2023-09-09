@@ -1,7 +1,6 @@
 package com.marcel.malewski.playtogetherapi.validation;
 
-import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
+import com.marcel.malewski.playtogetherapi.testObject.StringDateFormatTestObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -11,13 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.*;
+import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.BIRTH_DATE;
+import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.BIRTH_DATE_INVALID_FORMAT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora?
 class StringDateFormatValidatorTest {
   private Validator validator;
-  private GamerRegisterRequestDto registerRequestDto;
+  private StringDateFormatTestObject stringDateFormatTestObject;
 
   @BeforeEach
   void setup() {
@@ -28,25 +28,17 @@ class StringDateFormatValidatorTest {
 
   @Test
   void shouldFindNoViolationsWhenDateFormatIsValid() {
-    registerRequestDto = TestGamerCreator.getValidGamerRegisterRequestDto();
+    stringDateFormatTestObject = new StringDateFormatTestObject(BIRTH_DATE);
 
-    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
+    Set<ConstraintViolation<StringDateFormatTestObject>> violations = validator.validate(stringDateFormatTestObject);
     assertEquals(0, violations.size());
   }
 
   @Test
   void shouldFindViolationWhenDateFormatIsNotValid() {
-    registerRequestDto = new GamerRegisterRequestDto(
-      LOGIN,
-      PASSWORD,
-      EMAIL,
-      BIRTH_DATE_INVALID_FORMAT,
-      PLAYING_TIME_START,
-      PLAYING_TIME_END,
-      PLATFORMS_IDS
-    );
+    stringDateFormatTestObject = new StringDateFormatTestObject(BIRTH_DATE_INVALID_FORMAT);
 
-    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
+    Set<ConstraintViolation<StringDateFormatTestObject>> violations = validator.validate(stringDateFormatTestObject);
     assertEquals(1, violations.size());
   }
 }
