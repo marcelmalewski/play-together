@@ -1,8 +1,9 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer.dto;
 
+import com.marcel.malewski.playtogetherapi.interfaces.EntityWithPlayingTimeAsString;
 import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidDateFormat;
 import com.marcel.malewski.playtogetherapi.validation.minage.ValidMinAge;
-import com.marcel.malewski.playtogetherapi.validation.notblankifexist.NotBlankIfExist;
+import com.marcel.malewski.playtogetherapi.validation.notblankifexist.TrimmedSize;
 import com.marcel.malewski.playtogetherapi.validation.playingtime.ValidPlayingTime;
 import com.marcel.malewski.playtogetherapi.validation.timeformat.ValidTimeFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,10 +28,9 @@ public record GamerUpdateProfileRequestDto(
 	@ValidMinAge
 	@NotNull
 	String birthdateAsString,
-	@Size(min = 3, max = 500)
-	@NotBlankIfExist
+	@TrimmedSize(min = 3, max = 500)
 	String bio,
-	@NotBlankIfExist //TODO dodać jakąś lepszą walidacje
+	@TrimmedSize //TODO dodać jakąś lepszą walidacje url
 	String avatarUrl,
 	@Schema(example = TIME_START_EXAMPLE, format = TIME_FORMAT)
 	@ValidTimeFormat
@@ -50,5 +50,14 @@ public record GamerUpdateProfileRequestDto(
 	@UniqueElements(message = "must only contain unique platformsIds")
 	@NotNull
 	List<Long> favouriteGenresIds
-) {
+) implements EntityWithPlayingTimeAsString{
+	@Override
+	public String getPlayingTimeStartAsString() {
+		return playingTimeStartAsString;
+	}
+
+	@Override
+	public String getPlayingTimeEndAsString() {
+		return playingTimeEndAsString;
+	}
 }

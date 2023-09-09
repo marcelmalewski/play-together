@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.security.register;
 
+import com.marcel.malewski.playtogetherapi.interfaces.EntityWithPlayingTimeAsString;
 import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidDateFormat;
 import com.marcel.malewski.playtogetherapi.validation.minage.ValidMinAge;
 import com.marcel.malewski.playtogetherapi.validation.playingtime.ValidPlayingTime;
@@ -46,5 +47,14 @@ public record GamerRegisterRequestDto(
 	@UniqueElements(message = "must only contain unique platformsIds")
 	@NotNull
 	List<Long> platformsIds
-) {
+) implements EntityWithPlayingTimeAsString {
+	@Override
+	public String getPlayingTimeStartAsString() {
+		return playingTimeStartAsString;
+	}
+
+	@Override
+	public String getPlayingTimeEndAsString() {
+		return playingTimeEndAsString;
+	}
 }
