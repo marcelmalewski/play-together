@@ -18,12 +18,12 @@ import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FO
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.TIME_FORMAT;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationConstants.*;
 
-//TODO dodać większe wymagania hasła
 @ValidPlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = LOGIN_MIN_SIZE, max = LOGIN_MAX_SIZE)
 	@NotBlank
 	String login,
+	//TODO dodać większe wymagania hasła
 	@Size(min = 8, max = 30)
 	@NotBlank
 	String password,
