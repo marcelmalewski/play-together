@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.Set;
 
+import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.BIRTH_DATE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora?
@@ -27,7 +28,7 @@ class MinAgeValidatorTest {
 
   @Test
   void shouldFindNoViolationsWhenAgeIsMinFifteenYears() {
-    minAgeTestObject = new MinAgeTestObject("2000-01-01");
+    minAgeTestObject = new MinAgeTestObject(BIRTH_DATE);
 
     Set<ConstraintViolation<MinAgeTestObject>> violations = validator.validate(minAgeTestObject);
     assertEquals(0, violations.size());
