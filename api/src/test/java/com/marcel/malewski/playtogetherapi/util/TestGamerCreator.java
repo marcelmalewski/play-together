@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_END;
+import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_START;
+
 public final class TestGamerCreator {
 	public static final String LOGIN = "validLogin";
 	public static final String PASSWORD = "test123451345134";
@@ -17,10 +20,6 @@ public final class TestGamerCreator {
 	public static final String BIRTH_DATE = "2000-01-01";
 	public static final String BIO = "test bio";
 	public static final String AVATAR_URL = "avatar url";
-
-	public static final String PLAYING_TIME_START = "09:00";
-	public static final String PLAYING_TIME_END = "10:00";
-	public static final String PLAYING_TIME_INVALID_FORMAT = "1800";
 
 	public static List<Long> PLATFORMS_IDS = List.of(1L);
 	public static List<Long> FAVOURITE_GAMES_IDS = List.of(1L);

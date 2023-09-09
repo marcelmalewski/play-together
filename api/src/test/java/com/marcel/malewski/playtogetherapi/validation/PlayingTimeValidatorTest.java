@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.PLAYING_TIME_END;
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.PLAYING_TIME_START;
+import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_END;
+import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_START;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora?

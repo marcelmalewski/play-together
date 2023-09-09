@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
+import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_END;
+import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_INVALID_FORMAT;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
