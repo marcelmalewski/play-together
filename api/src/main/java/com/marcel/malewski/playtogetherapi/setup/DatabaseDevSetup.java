@@ -10,7 +10,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleValue;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import com.marcel.malewski.playtogetherapi.entity.platform.PlatformEnum;
+import com.marcel.malewski.playtogetherapi.entity.platform.PlatformName;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
 import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
 import org.springframework.boot.CommandLineRunner;
@@ -53,7 +53,7 @@ public class DatabaseDevSetup implements CommandLineRunner {
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 
 			//Platform
-			Platform pc = new Platform(PlatformEnum.PC.name());
+			Platform pc = new Platform(PlatformName.PC.name());
 			Platform savedPcPlatform = platformRepository.save(pc);
 
 			//Gamer

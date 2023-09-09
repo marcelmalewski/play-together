@@ -13,8 +13,8 @@ public record GamerPrivateResponseDto(
 	String avatarUrl,
 	LocalTime playingTimeStart,
 	LocalTime playingTimeEnd,
-	List<String> platforms,
-	List<String> favouriteGames,
-	List<String> favouriteGenres
+	List<String> platformsNames,
+	List<String> favouriteGamesNames,
+	List<String> favouriteGenresNames
 ) {
 }

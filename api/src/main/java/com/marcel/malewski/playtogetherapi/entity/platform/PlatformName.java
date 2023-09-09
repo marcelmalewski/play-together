@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.platform;
 
-public enum PlatformEnum {
+public enum PlatformName {
 	PC,
 	MOBILE,
 	SWITCH,
