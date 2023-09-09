@@ -1,13 +1,17 @@
 package com.marcel.malewski.playtogetherapi.util;
 
+import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
+import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
 import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_END;
@@ -42,6 +46,28 @@ public final class TestGamerCreator {
 			.roles(roles)
 			.platforms(platforms)
 			.build();
+	}
+
+	public static GamerPublicResponseDto toGamerPublicResponseDto(Gamer gamer) {
+		//TODO duplikat w GamerMapper
+		LocalDate currentDay = LocalDate.now();
+		int age = Period.between(gamer.getBirthdate(), currentDay).getYears();
+		List<String> platformsNames = gamer.getPlatforms().stream().map(Platform::getName).toList();
+		List<String> gamesNames = gamer.getFavouriteGames().stream().map(Game::getName).toList();
+		List<String> genresNames = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
+
+		return new GamerPublicResponseDto(
+			gamer.getId(),
+			gamer.getLogin(),
+			age,
+			gamer.getBio(),
+			gamer.getAvatarUrl(),
+			gamer.getPlayingTimeStart(),
+			gamer.getPlayingTimeEnd(),
+			platformsNames,
+			gamesNames,
+			genresNames
+		);
 	}
 
 	public static GamerRegisterRequestDto getValidGamerRegisterRequestDto() {
