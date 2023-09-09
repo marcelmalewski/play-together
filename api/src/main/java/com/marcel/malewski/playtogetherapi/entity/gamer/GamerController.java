@@ -51,8 +51,8 @@ public class GamerController {
 	                                                       HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
-		GamerPublicResponseDto gamerPublic = gamerService.getGamerPublicInfo(gamerId);
-		return new ResponseEntity<>(gamerPublic, HttpStatus.OK);
+		GamerPublicResponseDto gamerPublicResponse = gamerService.getGamerPublicInfo(gamerId);
+		return new ResponseEntity<>(gamerPublicResponse, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/gamers/@me")
@@ -62,8 +62,8 @@ public class GamerController {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		try {
-			GamerPrivateResponseDto gamerPrivateInfo = gamerService.getGamerPrivateInfo(principalId);
-			return new ResponseEntity<>(gamerPrivateInfo, HttpStatus.OK);
+			GamerPrivateResponseDto gamerPrivateResponse = gamerService.getGamerPrivateInfo(principalId);
+			return new ResponseEntity<>(gamerPrivateResponse, HttpStatus.OK);
 		} catch (GamerNotFoundException exception) {
 			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();

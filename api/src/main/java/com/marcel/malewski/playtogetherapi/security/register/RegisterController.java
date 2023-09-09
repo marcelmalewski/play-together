@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.security.register;
 
-import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleValue;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
 import com.marcel.malewski.playtogetherapi.security.exception.AlreadyAuthenticatedGamerException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,7 +35,7 @@ public class RegisterController {
 			throw new AlreadyAuthenticatedGamerException();
 		}
 
-		registerService.register(registerDto, GamerRoleValue.ROLE_USER);
+		registerService.register(registerDto, GamerRoleName.ROLE_USER);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
@@ -44,7 +44,7 @@ public class RegisterController {
 	@Operation(summary = "Register gamer with role moderator")
 	@Secured("ROLE_MODERATOR")
 	public ResponseEntity<Void> registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
-		registerService.register(registerDto, GamerRoleValue.ROLE_MODERATOR);
+		registerService.register(registerDto, GamerRoleName.ROLE_MODERATOR);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

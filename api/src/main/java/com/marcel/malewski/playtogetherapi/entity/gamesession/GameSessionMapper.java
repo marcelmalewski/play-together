@@ -12,7 +12,7 @@ import java.util.List;
 @Validated
 public abstract class GameSessionMapper {
 	public GameSessionPublicResponseDto toGameSessionResponseDto(@NotNull GameSession gameSession, long principalId) {
-		List<String> platforms = gameSession.getPlatforms().stream().map(Platform::getName).toList();
+		List<String> platformsNames = gameSession.getPlatforms().stream().map(Platform::getName).toList();
 		boolean currentGamerIsMember = !gameSession.getMembers().stream().filter(gamer -> gamer.getId().equals(principalId)).toList().isEmpty();
 
 		return new GameSessionPublicResponseDto(
@@ -29,7 +29,7 @@ public abstract class GameSessionMapper {
 			gameSession.getDescription(),
 			gameSession.getCreator().getLogin(),
 			gameSession.getGame().getName(),
-			platforms,
+			platformsNames,
 			currentGamerIsMember
 		);
 	}

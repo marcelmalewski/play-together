@@ -19,9 +19,9 @@ import java.util.List;
 public abstract class GamerMapper {
 	public GamerPrivateResponseDto toGamerPrivateResponseDto(@NotNull Gamer gamer) {
 		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?
-		List<String> platforms = gamer.getPlatforms().stream().map(Platform::getName).toList();
-		List<String> games = gamer.getFavouriteGames().stream().map(Game::getName).toList();
-		List<String> genres = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
+		List<String> platformsNames = gamer.getPlatforms().stream().map(Platform::getName).toList();
+		List<String> gamesNames = gamer.getFavouriteGames().stream().map(Game::getName).toList();
+		List<String> genresNames = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
 
 		return new GamerPrivateResponseDto(
 			gamer.getId(),
@@ -32,9 +32,9 @@ public abstract class GamerMapper {
 			gamer.getAvatarUrl(),
 			gamer.getPlayingTimeStart(),
 			gamer.getPlayingTimeEnd(),
-			platforms,
-			games,
-			genres
+			platformsNames,
+			gamesNames,
+			genresNames
 		);
 	}
 
@@ -42,9 +42,9 @@ public abstract class GamerMapper {
 		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?
 		LocalDate currentDay = LocalDate.now();
 		int age = Period.between(gamer.getBirthdate(), currentDay).getYears();
-		List<String> platforms = gamer.getPlatforms().stream().map(Platform::getName).toList();
-		List<String> games = gamer.getFavouriteGames().stream().map(Game::getName).toList();
-		List<String> genres = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
+		List<String> platformsNames = gamer.getPlatforms().stream().map(Platform::getName).toList();
+		List<String> gamesNames = gamer.getFavouriteGames().stream().map(Game::getName).toList();
+		List<String> genresNames = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
 
 		return new GamerPublicResponseDto(
 			gamer.getId(),
@@ -54,9 +54,9 @@ public abstract class GamerMapper {
 			gamer.getAvatarUrl(),
 			gamer.getPlayingTimeStart(),
 			gamer.getPlayingTimeEnd(),
-			platforms,
-			games,
-			genres
+			platformsNames,
+			gamesNames,
+			genresNames
 		);
 	}
 }

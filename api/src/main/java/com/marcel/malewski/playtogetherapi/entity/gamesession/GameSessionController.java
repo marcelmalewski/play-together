@@ -75,8 +75,8 @@ public class GameSessionController {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
-		GameSessionPublicResponseDto savedGameSession = gameSessionService.createGameSession(gameSessionCreateDto, principalId);
-		return new ResponseEntity<>(savedGameSession, HttpStatus.CREATED);
+		GameSessionPublicResponseDto createdGameSession = gameSessionService.createGameSession(gameSessionCreateDto, principalId);
+		return new ResponseEntity<>(createdGameSession, HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/game-sessions/{gameSessionId}")

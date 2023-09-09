@@ -19,7 +19,7 @@ public record GameSessionPublicResponseDto(
 	String description,
 	String creatorLogin,
 	String gameName,
-	List<String> platforms,
+	List<String> platformsNames,
 	boolean currentGamerIsMember
 ) {
 }

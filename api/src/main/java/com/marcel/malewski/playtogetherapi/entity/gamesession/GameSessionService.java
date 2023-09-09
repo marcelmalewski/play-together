@@ -72,8 +72,8 @@ public class GameSessionService {
 			newGameSession.getPlatforms().add(platform);
 		});
 
-		GameSession savedNewGameSession = gameSessionRepository.save(newGameSession);
-		return gameSessionMapper.toGameSessionResponseDto(savedNewGameSession, principalId);
+		GameSession createdGameSession = gameSessionRepository.save(newGameSession);
+		return gameSessionMapper.toGameSessionResponseDto(createdGameSession, principalId);
 	}
 
 	public GameSessionPublicResponseDto updateGameSession(@NotNull GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, long principalId, long gameSessionId) {

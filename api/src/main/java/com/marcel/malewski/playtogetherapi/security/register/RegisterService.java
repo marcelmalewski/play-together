@@ -5,8 +5,8 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.LoginAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
-import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleValue;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import jakarta.validation.constraints.NotNull;
@@ -37,7 +37,7 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleValue gamerRole) {
+	public void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleName gamerRole) {
 		String login = registerDto.login();
 		if (gamerService.gamerExistsByLogin(login)) {
 			throw new LoginAlreadyUsedException(login);

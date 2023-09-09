@@ -5,8 +5,8 @@ import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
-import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleValue;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
@@ -46,10 +46,10 @@ public class DatabaseDevSetup implements CommandLineRunner {
 	public void run(String... args) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Role
-			GamerRole userRole = new GamerRole(GamerRoleValue.ROLE_USER.name());
+			GamerRole userRole = new GamerRole(GamerRoleName.ROLE_USER.name());
 			gamerRoleRepository.save(userRole);
 
-			GamerRole moderatorRole = new GamerRole(GamerRoleValue.ROLE_MODERATOR.name());
+			GamerRole moderatorRole = new GamerRole(GamerRoleName.ROLE_MODERATOR.name());
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 
 			//Platform
