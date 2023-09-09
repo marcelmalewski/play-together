@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.BIRTH_DATE;
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.BIRTH_DATE_INVALID_FORMAT;
+import static com.marcel.malewski.playtogetherapi.TestConstants.INVALID_DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.TestConstants.VALID_DATE_FORMAT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora?
@@ -28,7 +28,7 @@ class StringDateFormatValidatorTest {
 
   @Test
   void shouldFindNoViolationsWhenDateFormatIsValid() {
-    stringDateFormatTestObject = new StringDateFormatTestObject(BIRTH_DATE);
+    stringDateFormatTestObject = new StringDateFormatTestObject(VALID_DATE_FORMAT);
 
     Set<ConstraintViolation<StringDateFormatTestObject>> violations = validator.validate(stringDateFormatTestObject);
     assertEquals(0, violations.size());
@@ -36,7 +36,7 @@ class StringDateFormatValidatorTest {
 
   @Test
   void shouldFindViolationWhenDateFormatIsNotValid() {
-    stringDateFormatTestObject = new StringDateFormatTestObject(BIRTH_DATE_INVALID_FORMAT);
+    stringDateFormatTestObject = new StringDateFormatTestObject(INVALID_DATE_FORMAT);
 
     Set<ConstraintViolation<StringDateFormatTestObject>> violations = validator.validate(stringDateFormatTestObject);
     assertEquals(1, violations.size());

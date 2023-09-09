@@ -1,6 +1,7 @@
 package com.marcel.malewski.playtogetherapi.util;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
@@ -14,7 +15,6 @@ public final class TestGamerCreator {
 	public static final String PASSWORD = "test123451345134";
 	public static final String EMAIL = "test@test.test";
 	public static final String BIRTH_DATE = "2000-01-01";
-	public static final String BIRTH_DATE_INVALID_FORMAT = "2000-01.01";
 	public static final String BIO = "test bio";
 	public static final String AVATAR_URL = "avatar url";
 
@@ -54,6 +54,20 @@ public final class TestGamerCreator {
 			PLAYING_TIME_START,
 			PLAYING_TIME_END,
 			PLATFORMS_IDS
+		);
+	}
+
+	public static GamerUpdateProfileRequestDto getValidGamerUpdateProfileRequestDto() {
+		return new GamerUpdateProfileRequestDto(
+			LOGIN,
+			BIRTH_DATE,
+			BIO,
+			AVATAR_URL,
+			PLAYING_TIME_START,
+			PLAYING_TIME_END,
+			PLATFORMS_IDS,
+			FAVOURITE_GAMES_IDS,
+			FAVOURITE_GENRES_IDS
 		);
 	}
 }
