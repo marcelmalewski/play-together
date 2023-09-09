@@ -1,7 +1,6 @@
 package com.marcel.malewski.playtogetherapi.validation;
 
-import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
+import com.marcel.malewski.playtogetherapi.testObject.StringTimeFormatTestObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -11,15 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_END;
 import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_INVALID_FORMAT;
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.*;
+import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_START;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora?
 class StringTimeFormatValidatorTest {
   private Validator validator;
-  private GamerRegisterRequestDto registerRequestDto;
+  private StringTimeFormatTestObject stringTimeFormatTestObject;
 
   @BeforeEach
   void setup() {
@@ -30,25 +28,17 @@ class StringTimeFormatValidatorTest {
 
   @Test
   void shouldFindNoViolationsWhenTimeFormatIsValid() {
-    registerRequestDto = TestGamerCreator.getValidGamerRegisterRequestDto();
+    stringTimeFormatTestObject = new StringTimeFormatTestObject(PLAYING_TIME_START);
 
-    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
+    Set<ConstraintViolation<StringTimeFormatTestObject>> violations = validator.validate(stringTimeFormatTestObject);
     assertEquals(0, violations.size());
   }
 
   @Test
   void shouldFindViolationWhenPlayingTimeStartIsNotValid() {
-    registerRequestDto = new GamerRegisterRequestDto(
-      LOGIN,
-      PASSWORD,
-      EMAIL,
-      BIRTH_DATE,
-      PLAYING_TIME_INVALID_FORMAT,
-	    PLAYING_TIME_END,
-      PLATFORMS_IDS
-    );
+    stringTimeFormatTestObject = new StringTimeFormatTestObject(PLAYING_TIME_INVALID_FORMAT);
 
-    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
+    Set<ConstraintViolation<StringTimeFormatTestObject>> violations = validator.validate(stringTimeFormatTestObject);
     assertEquals(1, violations.size());
   }
 }
