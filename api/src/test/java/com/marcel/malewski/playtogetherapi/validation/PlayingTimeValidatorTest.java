@@ -14,7 +14,7 @@ import java.util.Set;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
+//TODO poprawic na test tylko specyficznego validatora?
 class PlayingTimeValidatorTest {
   private Validator validator;
   private GamerRegisterRequestDto registerRequestDto;

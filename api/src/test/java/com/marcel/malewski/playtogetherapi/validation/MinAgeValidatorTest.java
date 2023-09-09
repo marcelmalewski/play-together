@@ -1,7 +1,6 @@
 package com.marcel.malewski.playtogetherapi.validation;
 
-import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
-import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
+import com.marcel.malewski.playtogetherapi.testObject.MinAgeTestObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -12,13 +11,12 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.Set;
 
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
+//TODO poprawic na test tylko specyficznego validatora?
 class MinAgeValidatorTest {
   private Validator validator;
-  private GamerRegisterRequestDto registerRequestDto;
+  private MinAgeTestObject minAgeTestObject;
 
   @BeforeEach
   void setup() {
@@ -29,9 +27,9 @@ class MinAgeValidatorTest {
 
   @Test
   void shouldFindNoViolationsWhenAgeIsMinFifteenYears() {
-    registerRequestDto = TestGamerCreator.getValidGamerRegisterRequestDto();
+    minAgeTestObject = new MinAgeTestObject("2000-01-01");
 
-    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
+    Set<ConstraintViolation<MinAgeTestObject>> violations = validator.validate(minAgeTestObject);
     assertEquals(0, violations.size());
   }
 
@@ -39,17 +37,9 @@ class MinAgeValidatorTest {
   void shouldFindViolationWhenAgeIsLessThanFifteenYears() {
     LocalDate today = LocalDate.now();
     LocalDate fifteenYearsBeforeTodayPlusOneDay = today.minusYears(15).plusDays(1);
-    registerRequestDto = new GamerRegisterRequestDto(
-      LOGIN,
-      PASSWORD,
-      EMAIL,
-      fifteenYearsBeforeTodayPlusOneDay.toString(),
-      PLAYING_TIME_START,
-      PLAYING_TIME_END,
-      PLATFORMS_IDS
-    );
+    minAgeTestObject = new MinAgeTestObject(fifteenYearsBeforeTodayPlusOneDay.toString());
 
-    Set<ConstraintViolation<GamerRegisterRequestDto>> violations = validator.validate(registerRequestDto);
+    Set<ConstraintViolation<MinAgeTestObject>> violations = validator.validate(minAgeTestObject);
     assertEquals(1, violations.size());
   }
 }

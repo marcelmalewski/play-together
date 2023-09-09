@@ -1,7 +1,6 @@
 package com.marcel.malewski.playtogetherapi.util;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
-import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
@@ -55,20 +54,6 @@ public final class TestGamerCreator {
 			PLAYING_TIME_START,
 			PLAYING_TIME_END,
 			PLATFORMS_IDS
-		);
-	}
-
-	public static GamerUpdateProfileRequestDto getValidGamerUpdateProfileRequestDto() {
-		return new GamerUpdateProfileRequestDto(
-			LOGIN,
-			BIRTH_DATE,
-			BIO,
-			AVATAR_URL,
-			PLAYING_TIME_START,
-			PLAYING_TIME_END,
-			PLATFORMS_IDS,
-			FAVOURITE_GAMES_IDS,
-			FAVOURITE_GENRES_IDS
 		);
 	}
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//TODO poprawic na test tylko specyficznego validatora i wtedy dodac test z nullami
+//TODO poprawic na test tylko specyficznego validatora?
 public class TrimmedSizeValidatorTest {
 	private Validator validator;
 	private TrimmedSizeTestObject trimmedSizeTestObject;

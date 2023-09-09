@@ -5,13 +5,14 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
+import static com.marcel.malewski.playtogetherapi.constant.DateConstants.MIN_AGE;
+
 @Documented
 @Constraint(validatedBy = MinAgeValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidMinAge {
-	//TODO czy ten message jest ok?
-	String message() default "minimum age is 15";
+	String message() default "minimum age is " + MIN_AGE;
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }

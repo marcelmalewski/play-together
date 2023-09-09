@@ -5,7 +5,6 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-//TODO dodać test
 @Documented
 @Constraint(validatedBy = TrimmedSizeValidator.class)
 @Target(ElementType.FIELD)
