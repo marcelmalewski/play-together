@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.util;
 
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
@@ -60,6 +61,27 @@ public final class TestGamerCreator {
 			gamer.getId(),
 			gamer.getLogin(),
 			age,
+			gamer.getBio(),
+			gamer.getAvatarUrl(),
+			gamer.getPlayingTimeStart(),
+			gamer.getPlayingTimeEnd(),
+			platformsNames,
+			gamesNames,
+			genresNames
+		);
+	}
+
+	public static GamerPrivateResponseDto toGamerPrivateResponseDto(Gamer gamer) {
+		//TODO duplikat
+		List<String> platformsNames = gamer.getPlatforms().stream().map(Platform::getName).toList();
+		List<String> gamesNames = gamer.getFavouriteGames().stream().map(Game::getName).toList();
+		List<String> genresNames = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
+
+		return new GamerPrivateResponseDto(
+			gamer.getId(),
+			gamer.getLogin(),
+			gamer.getEmail(),
+			gamer.getBirthdate(),
 			gamer.getBio(),
 			gamer.getAvatarUrl(),
 			gamer.getPlayingTimeStart(),
