@@ -85,11 +85,6 @@ public class GamerController {
 		}
 	}
 
-	@DeleteMapping(value = "/gamers/@me/mrau")
-	public ResponseEntity<Void> updateGamerProfile() {
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
 	@PatchMapping(value = "/gamers/@me/authentication-data")
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,

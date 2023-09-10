@@ -48,10 +48,10 @@ public class RegisterController {
 	@Operation(summary = "Register gamer with role moderator")
 	@Secured("ROLE_MODERATOR")
 	public ResponseEntity<Void> registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
-		Long registeredGamerId = registerService.register(registerDto, GamerRoleName.ROLE_MODERATOR);
+		Long registeredModeratorId = registerService.register(registerDto, GamerRoleName.ROLE_MODERATOR);
 		HttpHeaders headers = new HttpHeaders();
 		//TODO czy napewno takie location?
-		headers.add("Location", "/api/v1/gamers/" + registeredGamerId.toString());
+		headers.add("Location", "/api/v1/gamers/" + registeredModeratorId.toString());
 
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}

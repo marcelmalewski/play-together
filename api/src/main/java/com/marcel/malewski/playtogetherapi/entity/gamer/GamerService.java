@@ -92,8 +92,9 @@ public class GamerService {
 		return gamerRepository.existsByEmail(email);
 	}
 
-	public void saveGamer(@NotNull Gamer gamer) {
-		gamerRepository.save(gamer);
+	public Long saveGamer(@NotNull Gamer gamer) {
+		Gamer savedGamer = gamerRepository.save(gamer);
+		return savedGamer.getId();
 	}
 
 	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long gamerId) {

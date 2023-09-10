@@ -89,7 +89,7 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void shouldReturnAuthenticatedGamerPrivateInfo() throws Exception {
+	void shouldReturnAuthenticatedGamerPrivateInfoWhenGamerIsAuthenticated() throws Exception {
 		given(gamerService.getGamerPrivateInfo(testGamer.getId())).willReturn(testGamerPrivateResponseDto);
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 
@@ -103,7 +103,7 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void shouldUpdateAuthenticatedGamerProfileData() throws Exception {
+	void shouldUpdateAuthenticatedGamerProfileDataWhenRequestIsValid() throws Exception {
 		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
 
 		given(gamerService.updateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
@@ -115,6 +115,26 @@ class GamerControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(gamerUpdateProfileRequestDto)))
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGamerPrivateResponseDto.id()))))
+			.andExpect(jsonPath("$.login", is(testGamerPrivateResponseDto.login())));
+	}
+
+	@Test
+	void shouldUpdateAuthenticatedGamerAuthenticationDataWhenRequestIsValid() throws Exception {
+		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
+
+		given(gamerService.updateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+
+		mockMvc.perform(put("/v1/gamers/@me/profile-data")
+				.with(csrf())
+				.with(user(testGamer))
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(gamerUpdateProfileRequestDto)))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGamerPrivateResponseDto.id()))))
+			.andExpect(jsonPath("$.login", is(testGamerPrivateResponseDto.login())));
 	}
 }
