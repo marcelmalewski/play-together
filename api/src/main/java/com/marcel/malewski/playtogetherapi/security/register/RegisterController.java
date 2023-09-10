@@ -5,6 +5,7 @@ import com.marcel.malewski.playtogetherapi.security.exception.AlreadyAuthenticat
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -35,8 +36,11 @@ public class RegisterController {
 			throw new AlreadyAuthenticatedGamerException();
 		}
 
-		registerService.register(registerDto, GamerRoleName.ROLE_USER);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		Long registeredGamerId = registerService.register(registerDto, GamerRoleName.ROLE_USER);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Location", "/api/v1/gamers/" + registeredGamerId.toString());
+
+		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 
 	//TODO moderatora tworzy inny moderator albo owner, owner może usunąć moderatora
@@ -44,7 +48,11 @@ public class RegisterController {
 	@Operation(summary = "Register gamer with role moderator")
 	@Secured("ROLE_MODERATOR")
 	public ResponseEntity<Void> registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
-		registerService.register(registerDto, GamerRoleName.ROLE_MODERATOR);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		Long registeredGamerId = registerService.register(registerDto, GamerRoleName.ROLE_MODERATOR);
+		HttpHeaders headers = new HttpHeaders();
+		//TODO czy napewno takie location?
+		headers.add("Location", "/api/v1/gamers/" + registeredGamerId.toString());
+
+		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 }

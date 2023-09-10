@@ -37,7 +37,7 @@ public class RegisterService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public void register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleName gamerRole) {
+	public Long register(@NotNull GamerRegisterRequestDto registerDto, @NotNull GamerRoleName gamerRole) {
 		String login = registerDto.login();
 		if (gamerService.gamerExistsByLogin(login)) {
 			throw new LoginAlreadyUsedException(login);
@@ -75,6 +75,6 @@ public class RegisterService {
 		GamerRole userRole = gamerRoleService.getGamerRoleReference(gamerRole.name());
 		newGamer.getRoles().add(userRole);
 
-		gamerService.saveGamer(newGamer);
+		return gamerService.saveGamer(newGamer);
 	}
 }
