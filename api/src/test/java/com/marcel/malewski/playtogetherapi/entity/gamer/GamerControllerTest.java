@@ -3,6 +3,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.security.util.PrincipalExtractor;
@@ -24,8 +25,10 @@ import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRol
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(GamerController.class)
@@ -74,32 +77,44 @@ class GamerControllerTest {
 
 	@Test
 	void shouldReturnGamerWhenGamerWithGivenIdExist() throws Exception {
-		GamerPublicResponseDto gamerPublicResponseDto  = testGamerPublicResponseDto;
+		given(gamerService.getGamerPublicInfo(testGamer.getId())).willReturn(testGamerPublicResponseDto);
 
-		given(gamerService.getGamerPublicInfo(gamerPublicResponseDto.id())).willReturn(gamerPublicResponseDto);
-
-		mockMvc.perform(get("/v1/gamers/" + gamerPublicResponseDto.id())
+		mockMvc.perform(get("/v1/gamers/" + testGamer.getId())
 				.with(user(testGamer))
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.id", is(Math.toIntExact(gamerPublicResponseDto.id()))))
-			.andExpect(jsonPath("$.login", is(gamerPublicResponseDto.login())));
+			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGamerPublicResponseDto.id()))))
+			.andExpect(jsonPath("$.login", is(testGamerPublicResponseDto.login())));
 	}
 
 	@Test
 	void shouldReturnAuthenticatedGamerPrivateInfo() throws Exception {
-		GamerPrivateResponseDto gamerPrivateResponseDto = testGamerPrivateResponseDto;
-
-		given(gamerService.getGamerPrivateInfo(gamerPrivateResponseDto.id())).willReturn(gamerPrivateResponseDto);
-		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(gamerPrivateResponseDto.id());
+		given(gamerService.getGamerPrivateInfo(testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 
 		mockMvc.perform(get("/v1/gamers/@me")
 				.with(user(testGamer))
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.id", is(Math.toIntExact(gamerPrivateResponseDto.id()))))
-			.andExpect(jsonPath("$.login", is(gamerPrivateResponseDto.login())));
+			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGamerPrivateResponseDto.id()))))
+			.andExpect(jsonPath("$.login", is(testGamerPrivateResponseDto.login())));
+	}
+
+	@Test
+	void shouldUpdateAuthenticatedGamerProfileData() throws Exception {
+		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
+
+		given(gamerService.updateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+
+		mockMvc.perform(put("/v1/gamers/@me/profile-data")
+				.with(csrf())
+				.with(user(testGamer))
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(gamerUpdateProfileRequestDto)))
+			.andExpect(status().isOk());
 	}
 }

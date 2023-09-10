@@ -23,12 +23,8 @@ public final class TestGamerCreator {
 	public static final String PASSWORD = "test123451345134";
 	public static final String EMAIL = "test@test.test";
 	public static final String BIRTH_DATE = "2000-01-01";
-	public static final String BIO = "test bio";
-	public static final String AVATAR_URL = "avatar url";
 
 	public static List<Long> PLATFORMS_IDS = List.of(1L);
-	public static List<Long> FAVOURITE_GAMES_IDS = List.of(1L);
-	public static List<Long> FAVOURITE_GENRES_IDS = List.of(1L);
 
 	private TestGamerCreator() {
 	}
@@ -50,7 +46,7 @@ public final class TestGamerCreator {
 	}
 
 	public static GamerPublicResponseDto toGamerPublicResponseDto(Gamer gamer) {
-		//TODO duplikat w GamerMapper
+		//TODO duplikat w GamerMapper?
 		LocalDate currentDay = LocalDate.now();
 		int age = Period.between(gamer.getBirthdate(), currentDay).getYears();
 		List<String> platformsNames = gamer.getPlatforms().stream().map(Platform::getName).toList();
@@ -72,7 +68,6 @@ public final class TestGamerCreator {
 	}
 
 	public static GamerPrivateResponseDto toGamerPrivateResponseDto(Gamer gamer) {
-		//TODO duplikat
 		List<String> platformsNames = gamer.getPlatforms().stream().map(Platform::getName).toList();
 		List<String> gamesNames = gamer.getFavouriteGames().stream().map(Game::getName).toList();
 		List<String> genresNames = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
@@ -92,6 +87,24 @@ public final class TestGamerCreator {
 		);
 	}
 
+	public static GamerUpdateProfileRequestDto toGamerUpdateProfileRequestDto(Gamer gamer) {
+		List<Long> platformsIds = gamer.getPlatforms().stream().map(Platform::getId).toList();
+		List<Long> gamesIds = gamer.getFavouriteGames().stream().map(Game::getId).toList();
+		List<Integer> genresIds = gamer.getFavouriteGenres().stream().map(Genre::getId).toList();
+
+		return new GamerUpdateProfileRequestDto(
+			gamer.getLogin(),
+			gamer.getBirthdate().toString(),
+			gamer.getBio(),
+			gamer.getAvatarUrl(),
+			gamer.getPlayingTimeStart().toString(),
+			gamer.getPlayingTimeEnd().toString(),
+			platformsIds,
+			gamesIds,
+			genresIds
+		);
+	}
+
 	public static GamerRegisterRequestDto getValidGamerRegisterRequestDto() {
 		return new GamerRegisterRequestDto(
 			LOGIN,
@@ -101,20 +114,6 @@ public final class TestGamerCreator {
 			PLAYING_TIME_START,
 			PLAYING_TIME_END,
 			PLATFORMS_IDS
-		);
-	}
-
-	public static GamerUpdateProfileRequestDto getValidGamerUpdateProfileRequestDto() {
-		return new GamerUpdateProfileRequestDto(
-			LOGIN,
-			BIRTH_DATE,
-			BIO,
-			AVATAR_URL,
-			PLAYING_TIME_START,
-			PLAYING_TIME_END,
-			PLATFORMS_IDS,
-			FAVOURITE_GAMES_IDS,
-			FAVOURITE_GENRES_IDS
 		);
 	}
 }

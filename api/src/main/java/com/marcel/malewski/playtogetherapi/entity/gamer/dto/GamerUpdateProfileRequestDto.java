@@ -49,7 +49,7 @@ public record GamerUpdateProfileRequestDto(
 	List<Long> favouriteGamesIds,
 	@UniqueElements(message = "must only contain unique platformsIds")
 	@NotNull
-	List<Long> favouriteGenresIds
+	List<Integer> favouriteGenresIds
 ) implements EntityWithPlayingTimeAsString {
 	@Override
 	public String getPlayingTimeStartAsString() {

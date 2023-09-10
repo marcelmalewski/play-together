@@ -51,7 +51,7 @@ public class SecurityConfiguration {
 
 			.requestMatchers(
 				"/error",
-				"/v1/game-sessions/"
+				"/v1/gamers/@me/profile-data"
 			)
 			.permitAll()
 
