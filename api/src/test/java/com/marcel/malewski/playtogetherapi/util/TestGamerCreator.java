@@ -4,11 +4,11 @@ import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import com.marcel.malewski.playtogetherapi.security.register.GamerRegisterRequestDto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,11 +20,19 @@ import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_STA
 
 public final class TestGamerCreator {
 	public static final String LOGIN = "validLogin";
+	public static final String INVALID_LOGIN = "";
 	public static final String PASSWORD = "test123451345134";
+
 	public static final String EMAIL = "test@test.test";
+	public static final String INVALID_EMAIL = "invalid email";
+
 	public static final String BIRTH_DATE = "2000-01-01";
+	public static final String BIO = "test bio";
+	public static final String AVATAR_URL = "test bio";
 
 	public static List<Long> PLATFORMS_IDS = List.of(1L);
+	public static List<Long> FAVOURITE_GAMES_IDS = List.of(1L);
+	public static List<Integer> FAVOURITE_GENRES_IDS = List.of(1);
 
 	private TestGamerCreator() {
 	}
@@ -105,15 +113,33 @@ public final class TestGamerCreator {
 		);
 	}
 
-	public static GamerRegisterRequestDto getValidGamerRegisterRequestDto() {
-		return new GamerRegisterRequestDto(
-			LOGIN,
-			PASSWORD,
-			EMAIL,
+	public static GamerUpdateProfileRequestDto getInValidGamerUpdateProfileRequestDto() {
+		return new GamerUpdateProfileRequestDto(
+			INVALID_LOGIN,
 			BIRTH_DATE,
+			BIO,
+			AVATAR_URL,
 			PLAYING_TIME_START,
 			PLAYING_TIME_END,
-			PLATFORMS_IDS
+			PLATFORMS_IDS,
+			FAVOURITE_GAMES_IDS,
+			FAVOURITE_GENRES_IDS
+		);
+	}
+
+	public static GamerUpdateAuthenticationDataRequestDto toGamerUpdateAuthenticationDataRequestDto(Gamer gamer) {
+		return new GamerUpdateAuthenticationDataRequestDto(
+			gamer.getEmail(),
+			gamer.getPassword(),
+			gamer.getPassword()
+		);
+	}
+
+	public static GamerUpdateAuthenticationDataRequestDto getInvalidGamerUpdateAuthenticationDataRequestDto() {
+		return new GamerUpdateAuthenticationDataRequestDto(
+			INVALID_EMAIL,
+			PASSWORD,
+			PASSWORD
 		);
 	}
 }

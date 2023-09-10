@@ -3,6 +3,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
@@ -27,10 +28,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+//TODO czy dodać test sytuacji gdy ktoś nie jest zalogowany
 @WebMvcTest(GamerController.class)
 class GamerControllerTest {
 	@Autowired
@@ -121,11 +122,8 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void shouldUpdateAuthenticatedGamerAuthenticationDataWhenRequestIsValid() throws Exception {
-		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
-
-		given(gamerService.updateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
-		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+	void updateGamerProfileShouldReturnBadRequestStatusWhenBodyIsInvalid() throws Exception {
+		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.getInValidGamerUpdateProfileRequestDto();
 
 		mockMvc.perform(put("/v1/gamers/@me/profile-data")
 				.with(csrf())
@@ -133,8 +131,39 @@ class GamerControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(gamerUpdateProfileRequestDto)))
+			.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	void shouldUpdateAuthenticatedGamerAuthenticationDataWhenRequestIsValid() throws Exception {
+		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamer);
+
+		given(gamerService.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+
+		mockMvc.perform(patch("/v1/gamers/@me/authentication-data")
+				.with(csrf())
+				.with(user(testGamer))
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(gamerUpdateAuthenticationDataRequestDto)))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGamerPrivateResponseDto.id()))))
 			.andExpect(jsonPath("$.login", is(testGamerPrivateResponseDto.login())));
 	}
+
+	@Test
+	void updatePartiallyGamerAuthenticationDataShouldReturnBadRequestStatusWhenBodyIsInvalid() throws Exception {
+		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.getInvalidGamerUpdateAuthenticationDataRequestDto();
+
+		mockMvc.perform(patch("/v1/gamers/@me/authentication-data")
+				.with(csrf())
+				.with(user(testGamer))
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(gamerUpdateAuthenticationDataRequestDto)))
+			.andExpect(status().isBadRequest());
+	}
+
+	//TODO delete test
 }

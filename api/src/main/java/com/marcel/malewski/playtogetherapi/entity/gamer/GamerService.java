@@ -158,6 +158,7 @@ public class GamerService {
 			gamer.setEmail(newEmail);
 		}
 
+		//TODO nie można zmienić na to samo hasło
 		if(updateAuthDto.newPassword() != null) {
 			String newPasswordEncoded = passwordEncoder.encode(updateAuthDto.newPassword());
 			gamer.setPassword(newPasswordEncoded);
