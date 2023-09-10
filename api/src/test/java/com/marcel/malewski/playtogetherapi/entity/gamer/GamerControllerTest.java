@@ -5,8 +5,10 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponse
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
+import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.security.util.PrincipalExtractor;
 import com.marcel.malewski.playtogetherapi.security.util.SecurityHelper;
 import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
@@ -24,14 +26,18 @@ import java.util.List;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 //TODO czy dodać test sytuacji gdy ktoś nie jest zalogowany
+//TODO co jak id nie znalezione przetestowac try catche
 @WebMvcTest(GamerController.class)
 class GamerControllerTest {
 	@Autowired
@@ -165,5 +171,26 @@ class GamerControllerTest {
 			.andExpect(status().isBadRequest());
 	}
 
-	//TODO delete test
+	@Test
+	void shouldDeleteAuthenticatedGamer() throws Exception {
+		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+		doNothing().when(gamerService).deleteGamer(testGamer.getId());
+
+		mockMvc.perform(delete("/v1/gamers/@me")
+				.with(csrf())
+				.with(user(testGamer)))
+			.andExpect(status().isNoContent());
+	}
+
+	@Test
+	void deleteGamerShouldHandleExceptionWhenAuthenticatedGamerNotFound() throws Exception {
+		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+		doThrow(GamerNotFoundException.class).when(gamerService).deleteGamer(testGamer.getId());
+
+		mockMvc.perform(delete("/v1/gamers/@me")
+				.with(csrf())
+				.with(user(testGamer)))
+			.andExpect(result -> assertTrue(result.getResolvedException() instanceof AuthenticatedGamerNotFoundException))
+			.andExpect(status().isNotFound());
+	}
 }
