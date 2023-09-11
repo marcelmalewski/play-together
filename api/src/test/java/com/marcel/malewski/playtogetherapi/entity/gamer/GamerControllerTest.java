@@ -36,8 +36,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-//TODO czy dodać test sytuacji gdy ktoś nie jest zalogowany
-//TODO co jak id nie znalezione przetestowac try catche
+//TODO czy dodać test sytuacji gdy ktoś nie jest zalogowany?
 @WebMvcTest(GamerController.class)
 class GamerControllerTest {
 	@Autowired
@@ -110,6 +109,18 @@ class GamerControllerTest {
 	}
 
 	@Test
+	void getGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
+		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+		doThrow(GamerNotFoundException.class).when(gamerService).getGamerPrivateInfo(testGamer.getId());
+
+		mockMvc.perform(get("/v1/gamers/@me")
+				.with(csrf())
+				.with(user(testGamer)))
+			.andExpect(result -> assertTrue(result.getResolvedException() instanceof AuthenticatedGamerNotFoundException))
+			.andExpect(status().isNotFound());
+	}
+
+	@Test
 	void shouldUpdateAuthenticatedGamerProfileDataWhenRequestIsValid() throws Exception {
 		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
 
@@ -138,6 +149,25 @@ class GamerControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(gamerUpdateProfileRequestDto)))
 			.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	void updateGamerProfileShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
+		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
+
+		given(gamerService.updateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+		doThrow(GamerNotFoundException.class).when(gamerService).updateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId());
+
+
+		mockMvc.perform(put("/v1/gamers/@me/profile-data")
+				.with(csrf())
+				.with(user(testGamer))
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(gamerUpdateProfileRequestDto)))
+			.andExpect(result -> assertTrue(result.getResolvedException() instanceof AuthenticatedGamerNotFoundException))
+			.andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -172,6 +202,24 @@ class GamerControllerTest {
 	}
 
 	@Test
+	void updatePartiallyGamerAuthenticationDataShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
+		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamer);
+
+		given(gamerService.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+		doThrow(GamerNotFoundException.class).when(gamerService).updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId());
+
+		mockMvc.perform(patch("/v1/gamers/@me/authentication-data")
+				.with(csrf())
+				.with(user(testGamer))
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(gamerUpdateAuthenticationDataRequestDto)))
+			.andExpect(result -> assertTrue(result.getResolvedException() instanceof AuthenticatedGamerNotFoundException))
+			.andExpect(status().isNotFound());
+	}
+
+	@Test
 	void shouldDeleteAuthenticatedGamer() throws Exception {
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 		doNothing().when(gamerService).deleteGamer(testGamer.getId());
@@ -183,7 +231,7 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void deleteGamerShouldHandleExceptionWhenAuthenticatedGamerNotFound() throws Exception {
+	void deleteGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 		doThrow(GamerNotFoundException.class).when(gamerService).deleteGamer(testGamer.getId());
 
