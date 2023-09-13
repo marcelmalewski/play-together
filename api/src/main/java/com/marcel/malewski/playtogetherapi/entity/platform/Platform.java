@@ -10,6 +10,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO jak będzie dto do tworzenie platform to dać jakieś konkretne wymagania co do struktury nazwy np. wszystko uppercase albo cos
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
