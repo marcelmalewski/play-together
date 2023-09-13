@@ -28,11 +28,9 @@ public class GameSession {
 	private Long id;
 	@NotNull
 	private String name;
-	@Enumerated(EnumType.STRING)
 	@NotNull
 	private PrivacyLevel visibilityType;
 	private boolean isCompetitive;
-	@Enumerated(EnumType.STRING)
 	@NotNull
 	private PrivacyLevel accessType;
 	@NotNull
