@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.gamesession.dto;
 
-import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -5,8 +5,8 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateOrUpdateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import com.marcel.malewski.playtogetherapi.enums.PrivacyLevel;
 
 import java.time.LocalDate;
 import java.util.List;
