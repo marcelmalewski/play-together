@@ -1,3 +1,75 @@
+PUT http://localhost/api/v1/gamers/@me/profile-data
+Content-Type: application/json
+Content-Length: 258
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=0E98B78E3AF57F15584C267AF5CD5C6B
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "aaa",
+  "birthdateAsString": "2001.07-29",
+  "bio": "yes pls",
+  "avatarUrl": "",
+  "playingTimeStartAsString": "16:00",
+  "playingTimeEndAsString": "17:00",
+  "platformsIds": [
+    1
+  ],
+  "favouriteGamesIds": [],
+  "favouriteGenresIds": []
+}
+
+<> 2023-09-12T215217.500.json
+
+###
+
+PUT http://localhost/api/v1/gamers/@me/profile-data
+Content-Type: application/json
+Content-Length: 234
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=0E98B78E3AF57F15584C267AF5CD5C6B
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "login": "aaa",
+  "birthdate": "2001.07-29",
+  "bio": "yes pls",
+  "avatarUrl": "",
+  "playingTimeStart": "16:00",
+  "playingTimeEnd": "17:00",
+  "platformsIds": [
+    1
+  ],
+  "favouriteGamesIds": [],
+  "favouriteGenresIds": []
+}
+
+<> 2023-09-12T215148.400.json
+
+###
+
+GET http://localhost/api/v1/gamers
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=0E98B78E3AF57F15584C267AF5CD5C6B
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-09-12T215133.200.json
+
+###
+
+GET http://localhost/api/v1/gamers
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Cookie: JSESSIONID=0E98B78E3AF57F15584C267AF5CD5C6B
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-09-12T215051.422.json
+
+###
+
 POST http://localhost/api/v1/registration/gamers
 Content-Type: application/json
 Content-Length: 199
@@ -773,76 +845,6 @@ Content-Length: 192
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
 Cookie: JSESSIONID=B668F05DFAB0EC8D3ABDC97A40000520
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "login": "aaa",
-  "password": "121234123412341",
-  "email": "ye2s@yes.yes",
-  "birthdate": "2008-07-29",
-  "playingTimeStart": "16:00",
-  "playingTimeEnd": "17:00",
-  "platformsIds": [1]
-}
-
-###
-
-POST http://localhost/api/v1/registration/gamers
-Content-Type: application/json
-Content-Length: 192
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Cookie: JSESSIONID=B668F05DFAB0EC8D3ABDC97A40000520
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "login": "aaa",
-  "password": "121234123412341",
-  "email": "ye2s@yes.yes",
-  "birthdate": "2008-07-29",
-  "playingTimeStart": "16:00",
-  "playingTimeEnd": "17:00",
-  "platformsIds": [1]
-}
-
-<> 2023-08-13T153724.400.json
-
-###
-
-GET http://localhost/api/v1/gamers
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Cookie: JSESSIONID=B668F05DFAB0EC8D3ABDC97A40000520
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-###
-
-POST http://localhost/api/v1/registration/gamers
-Content-Type: application/json
-Content-Length: 192
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Cookie: JSESSIONID=B668F05DFAB0EC8D3ABDC97A40000520
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "login": "aaa",
-  "password": "121234123412341",
-  "email": "ye2s@yes.yes",
-  "birthdate": "2008-07-29",
-  "playingTimeStart": "16:00",
-  "playingTimeEnd": "17:00",
-  "platformsIds": [1]
-}
-
-###
-
-POST http://localhost/api/auth/gamers/register
-Content-Type: application/json
-Content-Length: 192
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.7)
-Cookie: JSESSIONID=857876FA2BD15AB7829494044DF43D5F
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 {

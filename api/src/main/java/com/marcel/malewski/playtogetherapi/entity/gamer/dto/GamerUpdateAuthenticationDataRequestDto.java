@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 public record GamerUpdateAuthenticationDataRequestDto(
 	@Email
 	String email,
-	//TODO dodać większe wymagania hasła, ale też, że może być nullem
+	//TODO dodać, że hasło może być nullem ,ale jak nie jest to ma  większe wymagania hasła, ale też
 	String newPassword,
 	@NotBlank
 	String currentPassword
