@@ -40,7 +40,7 @@ public record GamerUpdateProfileRequestDto(
 	@ValidTimeFormat
 	@NotNull
 	String playingTimeEndAsString,
-	@Size(min = 1, message = "you have to add at least one platform")
+	@Size(min = 1, message = "you have to add at least 1 platform")
 	@UniqueElements(message = "must only contain unique platformsIds")
 	@NotNull
 	List<Long> platformsIds,
