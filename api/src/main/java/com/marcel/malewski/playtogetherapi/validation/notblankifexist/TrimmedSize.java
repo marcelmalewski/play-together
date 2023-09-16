@@ -5,6 +5,7 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
+//TODO może poprawić na trimmed tylko z boków, a w środku spacje są git
 @Documented
 @Constraint(validatedBy = TrimmedSizeValidator.class)
 @Target(ElementType.FIELD)

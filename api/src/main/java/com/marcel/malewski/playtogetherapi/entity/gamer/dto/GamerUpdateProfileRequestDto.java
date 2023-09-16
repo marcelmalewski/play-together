@@ -17,6 +17,8 @@ import java.util.List;
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.TIME_FORMAT;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationConstants.*;
+import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.AT_LEAST_ONE_PLATFORM;
+import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.UNIQUE_ELEMENTS_MESSAGE;
 
 @ValidPlayingTime
 public record GamerUpdateProfileRequestDto(
@@ -40,14 +42,14 @@ public record GamerUpdateProfileRequestDto(
 	@ValidTimeFormat
 	@NotNull
 	String playingTimeEndAsString,
-	@Size(min = 1, message = "you have to add at least 1 platform")
-	@UniqueElements(message = "must only contain unique platformsIds")
+	@Size(min = 1, message = AT_LEAST_ONE_PLATFORM)
+	@UniqueElements(message = UNIQUE_ELEMENTS_MESSAGE + "platforms ids")
 	@NotNull
 	List<Long> platformsIds,
-	@UniqueElements(message = "must only contain unique platformsIds")
+	@UniqueElements(message = UNIQUE_ELEMENTS_MESSAGE + "favourite games ids")
 	@NotNull
 	List<Long> favouriteGamesIds,
-	@UniqueElements(message = "must only contain unique platformsIds")
+	@UniqueElements(message = UNIQUE_ELEMENTS_MESSAGE + "favourite genres ids")
 	@NotNull
 	List<Integer> favouriteGenresIds
 ) implements EntityWithPlayingTimeAsString {

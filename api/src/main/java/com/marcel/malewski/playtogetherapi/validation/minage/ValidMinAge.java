@@ -12,7 +12,7 @@ import static com.marcel.malewski.playtogetherapi.constant.DateConstants.MIN_AGE
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidMinAge {
-	String message() default "minimum age is " + MIN_AGE;
+	String message() default "must be minimum: " + MIN_AGE;
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }
