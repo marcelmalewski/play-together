@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 public @interface ValidEnum {
 	Class<? extends Enum<?>> enumClass();
 
-	String message() default "must be any of enum {enumClass}";
+	String message() default "must be one of values: {enumValues}";
 
 	Class<?>[] groups() default {};
 

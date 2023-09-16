@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.validation.enums;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,13 @@ public class EnumValidator implements ConstraintValidator<ValidEnum, CharSequenc
 			return true;
 		}
 
-		return acceptedValues.contains(value.toString());
+		if (acceptedValues.contains(value.toString())) {
+			return true;
+		}
+
+		HibernateConstraintValidatorContext hibernateConstraintValidatorContext = context.unwrap(HibernateConstraintValidatorContext.class);
+		hibernateConstraintValidatorContext.addMessageParameter("enumValues", acceptedValues);
+
+		return false;
 	}
 }

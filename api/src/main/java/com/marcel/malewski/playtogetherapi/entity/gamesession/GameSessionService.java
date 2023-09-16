@@ -6,6 +6,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionCreateOrUpdateRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.exception.GameSessionNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.exception.TryToUpdateGameSessionWithoutRoleGameSessionOwnerException;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
@@ -52,7 +53,7 @@ public class GameSessionService {
 		LocalDate today = LocalDate.now();
 		GameSession newGameSession = GameSession.builder()
 			.name(gameSessionCreateDto.name())
-			.visibilityType(gameSessionCreateDto.visibilityType())
+			.visibilityType(PrivacyLevel.valueOf(gameSessionCreateDto.visibilityType()))
 			.isCompetitive(gameSessionCreateDto.isCompetitive())
 			.accessType(gameSessionCreateDto.accessType())
 			.date(gameSessionCreateDto.date())
@@ -84,7 +85,7 @@ public class GameSessionService {
 
 		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 		gameSession.setName(gameSessionCreateDto.name());
-		gameSession.setVisibilityType(gameSessionCreateDto.visibilityType());
+		gameSession.setVisibilityType(PrivacyLevel.valueOf(gameSessionCreateDto.visibilityType()));
 		gameSession.setCompetitive(gameSessionCreateDto.isCompetitive());
 		gameSession.setAccessType(gameSessionCreateDto.accessType());
 		gameSession.setDate(gameSessionCreateDto.date());
