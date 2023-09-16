@@ -18,7 +18,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.List;
+
+import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 
 @Service
 @Validated
@@ -50,13 +54,17 @@ public class GameSessionService {
 		Gamer creator = gamerService.getGamerReference(principalId);
 		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 
+		//TODO chyba tez duplicate
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
+		LocalDate date = LocalDate.parse(gameSessionCreateDto.dateAsString(), dateFormatter);
+
 		LocalDate today = LocalDate.now();
 		GameSession newGameSession = GameSession.builder()
 			.name(gameSessionCreateDto.name())
-			.visibilityType(PrivacyLevel.valueOf(gameSessionCreateDto.visibilityType()))
+			.visibilityType(PrivacyLevel.valueOf(gameSessionCreateDto.visibilityTypeAsString()))
 			.isCompetitive(gameSessionCreateDto.isCompetitive())
-			.accessType(gameSessionCreateDto.accessType())
-			.date(gameSessionCreateDto.date())
+			.accessType(PrivacyLevel.valueOf(gameSessionCreateDto.accessTypeAsString()))
+			.date(date)
 			.createdAt(today)
 			.modifiedAt(today)
 			.numberOfMembers(1)
@@ -83,12 +91,16 @@ public class GameSessionService {
 			throw new TryToUpdateGameSessionWithoutRoleGameSessionOwnerException();
 		}
 
+		//TODO chyba tez duplicate
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
+		LocalDate date = LocalDate.parse(gameSessionCreateDto.dateAsString(), dateFormatter);
+
 		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 		gameSession.setName(gameSessionCreateDto.name());
-		gameSession.setVisibilityType(PrivacyLevel.valueOf(gameSessionCreateDto.visibilityType()));
+		gameSession.setVisibilityType(PrivacyLevel.valueOf(gameSessionCreateDto.visibilityTypeAsString()));
 		gameSession.setCompetitive(gameSessionCreateDto.isCompetitive());
-		gameSession.setAccessType(gameSessionCreateDto.accessType());
-		gameSession.setDate(gameSessionCreateDto.date());
+		gameSession.setAccessType(PrivacyLevel.valueOf(gameSessionCreateDto.accessTypeAsString()));
+		gameSession.setDate(date);
 		gameSession.setModifiedAt(LocalDate.now());
 		gameSession.setMaxMembers(gameSessionCreateDto.maxMembers());//TODO jezlie maxMembers jest mniejsze niz aktualna ilosc members to error
 		gameSession.setMinAge(gameSessionCreateDto.minAge());

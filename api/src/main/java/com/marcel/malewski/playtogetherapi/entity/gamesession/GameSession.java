@@ -39,9 +39,12 @@ public class GameSession {
 	private LocalDate createdAt;
 	@NotNull
 	private LocalDate modifiedAt;
-	private int numberOfMembers;
-	private int maxMembers;
-	private int minAge;
+	@NotNull
+	private Integer numberOfMembers;
+	@NotNull //temp comment thank ti Integer + @NotNull there is notNull in database entity
+	private Integer maxMembers;
+	@NotNull
+	private Integer minAge;
 
 	private String description;
 	private String availabilityTimes;//TODO to na potem, może jakaś paginacja

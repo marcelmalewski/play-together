@@ -105,7 +105,7 @@ public class GamerService {
 			throw new LoginAlreadyUsedException(newLogin);
 		}
 
-		//TODO duplicate
+		//TODO duplicate można zrobić funkcje która tworzy sobie formater przyjmuje date i tyle hm
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 		LocalDate birthdate = LocalDate.parse(updateProfileDto.birthdateAsString(), dateFormatter);
 
