@@ -17,7 +17,7 @@ import java.util.List;
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.TIME_FORMAT;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationConstants.*;
-import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.AT_LEAST_ONE_PLATFORM;
+import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.AT_LEAST_ONE_PLATFORM_ID;
 import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.UNIQUE_ELEMENTS_MESSAGE;
 
 @ValidPlayingTime
@@ -45,7 +45,7 @@ public record GamerRegisterRequestDto(
 	@ValidTimeFormat
 	@NotNull
 	String playingTimeEndAsString,
-	@Size(min = 1, message = AT_LEAST_ONE_PLATFORM)
+	@Size(min = 1, message = AT_LEAST_ONE_PLATFORM_ID)
 	@UniqueElements(message = UNIQUE_ELEMENTS_MESSAGE)
 	@NotNull
 	List<Long> platformsIds
