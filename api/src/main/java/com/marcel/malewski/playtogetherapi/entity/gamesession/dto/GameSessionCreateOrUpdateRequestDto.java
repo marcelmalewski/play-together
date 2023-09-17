@@ -33,14 +33,14 @@ public record GameSessionCreateOrUpdateRequestDto(
 	@Min(value = 1)
 	@Max(value = 1000)
 	@NotNull
-	Integer maxMembers,//TODO handle not valid int exception
+	Integer maxMembers,
 	@Min(value = 1)
 	@Max(value = 200)
 	@NotNull
-	Integer minAge,//TODO handle not valid int exception
+	Integer minAge,
 	String description,
 	@NotNull
-	Long gameId,//TODO handle not valid long exception
+	Long gameId,
 	@Size(min = 1, message = AT_LEAST_ONE_PLATFORM_ID)
 	@UniqueElements(message = UNIQUE_ELEMENTS_MESSAGE + "platforms ids")
 	@NotNull
