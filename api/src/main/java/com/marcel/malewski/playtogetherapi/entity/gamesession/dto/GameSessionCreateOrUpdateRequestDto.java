@@ -3,6 +3,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamesession.dto;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel;
 import com.marcel.malewski.playtogetherapi.validation.dateformat.ValidDateFormat;
 import com.marcel.malewski.playtogetherapi.validation.enums.ValidEnum;
+import com.marcel.malewski.playtogetherapi.validation.futureorpresent.FutureOrPresentCustom;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.UniqueElements;
@@ -24,10 +25,9 @@ public record GameSessionCreateOrUpdateRequestDto(
 	Boolean isCompetitive,
 	@ValidEnum(enumClass = PrivacyLevel.class)
 	String accessTypeAsString,
-
-//	@FutureOrPresent //TODO dodać dla stringa
 	@Schema(example = DATE_EXAMPLE, format = DATE_FORMAT)
 	@ValidDateFormat
+	@FutureOrPresentCustom
 	@NotNull
 	String dateAsString,
 	@Min(value = 1)

@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.validation.minage;
+package com.marcel.malewski.playtogetherapi.validation.futureorpresent;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -11,7 +11,7 @@ import java.time.format.ResolverStyle;
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.MIN_AGE;
 
-public class MinAgeValidator implements ConstraintValidator<ValidMinAge, String>{
+public class FutureOrPresentStringValidator implements ConstraintValidator<FutureOrPresentCustom, String> {
 	@Override
 	public boolean isValid(String dateAsString, ConstraintValidatorContext context) {
 		//TODO duplicate?
@@ -23,7 +23,7 @@ public class MinAgeValidator implements ConstraintValidator<ValidMinAge, String>
 			return true;
 		}
 
-		LocalDate fifteenYearsBeforeToday = LocalDate.now().minusYears(MIN_AGE);
-		return !date.isAfter(fifteenYearsBeforeToday);
+		LocalDate today = LocalDate.now().minusYears(MIN_AGE);
+		return !date.isBefore(today);
 	}
 }
