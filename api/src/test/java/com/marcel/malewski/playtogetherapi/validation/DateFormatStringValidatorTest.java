@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.validation;
 
-import com.marcel.malewski.playtogetherapi.testObject.StringDateFormatTestObject;
+import com.marcel.malewski.playtogetherapi.testObject.DateFormatStringTestObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //TODO poprawic na test tylko specyficznego validatora?
 class DateFormatStringValidatorTest {
   private Validator validator;
-  private StringDateFormatTestObject stringDateFormatTestObject;
+  private DateFormatStringTestObject dateFormatStringTestObject;
 
   @BeforeEach
   void setup() {
@@ -28,17 +28,17 @@ class DateFormatStringValidatorTest {
 
   @Test
   void shouldFindNoViolationsWhenDateFormatIsValid() {
-    stringDateFormatTestObject = new StringDateFormatTestObject(VALID_DATE_FORMAT);
+    dateFormatStringTestObject = new DateFormatStringTestObject(VALID_DATE_FORMAT);
 
-    Set<ConstraintViolation<StringDateFormatTestObject>> violations = validator.validate(stringDateFormatTestObject);
+    Set<ConstraintViolation<DateFormatStringTestObject>> violations = validator.validate(dateFormatStringTestObject);
     assertEquals(0, violations.size());
   }
 
   @Test
   void shouldFindViolationWhenDateFormatIsNotValid() {
-    stringDateFormatTestObject = new StringDateFormatTestObject(INVALID_DATE_FORMAT);
+    dateFormatStringTestObject = new DateFormatStringTestObject(INVALID_DATE_FORMAT);
 
-    Set<ConstraintViolation<StringDateFormatTestObject>> violations = validator.validate(stringDateFormatTestObject);
+    Set<ConstraintViolation<DateFormatStringTestObject>> violations = validator.validate(dateFormatStringTestObject);
     assertEquals(1, violations.size());
   }
 }

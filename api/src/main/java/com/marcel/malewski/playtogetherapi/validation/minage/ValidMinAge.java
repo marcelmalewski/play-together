@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.MIN_AGE;
 
 @Documented
-@Constraint(validatedBy = MinAgeValidator.class)
+@Constraint(validatedBy = MinAgeStringValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidMinAge {

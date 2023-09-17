@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.validation;
 
-import com.marcel.malewski.playtogetherapi.testObject.StringTimeFormatTestObject;
+import com.marcel.malewski.playtogetherapi.testObject.TimeFormatStringTestObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //TODO poprawic na test tylko specyficznego validatora?
 class TimeFormatStringValidatorTest {
   private Validator validator;
-  private StringTimeFormatTestObject stringTimeFormatTestObject;
+  private TimeFormatStringTestObject timeFormatStringTestObject;
 
   @BeforeEach
   void setup() {
@@ -28,17 +28,17 @@ class TimeFormatStringValidatorTest {
 
   @Test
   void shouldFindNoViolationsWhenTimeFormatIsValid() {
-    stringTimeFormatTestObject = new StringTimeFormatTestObject(PLAYING_TIME_START);
+    timeFormatStringTestObject = new TimeFormatStringTestObject(PLAYING_TIME_START);
 
-    Set<ConstraintViolation<StringTimeFormatTestObject>> violations = validator.validate(stringTimeFormatTestObject);
+    Set<ConstraintViolation<TimeFormatStringTestObject>> violations = validator.validate(timeFormatStringTestObject);
     assertEquals(0, violations.size());
   }
 
   @Test
   void shouldFindViolationWhenPlayingTimeStartIsNotValid() {
-    stringTimeFormatTestObject = new StringTimeFormatTestObject(PLAYING_TIME_INVALID_FORMAT);
+    timeFormatStringTestObject = new TimeFormatStringTestObject(PLAYING_TIME_INVALID_FORMAT);
 
-    Set<ConstraintViolation<StringTimeFormatTestObject>> violations = validator.validate(stringTimeFormatTestObject);
+    Set<ConstraintViolation<TimeFormatStringTestObject>> violations = validator.validate(timeFormatStringTestObject);
     assertEquals(1, violations.size());
   }
 }

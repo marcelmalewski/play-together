@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.validation;
 
-import com.marcel.malewski.playtogetherapi.testObject.PlayingTimeTestObject;
+import com.marcel.malewski.playtogetherapi.testObject.PlayingTimeStringTestObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //TODO poprawic na test tylko specyficznego validatora?
 class PlayingTimeStringValidatorTest {
 	private Validator validator;
-	private PlayingTimeTestObject playingTimeTestObject;
+	private PlayingTimeStringTestObject playingTimeStringTestObject;
 
 	@BeforeEach
 	void setup() {
@@ -28,17 +28,17 @@ class PlayingTimeStringValidatorTest {
 
 	@Test
 	void shouldFindNoViolationsWhenPlayingTimesAreValid() {
-		playingTimeTestObject = new PlayingTimeTestObject(PLAYING_TIME_START, PLAYING_TIME_END);
+		playingTimeStringTestObject = new PlayingTimeStringTestObject(PLAYING_TIME_START, PLAYING_TIME_END);
 
-		Set<ConstraintViolation<PlayingTimeTestObject>> violations = validator.validate(playingTimeTestObject);
+		Set<ConstraintViolation<PlayingTimeStringTestObject>> violations = validator.validate(playingTimeStringTestObject);
 		assertEquals(0, violations.size());
 	}
 
 	@Test
 	void shouldFindViolationWhenEndTimeIsBeforeStartTime() {
-    playingTimeTestObject = new PlayingTimeTestObject(PLAYING_TIME_END, PLAYING_TIME_START);
+    playingTimeStringTestObject = new PlayingTimeStringTestObject(PLAYING_TIME_END, PLAYING_TIME_START);
 
-    Set<ConstraintViolation<PlayingTimeTestObject>> violations = validator.validate(playingTimeTestObject);
+    Set<ConstraintViolation<PlayingTimeStringTestObject>> violations = validator.validate(playingTimeStringTestObject);
 		assertEquals(1, violations.size());
 	}
 }

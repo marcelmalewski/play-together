@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.interfaces.EntityWithPlayingTimeAsStr
 import com.marcel.malewski.playtogetherapi.validation.playingtime.ValidPlayingTime;
 
 @ValidPlayingTime
-public record PlayingTimeTestObject(
+public record PlayingTimeStringTestObject(
 	String playingTimeStartAsString,
 	String playingTimeEndAsString
 ) implements EntityWithPlayingTimeAsString {
