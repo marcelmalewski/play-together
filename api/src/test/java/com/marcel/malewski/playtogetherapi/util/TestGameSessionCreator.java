@@ -42,10 +42,10 @@ public final class TestGameSessionCreator {
 
 		return new GameSessionCreateOrUpdateRequestDto(
 			gameSession.getName(),
-			gameSession.getVisibilityType(),
+			gameSession.getVisibilityType().name(),
 			gameSession.isCompetitive(),
-			gameSession.getAccessType(),
-			gameSession.getDate(),
+			gameSession.getAccessType().name(),
+			gameSession.getDate().toString(),
 			gameSession.getMaxMembers(),
 			gameSession.getMinAge(),
 			gameSession.getDescription(),
