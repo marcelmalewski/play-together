@@ -25,10 +25,9 @@ public record GamerRegisterRequestDto(
 	@Size(min = LOGIN_MIN_SIZE, max = LOGIN_MAX_SIZE)
 	@NotBlank
 	String login,
-	//TODO dodać większe wymagania hasła
 	@Size(min = 8, max = 30)
 	@NotBlank
-	String password,
+	String password,//TODO dodać większe wymagania hasła
 	@Email
 	@NotNull
 	String email,

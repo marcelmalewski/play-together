@@ -15,7 +15,7 @@ import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_STA
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora?
-class PlayingTimeValidatorTest {
+class PlayingTimeStringValidatorTest {
 	private Validator validator;
 	private PlayingTimeTestObject playingTimeTestObject;
 

@@ -15,7 +15,7 @@ import static com.marcel.malewski.playtogetherapi.TestConstants.VALID_DATE_FORMA
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //TODO poprawic na test tylko specyficznego validatora?
-class StringDateFormatValidatorTest {
+class DateFormatStringValidatorTest {
   private Validator validator;
   private StringDateFormatTestObject stringDateFormatTestObject;
 

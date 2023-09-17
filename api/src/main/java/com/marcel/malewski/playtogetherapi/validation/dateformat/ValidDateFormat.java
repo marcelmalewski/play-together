@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 
 @Documented
-@Constraint(validatedBy = StringDateFormatValidator.class)
+@Constraint(validatedBy = DateFormatStringValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDateFormat {
