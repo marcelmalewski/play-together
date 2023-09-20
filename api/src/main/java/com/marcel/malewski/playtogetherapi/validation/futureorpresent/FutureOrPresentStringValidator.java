@@ -9,7 +9,6 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
-import static com.marcel.malewski.playtogetherapi.constant.DateConstants.MIN_AGE;
 
 public class FutureOrPresentStringValidator implements ConstraintValidator<FutureOrPresentCustom, String> {
 	@Override
@@ -23,7 +22,7 @@ public class FutureOrPresentStringValidator implements ConstraintValidator<Futur
 			return true;
 		}
 
-		LocalDate today = LocalDate.now().minusYears(MIN_AGE);
+		LocalDate today = LocalDate.now();
 		return !date.isBefore(today);
 	}
 }
