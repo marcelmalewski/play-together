@@ -14,6 +14,8 @@ import com.marcel.malewski.playtogetherapi.security.util.SecurityHelper;
 import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,12 +27,12 @@ import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -53,6 +55,9 @@ class GamerControllerTest {
 
 	@MockBean
 	SecurityHelper securityHelper;
+
+	@Captor
+	ArgumentCaptor<Long> longArgumentCaptor;
 
 	private Gamer testGamer;
 	private GamerPublicResponseDto testGamerPublicResponseDto;
@@ -171,7 +176,7 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void shouldUpdateAuthenticatedGamerAuthenticationDataWhenRequestIsValid() throws Exception {
+	void shouldPartiallyUpdateAuthenticatedGamerAuthenticationDataWhenRequestIsValid() throws Exception {
 		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamer);
 
 		given(gamerService.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
@@ -228,6 +233,10 @@ class GamerControllerTest {
 				.with(csrf())
 				.with(user(testGamer)))
 			.andExpect(status().isNoContent());
+
+		verify(gamerService).deleteGamer(longArgumentCaptor.capture());
+
+		assertThat(testGamer.getId()).isEqualTo(longArgumentCaptor.getValue());
 	}
 
 	@Test
