@@ -24,6 +24,8 @@ import java.util.List;
 @RequestMapping(path = "v1")
 @Tag(name = "Gamers v1", description = "Gamers API v1")
 public class GamerController {
+	public static final String GAMER_PATH_V1 = "/v1/gamers"; //TODO jak by tu tego użyć
+
 	private final GamerService gamerService;
 	private final SecurityHelper securityHelper;
 	private final PrincipalExtractor principalExtractor;
