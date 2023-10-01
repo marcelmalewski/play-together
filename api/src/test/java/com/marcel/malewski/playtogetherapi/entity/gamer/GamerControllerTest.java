@@ -239,6 +239,7 @@ class GamerControllerTest {
 		assertThat(testGamer.getId()).isEqualTo(longArgumentCaptor.getValue());
 	}
 
+	//TODO doTrow zmieniac na given.willThrow
 	@Test
 	void deleteGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
