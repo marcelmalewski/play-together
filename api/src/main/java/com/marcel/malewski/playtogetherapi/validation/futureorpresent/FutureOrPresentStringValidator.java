@@ -16,8 +16,7 @@ public class FutureOrPresentStringValidator implements ConstraintValidator<Futur
 			return true;
 		}
 
-		LocalDate date = optionalDate.get();
 		LocalDate today = LocalDate.now();
-		return !date.isBefore(today);
+		return !optionalDate.get().isBefore(today);
 	}
 }

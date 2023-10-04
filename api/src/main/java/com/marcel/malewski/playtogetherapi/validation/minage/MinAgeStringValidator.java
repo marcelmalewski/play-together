@@ -17,8 +17,7 @@ public class MinAgeStringValidator implements ConstraintValidator<ValidMinAge, S
 			return true;
 		}
 
-		LocalDate date = optionalDate.get();
 		LocalDate fifteenYearsBeforeToday = LocalDate.now().minusYears(MIN_AGE);
-		return !date.isAfter(fifteenYearsBeforeToday);
+		return !optionalDate.get().isAfter(fifteenYearsBeforeToday);
 	}
 }

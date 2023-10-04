@@ -5,34 +5,19 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
+import java.util.Optional;
 
-import static com.marcel.malewski.playtogetherapi.constant.DateConstants.TIME_FORMAT;
+import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.tryParseToTime;
 
-//TODO sprobować użyć bezpośrednio formatter.parse()
 public class PlayingTimeStringValidator implements ConstraintValidator<ValidPlayingTime, EntityWithPlayingTimeAsString> {
 	@Override
 	public boolean isValid(EntityWithPlayingTimeAsString gamerRegisterRequestDto, ConstraintValidatorContext context) {
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-
-		String playingTimeStartAsString = gamerRegisterRequestDto.getPlayingTimeStartAsString();
-		LocalTime playingTimeStart;
-		try {
-			playingTimeStart = LocalTime.parse(playingTimeStartAsString, timeFormatter);
-		} catch (DateTimeParseException | NullPointerException exception) {
+		Optional<LocalTime> optionalPlayingTimeStart = tryParseToTime(gamerRegisterRequestDto.getPlayingTimeStartAsString());
+		if(optionalPlayingTimeStart.isEmpty()) {
 			return true;
 		}
 
-		String playingTimeEndAsString = gamerRegisterRequestDto.getPlayingTimeEndAsString();
-		LocalTime playingTimeEnd;
-		try {
-			playingTimeEnd = LocalTime.parse(playingTimeEndAsString, timeFormatter);
-		} catch (DateTimeParseException | NullPointerException exception) {
-			return true;
-		}
-
-		return playingTimeEnd.isAfter(playingTimeStart);
+		Optional<LocalTime> optionalPlayingTimeEnd = tryParseToTime(gamerRegisterRequestDto.getPlayingTimeEndAsString());
+		return optionalPlayingTimeEnd.map(localTime -> localTime.isAfter(optionalPlayingTimeStart.get())).orElse(true);
 	}
 }
