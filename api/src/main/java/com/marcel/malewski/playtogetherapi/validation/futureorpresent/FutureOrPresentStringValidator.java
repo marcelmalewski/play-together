@@ -6,13 +6,12 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.tryParseToDate;
 
 public class FutureOrPresentStringValidator implements ConstraintValidator<FutureOrPresentCustom, String> {
 	@Override
 	public boolean isValid(String dateAsString, ConstraintValidatorContext context) {
-		Optional<LocalDate> optionalDate = tryParseToDate(dateAsString, DATE_FORMAT);
+		Optional<LocalDate> optionalDate = tryParseToDate(dateAsString);
 		if (optionalDate.isEmpty()) {
 			return true;
 		}
