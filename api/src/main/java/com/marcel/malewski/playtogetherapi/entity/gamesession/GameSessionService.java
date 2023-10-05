@@ -23,6 +23,7 @@ import java.time.format.ResolverStyle;
 import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
+import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToDate;
 
 @Service
 @Validated
@@ -54,10 +55,7 @@ public class GameSessionService {
 		Gamer creator = gamerService.getGamerReference(principalId);
 		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 
-		//TODO chyba tez duplicate
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalDate date = LocalDate.parse(gameSessionCreateDto.dateAsString(), dateFormatter);
-
+		LocalDate date = parseToDate(gameSessionCreateDto.dateAsString());
 		LocalDate today = LocalDate.now();
 		GameSession newGameSession = GameSession.builder()
 			.name(gameSessionCreateDto.name())
