@@ -18,11 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
 import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToDate;
 
 @Service
@@ -89,10 +86,7 @@ public class GameSessionService {
 			throw new TryToUpdateGameSessionWithoutRoleGameSessionOwnerException();
 		}
 
-		//TODO chyba tez duplicate
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalDate date = LocalDate.parse(gameSessionCreateDto.dateAsString(), dateFormatter);
-
+		LocalDate date = parseToDate(gameSessionCreateDto.dateAsString());
 		Game game = gameService.getReferenceOfGivenGame(gameSessionCreateDto.gameId());
 		gameSession.setName(gameSessionCreateDto.name());
 		gameSession.setVisibilityType(PrivacyLevel.valueOf(gameSessionCreateDto.visibilityTypeAsString()));
