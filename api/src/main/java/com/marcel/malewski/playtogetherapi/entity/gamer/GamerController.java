@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "v1")
@@ -63,13 +64,13 @@ public class GamerController {
 	                                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
-		try {
-			GamerPrivateResponseDto gamerPrivateResponse = gamerService.getGamerPrivateInfo(principalId);
-			return new ResponseEntity<>(gamerPrivateResponse, HttpStatus.OK);
-		} catch (GamerNotFoundException exception) {
+		Optional<GamerPrivateResponseDto> optionalGamerPrivateResponse = gamerService.findGamerPrivateInfo(principalId);
+		if(optionalGamerPrivateResponse.isEmpty()) {
 			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
+
+		return new ResponseEntity<>(optionalGamerPrivateResponse.get(), HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/gamers/@me/profile-data")

@@ -5,7 +5,6 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponse
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import jakarta.validation.constraints.NotNull;
 import org.mapstruct.Mapper;
 import org.springframework.validation.annotation.Validated;
 
@@ -17,8 +16,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 @Validated
 public abstract class GamerMapper {
-	public GamerPrivateResponseDto toGamerPrivateResponseDto(@NotNull Gamer gamer) {
+	public GamerPrivateResponseDto toGamerPrivateResponseDto(Gamer gamer) {
+		if(gamer == null) {
+			return null;
+		}
+
 		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?
+		//TODO duplicate
 		List<String> platformsNames = gamer.getPlatforms().stream().map(Platform::getName).toList();
 		List<String> gamesNames = gamer.getFavouriteGames().stream().map(Game::getName).toList();
 		List<String> genresNames = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
@@ -38,7 +42,11 @@ public abstract class GamerMapper {
 		);
 	}
 
-	public GamerPublicResponseDto toGamerPublicResponseDto(@NotNull Gamer gamer) {
+	public GamerPublicResponseDto toGamerPublicResponseDto(Gamer gamer) {
+		if(gamer == null) {
+			return null;
+		}
+
 		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?
 		LocalDate currentDay = LocalDate.now();
 		int age = Period.between(gamer.getBirthdate(), currentDay).getYears();

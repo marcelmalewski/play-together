@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
@@ -101,8 +102,8 @@ class GamerControllerTest {
 
 	@Test
 	void shouldReturnAuthenticatedGamerPrivateInfoWhenGamerIsAuthenticated() throws Exception {
-		given(gamerService.getGamerPrivateInfo(testGamer.getId())).willReturn(testGamerPrivateResponseDto);
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+		given(gamerService.findGamerPrivateInfo(testGamer.getId())).willReturn(Optional.of(testGamerPrivateResponseDto));
 
 		mockMvc.perform(get("/v1/gamers/@me")
 				.with(user(testGamer))
@@ -116,7 +117,7 @@ class GamerControllerTest {
 	@Test
 	void getGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
-		doThrow(GamerNotFoundException.class).when(gamerService).getGamerPrivateInfo(testGamer.getId());
+		given(gamerService.findGamerPrivateInfo(testGamer.getId())).willReturn(Optional.empty());
 
 		mockMvc.perform(get("/v1/gamers/@me")
 				.with(csrf())

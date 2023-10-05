@@ -28,6 +28,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToDate;
 import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToTime;
@@ -69,9 +70,11 @@ public class GamerService {
 		return gamerMapper.toGamerPublicResponseDto(gamer);
 	}
 
-	public GamerPrivateResponseDto getGamerPrivateInfo(long gamerId) {
-		Gamer gamer = gamerRepository.findById(gamerId).orElseThrow(() -> new GamerNotFoundException(gamerId));
-		return gamerMapper.toGamerPrivateResponseDto(gamer);
+	public Optional<GamerPrivateResponseDto> findGamerPrivateInfo(long gamerId) {
+		Optional<Gamer> optionalGamer = gamerRepository.findById(gamerId);
+		return Optional.ofNullable(
+			gamerMapper.toGamerPrivateResponseDto(optionalGamer.orElse(null))
+		);
 	}
 
 	public Gamer getGamerReference(long gamerId) {
