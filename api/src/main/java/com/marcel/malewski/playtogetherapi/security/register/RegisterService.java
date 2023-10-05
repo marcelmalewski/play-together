@@ -16,11 +16,9 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 
-import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
-import static com.marcel.malewski.playtogetherapi.constant.DateConstants.TIME_FORMAT;
+import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToDate;
+import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToTime;
 
 @Service
 @Validated
@@ -50,12 +48,9 @@ public class RegisterService {
 
 		String encodedPassword = passwordEncoder.encode(registerDto.password());
 
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalDate birthdate = LocalDate.parse(registerDto.birthdateAsString(), dateFormatter);
-
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalTime playingTimeStart = LocalTime.parse(registerDto.playingTimeStartAsString(), timeFormatter);
-		LocalTime playingTimeEnd = LocalTime.parse(registerDto.playingTimeEndAsString(), timeFormatter);
+		LocalDate birthdate = parseToDate(registerDto.birthdateAsString());
+		LocalTime playingTimeStart = parseToTime(registerDto.playingTimeStartAsString());
+		LocalTime playingTimeEnd = parseToTime(registerDto.playingTimeEndAsString());
 
 		Gamer newGamer = Gamer.builder()
 			.login(login)

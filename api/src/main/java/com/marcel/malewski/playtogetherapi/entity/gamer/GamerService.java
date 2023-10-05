@@ -27,12 +27,10 @@ import org.springframework.validation.annotation.Validated;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.constant.DateConstants.DATE_FORMAT;
-import static com.marcel.malewski.playtogetherapi.constant.DateConstants.TIME_FORMAT;
+import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToDate;
+import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToTime;
 
 @Service
 @Validated
@@ -105,13 +103,9 @@ public class GamerService {
 			throw new LoginAlreadyUsedException(newLogin);
 		}
 
-		//TODO duplicate można zrobić funkcje która tworzy sobie formater przyjmuje date i tyle hm
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalDate birthdate = LocalDate.parse(updateProfileDto.birthdateAsString(), dateFormatter);
-
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
-		LocalTime playingTimeStart = LocalTime.parse(updateProfileDto.playingTimeStartAsString(), timeFormatter);
-		LocalTime playingTimeEnd = LocalTime.parse(updateProfileDto.playingTimeEndAsString(), timeFormatter);
+		LocalDate birthdate = parseToDate(updateProfileDto.birthdateAsString());
+		LocalTime playingTimeStart = parseToTime(updateProfileDto.playingTimeStartAsString());
+		LocalTime playingTimeEnd = parseToTime(updateProfileDto.playingTimeEndAsString());
 
 		gamer.setLogin(newLogin);
 		gamer.setBirthdate(birthdate);
