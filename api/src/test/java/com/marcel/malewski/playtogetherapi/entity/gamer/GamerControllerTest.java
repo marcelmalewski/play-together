@@ -178,7 +178,7 @@ class GamerControllerTest {
 	void shouldPartiallyUpdateAuthenticatedGamerAuthenticationDataWhenRequestIsValid() throws Exception {
 		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamer);
 
-		given(gamerService.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(gamerService.tryUpdatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(Optional.of(testGamerPrivateResponseDto));
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 
 		mockMvc.perform(patch("/v1/gamers/@me/authentication-data")
@@ -209,9 +209,8 @@ class GamerControllerTest {
 	void updatePartiallyGamerAuthenticationDataShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() throws Exception {
 		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamer);
 
-		given(gamerService.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(gamerService.tryUpdatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(Optional.empty());
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
-		doThrow(GamerNotFoundException.class).when(gamerService).updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId());
 
 		mockMvc.perform(patch("/v1/gamers/@me/authentication-data")
 				.with(csrf())
