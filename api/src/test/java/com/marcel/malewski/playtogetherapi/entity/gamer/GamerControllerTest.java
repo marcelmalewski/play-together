@@ -39,7 +39,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-//TODO czy dodać test sytuacji gdy ktoś nie jest zalogowany?
+//TODO czy dodać test sytuacji gdy ktoś nie jest zalogowany? czy to inny plik?
 @WebMvcTest(GamerController.class)
 class GamerControllerTest {
 	@Autowired
@@ -115,7 +115,7 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void getGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
+	void shouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() throws Exception {
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 		given(gamerService.findGamerPrivateInfo(testGamer.getId())).willReturn(Optional.empty());
 
@@ -130,7 +130,7 @@ class GamerControllerTest {
 	void shouldUpdateAuthenticatedGamerProfileDataWhenRequestIsValid() throws Exception {
 		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
 
-		given(gamerService.updateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(gamerService.tryUpdateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(Optional.of(testGamerPrivateResponseDto));
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 
 		mockMvc.perform(put("/v1/gamers/@me/profile-data")
@@ -158,13 +158,11 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void updateGamerProfileShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
+	void updateGamerProfileShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() throws Exception {
 		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
 
-		given(gamerService.updateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
+		given(gamerService.tryUpdateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(Optional.empty());
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
-		doThrow(GamerNotFoundException.class).when(gamerService).updateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId());
-
 
 		mockMvc.perform(put("/v1/gamers/@me/profile-data")
 				.with(csrf())
@@ -208,7 +206,7 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void updatePartiallyGamerAuthenticationDataShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
+	void updatePartiallyGamerAuthenticationDataShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() throws Exception {
 		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamer);
 
 		given(gamerService.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(testGamerPrivateResponseDto);
@@ -242,7 +240,7 @@ class GamerControllerTest {
 
 	//TODO doTrow zmieniac na given.willThrow
 	@Test
-	void deleteGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotFound() throws Exception {
+	void deleteGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() throws Exception {
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 		doThrow(GamerNotFoundException.class).when(gamerService).deleteGamer(testGamer.getId());
 
