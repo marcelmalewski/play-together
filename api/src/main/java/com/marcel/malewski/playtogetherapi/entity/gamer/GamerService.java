@@ -98,8 +98,12 @@ public class GamerService {
 		return savedGamer.getId();
 	}
 
-	public GamerPrivateResponseDto updateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long gamerId) {
-		Gamer gamer = gamerRepository.findById(gamerId).orElseThrow(() -> new GamerNotFoundException(gamerId));
+	public Optional<GamerPrivateResponseDto> tryUpdateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long gamerId) {
+		Optional<Gamer> optionalGamer = gamerRepository.findById(gamerId);
+		if(optionalGamer.isEmpty()) {
+			return Optional.ofNullable(gamerMapper.toGamerPrivateResponseDto(null));
+		}
+		Gamer gamer = optionalGamer.get();
 
 		String newLogin = updateProfileDto.login();
 		if (!gamer.getLogin().equals(newLogin) && gamerRepository.existsByLogin(newLogin)) {
@@ -136,7 +140,9 @@ public class GamerService {
 		});
 
 		Gamer updatedGamer = gamerRepository.save(gamer);
-		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
+		return Optional.ofNullable(
+			gamerMapper.toGamerPrivateResponseDto(updatedGamer)
+		);
 	}
 
 	public GamerPrivateResponseDto updatePartiallyGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long gamerId) {

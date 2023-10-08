@@ -79,13 +79,13 @@ public class GamerController {
 	                                                                  HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
-		try {
-			GamerPrivateResponseDto updatedGamer = gamerService.updateGamerProfile(updateProfileDto, principalId);
-			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
-		} catch (GamerNotFoundException exception) {
+		Optional<GamerPrivateResponseDto> optionalUpdatedGamer = gamerService.tryUpdateGamerProfile(updateProfileDto, principalId);
+		if(optionalUpdatedGamer.isEmpty()) {
 			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
+
+		return new ResponseEntity<>(optionalUpdatedGamer.get(), HttpStatus.OK);
 	}
 
 	@PatchMapping(value = "/gamers/@me/authentication-data")
