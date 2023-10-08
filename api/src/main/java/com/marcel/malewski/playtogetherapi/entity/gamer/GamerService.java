@@ -145,8 +145,12 @@ public class GamerService {
 		);
 	}
 
-	public GamerPrivateResponseDto updatePartiallyGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long gamerId) {
-		Gamer gamer = gamerRepository.findById(gamerId).orElseThrow(() -> new GamerNotFoundException(gamerId));
+	public Optional<GamerPrivateResponseDto> tryUpdatePartiallyGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long gamerId) {
+		Optional<Gamer> optionalGamer = gamerRepository.findById(gamerId);
+		if(optionalGamer.isEmpty()) {
+			return Optional.ofNullable(gamerMapper.toGamerPrivateResponseDto(null));
+		}
+		Gamer gamer = optionalGamer.get();
 
 		if (!passwordEncoder.matches(updateAuthDto.currentPassword(), gamer.getPassword())) {
 			throw new InvalidPasswordException();
@@ -168,7 +172,9 @@ public class GamerService {
 		}
 
 		Gamer updatedGamer = gamerRepository.save(gamer);
-		return gamerMapper.toGamerPrivateResponseDto(updatedGamer);
+		return Optional.ofNullable(
+			gamerMapper.toGamerPrivateResponseDto(updatedGamer)
+		);
 	}
 
 	public void deleteGamer(long gamerId) {

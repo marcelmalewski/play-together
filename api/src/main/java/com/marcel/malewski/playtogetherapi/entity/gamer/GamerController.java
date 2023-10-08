@@ -94,13 +94,13 @@ public class GamerController {
 	                                                                             HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
-		try {
-			GamerPrivateResponseDto updatedGamer = gamerService.updatePartiallyGamerAuthenticationData(updateAuthDto, principalId);
-			return new ResponseEntity<>(updatedGamer, HttpStatus.OK);
-		} catch (GamerNotFoundException exception) {
+		Optional<GamerPrivateResponseDto> optionalUpdatedGamer = gamerService.tryUpdatePartiallyGamerAuthenticationData(updateAuthDto, principalId);
+		if(optionalUpdatedGamer.isEmpty()) {
 			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
+
+		return new ResponseEntity<>(optionalUpdatedGamer.get(), HttpStatus.OK);
 	}
 
 	//TODO dodać, że moderator nie może tak po prostu usuną swojego konta?
