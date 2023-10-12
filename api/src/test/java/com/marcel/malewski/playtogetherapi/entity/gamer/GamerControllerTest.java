@@ -5,7 +5,6 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponse
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
-import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
@@ -33,7 +32,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -89,7 +88,7 @@ class GamerControllerTest {
 
 	@Test
 	void shouldReturnGamerWhenGamerWithGivenIdExist() throws Exception {
-		given(gamerService.getGamerPublicInfo(testGamer.getId())).willReturn(testGamerPublicResponseDto);
+		given(gamerService.findGamerPublicInfo(testGamer.getId())).willReturn(Optional.of(testGamerPublicResponseDto));
 
 		mockMvc.perform(get("/v1/gamers/" + testGamer.getId())
 				.with(user(testGamer))
@@ -225,23 +224,22 @@ class GamerControllerTest {
 	@Test
 	void shouldDeleteAuthenticatedGamer() throws Exception {
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
-		doNothing().when(gamerService).deleteGamer(testGamer.getId());
+		given(gamerService.tryDeleteGamer(testGamer.getId())).willReturn(true);
 
 		mockMvc.perform(delete("/v1/gamers/@me")
 				.with(csrf())
 				.with(user(testGamer)))
 			.andExpect(status().isNoContent());
 
-		verify(gamerService).deleteGamer(longArgumentCaptor.capture());
+		verify(gamerService).tryDeleteGamer(longArgumentCaptor.capture());
 
 		assertThat(testGamer.getId()).isEqualTo(longArgumentCaptor.getValue());
 	}
 
-	//TODO doTrow zmieniac na given.willThrow
 	@Test
 	void deleteGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() throws Exception {
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
-		doThrow(GamerNotFoundException.class).when(gamerService).deleteGamer(testGamer.getId());
+		given(gamerService.tryDeleteGamer(testGamer.getId())).willReturn(false);
 
 		mockMvc.perform(delete("/v1/gamers/@me")
 				.with(csrf())

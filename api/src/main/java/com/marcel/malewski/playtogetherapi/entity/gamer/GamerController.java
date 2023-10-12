@@ -54,8 +54,12 @@ public class GamerController {
 	                                                       HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
-		GamerPublicResponseDto gamerPublicResponse = gamerService.getGamerPublicInfo(gamerId);
-		return new ResponseEntity<>(gamerPublicResponse, HttpStatus.OK);
+		Optional<GamerPublicResponseDto> optionalGamerPublicResponse = gamerService.findGamerPublicInfo(gamerId);
+		if(optionalGamerPublicResponse.isEmpty()) {
+			throw new GamerNotFoundException(gamerId);
+		}
+
+		return new ResponseEntity<>(optionalGamerPublicResponse.get(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/gamers/@me")
@@ -103,19 +107,20 @@ public class GamerController {
 		return new ResponseEntity<>(optionalUpdatedGamer.get(), HttpStatus.OK);
 	}
 
-	//TODO dodać, że moderator nie może tak po prostu usuną swojego konta?
+	//TODO dodać, że moderator nie może tak po prostu usuną swojego konta? może raczej tak, czemu nie? gamer i moderator, bedzie zmieniac tylko tyle ze moderator
+	//to ze ktos ma konto moderatora to bazowo zmienia tylko troche, ale jest pare roznych mozliwosci ktore juz mozna dac albo zabrac dla danego moderatora i moderator może dostać role owner
+	//są dwa typy kont gamer i moderator, a role to co innego np. moze byc rola owner i moderator jak odstanie taką role to moze wszystko
 	@DeleteMapping("/gamers/@me")
 	@Operation(summary = "Delete the authenticated gamer and log out")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
-		try {
-			gamerService.deleteGamer(principalId);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (GamerNotFoundException exception) {
+		if(!gamerService.tryDeleteGamer(principalId)) {
 			securityHelper.LogoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

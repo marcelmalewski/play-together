@@ -65,10 +65,13 @@ public class GamerService {
 		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPrivateResponseDto).toList();
 	}
 
-	public GamerPublicResponseDto getGamerPublicInfo(long gamerId) {
-		Gamer gamer = gamerRepository.findById(gamerId).orElseThrow(() -> new GamerNotFoundException(gamerId));
-		return gamerMapper.toGamerPublicResponseDto(gamer);
+	public Optional<GamerPublicResponseDto> findGamerPublicInfo(long gamerId) {
+		Optional<Gamer> optionalGamer = gamerRepository.findById(gamerId);
+		return Optional.ofNullable(
+			gamerMapper.toGamerPublicResponseDto(optionalGamer.orElse(null))
+		);
 	}
+
 
 	public Optional<GamerPrivateResponseDto> findGamerPrivateInfo(long gamerId) {
 		Optional<Gamer> optionalGamer = gamerRepository.findById(gamerId);
@@ -183,6 +186,15 @@ public class GamerService {
 		}
 
 		gamerRepository.deleteById(gamerId);
+	}
+
+	public boolean tryDeleteGamer(long gamerId) {
+		if (!gamerRepository.existsById(gamerId)) {
+			return false;
+		}
+
+		gamerRepository.deleteById(gamerId);
+		return true;
 	}
 
 	public void throwExceptionAndLogoutIfAuthenticatedGamerNotFound(@NotNull Principal principal, @NotNull HttpServletRequest request,
