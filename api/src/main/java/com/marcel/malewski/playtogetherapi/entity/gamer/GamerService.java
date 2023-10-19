@@ -80,6 +80,7 @@ public class GamerService {
 		);
 	}
 
+	//TODO poprawa na optional
 	public Gamer getGamerReference(long gamerId) {
 		if(!gamerRepository.existsById(gamerId)) {
 			throw new GamerNotFoundException(gamerId);
@@ -178,14 +179,6 @@ public class GamerService {
 		return Optional.ofNullable(
 			gamerMapper.toGamerPrivateResponseDto(updatedGamer)
 		);
-	}
-
-	public void deleteGamer(long gamerId) {
-		if (!gamerRepository.existsById(gamerId)) {
-			throw new GamerNotFoundException(gamerId);
-		}
-
-		gamerRepository.deleteById(gamerId);
 	}
 
 	public boolean tryDeleteGamer(long gamerId) {

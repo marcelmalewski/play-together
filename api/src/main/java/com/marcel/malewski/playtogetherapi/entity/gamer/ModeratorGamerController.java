@@ -1,6 +1,7 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,10 @@ public class ModeratorGamerController {
 	@Operation(summary = "Delete gamer by id")
 	@Secured("ROLE_MODERATOR")
 	public ResponseEntity<Void> deleteGamer(long gamerId) {
-		gamerService.deleteGamer(gamerId);
+		if(gamerService.tryDeleteGamer(gamerId)) {
+			throw new GamerNotFoundException(gamerId);
+		}
+
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
@@ -45,7 +49,10 @@ public class ModeratorGamerController {
 	@Operation(summary = "Delete gamer with role moderator by id")
 	@Secured("ROLE_OWNER")
 	public ResponseEntity<Void> deleteModerator(long moderatorId) {
-		gamerService.deleteGamer(moderatorId);
+		if(gamerService.tryDeleteGamer(moderatorId)) {
+			throw new GamerNotFoundException(moderatorId);
+		}
+
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
