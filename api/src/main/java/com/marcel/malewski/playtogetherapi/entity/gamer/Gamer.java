@@ -35,6 +35,9 @@ public class Gamer implements UserDetails {
 	@SequenceGenerator(name = "gamer_sequence", sequenceName = "gamer_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gamer_sequence")
 	private Long id;
+	@Version
+	private Integer version;
+
 	@NotNull
 	@Column(unique = true)
 	private String login;
