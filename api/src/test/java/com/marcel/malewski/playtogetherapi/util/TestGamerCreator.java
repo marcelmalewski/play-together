@@ -41,6 +41,21 @@ public final class TestGamerCreator {
 	public static Gamer getTestGamer(List<Platform> platforms, List<GamerRole> roles) {
 		return Gamer.builder()
 			.id(1L)
+			.version(1)
+			.login(LOGIN)
+			.password(PASSWORD)
+			.email(EMAIL)
+			.birthdate(LocalDate.of(2000, 1, 1))
+			.playingTimeStart(LocalTime.of(15, 0))
+			.playingTimeEnd(LocalTime.of(18, 0))
+			.createdAt(LocalDate.now())
+			.roles(roles)
+			.platforms(platforms)
+			.build();
+	}
+
+	public static Gamer getTestGamerToSave(List<Platform> platforms, List<GamerRole> roles) {
+		return Gamer.builder()
 			.login(LOGIN)
 			.password(PASSWORD)
 			.email(EMAIL)
