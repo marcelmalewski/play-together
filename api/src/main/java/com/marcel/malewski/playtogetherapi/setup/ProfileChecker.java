@@ -21,7 +21,7 @@ public class ProfileChecker {
 	public CommandLineRunner profileCheckerRunner() {
 		return args -> {
 			if (environment.getActiveProfiles().length == 0) {
-				throw new IllegalStateException("No profile set. Please set one of the following profiles: dev, prod (see README)");
+				throw new IllegalStateException("No profile set. Please set one of the following profiles: dev, test, prod (see README)");
 //				error("No profile set. Please set one of the following profiles: dev, prod (see README)");
 			}
 		};
