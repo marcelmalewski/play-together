@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-//TODO zmienić na logowanie "error" zamiast rzucania wyjątku
+//TODO zmienić na logowanie "error" zamiast rzucania wyjątku, a moze wyjatek jest dobrą opcja hm
 @Configuration
 public class ProfileChecker {
 
