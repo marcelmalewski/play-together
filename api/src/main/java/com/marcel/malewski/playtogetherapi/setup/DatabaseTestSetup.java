@@ -22,9 +22,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@Profile("dev")
+@Profile("test")
 @Component
-public class DatabaseDevSetup implements CommandLineRunner {
+public class DatabaseTestSetup implements CommandLineRunner {
 	private final GamerRepository gamerRepository;
 	private final GamerRoleRepository gamerRoleRepository;
 	private final PlatformRepository platformRepository;
@@ -32,7 +32,7 @@ public class DatabaseDevSetup implements CommandLineRunner {
 	private final GameSessionRepository gameSessionRepository;
 	private final PasswordEncoder passwordEncoder;
 
-	public DatabaseDevSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, GameRepository gameRepository, GameSessionRepository gameSessionRepository, PasswordEncoder passwordEncoder) {
+	public DatabaseTestSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, GameRepository gameRepository, GameSessionRepository gameSessionRepository, PasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.gamerRoleRepository = gamerRoleRepository;
 		this.platformRepository = platformRepository;
@@ -41,6 +41,7 @@ public class DatabaseDevSetup implements CommandLineRunner {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	//TODO duplicate
 	@Override
 	public void run(String... args) {
 		if (!gamerRepository.existsByLogin("admin")) {
