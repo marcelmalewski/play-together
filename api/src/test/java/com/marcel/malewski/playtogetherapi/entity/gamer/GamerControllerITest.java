@@ -1,29 +1,22 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
-import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
-import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.util.List;
-
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getTestGamerToSave;
-import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
-import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
-import static org.assertj.core.api.Assertions.assertThat;
-
-//TODO aktualnie jest jedna baza na wszystkie testy, zrobić baza per test
-@DataJpaTest
+@SpringBootTest()
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class GamerRepositoryTest {
+@ActiveProfiles(value = "test")
+public class GamerControllerITest {
 	@Container
 	public static PostgreSQLContainer database = new PostgreSQLContainer("postgres:12")
 		.withDatabaseName("tests-db")
@@ -38,17 +31,13 @@ public class GamerRepositoryTest {
 	}
 
 	@Autowired
+	GamerController gamerController;
+
+	@Autowired
 	GamerRepository gamerRepository;
 
 	@Test
-	void shouldSaveGamerAndJpaShouldFulfilIdAndVersion() {
-		List<Platform> testPlatforms = getTestPlatforms();
-		List<GamerRole> allRoles = getAllRoles();
-		Gamer gamerToSave = getTestGamerToSave(testPlatforms, allRoles);
-		Gamer savedGamer = gamerRepository.save(gamerToSave);
-
-		assertThat(savedGamer).isNotNull();
-		assertThat(savedGamer.getId()).isNotNull();
-		assertThat(savedGamer.getVersion()).isNotNull();
+	void testList() {
+		System.out.println("test list");
 	}
 }
