@@ -14,6 +14,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
+import static com.marcel.malewski.playtogetherapi.TestConstants.POSTGRES_IMAGE;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getTestGamerToSave;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
@@ -25,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class GamerRepositoryTest {
 	@Container
-	public static PostgreSQLContainer database = new PostgreSQLContainer("postgres:12")
+	public static PostgreSQLContainer database = new PostgreSQLContainer(POSTGRES_IMAGE)
 		.withDatabaseName("tests-db")
 		.withUsername("test")
 		.withPassword("test1234");

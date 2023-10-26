@@ -7,6 +7,7 @@ public final class TestConstants {
 	public static final String PLAYING_TIME_START = "09:00";
 	public static final String PLAYING_TIME_END = "10:00";
 	public static final String PLAYING_TIME_INVALID_FORMAT = "1800";
+	public static final String POSTGRES_IMAGE = "postgres:12";
 
 
 	private TestConstants() {}

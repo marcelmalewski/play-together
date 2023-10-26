@@ -12,13 +12,15 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import static com.marcel.malewski.playtogetherapi.TestConstants.POSTGRES_IMAGE;
+
 @SpringBootTest()
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles(value = "test")
 public class GamerControllerITest {
 	@Container
-	public static PostgreSQLContainer database = new PostgreSQLContainer("postgres:12")
+	public static PostgreSQLContainer database = new PostgreSQLContainer(POSTGRES_IMAGE)
 		.withDatabaseName("tests-db")
 		.withUsername("test")
 		.withPassword("test1234");
