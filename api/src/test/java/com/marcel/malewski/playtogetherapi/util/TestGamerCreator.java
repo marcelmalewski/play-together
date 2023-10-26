@@ -15,8 +15,8 @@ import java.time.LocalTime;
 import java.time.Period;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_END;
-import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_START;
+import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_END_AS_STRING;
+import static com.marcel.malewski.playtogetherapi.TestConstants.PLAYING_TIME_START_AS_STRING;
 
 public final class TestGamerCreator {
 	public static final String LOGIN = "validLogin";
@@ -26,7 +26,7 @@ public final class TestGamerCreator {
 	public static final String EMAIL = "test@test.test";
 	public static final String INVALID_EMAIL = "invalid email";
 
-	public static final String BIRTH_DATE = "2000-01-01";
+	public static final String BIRTH_DATE_AS_STRING = "2000-01-01";
 	public static final String BIO = "test bio";
 	public static final String AVATAR_URL = "test bio";
 
@@ -131,11 +131,11 @@ public final class TestGamerCreator {
 	public static GamerUpdateProfileRequestDto getInValidGamerUpdateProfileRequestDto() {
 		return new GamerUpdateProfileRequestDto(
 			INVALID_LOGIN,
-			BIRTH_DATE,
+			BIRTH_DATE_AS_STRING,
 			BIO,
 			AVATAR_URL,
-			PLAYING_TIME_START,
-			PLAYING_TIME_END,
+			PLAYING_TIME_START_AS_STRING,
+			PLAYING_TIME_END_AS_STRING,
 			PLATFORMS_IDS,
 			FAVOURITE_GAMES_IDS,
 			FAVOURITE_GENRES_IDS
