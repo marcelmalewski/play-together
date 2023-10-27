@@ -27,8 +27,18 @@ public final class TestGamerCreator {
 	public static final String INVALID_EMAIL = "invalid email";
 
 	public static final String BIRTH_DATE_AS_STRING = "2000-01-01";
+	public static final int BIRTH_DATE_YEAR = 2000;
+	public static final int BIRTH_DATE_MONTH = 1;
+	public static final int BIRTH_DATE_DAY = 1;
+
+	public static final int PLAYING_TIME_START_HOUR = 15;
+	public static final int PLAYING_TIME_START_MINUTES = 0;
+	public static final int PLAYING_TIME_END_HOUR = 18;
+	public static final int PLAYING_TIME_END_MINUTES = 0;
+
 	public static final String BIO = "test bio";
 	public static final String AVATAR_URL = "test bio";
+
 
 	public static List<Long> PLATFORMS_IDS = List.of(1L);
 	public static List<Long> FAVOURITE_GAMES_IDS = List.of(1L);
@@ -45,9 +55,9 @@ public final class TestGamerCreator {
 			.login(LOGIN)
 			.password(PASSWORD)
 			.email(EMAIL)
-			.birthdate(LocalDate.of(2000, 1, 1))
-			.playingTimeStart(LocalTime.of(15, 0))
-			.playingTimeEnd(LocalTime.of(18, 0))
+			.birthdate(LocalDate.of(BIRTH_DATE_YEAR, BIRTH_DATE_MONTH, BIRTH_DATE_DAY))
+			.playingTimeStart(LocalTime.of(PLAYING_TIME_START_HOUR, PLAYING_TIME_START_MINUTES))
+			.playingTimeEnd(LocalTime.of(PLAYING_TIME_END_HOUR, PLAYING_TIME_END_MINUTES))
 			.createdAt(LocalDate.now())
 			.roles(roles)
 			.platforms(platforms)
@@ -59,9 +69,9 @@ public final class TestGamerCreator {
 			.login(LOGIN)
 			.password(PASSWORD)
 			.email(EMAIL)
-			.birthdate(LocalDate.of(2000, 1, 1))
-			.playingTimeStart(LocalTime.of(15, 0))
-			.playingTimeEnd(LocalTime.of(18, 0))
+			.birthdate(LocalDate.of(BIRTH_DATE_YEAR, BIRTH_DATE_MONTH, BIRTH_DATE_DAY))
+			.playingTimeStart(LocalTime.of(PLAYING_TIME_START_HOUR, PLAYING_TIME_START_MINUTES))
+			.playingTimeEnd(LocalTime.of(PLAYING_TIME_END_HOUR, PLAYING_TIME_END_MINUTES))
 			.createdAt(LocalDate.now())
 			.roles(roles)
 			.platforms(platforms)
