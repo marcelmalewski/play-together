@@ -1,10 +1,20 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
+import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
+import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -12,7 +22,15 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.security.Principal;
+import java.util.List;
+import java.util.Objects;
+
+import static com.marcel.malewski.playtogetherapi.TestConstants.NUMBER_OF_GAMERS_IN_TEST_DATABASE;
 import static com.marcel.malewski.playtogetherapi.TestConstants.POSTGRES_IMAGE;
+import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
+import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest()
 @Testcontainers
@@ -38,8 +56,28 @@ public class GamerControllerITest {
 	@Autowired
 	GamerRepository gamerRepository;
 
+	@Autowired
+	HttpServletRequest request;
+
+	@Autowired
+	HttpServletResponse response;
+
+	public Principal principal;
+	public Gamer testGamer;
+
+	@BeforeEach
+	public void setupPrincipal() {
+		List<Platform> testPlatforms = getTestPlatforms();
+		List<GamerRole> allRoles = getAllRoles();
+		testGamer = TestGamerCreator.getTestGamer(testPlatforms, allRoles);
+		principal = new UsernamePasswordAuthenticationToken(testGamer, testGamer.getPassword());
+	}
+
 	@Test
-	void testList() {
-		System.out.println("test list");
+	@Transactional
+	void shouldReturnListWithOneGamerWhenOneGamerExist() {
+		ResponseEntity<List<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(principal, request, response);
+
+		assertThat(Objects.requireNonNull(allGamersResponse.getBody()).size()).isEqualTo(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
 	}
 }
