@@ -66,7 +66,7 @@ public class GamerControllerITest {
 	public Gamer testGamer;
 
 	@BeforeEach
-	public void setupPrincipal() {
+	public void setUp() {
 		List<Platform> testPlatforms = getTestPlatforms();
 		List<GamerRole> allRoles = getAllRoles();
 		testGamer = TestGamerCreator.getTestGamer(testPlatforms, allRoles);
@@ -76,8 +76,16 @@ public class GamerControllerITest {
 	@Test
 	@Transactional
 	void shouldReturnListWithOneGamerWhenOneGamerExist() {
-		ResponseEntity<List<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(principal, request, response);
+		ResponseEntity<List<GamerPublicResponseDto>> allGamers = gamerController.findAllGamers(principal, request, response);
 
-		assertThat(Objects.requireNonNull(allGamersResponse.getBody()).size()).isEqualTo(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
+		assertThat(Objects.requireNonNull(allGamers.getBody()).size()).isEqualTo(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
+	}
+
+	@Test
+	@Transactional
+	void shouldReturnGamerWhenGamerWithGivenIdExist() {
+		ResponseEntity<GamerPublicResponseDto> gamer = gamerController.getGamer(testGamer.getId(), principal, request, response);
+
+		assertThat(gamer).isNotNull();
 	}
 }
