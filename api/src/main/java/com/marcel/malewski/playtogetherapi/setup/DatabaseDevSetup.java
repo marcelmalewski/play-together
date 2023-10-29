@@ -33,6 +33,6 @@ public class DatabaseDevSetup implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		BasicSetup(gamerRepository, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository);
+		BasicSetup(false, gamerRepository, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository);
 	}
 }

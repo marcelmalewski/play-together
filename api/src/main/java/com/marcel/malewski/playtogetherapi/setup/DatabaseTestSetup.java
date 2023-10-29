@@ -33,6 +33,6 @@ public class DatabaseTestSetup implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		BasicSetup(gamerRepository, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository);
+		BasicSetup(true, gamerRepository, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository);
 	}
 }

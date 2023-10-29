@@ -23,7 +23,7 @@ public final class DatabaseSetup {
 	private DatabaseSetup() {
 	}
 
-	static void BasicSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository) {
+	static void BasicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Role
 			GamerRole userRole = new GamerRole(GamerRoleName.ROLE_USER.name());
@@ -37,18 +37,36 @@ public final class DatabaseSetup {
 			Platform savedPcPlatform = platformRepository.save(pc);
 
 			//Gamer
-			Gamer admin = Gamer.builder()
-				.login("admin")
-				.password(passwordEncoder.encode("admin.123"))
-				.email("admin@admin.com")
-				.birthdate(LocalDate.of(2000, 1, 1))
-				.playingTimeStart(LocalTime.of(15, 0))
-				.playingTimeEnd(LocalTime.of(19, 0))
-				.createdAt(LocalDate.now())
-				.bio("Hello, I am admin.")
-				.roles(List.of(savedModeratorRole))
-				.platforms(List.of(savedPcPlatform))
-				.build();
+			Gamer admin;
+
+			if (testSetup) {
+				admin = Gamer.builder()
+					.login("validLogin")
+					.password(passwordEncoder.encode("test123451345134"))
+					.email("test@test.test")
+					.birthdate(LocalDate.of(2000, 1, 1))
+					.playingTimeStart(LocalTime.of(15, 0))
+					.playingTimeEnd(LocalTime.of(19, 0))
+					.createdAt(LocalDate.now())
+					.bio("test bio")
+					.roles(List.of(savedModeratorRole))
+					.platforms(List.of(savedPcPlatform))
+					.build();
+			} else {
+				admin = Gamer.builder()
+					.login("admin")
+					.password(passwordEncoder.encode("admin.123"))
+					.email("admin@admin.com")
+					.birthdate(LocalDate.of(2000, 1, 1))
+					.playingTimeStart(LocalTime.of(15, 0))
+					.playingTimeEnd(LocalTime.of(19, 0))
+					.createdAt(LocalDate.now())
+					.bio("Hello, I am admin.")
+					.roles(List.of(savedModeratorRole))
+					.platforms(List.of(savedPcPlatform))
+					.build();
+			}
+
 			Gamer savedAdmin = gamerRepository.save(admin);
 
 			//Game
