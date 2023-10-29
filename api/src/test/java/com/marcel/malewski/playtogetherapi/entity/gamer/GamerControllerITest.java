@@ -1,7 +1,9 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.ActiveProfiles;
@@ -29,7 +32,7 @@ import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
-import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
+import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRole;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -69,7 +72,7 @@ public class GamerControllerITest {
 	@BeforeEach
 	public void setUp() {
 		List<Platform> testPlatforms = getTestPlatforms();
-		List<GamerRole> allRoles = getAllRoles();
+		List<GamerRole> allRoles = getModeratorRole();
 		testGamer = TestGamerCreator.getTestGamer(testPlatforms, allRoles);
 		principal = new UsernamePasswordAuthenticationToken(testGamer, testGamer.getPassword());
 	}
@@ -77,17 +80,17 @@ public class GamerControllerITest {
 	@Test
 	@Transactional
 	void shouldReturnListWithOneGamerWhenOneGamerExist() {
-		ResponseEntity<List<GamerPublicResponseDto>> allGamers = gamerController.findAllGamers(principal, request, response);
+		ResponseEntity<List<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(principal, request, response);
 
-		assertThat(Objects.requireNonNull(allGamers.getBody()).size()).isEqualTo(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
+		assertThat(Objects.requireNonNull(allGamersResponse.getBody()).size()).isEqualTo(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
 	}
 
 	@Test
 	@Transactional
 	void shouldReturnGamerWhenGamerWithGivenIdExist() {
-		ResponseEntity<GamerPublicResponseDto> gamer = gamerController.getGamer(testGamer.getId(), principal, request, response);
+		ResponseEntity<GamerPublicResponseDto> gamerResponse = gamerController.getGamer(testGamer.getId(), principal, request, response);
 
-		assertThat(gamer).isNotNull();
+		assertThat(gamerResponse).isNotNull();
 	}
 
 	@Test
@@ -96,5 +99,22 @@ public class GamerControllerITest {
 		assertThrows(GamerNotFoundException.class, () -> {
 			gamerController.getGamer(ID_OF_GAMER_THAT_NOT_EXIST, principal, request, response);
 		});
+	}
+
+	@Test
+	@Transactional
+	void shouldUpdateAuthenticatedGamerProfileDataWhenRequestIsValid() {
+		String updatedLogin = "updated";
+		testGamer.setLogin(updatedLogin);
+		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
+
+		ResponseEntity<GamerPrivateResponseDto> updatedGamerResponse = gamerController.updateGamerProfile(gamerToUpdate, principal, request, response);
+
+		assertThat(updatedGamerResponse.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+
+		GamerPrivateResponseDto updatedGamer = updatedGamerResponse.getBody();
+
+		assert updatedGamer != null;
+		assertThat(updatedGamer.login()).isEqualTo(updatedLogin);
 	}
 }

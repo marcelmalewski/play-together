@@ -17,7 +17,7 @@ import java.util.List;
 import static com.marcel.malewski.playtogetherapi.TestConstants.POSTGRES_IMAGE;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getTestGamerToSave;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
-import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
+import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRole;
 import static org.assertj.core.api.Assertions.assertThat;
 
 //TODO aktualnie jest jedna baza na wszystkie testy, zrobić baza per test
@@ -44,7 +44,7 @@ public class GamerRepositoryTest {
 	@Test
 	void shouldSaveGamerAndJpaShouldFulfilIdAndVersion() {
 		List<Platform> testPlatforms = getTestPlatforms();
-		List<GamerRole> allRoles = getAllRoles();
+		List<GamerRole> allRoles = getModeratorRole();
 		Gamer gamerToSave = getTestGamerToSave(testPlatforms, allRoles);
 		Gamer savedGamer = gamerRepository.save(gamerToSave);
 

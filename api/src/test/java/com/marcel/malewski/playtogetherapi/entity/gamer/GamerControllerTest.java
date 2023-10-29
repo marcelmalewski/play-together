@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
-import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
+import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRole;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -67,7 +67,7 @@ class GamerControllerTest {
 	@BeforeEach
 	void setUp() {
 		List<Platform> testPlatforms = getTestPlatforms();
-		List<GamerRole> allRoles = getAllRoles();
+		List<GamerRole> allRoles = getModeratorRole();
 		testGamer = TestGamerCreator.getTestGamer(testPlatforms, allRoles);
 		testGamerPublicResponseDto = TestGamerCreator.toGamerPublicResponseDto(testGamer);
 		testGamerPrivateResponseDto = TestGamerCreator.toGamerPrivateResponseDto(testGamer);
