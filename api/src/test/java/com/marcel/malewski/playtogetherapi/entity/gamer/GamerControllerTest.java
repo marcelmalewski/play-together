@@ -5,6 +5,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponse
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
@@ -97,6 +98,17 @@ class GamerControllerTest {
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGamerPublicResponseDto.id()))))
 			.andExpect(jsonPath("$.login", is(testGamerPublicResponseDto.login())));
+	}
+
+	@Test
+	void shouldReturnGamerNotFoundWhenGamerWithGivenIdNotExist() throws Exception {
+		given(gamerService.findGamerPublicInfo(testGamer.getId())).willReturn(Optional.empty());
+
+		mockMvc.perform(get("/v1/gamers/" + testGamer.getId())
+				.with(csrf())
+				.with(user(testGamer)))
+			.andExpect(result -> assertTrue(result.getResolvedException() instanceof GamerNotFoundException))
+			.andExpect(status().isNotFound());
 	}
 
 	@Test
