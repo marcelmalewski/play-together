@@ -7,6 +7,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRe
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
+import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -113,8 +114,19 @@ public class GamerControllerITest {
 		assertThat(updatedGamerResponse.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
 
 		GamerPrivateResponseDto updatedGamer = updatedGamerResponse.getBody();
-
 		assert updatedGamer != null;
 		assertThat(updatedGamer.login()).isEqualTo(updatedLogin);
+	}
+
+	@Test
+	@Transactional
+	void updateGamerProfileShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() {
+		testGamer.setId(ID_OF_GAMER_THAT_NOT_EXIST);
+		principal = new UsernamePasswordAuthenticationToken(testGamer, testGamer.getPassword());
+		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
+
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
+			gamerController.updateGamerProfile(gamerToUpdate, principal, request, response);
+		});
 	}
 }
