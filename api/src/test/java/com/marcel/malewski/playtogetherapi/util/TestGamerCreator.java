@@ -33,11 +33,11 @@ public final class TestGamerCreator {
 
 	public static final int PLAYING_TIME_START_HOUR = 15;
 	public static final int PLAYING_TIME_START_MINUTES = 0;
-	public static final int PLAYING_TIME_END_HOUR = 18;
+	public static final int PLAYING_TIME_END_HOUR = 19;
 	public static final int PLAYING_TIME_END_MINUTES = 0;
 
 	public static final String BIO = "test bio";
-	public static final String AVATAR_URL = "test bio";
+	public static final String AVATAR_URL = "test avatar url";
 
 
 	public static List<Long> PLATFORMS_IDS = List.of(1L);
@@ -47,7 +47,6 @@ public final class TestGamerCreator {
 	private TestGamerCreator() {
 	}
 
-	//TODO te daty niżej to powinny być jakieś zmienne?
 	public static Gamer getTestGamer(List<Platform> platforms, List<GamerRole> roles) {
 		return Gamer.builder()
 			.id(1L)
