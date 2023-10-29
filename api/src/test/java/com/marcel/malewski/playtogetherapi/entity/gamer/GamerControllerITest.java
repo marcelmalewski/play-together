@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
@@ -26,11 +27,11 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
-import static com.marcel.malewski.playtogetherapi.TestConstants.NUMBER_OF_GAMERS_IN_TEST_DATABASE;
-import static com.marcel.malewski.playtogetherapi.TestConstants.POSTGRES_IMAGE;
+import static com.marcel.malewski.playtogetherapi.TestConstants.*;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest()
 @Testcontainers
@@ -87,5 +88,13 @@ public class GamerControllerITest {
 		ResponseEntity<GamerPublicResponseDto> gamer = gamerController.getGamer(testGamer.getId(), principal, request, response);
 
 		assertThat(gamer).isNotNull();
+	}
+
+	@Test
+	@Transactional
+	void shouldReturnGamerNotFoundWhenGamerWithGivenIdNotExist() {
+		assertThrows(GamerNotFoundException.class, () -> {
+			gamerController.getGamer(ID_OF_GAMER_THAT_NOT_EXIST, principal, request, response);
+		});
 	}
 }

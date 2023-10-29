@@ -10,6 +10,7 @@ public final class TestConstants {
 	public static final String POSTGRES_IMAGE = "postgres:12";
 
 	public static final int NUMBER_OF_GAMERS_IN_TEST_DATABASE = 1;
+	public static final int ID_OF_GAMER_THAT_NOT_EXIST = 999;
 
 
 	private TestConstants() {}
