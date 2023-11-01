@@ -33,7 +33,6 @@ public class ModeratorGamerController {
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
-	//TODO moderator nie może usunąć moderatora? moderatora może usunąć owner?
 	@DeleteMapping("/moderator-panel/gamers/:gamerId")
 	@Operation(summary = "Delete gamer by id")
 	@Secured("ROLE_MODERATOR")
