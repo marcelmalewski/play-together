@@ -3,7 +3,6 @@ package com.marcel.malewski.playtogetherapi.entity.gamesession;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel;
-import com.marcel.malewski.playtogetherapi.entity.pendingmember.PendingMember;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +29,7 @@ public class GameSession {
 	private String name;
 	@NotNull
 	private PrivacyLevel visibilityType;
-	private boolean isCompetitive;
+	private boolean isCompetitive; //TODO jaki error poleci jak tu będzie null
 	@NotNull
 	private PrivacyLevel accessType;
 	@NotNull
@@ -46,7 +45,7 @@ public class GameSession {
 	@NotNull
 	private Integer minAge;
 
-	private String description;
+	private String description;//TODO co sie stanie jak bedzie przekazany jako null?
 	private String availabilityTimes;//TODO to na potem, może jakaś paginacja
 
 	@ManyToOne
@@ -68,10 +67,7 @@ public class GameSession {
 	@NotNull
 	private List<Gamer> members = new ArrayList<>();
 
-	@OneToMany(mappedBy = "gameSession")
-	@Builder.Default
-	@NotNull
-	private List<PendingMember> pendingMembers = new ArrayList<>();
+	//TODO add pending members
 
 	@ManyToMany
 	@JoinTable(name = "gamesession_platform",
