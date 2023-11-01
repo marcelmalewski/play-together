@@ -4,7 +4,6 @@ import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
-import com.marcel.malewski.playtogetherapi.entity.pendingmember.PendingMember;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -58,12 +57,6 @@ public class Gamer implements UserDetails {
 	private String bio;
 	private String avatarUrl;
 
-	@OneToMany(mappedBy = "creator")
-	@ToString.Exclude
-	@Builder.Default
-	@NotNull
-	private List<GameSession> createdGameSessions = new ArrayList<>();
-
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
@@ -82,16 +75,17 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<Platform> platforms = new ArrayList<>();
 
+	@OneToMany(mappedBy = "creator")
+	@ToString.Exclude
+	@Builder.Default
+	@NotNull
+	private List<GameSession> createdGameSessions = new ArrayList<>();
+
 	@ManyToMany(mappedBy = "members")
 	@ToString.Exclude
 	@Builder.Default
 	@NotNull
 	private List<GameSession> joinedGameSessions = new ArrayList<>();
-
-	@OneToMany(mappedBy = "gamer")
-	@Builder.Default
-	@NotNull
-	private List<PendingMember> pendingMembers = new ArrayList<>();
 
 	@ManyToMany
 	@JoinTable(name = "gamer_favourite_game",
