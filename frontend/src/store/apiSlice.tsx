@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RegisterBody } from "../interfaces/authInterfaces";
 
+//TODO jakos inaczej może rozegrac to "v1"
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: "/api/v1",
   }),
   tagTypes: ["MyData"],
   endpoints: (builder) => ({
@@ -21,7 +22,7 @@ export const apiSlice = createApi({
     }),
     register: builder.mutation<void, RegisterBody>({
       query: (body) => ({
-        url: "/auth/gamers/register",
+        url: "/registration/gamers",
         body: body,
         method: "POST",
         //invalidatesTags: () => ["MyData"],
