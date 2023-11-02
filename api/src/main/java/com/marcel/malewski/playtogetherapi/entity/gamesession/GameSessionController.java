@@ -40,7 +40,7 @@ public class GameSessionController {
 		this.principalExtractor = principalExtractor;
 	}
 
-	//TODO dodać filtr, żeby nie pokazały się te w których już jestem
+	//TODO endpoint not used
 	@GetMapping(value = "/game-sessions")
 	@Operation(summary = "Find all game sessions")
 	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = DEFAULT_PAGEABLE_PAGE_AS_STRING) @Min(0) @Max(100) int page,
@@ -49,14 +49,15 @@ public class GameSessionController {
 	                                                                              Principal principal, HttpServletRequest request,
 	                                                                              HttpServletResponse response
 	) {
-		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = principalExtractor.extractIdFromPrincipal(principal);
+//		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+//		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		Pageable pageable = PageRequest.of(page, size, sort.getSort());
-		Page<GameSessionPublicResponseDto> allGameSessions = gameSessionService.findAllGameSessions(pageable, principalId);
+		Page<GameSessionPublicResponseDto> allGameSessions = gameSessionService.findAllGameSessions(pageable, 1L);
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
 	}
 
+	//TODO endpoint not used
 	@GetMapping(value = "/game-sessions/{gameSessionId}")
 	@Operation(summary = "Get game session by id")
 	public ResponseEntity<GameSessionPublicResponseDto> getGameSession(@PathVariable long gameSessionId, Principal principal, HttpServletRequest request,
@@ -68,17 +69,19 @@ public class GameSessionController {
 		return new ResponseEntity<>(gameSession, HttpStatus.OK);
 	}
 
+	//TODO endpoint not used
 	@PostMapping(value = "/game-sessions")
 	@Operation(summary = "Create a game session")
 	public ResponseEntity<GameSessionPublicResponseDto> createGameSession(@Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
-		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
-		long principalId = principalExtractor.extractIdFromPrincipal(principal);
+//		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
+//		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
-		GameSessionPublicResponseDto createdGameSession = gameSessionService.createGameSession(gameSessionCreateDto, principalId);
+		GameSessionPublicResponseDto createdGameSession = gameSessionService.createGameSession(gameSessionCreateDto, 1L);
 		return new ResponseEntity<>(createdGameSession, HttpStatus.CREATED);
 	}
 
+	//TODO endpoint not used
 	@PutMapping(value = "/game-sessions/{gameSessionId}")
 	@Operation(summary = "Update a game session by id")
 	public ResponseEntity<GameSessionPublicResponseDto> updateGameSession(@PathVariable long gameSessionId, @Valid @RequestBody GameSessionCreateOrUpdateRequestDto gameSessionCreateDto, Principal principal, HttpServletRequest request,
@@ -90,6 +93,7 @@ public class GameSessionController {
 		return new ResponseEntity<>(updatedGameSession, HttpStatus.OK);
 	}
 
+	//TODO endpoint not used
 	@DeleteMapping(value = "/game-sessions/{gameSessionId}")
 	public ResponseEntity<GameSessionPublicResponseDto> deleteGameSession(@PathVariable long gameSessionId, Principal principal, HttpServletRequest request,
 	                                                                      HttpServletResponse response) {
