@@ -50,8 +50,7 @@ public class SecurityConfiguration {
 			.permitAll()
 
 			.requestMatchers(
-				"/error",
-				"/v1/game-sessions"
+				"/error"
 			)
 			.permitAll()
 
