@@ -35,7 +35,7 @@ import static com.marcel.malewski.playtogetherapi.util.TestGameSessionCreator.ge
 import static com.marcel.malewski.playtogetherapi.util.TestGameSessionCreator.toGameSessionResponseDto;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatformsNames;
-import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getAllRoles;
+import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRole;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -69,7 +69,7 @@ class GameSessionControllerTest {
 	@BeforeEach
 	public void setup() {
 		List<Platform> testPlatforms = getTestPlatforms();
-		List<GamerRole> allRoles = getAllRoles();
+		List<GamerRole> allRoles = getModeratorRole();
 		Game fortnite = new Game(1L, "fortnite");
 
 		testGamer = TestGamerCreator.getTestGamer(testPlatforms, allRoles);
