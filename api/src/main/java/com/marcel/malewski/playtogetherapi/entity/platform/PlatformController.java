@@ -20,8 +20,9 @@ public class PlatformController {
 		this.platformService = platformService;
 	}
 
+	//TODO endpoint not used
 	@GetMapping(value = "/platforms")
-	@Operation(summary = "Find all platformsIds")
+	@Operation(summary = "Find all platforms")
 	public ResponseEntity<List<Platform>> findAllPlatforms() {
 		List<Platform> allPlatforms = platformService.findAllPlatforms();
 		return new ResponseEntity<>(allPlatforms, HttpStatus.OK);

@@ -29,8 +29,9 @@ public class RegisterController {
 		this.registerService = registerService;
 	}
 
+	//TODO endpoint not used
 	@PostMapping(value="/registration/gamers")
-	@Operation(summary = "Register gamer")
+	@Operation(summary = "Register gamer with role user")
 	public ResponseEntity<Void> registerGamer(@Valid @RequestBody GamerRegisterRequestDto registerDto, Principal principal) {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedGamerException();
@@ -43,7 +44,7 @@ public class RegisterController {
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 
-	//TODO moderatora tworzy inny moderator albo owner, owner może usunąć moderatora
+	//TODO endpoint not used
 	@PostMapping(value="/moderator-panel/registration/moderators")
 	@Operation(summary = "Register gamer with role moderator")
 	@Secured("ROLE_MODERATOR")

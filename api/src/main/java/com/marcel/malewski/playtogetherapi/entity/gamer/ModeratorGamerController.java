@@ -24,7 +24,7 @@ public class ModeratorGamerController {
 		this.gamerService = gamerService;
 	}
 
-	//TODO jakiś filtr, żeby pobrać tylko moderatorów
+	//TODO endpoint not used
 	@GetMapping("/moderator-panel/gamers")
 	@Operation(summary = "Find all gamers private info")
 	@Secured("ROLE_MODERATOR")
@@ -33,6 +33,7 @@ public class ModeratorGamerController {
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
+	//TODO endpoint not used
 	@DeleteMapping("/moderator-panel/gamers/:gamerId")
 	@Operation(summary = "Delete gamer by id")
 	@Secured("ROLE_MODERATOR")
@@ -44,6 +45,7 @@ public class ModeratorGamerController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	//TODO endpoint not used
 	@DeleteMapping("/moderator-panel/moderators/:moderatorId")
 	@Operation(summary = "Delete gamer with role moderator by id")
 	@Secured("ROLE_OWNER")
