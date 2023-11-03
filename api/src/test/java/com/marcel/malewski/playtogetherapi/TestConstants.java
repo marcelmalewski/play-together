@@ -9,7 +9,7 @@ public final class TestConstants {
 	public static final String PLAYING_TIME_AS_STRING_INVALID_FORMAT = "1800";
 	public static final String POSTGRES_IMAGE = "postgres:12";
 
-	public static final int NUMBER_OF_GAMERS_IN_TEST_DATABASE = 1;
+	public static final int NUMBER_OF_GAMERS_IN_TEST_DATABASE = 2;
 	public static final long ID_OF_GAMER_THAT_NOT_EXIST = 999L;
 
 
