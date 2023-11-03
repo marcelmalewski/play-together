@@ -23,7 +23,7 @@ public final class DatabaseSetup {
 	private DatabaseSetup() {
 	}
 
-	static void BasicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository) {
+	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Role
 			GamerRole userRole = new GamerRole(GamerRoleName.ROLE_USER.name());
@@ -41,6 +41,7 @@ public final class DatabaseSetup {
 
 			if (testSetup) {
 				admin = Gamer.builder()
+					.id(1L)//TODO czy tak mogę?
 					.login("validLogin")
 					.password(passwordEncoder.encode("test123451345134"))
 					.email("test@test.test")
@@ -55,7 +56,7 @@ public final class DatabaseSetup {
 			} else {
 				admin = Gamer.builder()
 					.login("admin")
-					.password(passwordEncoder.encode("admin.123"))
+					.password(passwordEncoder.encode("admin.123"))//TODO przenieść hasło do plików konfiguracyjnych
 					.email("admin@admin.com")
 					.birthdate(LocalDate.of(2000, 1, 1))
 					.playingTimeStart(LocalTime.of(15, 0))

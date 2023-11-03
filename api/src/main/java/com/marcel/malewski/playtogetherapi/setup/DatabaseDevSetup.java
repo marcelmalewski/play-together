@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import static com.marcel.malewski.playtogetherapi.setup.DatabaseSetup.BasicSetup;
+import static com.marcel.malewski.playtogetherapi.setup.DatabaseSetup.basicSetup;
 
 @Profile("dev")
 @Component
@@ -33,6 +33,6 @@ public class DatabaseDevSetup implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		BasicSetup(false, gamerRepository, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository);
+		basicSetup(false, gamerRepository, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository);
 	}
 }
