@@ -12,8 +12,8 @@ import org.springframework.validation.annotation.Validated;
 @Component
 @Validated
 public class SecurityHelper {
-	public void LogoutManually(@NotNull HttpServletRequest request,
-	                                  @NotNull HttpServletResponse response) {
+	public void logoutManually(@NotNull HttpServletRequest request,
+	                           @NotNull HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
 		securityContextLogoutHandler.logout(request, response, auth);

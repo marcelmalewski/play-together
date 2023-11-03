@@ -195,7 +195,7 @@ public class GamerService {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		if (!gamerRepository.existsById(principalId)) {
-			securityHelper.LogoutManually(request, response);
+			securityHelper.logoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 	}

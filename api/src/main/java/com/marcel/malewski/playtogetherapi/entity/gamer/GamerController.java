@@ -70,7 +70,7 @@ public class GamerController {
 
 		Optional<GamerPrivateResponseDto> optionalGamerPrivateResponse = gamerService.findGamerPrivateInfo(principalId);
 		if(optionalGamerPrivateResponse.isEmpty()) {
-			securityHelper.LogoutManually(request, response);
+			securityHelper.logoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 
@@ -85,7 +85,7 @@ public class GamerController {
 
 		Optional<GamerPrivateResponseDto> optionalUpdatedGamer = gamerService.tryUpdateGamerProfile(updateProfileDto, principalId);
 		if(optionalUpdatedGamer.isEmpty()) {
-			securityHelper.LogoutManually(request, response);
+			securityHelper.logoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 
@@ -100,7 +100,7 @@ public class GamerController {
 
 		Optional<GamerPrivateResponseDto> optionalUpdatedGamer = gamerService.tryUpdatePartiallyGamerAuthenticationData(updateAuthDto, principalId);
 		if(optionalUpdatedGamer.isEmpty()) {
-			securityHelper.LogoutManually(request, response);
+			securityHelper.logoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 
@@ -114,7 +114,7 @@ public class GamerController {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		if(!gamerService.tryDeleteGamer(principalId)) {
-			securityHelper.LogoutManually(request, response);
+			securityHelper.logoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
 
