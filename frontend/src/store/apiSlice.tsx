@@ -5,7 +5,7 @@ import { RegisterBody } from "../interfaces/authInterfaces";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api/v1",
+    baseUrl: "/api",
   }),
   tagTypes: ["MyData"],
   endpoints: (builder) => ({
@@ -22,7 +22,7 @@ export const apiSlice = createApi({
     }),
     register: builder.mutation<void, RegisterBody>({
       query: (body) => ({
-        url: "/registration/gamers",
+        url: "/v1/registration/gamers",
         body: body,
         method: "POST",
         //invalidatesTags: () => ["MyData"],
