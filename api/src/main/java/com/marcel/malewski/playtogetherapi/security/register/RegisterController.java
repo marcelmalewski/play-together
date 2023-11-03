@@ -29,7 +29,6 @@ public class RegisterController {
 		this.registerService = registerService;
 	}
 
-	//TODO endpoint not used
 	@PostMapping(value="/registration/gamers")
 	@Operation(summary = "Register gamer with role user")
 	public ResponseEntity<Void> registerGamer(@Valid @RequestBody GamerRegisterRequestDto registerDto, Principal principal) {
