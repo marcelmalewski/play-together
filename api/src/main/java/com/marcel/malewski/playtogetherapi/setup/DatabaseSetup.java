@@ -41,10 +41,9 @@ public final class DatabaseSetup {
 
 			if (testSetup) {
 				admin = Gamer.builder()
-					.id(1L)//TODO czy tak mogę?
-					.login("validLogin")
-					.password(passwordEncoder.encode("test123451345134"))
-					.email("test@test.test")
+					.login("test1")
+					.password(passwordEncoder.encode("test123456789"))
+					.email("test1@test1.test1")
 					.birthdate(LocalDate.of(2000, 1, 1))
 					.playingTimeStart(LocalTime.of(15, 0))
 					.playingTimeEnd(LocalTime.of(19, 0))
@@ -53,6 +52,21 @@ public final class DatabaseSetup {
 					.roles(List.of(savedModeratorRole))
 					.platforms(List.of(savedPcPlatform))
 					.build();
+
+				Gamer testGamer2 = Gamer.builder()
+					.login("test2")
+					.password(passwordEncoder.encode("test123456789"))
+					.email("test2@test2.test2")
+					.birthdate(LocalDate.of(2000, 1, 1))
+					.playingTimeStart(LocalTime.of(15, 0))
+					.playingTimeEnd(LocalTime.of(19, 0))
+					.createdAt(LocalDate.now())
+					.bio("test bio")
+					.roles(List.of(savedModeratorRole))
+					.platforms(List.of(savedPcPlatform))
+					.build();
+
+				gamerRepository.save(testGamer2);
 			} else {
 				admin = Gamer.builder()
 					.login("admin")
