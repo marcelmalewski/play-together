@@ -5,8 +5,6 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponse
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
-import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
-import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -32,8 +31,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
-import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
-import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRole;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -72,9 +69,7 @@ public class GamerControllerITest {
 
 	@BeforeEach
 	public void setUp() {
-		List<Platform> testPlatforms = getTestPlatforms();
-		List<GamerRole> allRoles = getModeratorRole();
-		testGamer = TestGamerCreator.getTestGamer(testPlatforms, allRoles);
+		testGamer = gamerRepository.findAll().get(0);
 		principal = new UsernamePasswordAuthenticationToken(testGamer, testGamer.getPassword());
 	}
 
@@ -83,7 +78,7 @@ public class GamerControllerITest {
 	void shouldReturnListWithOneGamerWhenOneGamerExist() {
 		ResponseEntity<List<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(principal, request, response);
 
-		assertThat(Objects.requireNonNull(allGamersResponse.getBody()).size()).isEqualTo(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
+		assertThat(Objects.requireNonNull(allGamersResponse.getBody())).hasSize(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
 	}
 
 	@Test
@@ -104,6 +99,7 @@ public class GamerControllerITest {
 
 	@Test
 	@Transactional
+	@Rollback
 	void shouldUpdateAuthenticatedGamerProfileDataWhenRequestIsValid() {
 		String updatedLogin = "updated";
 		testGamer.setLogin(updatedLogin);
@@ -128,5 +124,15 @@ public class GamerControllerITest {
 		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
 			gamerController.updateGamerProfile(gamerToUpdate, principal, request, response);
 		});
+	}
+
+	@Test
+	@Transactional
+	@Rollback
+	void shouldDeleteAuthenticatedGamer() {
+		ResponseEntity<Void> deleteGamerResponse = gamerController.deleteGamer(principal, request, response);
+		assertThat(deleteGamerResponse.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
+
+		assertThat(gamerRepository.findById(testGamer.getId())).isEmpty();
 	}
 }
