@@ -10,7 +10,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -26,9 +26,9 @@ public class RegisterService {
 	private final GamerService gamerService;
 	private final GamerRoleService gamerRoleService;
 	private final PlatformService platformService;
-	private final PasswordEncoder passwordEncoder;
+	private final BCryptPasswordEncoder passwordEncoder;
 
-	public RegisterService(GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, PasswordEncoder passwordEncoder) {
+	public RegisterService(GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, BCryptPasswordEncoder passwordEncoder) {
 		this.gamerService = gamerService;
 		this.gamerRoleService = gamerRoleService;
 		this.platformService = platformService;

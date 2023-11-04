@@ -20,7 +20,7 @@ import com.marcel.malewski.playtogetherapi.security.util.SecurityHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -41,12 +41,12 @@ public class GamerService {
 	private final GameService gameService;
 	private final GenreService genreService;
 	private final GamerMapper gamerMapper;
-	private final PasswordEncoder passwordEncoder;
+	private final BCryptPasswordEncoder passwordEncoder;
 	private final SecurityHelper securityHelper;
 	private final PrincipalExtractor principalExtractor;
 
 
-	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GenreService genreService, GamerMapper gamerMapper, GameService gameService, PasswordEncoder passwordEncoder, SecurityHelper securityHelper, PrincipalExtractor principalExtractor) {
+	public GamerService(GamerRepository gamerRepository, PlatformService platformService, GenreService genreService, GamerMapper gamerMapper, GameService gameService, BCryptPasswordEncoder passwordEncoder, SecurityHelper securityHelper, PrincipalExtractor principalExtractor) {
 		this.gamerRepository = gamerRepository;
 		this.platformService = platformService;
 		this.genreService = genreService;

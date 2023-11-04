@@ -13,7 +13,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformName;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,7 +23,7 @@ public final class DatabaseSetup {
 	private DatabaseSetup() {
 	}
 
-	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, PasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository) {
+	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Role
 			GamerRole userRole = new GamerRole(GamerRoleName.ROLE_USER.name());

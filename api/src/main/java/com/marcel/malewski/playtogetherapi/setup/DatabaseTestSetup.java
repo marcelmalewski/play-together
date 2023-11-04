@@ -7,7 +7,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionReposit
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import static com.marcel.malewski.playtogetherapi.setup.DatabaseSetup.basicSetup;
@@ -20,9 +20,9 @@ public class DatabaseTestSetup implements CommandLineRunner {
 	private final PlatformRepository platformRepository;
 	private final GameRepository gameRepository;
 	private final GameSessionRepository gameSessionRepository;
-	private final PasswordEncoder passwordEncoder;
+	private final BCryptPasswordEncoder passwordEncoder;
 
-	public DatabaseTestSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, GameRepository gameRepository, GameSessionRepository gameSessionRepository, PasswordEncoder passwordEncoder) {
+	public DatabaseTestSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, GameRepository gameRepository, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.gamerRoleRepository = gamerRoleRepository;
 		this.platformRepository = platformRepository;
