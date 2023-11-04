@@ -42,7 +42,7 @@ public final class DatabaseSetup {
 			if (testSetup) {
 				admin = Gamer.builder()
 					.login("test1")
-					.password(passwordEncoder.encode("test123456789"))
+					.password(passwordEncoder.encode("test123456789"))//TODO przenieść hasło do plików konfiguracyjnych tak zeby w testach bylo uzyte to samo?
 					.email("test1@test1.test1")
 					.birthdate(LocalDate.of(2000, 1, 1))
 					.playingTimeStart(LocalTime.of(15, 0))
