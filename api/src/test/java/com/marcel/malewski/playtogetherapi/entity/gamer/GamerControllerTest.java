@@ -39,7 +39,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-//TODO czy dodać test sytuacji gdy ktoś nie jest zalogowany? czy to inny plik?
 @WebMvcTest(GamerController.class)
 class GamerControllerTest {
 	@Autowired
