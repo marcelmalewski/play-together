@@ -3,6 +3,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
+import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
+import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getGamerShallowCopy;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -99,6 +101,26 @@ public class GamerControllerITest {
 
 	@Test
 	@Transactional
+	void shouldReturnAuthenticatedGamerPrivateInfoWhenGamerIsAuthenticated() {
+		ResponseEntity<GamerPrivateResponseDto> gamerResponse = gamerController.getGamer(principal, request, response);
+
+		assertThat(gamerResponse).isNotNull();
+	}
+
+	@Test
+	@Transactional
+	void shouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() {
+		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
+		testGamerShallowCopy.setId(ID_OF_GAMER_THAT_NOT_EXIST);
+		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
+
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
+			gamerController.getGamer(principal, request, response);
+		});
+	}
+
+	@Test
+	@Transactional
 	@Rollback
 	void shouldUpdateAuthenticatedGamerProfileDataWhenRequestIsValid() {
 		String updatedLogin = "updated";
@@ -117,12 +139,46 @@ public class GamerControllerITest {
 	@Test
 	@Transactional
 	void updateGamerProfileShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() {
-		testGamer.setId(ID_OF_GAMER_THAT_NOT_EXIST);
-		principal = new UsernamePasswordAuthenticationToken(testGamer, testGamer.getPassword());
-		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
+		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
+		testGamerShallowCopy.setId(ID_OF_GAMER_THAT_NOT_EXIST);
+		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
+		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamerShallowCopy);
 
 		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
 			gamerController.updateGamerProfile(gamerToUpdate, principal, request, response);
+		});
+	}
+
+	@Test
+	@Transactional
+	@Rollback
+	void shouldPartiallyUpdateAuthenticatedGamerAuthenticationDataWhenRequestIsValid() {
+		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
+		String updatedEmail = "updated@updated.updated";
+		testGamerShallowCopy.setEmail(updatedEmail);
+		testGamerShallowCopy.setPassword("test123456789");//TODO brać to z plikow konfiguracyjnych?
+		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy);
+
+		ResponseEntity<GamerPrivateResponseDto> updatedGamerResponse = gamerController.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, principal, request, response);
+
+		assertThat(updatedGamerResponse.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+
+		GamerPrivateResponseDto updatedGamer = updatedGamerResponse.getBody();
+		assert updatedGamer != null;
+		assertThat(updatedGamer.email()).isEqualTo(updatedEmail);
+	}
+
+	@Test
+	@Transactional
+	@Rollback
+	void updatePartiallyGamerAuthenticationDataShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() {
+		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
+		testGamerShallowCopy.setId(ID_OF_GAMER_THAT_NOT_EXIST);
+		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
+		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy);
+
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
+			gamerController.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, principal, request, response);
 		});
 	}
 
@@ -134,5 +190,18 @@ public class GamerControllerITest {
 		assertThat(deleteGamerResponse.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
 
 		assertThat(gamerRepository.findById(testGamer.getId())).isEmpty();
+	}
+
+	@Test
+	@Transactional
+	@Rollback
+	void deleteGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() {
+		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
+		testGamerShallowCopy.setId(ID_OF_GAMER_THAT_NOT_EXIST);
+		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
+
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
+			gamerController.deleteGamer(principal, request, response);
+		});
 	}
 }

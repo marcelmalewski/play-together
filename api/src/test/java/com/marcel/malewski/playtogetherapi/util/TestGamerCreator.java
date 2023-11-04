@@ -77,6 +77,22 @@ public final class TestGamerCreator {
 			.build();
 	}
 
+	public static Gamer getGamerShallowCopy(Gamer gamer) {
+		return Gamer.builder()
+			.id(gamer.getId())
+			.version(gamer.getVersion())
+			.login(gamer.getLogin())
+			.password(gamer.getPassword())
+			.email(gamer.getEmail())
+			.birthdate(gamer.getBirthdate())
+			.playingTimeStart(gamer.getPlayingTimeStart())
+			.playingTimeEnd(gamer.getPlayingTimeEnd())
+			.createdAt(LocalDate.now())
+			.roles(gamer.getRoles())
+			.platforms(gamer.getPlatforms())
+			.build();
+	}
+
 	public static GamerPublicResponseDto toGamerPublicResponseDto(Gamer gamer) {
 		//TODO duplikat w GamerMapper?
 		LocalDate currentDay = LocalDate.now();
