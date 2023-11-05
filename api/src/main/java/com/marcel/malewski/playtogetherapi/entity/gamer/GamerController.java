@@ -22,10 +22,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "v1")
 @Tag(name = "Gamers v1", description = "Gamers API v1")
 public class GamerController {
-	public static final String GAMER_PATH_V1 = "/v1/gamers"; //TODO jak by tu tego użyć
+	public static final String GAMER_PATH_V1 = "/v1/gamers";
+	public static final String GAMER_PATH_V1_ID = GAMER_PATH_V1 + "/{gamerId}";
+	public static final String GAMER_PATH_V1_ME = GAMER_PATH_V1 + "/@me";
 
 	private final GamerService gamerService;
 	private final SecurityHelper securityHelper;
@@ -38,7 +39,7 @@ public class GamerController {
 	}
 
 	//TODO endpoint not used
-	@GetMapping(value = "/gamers")
+	@GetMapping(value = GAMER_PATH_V1)
 	@Operation(summary = "Find all gamers public info")
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
@@ -48,7 +49,7 @@ public class GamerController {
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/gamers/{gamerId}")
+	@GetMapping(value = GAMER_PATH_V1_ID)
 	@Operation(summary = "Get public info about a gamer by id")
 	public ResponseEntity<GamerPublicResponseDto> getGamer(@PathVariable long gamerId, Principal principal, HttpServletRequest request,
 	                                                       HttpServletResponse response) {
@@ -62,7 +63,7 @@ public class GamerController {
 		return new ResponseEntity<>(optionalGamerPublicResponse.get(), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/gamers/@me")
+	@GetMapping(value = GAMER_PATH_V1_ME)
 	@Operation(summary = "Get private info about the authenticated gamer")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
@@ -77,7 +78,7 @@ public class GamerController {
 		return new ResponseEntity<>(optionalGamerPrivateResponse.get(), HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/gamers/@me/profile-data")
+	@PutMapping(value = GAMER_PATH_V1_ME + "/profile-data")
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
@@ -92,7 +93,7 @@ public class GamerController {
 		return new ResponseEntity<>(optionalUpdatedGamer.get(), HttpStatus.OK);
 	}
 
-	@PatchMapping(value = "/gamers/@me/authentication-data")
+	@PatchMapping(value = GAMER_PATH_V1_ME + "/authentication-data")
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
@@ -107,7 +108,7 @@ public class GamerController {
 		return new ResponseEntity<>(optionalUpdatedGamer.get(), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/gamers/@me")
+	@DeleteMapping(GAMER_PATH_V1_ME)
 	@Operation(summary = "Delete the authenticated gamer and log out")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
