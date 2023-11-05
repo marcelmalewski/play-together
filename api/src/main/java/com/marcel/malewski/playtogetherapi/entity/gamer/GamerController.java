@@ -27,6 +27,8 @@ public class GamerController {
 	public static final String GAMER_PATH_V1 = "/v1/gamers";
 	public static final String GAMER_PATH_V1_ID = GAMER_PATH_V1 + "/{gamerId}";
 	public static final String GAMER_PATH_V1_ME = GAMER_PATH_V1 + "/@me";
+	public static final String GAMER_PATH_V1_PROFILE_DATA = GAMER_PATH_V1 + "/profile-data";
+	public static final String GAMER_PATH_V1_AUTHENTICATION_DATA = GAMER_PATH_V1 + "/authentication-data";
 
 	private final GamerService gamerService;
 	private final SecurityHelper securityHelper;
@@ -78,7 +80,7 @@ public class GamerController {
 		return new ResponseEntity<>(optionalGamerPrivateResponse.get(), HttpStatus.OK);
 	}
 
-	@PutMapping(value = GAMER_PATH_V1_ME + "/profile-data")
+	@PutMapping(value = GAMER_PATH_V1_PROFILE_DATA)
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
@@ -93,7 +95,7 @@ public class GamerController {
 		return new ResponseEntity<>(optionalUpdatedGamer.get(), HttpStatus.OK);
 	}
 
-	@PatchMapping(value = GAMER_PATH_V1_ME + "/authentication-data")
+	@PatchMapping(value = GAMER_PATH_V1_AUTHENTICATION_DATA)
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {

@@ -26,8 +26,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerController.GAMER_PATH_V1;
-import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerController.GAMER_PATH_V1_ME;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerController.*;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRole;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -92,7 +91,7 @@ class GamerControllerTest {
 	void shouldReturnGamerWhenGamerWithGivenIdExist() throws Exception {
 		given(gamerService.findGamerPublicInfo(testGamer.getId())).willReturn(Optional.of(testGamerPublicResponseDto));
 
-		mockMvc.perform(get("/v1/gamers/" + testGamer.getId())
+		mockMvc.perform(get(GAMER_PATH_V1_ID, testGamer.getId())
 				.with(user(testGamer))
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
@@ -105,7 +104,7 @@ class GamerControllerTest {
 	void shouldReturnGamerNotFoundWhenGamerWithGivenIdNotExist() throws Exception {
 		given(gamerService.findGamerPublicInfo(testGamer.getId())).willReturn(Optional.empty());
 
-		mockMvc.perform(get("/v1/gamers/" + testGamer.getId())
+		mockMvc.perform(get(GAMER_PATH_V1_ID, testGamer.getId())
 				.with(csrf())
 				.with(user(testGamer)))
 			.andExpect(result -> assertTrue(result.getResolvedException() instanceof GamerNotFoundException))
@@ -145,7 +144,7 @@ class GamerControllerTest {
 		given(gamerService.tryUpdateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(Optional.of(testGamerPrivateResponseDto));
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 
-		mockMvc.perform(put(GAMER_PATH_V1_ME + "/profile-data")
+		mockMvc.perform(put(GAMER_PATH_V1_PROFILE_DATA)
 				.with(csrf())
 				.with(user(testGamer))
 				.accept(MediaType.APPLICATION_JSON)
@@ -160,7 +159,7 @@ class GamerControllerTest {
 	void updateGamerProfileShouldReturnBadRequestStatusWhenBodyIsInvalid() throws Exception {
 		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.getInValidGamerUpdateProfileRequestDto();
 
-		mockMvc.perform(put(GAMER_PATH_V1_ME + "/profile-data")
+		mockMvc.perform(put(GAMER_PATH_V1_PROFILE_DATA)
 				.with(csrf())
 				.with(user(testGamer))
 				.accept(MediaType.APPLICATION_JSON)
@@ -176,7 +175,7 @@ class GamerControllerTest {
 		given(gamerService.tryUpdateGamerProfile(gamerUpdateProfileRequestDto, testGamer.getId())).willReturn(Optional.empty());
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 
-		mockMvc.perform(put(GAMER_PATH_V1_ME + "/profile-data")
+		mockMvc.perform(put(GAMER_PATH_V1_PROFILE_DATA)
 				.with(csrf())
 				.with(user(testGamer))
 				.accept(MediaType.APPLICATION_JSON)
@@ -193,7 +192,7 @@ class GamerControllerTest {
 		given(gamerService.tryUpdatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(Optional.of(testGamerPrivateResponseDto));
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 
-		mockMvc.perform(patch(GAMER_PATH_V1_ME + "/authentication-data")
+		mockMvc.perform(patch(GAMER_PATH_V1_AUTHENTICATION_DATA)
 				.with(csrf())
 				.with(user(testGamer))
 				.accept(MediaType.APPLICATION_JSON)
@@ -208,7 +207,7 @@ class GamerControllerTest {
 	void updatePartiallyGamerAuthenticationDataShouldReturnBadRequestStatusWhenBodyIsInvalid() throws Exception {
 		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.getInvalidGamerUpdateAuthenticationDataRequestDto();
 
-		mockMvc.perform(patch(GAMER_PATH_V1_ME + "/authentication-data")
+		mockMvc.perform(patch(GAMER_PATH_V1_AUTHENTICATION_DATA)
 				.with(csrf())
 				.with(user(testGamer))
 				.accept(MediaType.APPLICATION_JSON)
@@ -224,7 +223,7 @@ class GamerControllerTest {
 		given(gamerService.tryUpdatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, testGamer.getId())).willReturn(Optional.empty());
 		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
 
-		mockMvc.perform(patch(GAMER_PATH_V1_ME + "/authentication-data")
+		mockMvc.perform(patch(GAMER_PATH_V1_AUTHENTICATION_DATA)
 				.with(csrf())
 				.with(user(testGamer))
 				.accept(MediaType.APPLICATION_JSON)
