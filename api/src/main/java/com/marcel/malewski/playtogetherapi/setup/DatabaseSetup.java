@@ -42,7 +42,7 @@ public final class DatabaseSetup {
 			if (testSetup) {
 				admin = Gamer.builder()
 					.login("test1")
-					.password(passwordEncoder.encode("test123456789"))//TODO przenieść hasło do plików konfiguracyjnych tak zeby w testach bylo uzyte to samo?
+					.password(passwordEncoder.encode(TEST_GAMERS_PASSWORD))
 					.email("test1@test1.test1")
 					.birthdate(LocalDate.of(2000, 1, 1))
 					.playingTimeStart(LocalTime.of(15, 0))
@@ -55,7 +55,7 @@ public final class DatabaseSetup {
 
 				Gamer testGamer2 = Gamer.builder()
 					.login("test2")
-					.password(passwordEncoder.encode("test123456789"))
+					.password(passwordEncoder.encode(TEST_GAMERS_PASSWORD))
 					.email("test2@test2.test2")
 					.birthdate(LocalDate.of(2000, 1, 1))
 					.playingTimeStart(LocalTime.of(15, 0))
@@ -70,7 +70,7 @@ public final class DatabaseSetup {
 			} else {
 				admin = Gamer.builder()
 					.login("admin")
-					.password(passwordEncoder.encode("admin.123"))//TODO przenieść hasło do plików konfiguracyjnych
+					.password(passwordEncoder.encode(DEV_ADMIN_PASSWORD))
 					.email("admin@admin.com")
 					.birthdate(LocalDate.of(2000, 1, 1))
 					.playingTimeStart(LocalTime.of(15, 0))
@@ -109,4 +109,8 @@ public final class DatabaseSetup {
 			gameSessionRepository.save(testGameSession);
 		}
 	}
+
+	//TODO przenieść hasło do plików konfiguracyjnych?
+	public static final String TEST_GAMERS_PASSWORD = "test123456789";
+	public static final String DEV_ADMIN_PASSWORD = "admin.123";
 }

@@ -7,6 +7,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthentic
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
+import com.marcel.malewski.playtogetherapi.setup.DatabaseSetup;
 import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -156,7 +157,7 @@ public class GamerControllerITest {
 		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
 		String updatedEmail = "updated@updated.updated";
 		testGamerShallowCopy.setEmail(updatedEmail);
-		testGamerShallowCopy.setPassword("test123456789");//TODO brać to z plikow konfiguracyjnych?
+		testGamerShallowCopy.setPassword(DatabaseSetup.TEST_GAMERS_PASSWORD);
 		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy);
 
 		ResponseEntity<GamerPrivateResponseDto> updatedGamerResponse = gamerController.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, principal, request, response);
