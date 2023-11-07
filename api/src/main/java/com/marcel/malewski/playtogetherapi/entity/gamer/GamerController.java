@@ -27,8 +27,8 @@ public class GamerController {
 	public static final String GAMER_PATH_V1 = "/v1/gamers";
 	public static final String GAMER_PATH_V1_ID = GAMER_PATH_V1 + "/{gamerId}";
 	public static final String GAMER_PATH_V1_ME = GAMER_PATH_V1 + "/@me";
-	public static final String GAMER_PATH_V1_PROFILE_DATA = GAMER_PATH_V1 + "/profile-data";
-	public static final String GAMER_PATH_V1_AUTHENTICATION_DATA = GAMER_PATH_V1 + "/authentication-data";
+	public static final String GAMER_PATH_V1_PROFILE_DATA = GAMER_PATH_V1_ME + "/profile-data";
+	public static final String GAMER_PATH_V1_AUTHENTICATION_DATA = GAMER_PATH_V1_ME + "/authentication-data";
 
 	private final GamerService gamerService;
 	private final SecurityHelper securityHelper;
