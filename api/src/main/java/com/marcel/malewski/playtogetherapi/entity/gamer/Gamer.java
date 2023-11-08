@@ -57,7 +57,7 @@ public class Gamer implements UserDetails {
 	private String bio;
 	private String avatarUrl;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "gamerrole_id"))
