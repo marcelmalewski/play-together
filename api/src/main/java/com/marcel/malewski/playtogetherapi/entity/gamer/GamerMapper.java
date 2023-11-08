@@ -6,7 +6,6 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseD
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import org.mapstruct.Mapper;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -14,7 +13,6 @@ import java.util.List;
 
 //TODO tu jest powtórzenie
 @Mapper(componentModel = "spring")
-@Validated
 public abstract class GamerMapper {
 	public GamerPrivateResponseDto toGamerPrivateResponseDto(Gamer gamer) {
 		if(gamer == null) {
