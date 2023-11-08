@@ -14,7 +14,6 @@ import java.util.List;
 //TODO dodać logowanie jak string.formatowanie sie wywali
 @RestControllerAdvice
 public class RestExceptionHandler {
-	//TODO dlaczego trzeba to obsłużyć to constraintViolationException i co wywołyje taki wyjątek
 	@ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ExceptionResponse handleConstraintViolation(ConstraintViolationException exception) {
