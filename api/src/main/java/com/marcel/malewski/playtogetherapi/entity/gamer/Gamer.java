@@ -6,8 +6,12 @@ import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.pendingmember.PendingMember;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
+import com.marcel.malewski.playtogetherapi.validation.notblankifexist.TrimmedSize;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,9 +23,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-//TODO co dokladnie znaczy joincolumn i inversejoin
-//TODO co to dokładnie robi i czy jest to dobra opcja: @ManyToMany(fetch = FetchType.EAGER)
+import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationConstants.LOGIN_MAX_SIZE;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationConstants.LOGIN_MIN_SIZE;
+import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.AT_LEAST_ONE_PLATFORM_ID;
+
 //TODO add modifiedAt?
+//TODO add better validation to password
+//TODO add validation to dates
+//TODO add better validation to avatarUrl
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -38,11 +47,14 @@ public class Gamer implements UserDetails {
 	@Version
 	private Integer version;
 
-	@NotNull
+	@Size(min = LOGIN_MIN_SIZE, max = LOGIN_MAX_SIZE)
+	@NotBlank
 	@Column(unique = true)
 	private String login;
-	@NotNull
+	@Size(min = 8, max = 30)
+	@NotBlank
 	private String password;
+	@Email
 	@NotNull
 	@Column(unique = true)
 	private String email;
@@ -54,8 +66,9 @@ public class Gamer implements UserDetails {
 	private LocalTime playingTimeEnd;
 	@NotNull
 	private LocalDate createdAt;
-
+	@TrimmedSize(min = 3, max = 500)
 	private String bio;
+	@TrimmedSize
 	private String avatarUrl;
 
 	@ManyToMany
@@ -73,6 +86,7 @@ public class Gamer implements UserDetails {
 		inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	@ToString.Exclude
 	@Builder.Default
+	@Size(min = 1, message = AT_LEAST_ONE_PLATFORM_ID)
 	@NotNull
 	private List<Platform> platforms = new ArrayList<>();
 
@@ -89,6 +103,7 @@ public class Gamer implements UserDetails {
 	private List<GameSession> joinedGameSessions = new ArrayList<>();
 
 	@OneToMany(mappedBy = "gamer")
+	@Builder.Default
 	@NotNull
 	private List<PendingMember> pendingMembers = new ArrayList<>();
 

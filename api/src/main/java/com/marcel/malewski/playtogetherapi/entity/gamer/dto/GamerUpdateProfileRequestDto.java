@@ -32,7 +32,7 @@ public record GamerUpdateProfileRequestDto(
 	String birthdateAsString,
 	@TrimmedSize(min = 3, max = 500)
 	String bio,
-	@TrimmedSize //TODO dodać jakąś lepszą walidacje url
+	@TrimmedSize
 	String avatarUrl,
 	@Schema(example = TIME_START_EXAMPLE, format = TIME_FORMAT)
 	@ValidTimeFormat
