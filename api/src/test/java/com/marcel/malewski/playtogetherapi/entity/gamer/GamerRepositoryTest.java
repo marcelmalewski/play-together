@@ -1,7 +1,11 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
+import com.marcel.malewski.playtogetherapi.entity.platform.PlatformName;
+import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -16,8 +20,6 @@ import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.POSTGRES_IMAGE;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getTestGamerToSave;
-import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
-import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRole;
 import static org.assertj.core.api.Assertions.assertThat;
 
 //TODO aktualnie jest jedna baza na wszystkie testy, zrobić baza per test
@@ -41,12 +43,26 @@ public class GamerRepositoryTest {
 	@Autowired
 	GamerRepository gamerRepository;
 
+	@Autowired
+	GamerRoleRepository gamerRoleRepository;
+
+	@Autowired
+	PlatformRepository platformRepository;
+
 	@Test
 	void shouldSaveGamerAndJpaShouldFulfilIdAndVersion() {
-		List<Platform> testPlatforms = getTestPlatforms();
-		List<GamerRole> allRoles = getModeratorRole();
-		Gamer gamerToSave = getTestGamerToSave(testPlatforms, allRoles);
+		GamerRole moderatorRole = new GamerRole(GamerRoleName.ROLE_MODERATOR.name());
+		GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
+		List<GamerRole> roles = List.of(savedModeratorRole);
+
+		Platform pc = new Platform(PlatformName.PC.name());
+		Platform savedPcPlatform = platformRepository.save(pc);
+		List<Platform> platforms = List.of(savedPcPlatform);
+
+		Gamer gamerToSave = getTestGamerToSave(platforms, roles);
 		Gamer savedGamer = gamerRepository.save(gamerToSave);
+
+		gamerRepository.flush();
 
 		assertThat(savedGamer).isNotNull();
 		assertThat(savedGamer.getId()).isNotNull();
