@@ -17,7 +17,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -28,7 +27,6 @@ import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.G
 @RestController
 @RequestMapping(path = "v1")
 @Tag(name = "Game sessions v1", description = "Game sessions API v1")
-@Validated
 public class GameSessionController {
 	private final GameSessionService gameSessionService;
 	private final GamerService gamerService;
