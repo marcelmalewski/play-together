@@ -31,6 +31,7 @@ import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants
 //TODO add better validation to password
 //TODO add validation to dates
 //TODO add better validation to avatarUrl
+//TODO it is possible to validate password to check if it is encrypted password?
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -51,7 +52,6 @@ public class Gamer implements UserDetails {
 	@NotBlank
 	@Column(unique = true)
 	private String login;
-	@Size(min = 8, max = 30)
 	@NotBlank
 	private String password;
 	@Email
@@ -80,13 +80,13 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<GamerRole> roles = new ArrayList<>();
 
+	@Size(min = 1, message = AT_LEAST_ONE_PLATFORM_ID)
 	@ManyToMany
 	@JoinTable(name = "gamer_platform",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	@ToString.Exclude
 	@Builder.Default
-	@Size(min = 1, message = AT_LEAST_ONE_PLATFORM_ID)
 	@NotNull
 	private List<Platform> platforms = new ArrayList<>();
 
