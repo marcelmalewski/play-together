@@ -2,16 +2,13 @@ package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
 import com.marcel.malewski.playtogetherapi.entity.gamesession.dto.GameSessionPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import jakarta.validation.constraints.NotNull;
 import org.mapstruct.Mapper;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-@Validated
 public abstract class GameSessionMapper {
-	public GameSessionPublicResponseDto toGameSessionResponseDto(@NotNull GameSession gameSession, long principalId) {
+	public GameSessionPublicResponseDto toGameSessionResponseDto(GameSession gameSession, long principalId) {
 		List<String> platformsNames = gameSession.getPlatforms().stream().map(Platform::getName).toList();
 		boolean currentGamerIsMember = !gameSession.getMembers().stream().filter(gamer -> gamer.getId().equals(principalId)).toList().isEmpty();
 
