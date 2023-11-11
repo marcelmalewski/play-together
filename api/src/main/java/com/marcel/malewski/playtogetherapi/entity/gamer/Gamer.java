@@ -27,6 +27,7 @@ import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationCo
 import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationConstants.LOGIN_MIN_SIZE;
 import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.AT_LEAST_ONE_PLATFORM_ID;
 
+//TODO remove this Eager
 //TODO add modifiedAt?
 //TODO add better validation to password
 //TODO add validation to dates
@@ -71,7 +72,7 @@ public class Gamer implements UserDetails {
 	@TrimmedSize
 	private String avatarUrl;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "gamerrole_id"))
@@ -81,7 +82,7 @@ public class Gamer implements UserDetails {
 	private List<GamerRole> roles = new ArrayList<>();
 
 	@Size(min = 1, message = AT_LEAST_ONE_PLATFORM_ID)
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "gamer_platform",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "platform_id"))
@@ -107,7 +108,7 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<PendingMember> pendingMembers = new ArrayList<>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "gamer_favourite_game",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "game_id"))
@@ -116,7 +117,7 @@ public class Gamer implements UserDetails {
 	@NotNull
 	private List<Game> favouriteGames = new ArrayList<>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "gamer_favourite_genre",
 		joinColumns = @JoinColumn(name = "gamer_id"),
 		inverseJoinColumns = @JoinColumn(name = "genre_id"))
