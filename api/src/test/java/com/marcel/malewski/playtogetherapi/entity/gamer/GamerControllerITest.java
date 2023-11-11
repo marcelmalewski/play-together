@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer;
 
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
@@ -18,12 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -33,9 +37,15 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerController.GAMER_PATH_V1_PROFILE_DATA;
+import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.INVALID_EMAIL;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getGamerShallowCopy;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest()
 @Testcontainers
@@ -67,11 +77,20 @@ public class GamerControllerITest {
 	@Autowired
 	HttpServletResponse response;
 
+	@Autowired
+	ObjectMapper objectMapper;
+
+	@Autowired
+	WebApplicationContext wac;
+
+	MockMvc mockMvc;
+
 	public Principal principal;
 	public Gamer testGamer;
 
 	@BeforeEach
 	public void setUp() {
+		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 		testGamer = gamerRepository.findAll().get(0);
 		principal = new UsernamePasswordAuthenticationToken(testGamer, testGamer.getPassword());
 	}
@@ -135,6 +154,21 @@ public class GamerControllerITest {
 		GamerPrivateResponseDto updatedGamer = updatedGamerResponse.getBody();
 		assert updatedGamer != null;
 		assertThat(updatedGamer.login()).isEqualTo(updatedLogin);
+	}
+
+	@Test
+	void updateGamerProfileShouldReturnBadRequestStatusWhenBodyIsInvalid() throws Exception {
+		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
+		testGamerShallowCopy.setEmail(INVALID_EMAIL);
+		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamerShallowCopy);
+
+		mockMvc.perform(put(GAMER_PATH_V1_PROFILE_DATA)
+				.with(csrf())
+				.with(user(testGamer))
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(gamerUpdateProfileRequestDto)))
+			.andExpect(status().isUnprocessableEntity());
 	}
 
 	@Test
