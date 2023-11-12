@@ -5,7 +5,7 @@
 * [Technologies](#technologies)
 * [Features](#features)
 * [Links](#Links)
-* [How to launch](#how-to-launch)
+* [Launch Instructions](#Launch-Instructions)
 
 ## General Info
 Web application whose primary objective is to assist in effectively organizing meetings, primarily related to computer gaming. It facilitates scheduling for both individual sessions and groups, accommodating a potentially high volume of such gatherings. Users can easily coordinate timings and days, making it a valuable tool for avid gamers.
@@ -34,32 +34,31 @@ User and Moderator Role
 3. Delete own account
 4. Get private informations about own account
 5. Find all gamers public informations
-6. Get public informations about other gamer
-   
-1. Find all game sessions
-2. Get game session
-3. Create game session
-4. Update own game session informations
-5. Delete own game session
+6. Get public informations about other gamer 
+7. Find all game sessions 
+8. Get game session 
+9. Create game session 
+10. Update own game session informations 
+11. Delete own game session
 
 Moderator Role
 ...
 
 ## Links
-Importont links in app.
-1. localhost/api/docs - Documentaion
+Important links in app.
+1. localhost/api/docs - Documentation
 
 ## Launch Instructions
 ### Local Development Environment
 1. Create a `.env` file with the following example values:
-```
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=play-together
-POSTGRES_PORT=5432
-PORT=5000
-SPRING_PROFILES_ACTIVE=dev
-```
+    ```
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=postgres
+    POSTGRES_DB=play-together
+    POSTGRES_PORT=5432
+    PORT=5000
+    SPRING_PROFILES_ACTIVE=dev
+    ```
 2. Initiate the services using `./local-dev/docker-compose-dev.yml` along with the `.env` file.
    
 You can either set up a run configuration in IntelliJ or start it manually. 
@@ -73,18 +72,18 @@ The Docker setup will launch:
 ### Frontend
 #### Before coding frontend
 1. Ensure that you are using yarn as your package manager. Current yarn version: `yarn-1.22.19` and only this version is enabled.
-3. Set prettier. In Intelij you can just set "Automatic Prettier configuration".
+2. Set prettier. In Intellij you can just set "Automatic Prettier configuration".
    
 #### Running the Local Frontend
 1. Navigate to the ./frontend directory.
 2. Install the required dependencies using: yarn install
-3. Launch the frontend by executing: yarn dev"
+3. Launch the frontend by executing: `yarn dev`
 
 ### Backend
 #### Before coding backend
 ...
    
-#### Running the Local Backend with Intelij
+#### Running the Local Backend with IntelliJ
 To start the application, execute `application bootRun` from the Gradle panel, using the variables specified in the `.env` file.
 
 #### Running the Backend with images
