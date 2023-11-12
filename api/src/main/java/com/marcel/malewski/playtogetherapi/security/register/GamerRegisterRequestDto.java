@@ -20,12 +20,12 @@ import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationCo
 import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.AT_LEAST_ONE_PLATFORM_ID;
 import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.UNIQUE_ELEMENTS_MESSAGE;
 
+//TODO make better password validation
 @ValidPlayingTime
 public record GamerRegisterRequestDto(
 	@Size(min = LOGIN_MIN_SIZE, max = LOGIN_MAX_SIZE)
 	@NotBlank
 	String login,
-	@Size(min = 8, max = 30)
 	@NotBlank
 	String password,
 	@Email
