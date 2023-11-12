@@ -25,7 +25,7 @@ import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationConstants.LOGIN_MAX_SIZE;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationConstants.LOGIN_MIN_SIZE;
-import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.AT_LEAST_ONE_PLATFORM_ID;
+import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.*;
 
 //TODO remove this Eager
 //TODO add modifiedAt?
@@ -72,6 +72,7 @@ public class Gamer implements UserDetails {
 	@TrimmedSize
 	private String avatarUrl;
 
+	@Size(min = 1, message = AT_LEAST_ONE_ROLE)
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "gamer_gamerrole",
 		joinColumns = @JoinColumn(name = "gamer_id"),
