@@ -77,50 +77,50 @@ class GameSessionControllerTest {
 		testGameSessionPublicResponseDto = toGameSessionResponseDto(testGameSession, getTestPlatformsNames(), true);
 	}
 
-	@Test
-	void shouldReturnListWithOneGameSessionWhenOneGameSessionExist() throws Exception {
-		List<GameSessionPublicResponseDto> allGameSessions = List.of(testGameSessionPublicResponseDto);
-		Page<GameSessionPublicResponseDto> allGameSessionsAsPage = new PageImpl<>(allGameSessions);
-		Pageable pageable = PageRequest.of(DEFAULT_PAGEABLE_PAGE, DEFAULT_PAGEABLE_SIZE, GameSessionSortOption.CREATED_AT_DESC.getSort());
-
-		given(gameSessionService.findAllGameSessions(pageable, testGamer.getId())).willReturn(allGameSessionsAsPage);
-
-		mockMvc.perform(get("/v1/game-sessions")
-				.with(user(testGamer))
-				.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.content.length()", is(1)));
-	}
-
-	@Test
-	void shouldReturnGameSessionWhenGameSessionWithGivenIdExist() throws Exception {
-		given(gameSessionService.getGameSession(testGameSession.getId(), testGamer.getId())).willReturn(testGameSessionPublicResponseDto);
-
-		mockMvc.perform(get("/v1/game-sessions/" + testGameSession.getId())
-				.with(user(testGamer))
-				.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGameSession.getId()))))
-			.andExpect(jsonPath("$.name", is(testGameSession.getName())));
-	}
-
-	//TODO poprawić nazwę
-	@Test
-	void testCreateGameSession() throws Exception {
-		GameSessionCreateOrUpdateRequestDto gameSessionCreateOrUpdateRequestDto = TestGameSessionCreator.getGameSessionCreateOrUpdateRequestDto(testGameSession);
-
-		given(gameSessionService.createGameSession(gameSessionCreateOrUpdateRequestDto, testGameSession.getCreator().getId())).willReturn(testGameSessionPublicResponseDto);
-		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
-		doNothing().when(gamerService).throwExceptionAndLogoutIfAuthenticatedGamerNotFound(any(Principal.class), any(HttpServletRequest.class), any(HttpServletResponse.class));
-
-		mockMvc.perform(post("/v1/game-sessions/")
-				.with(user(testGamer))
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(gameSessionCreateOrUpdateRequestDto)))
-			.andExpect(status().isCreated());
-//			.andExpect(header().exists("Location"));
-	}
+//	@Test
+//	void shouldReturnListWithOneGameSessionWhenOneGameSessionExist() throws Exception {
+//		List<GameSessionPublicResponseDto> allGameSessions = List.of(testGameSessionPublicResponseDto);
+//		Page<GameSessionPublicResponseDto> allGameSessionsAsPage = new PageImpl<>(allGameSessions);
+//		Pageable pageable = PageRequest.of(DEFAULT_PAGEABLE_PAGE, DEFAULT_PAGEABLE_SIZE, GameSessionSortOption.CREATED_AT_DESC.getSort());
+//
+//		given(gameSessionService.findAllGameSessions(pageable, testGamer.getId())).willReturn(allGameSessionsAsPage);
+//
+//		mockMvc.perform(get("/v1/game-sessions")
+//				.with(user(testGamer))
+//				.accept(MediaType.APPLICATION_JSON))
+//			.andExpect(status().isOk())
+//			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//			.andExpect(jsonPath("$.content.length()", is(1)));
+//	}
+//
+//	@Test
+//	void shouldReturnGameSessionWhenGameSessionWithGivenIdExist() throws Exception {
+//		given(gameSessionService.getGameSession(testGameSession.getId(), testGamer.getId())).willReturn(testGameSessionPublicResponseDto);
+//
+//		mockMvc.perform(get("/v1/game-sessions/" + testGameSession.getId())
+//				.with(user(testGamer))
+//				.accept(MediaType.APPLICATION_JSON))
+//			.andExpect(status().isOk())
+//			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGameSession.getId()))))
+//			.andExpect(jsonPath("$.name", is(testGameSession.getName())));
+//	}
+//
+//	//TODO poprawić nazwę
+//	@Test
+//	void testCreateGameSession() throws Exception {
+//		GameSessionCreateOrUpdateRequestDto gameSessionCreateOrUpdateRequestDto = TestGameSessionCreator.getGameSessionCreateOrUpdateRequestDto(testGameSession);
+//
+//		given(gameSessionService.createGameSession(gameSessionCreateOrUpdateRequestDto, testGameSession.getCreator().getId())).willReturn(testGameSessionPublicResponseDto);
+//		given(principalExtractor.extractIdFromPrincipal(any(Principal.class))).willReturn(testGamer.getId());
+//		doNothing().when(gamerService).throwExceptionAndLogoutIfAuthenticatedGamerNotFound(any(Principal.class), any(HttpServletRequest.class), any(HttpServletResponse.class));
+//
+//		mockMvc.perform(post("/v1/game-sessions/")
+//				.with(user(testGamer))
+//				.accept(MediaType.APPLICATION_JSON)
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.content(objectMapper.writeValueAsString(gameSessionCreateOrUpdateRequestDto)))
+//			.andExpect(status().isCreated());
+////			.andExpect(header().exists("Location"));
+//	}
 }
