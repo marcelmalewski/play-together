@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class GivenPlatformDoesNotExistException extends RuntimeException {
 	public GivenPlatformDoesNotExistException(Long platformId) {
-		super("Platform not found, platformId: " + platformId);
+		super("Platform not found, platform id: " + platformId);
 	}
 }

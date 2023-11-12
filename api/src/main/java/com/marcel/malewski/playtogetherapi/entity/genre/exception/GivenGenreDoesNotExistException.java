@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class GivenGenreDoesNotExistException extends RuntimeException {
 	public GivenGenreDoesNotExistException(Long genreId) {
-		super("Given genre does not exist, genreId: " + genreId);
+		super("Given genre does not exist, genre id: " + genreId);
 	}
 }
