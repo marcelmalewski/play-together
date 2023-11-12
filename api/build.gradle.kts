@@ -44,9 +44,9 @@ application {
     mainClass.set("com.marcel.malewski.playtogetherapi.PlayTogetherApi")
 }
 
-//tasks.named<Jar>("jar") {
-//    enabled = false
-//}
+tasks.named<Jar>("jar") {
+    enabled = false
+}
 
 tasks.withType<Test> {
     useJUnitPlatform()

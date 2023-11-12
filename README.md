@@ -90,7 +90,6 @@ To start the application, execute `application bootRun` from the Gradle panel, u
 #### Running the Backend with images
 1. Build the project: `./gradlew build`
 2. Build the Docker image: `docker build -t play-together-api .`
-   Optional parameter: --build-arg JAR_FILE=build/libs/api-1.0.0.jar
 3. Tag the image: `docker tag play-together-api 6745345/play-together-api:1.0`
 4. Push the image to Docker Hub: `docker push 6745345/play-together-api:1.0`
 5. Use the provided docker-compose-dev.yml.
