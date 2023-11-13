@@ -29,6 +29,9 @@ public final class DatabaseSetup {
 			GamerRole userRole = new GamerRole(GamerRoleName.ROLE_USER.name());
 			gamerRoleRepository.save(userRole);
 
+			GamerRole adminRole = new GamerRole(GamerRoleName.ROLE_ADMIN.name());
+			gamerRoleRepository.save(adminRole);
+
 			GamerRole moderatorRole = new GamerRole(GamerRoleName.ROLE_MODERATOR.name());
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 
