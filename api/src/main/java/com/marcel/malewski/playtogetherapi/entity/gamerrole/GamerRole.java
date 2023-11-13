@@ -8,7 +8,6 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO na razie rola to name czyli zwykły string, ale chyba trzeba to rozbudować
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
