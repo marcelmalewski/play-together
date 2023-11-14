@@ -36,7 +36,7 @@ public class RegisterController {
 			throw new AlreadyAuthenticatedGamerException();
 		}
 
-		Long registeredGamerId = registerService.register(registerDto, GamerRoleName.ROLE_USER);
+		Long registeredGamerId = registerService.register(registerDto, GamerRoleName.ROLE_BASIC_GAMER);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", "/api/v1/gamers/" + registeredGamerId.toString());
 

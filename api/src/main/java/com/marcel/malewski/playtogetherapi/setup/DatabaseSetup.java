@@ -26,11 +26,11 @@ public final class DatabaseSetup {
 	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Role
-			GamerRole userRole = new GamerRole(GamerRoleName.ROLE_USER.name());
-			gamerRoleRepository.save(userRole);
+			GamerRole basicGamerRole = new GamerRole(GamerRoleName.ROLE_BASIC_GAMER.name());
+			gamerRoleRepository.save(basicGamerRole);
 
-			GamerRole adminRole = new GamerRole(GamerRoleName.ROLE_ADMIN.name());
-			gamerRoleRepository.save(adminRole);
+			GamerRole rolesManagerRole = new GamerRole(GamerRoleName.ROLE_ROLES_MANAGER.name());
+			gamerRoleRepository.save(rolesManagerRole);
 
 			GamerRole moderatorRole = new GamerRole(GamerRoleName.ROLE_MODERATOR.name());
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
