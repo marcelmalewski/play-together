@@ -9,6 +9,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRe
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.EmailAlreadyUsedException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.LoginAlreadyUsedException;
+import com.marcel.malewski.playtogetherapi.entity.gamer.exception.NewPasswordSameAsPrevious;
 import com.marcel.malewski.playtogetherapi.entity.genre.Genre;
 import com.marcel.malewski.playtogetherapi.entity.genre.GenreService;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
@@ -160,6 +161,13 @@ public class GamerService {
 			throw new InvalidPasswordException();
 		}
 
+		if(updateAuthDto.newPassword() != null) {
+			throwExceptionIfNewPasswordIsSameAsPreviousOne(updateAuthDto.newPassword(), gamer.getPassword(), passwordEncoder);
+
+			String newPasswordEncoded = passwordEncoder.encode(updateAuthDto.newPassword());
+			gamer.setPassword(newPasswordEncoded);
+		}
+
 		if(updateAuthDto.email() != null) {
 			String newEmail = updateAuthDto.email();
 			if (!gamer.getEmail().equals(updateAuthDto.email()) && gamerRepository.existsByEmail(newEmail)) {
@@ -169,16 +177,16 @@ public class GamerService {
 			gamer.setEmail(newEmail);
 		}
 
-		//TODO nie można zmienić na to samo hasło
-		if(updateAuthDto.newPassword() != null) {
-			String newPasswordEncoded = passwordEncoder.encode(updateAuthDto.newPassword());
-			gamer.setPassword(newPasswordEncoded);
-		}
-
 		Gamer updatedGamer = gamerRepository.save(gamer);
 		return Optional.ofNullable(
 			gamerMapper.toGamerPrivateResponseDto(updatedGamer)
 		);
+	}
+
+	private void throwExceptionIfNewPasswordIsSameAsPreviousOne(String newPassword, String previousPassword, BCryptPasswordEncoder passwordEncoder) {
+		if (passwordEncoder.matches(newPassword, previousPassword)) {
+			throw new NewPasswordSameAsPrevious();
+		}
 	}
 
 	public boolean tryDeleteGamer(long gamerId) {
