@@ -28,7 +28,6 @@ import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerValidationCo
 import static com.marcel.malewski.playtogetherapi.validation.ValidationConstants.*;
 
 //TODO remove this Eager
-//TODO add modifiedAt?
 //TODO add better validation to password
 //TODO add validation to dates
 //TODO add better validation to avatarUrl
