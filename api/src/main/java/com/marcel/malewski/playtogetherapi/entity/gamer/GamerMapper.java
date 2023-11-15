@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
-//TODO tu jest powtórzenie
+//TODO is this duplicate a problem?
 @Mapper(componentModel = "spring")
 public abstract class GamerMapper {
 	public GamerPrivateResponseDto toGamerPrivateResponseDto(Gamer gamer) {
@@ -19,8 +19,6 @@ public abstract class GamerMapper {
 			return null;
 		}
 
-		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?
-		//TODO duplicate
 		List<String> platformsNames = gamer.getPlatforms().stream().map(Platform::getName).toList();
 		List<String> gamesNames = gamer.getFavouriteGames().stream().map(Game::getName).toList();
 		List<String> genresNames = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
@@ -45,12 +43,10 @@ public abstract class GamerMapper {
 			return null;
 		}
 
-		//TODO takie zmienianie to może lepiej bezpośrednio przy pobieraniu z bazy?
-		LocalDate currentDay = LocalDate.now();
-		int age = Period.between(gamer.getBirthdate(), currentDay).getYears();
 		List<String> platformsNames = gamer.getPlatforms().stream().map(Platform::getName).toList();
 		List<String> gamesNames = gamer.getFavouriteGames().stream().map(Game::getName).toList();
 		List<String> genresNames = gamer.getFavouriteGenres().stream().map(Genre::getName).toList();
+		int age = getAge(gamer);
 
 		return new GamerPublicResponseDto(
 			gamer.getId(),
@@ -64,5 +60,10 @@ public abstract class GamerMapper {
 			gamesNames,
 			genresNames
 		);
+	}
+
+	private int getAge(Gamer gamer) {
+		LocalDate currentDay = LocalDate.now();
+		return Period.between(gamer.getBirthdate(), currentDay).getYears();
 	}
 }
