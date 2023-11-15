@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
 
-	//TODO czy swagger powinien być publicznie dostępny?
+	//TODO dodac specjalna permisje dostepu do swaggera
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
@@ -49,7 +49,8 @@ public class SecurityConfiguration {
 			.permitAll()
 
 			.requestMatchers(
-				"/error"
+				"/error",
+				"/v1/gamers/@me/authentication-data"
 			)
 			.permitAll()
 
