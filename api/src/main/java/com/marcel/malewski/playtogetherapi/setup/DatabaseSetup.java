@@ -11,7 +11,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import com.marcel.malewski.playtogetherapi.entity.platform.PlatformName;
+import com.marcel.malewski.playtogetherapi.entity.platform.BasicPlatformName;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -36,7 +36,7 @@ public final class DatabaseSetup {
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 
 			//Platform
-			Platform pc = new Platform(PlatformName.PC.name());
+			Platform pc = new Platform(BasicPlatformName.PC.name());
 			Platform savedPcPlatform = platformRepository.save(pc);
 
 			//Gamer
