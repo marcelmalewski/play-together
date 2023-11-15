@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
-import com.marcel.malewski.playtogetherapi.entity.platform.PlatformName;
+import com.marcel.malewski.playtogetherapi.entity.platform.BasicPlatformName;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ public class GamerRepositoryTest {
 		GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 		List<GamerRole> roles = List.of(savedModeratorRole);
 
-		Platform pc = new Platform(PlatformName.PC.name());
+		Platform pc = new Platform(BasicPlatformName.PC.name());
 		Platform savedPcPlatform = platformRepository.save(pc);
 		List<Platform> platforms = List.of(savedPcPlatform);
 
