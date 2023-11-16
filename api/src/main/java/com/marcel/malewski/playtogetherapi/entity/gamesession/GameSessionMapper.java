@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class GameSessionMapper {
 	public GameSessionPublicResponseDto toGameSessionResponseDto(GameSession gameSession, long principalId) {
+		//TODO if null return null
 		List<String> platformsNames = gameSession.getPlatforms().stream().map(Platform::getName).toList();
 		boolean currentGamerIsMember = !gameSession.getMembers().stream().filter(gamer -> gamer.getId().equals(principalId)).toList().isEmpty();
 
