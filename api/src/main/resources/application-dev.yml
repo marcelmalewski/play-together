@@ -1,13 +1,14 @@
 spring:
   jpa:
     properties:
-      javax:
-        persistence:
-          schema-generation:
-            scripts:
-              action: create
-              create-target: create.sql
-              create-source: metadata
+# uncomment to create database schema
+#      javax:
+#        persistence:
+#          schema-generation:
+#            scripts:
+#              action: create
+#              create-target: create.sql
+#              create-source: metadata
       hibernate:
         show_sql: true
         format_sql: true
