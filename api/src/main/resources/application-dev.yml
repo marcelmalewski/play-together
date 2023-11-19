@@ -13,10 +13,12 @@ spring:
         show_sql: true
         format_sql: true
 
-#logging:
-#  level:
-#    org:
-#      hibernate:
-#        orm:
-#          jdbc:
-#            bind: trace
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+      hibernate:
+        orm:
+          jdbc:
+#            bind: trace # uncomment for bind value debugging
