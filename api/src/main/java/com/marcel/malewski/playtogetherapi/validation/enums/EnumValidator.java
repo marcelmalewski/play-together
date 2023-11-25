@@ -15,7 +15,7 @@ public class EnumValidator implements ConstraintValidator<ValidEnum, CharSequenc
 	public void initialize(ValidEnum annotation) {
 		acceptedValues = Stream.of(annotation.enumClass().getEnumConstants())
 			.map(Enum::name)
-			.collect(Collectors.toList());
+			.toList();
 	}
 
 	@Override
