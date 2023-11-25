@@ -29,12 +29,13 @@ public class GamerRole {
     @NotNull
     private List<Gamer> gamers = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "gamerroles_gamerprivileges",
             joinColumns = @JoinColumn(name = "gamerrole_id"),
             inverseJoinColumns = @JoinColumn(name = "gamerprivilege_id"))
-    private Collection<GamerPrivilege> gamerPrivileges;
+    @NotNull
+    private Collection<GamerPrivilege> gamerPrivileges = new ArrayList<>();
 
     public GamerRole(@NotNull String name) {
         this.name = name;
