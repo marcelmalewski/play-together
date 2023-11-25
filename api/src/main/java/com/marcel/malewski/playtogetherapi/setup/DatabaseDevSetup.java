@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.setup;
 
 import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
@@ -17,14 +18,16 @@ import static com.marcel.malewski.playtogetherapi.setup.DatabaseSetup.basicSetup
 public class DatabaseDevSetup implements CommandLineRunner {
 	private final GamerRepository gamerRepository;
 	private final GamerRoleRepository gamerRoleRepository;
+	private final GamerPrivilegeRepository gamerPrivilegeRepository;
 	private final PlatformRepository platformRepository;
 	private final GameRepository gameRepository;
 	private final GameSessionRepository gameSessionRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 
-	public DatabaseDevSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, GameRepository gameRepository, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder) {
+	public DatabaseDevSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformRepository platformRepository, GameRepository gameRepository, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder) {
 		this.gamerRepository = gamerRepository;
 		this.gamerRoleRepository = gamerRoleRepository;
+		this.gamerPrivilegeRepository = gamerPrivilegeRepository;
 		this.platformRepository = platformRepository;
 		this.gameRepository = gameRepository;
 		this.gameSessionRepository = gameSessionRepository;
@@ -33,6 +36,6 @@ public class DatabaseDevSetup implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		basicSetup(false, gamerRepository, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository);
+		basicSetup(false, gamerRepository, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository, gamerPrivilegeRepository);
 	}
 }

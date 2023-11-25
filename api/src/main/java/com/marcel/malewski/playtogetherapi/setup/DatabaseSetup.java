@@ -4,6 +4,8 @@ import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilege;
+import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
@@ -19,20 +21,33 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerController.GAMER_PUBLIC_VIEW_PRIVILEGE;
+
 public final class DatabaseSetup {
 	private DatabaseSetup() {
 	}
 
-	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository) {
+	//TODO duzo parametrow hmmm
+	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
 		if (!gamerRepository.existsByLogin("admin")) {
+			//Privilege
+			GamerPrivilege gamerPublicViewPrivilege = new GamerPrivilege(GAMER_PUBLIC_VIEW_PRIVILEGE);
+			GamerPrivilege savedGamerEditPrivilege = gamerPrivilegeRepository.save(gamerPublicViewPrivilege);
+
 			//Role
+//			List<GamerPrivilege> basicGamerRolePrivileges = List.of(savedGamerEdit);
 			GamerRole basicGamerRole = new GamerRole(GamerRoleName.ROLE_BASIC_GAMER.name());
+//			basicGamerRole.setGamerPrivileges(basicGamerRolePrivileges);
 			gamerRoleRepository.save(basicGamerRole);
 
+//			List<GamerPrivilege> rolesManagerRolePrivileges = List.of(savedGamerEdit);
 			GamerRole rolesManagerRole = new GamerRole(GamerRoleName.ROLE_ROLES_MANAGER.name());
+//			basicGamerRole.setGamerPrivileges(rolesManagerRolePrivileges);
 			gamerRoleRepository.save(rolesManagerRole);
 
+			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedGamerEditPrivilege);
 			GamerRole moderatorRole = new GamerRole(GamerRoleName.ROLE_MODERATOR.name());
+			basicGamerRole.setGamerPrivileges(moderatorRolePrivileges);
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 
 			//Platform

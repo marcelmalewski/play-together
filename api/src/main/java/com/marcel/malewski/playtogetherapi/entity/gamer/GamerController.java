@@ -15,12 +15,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+//privileges "GAMER_EDIT_PRIVILEGE" "GAMER_PUBLIC_VIEW_PRIVILEGE" "GAMER_PRIVATE_VIEW_PRIVILEGE";
 @RestController
 @Tag(name = "Gamers v1", description = "Gamers API v1")
 public class GamerController {
@@ -29,6 +31,9 @@ public class GamerController {
 	public static final String GAMER_PATH_V1_ME = GAMER_PATH_V1 + "/@me";
 	public static final String GAMER_PATH_V1_PROFILE_DATA = GAMER_PATH_V1_ME + "/profile-data";
 	public static final String GAMER_PATH_V1_AUTHENTICATION_DATA = GAMER_PATH_V1_ME + "/authentication-data";
+
+	public static final String GAMER_PRIVILEGE = "GAMER";
+	public static final String GAMER_PUBLIC_VIEW_PRIVILEGE = GAMER_PRIVILEGE + "_PUBLIC_VIEW_PRIVILEGE";
 
 	private final GamerService gamerService;
 	private final SecurityHelper securityHelper;
@@ -43,6 +48,7 @@ public class GamerController {
 	//TODO endpoint not used
 	@GetMapping(value = GAMER_PATH_V1)
 	@Operation(summary = "Find all gamers public info")
+	@Secured(GAMER_PUBLIC_VIEW_PRIVILEGE)
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
