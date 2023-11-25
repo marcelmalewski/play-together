@@ -2,8 +2,10 @@ package com.marcel.malewski.playtogetherapi.entity.gamerprivilege;
 
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @AllArgsConstructor
@@ -21,5 +23,10 @@ public class GamerPrivilege {
     private String name;
 
     @ManyToMany(mappedBy = "gamerPrivileges")
-    private Collection<GamerRole> gamerRoles;
+    @NotNull
+    private Collection<GamerRole> gamerRoles = new ArrayList<>();
+
+    public GamerPrivilege(@NotNull String name) {
+        this.name = name;
+    }
 }
