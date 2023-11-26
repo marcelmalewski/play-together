@@ -51,7 +51,7 @@ public class GamerRepositoryTest {
 
 	@Test
 	void shouldSaveGamerAndJpaShouldFulfilIdAndVersion() {
-		GamerRole moderatorRole = new GamerRole(GamerRoleName.ROLE_MODERATOR.name());
+		GamerRole moderatorRole = new GamerRole(GamerRoleName.MODERATOR_ROLE.name());
 		GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 		List<GamerRole> roles = List.of(savedModeratorRole);
 

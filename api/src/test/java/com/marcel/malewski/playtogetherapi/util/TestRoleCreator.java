@@ -10,7 +10,7 @@ public final class TestRoleCreator {
 	}
 
 	public static List<GamerRole> getModeratorRole() {
-		GamerRole moderatorRole = new GamerRole(1L, GamerRoleName.ROLE_MODERATOR.name());
+		GamerRole moderatorRole = new GamerRole(1L, GamerRoleName.MODERATOR_ROLE.name());
 		return List.of(moderatorRole);
 	}
 }

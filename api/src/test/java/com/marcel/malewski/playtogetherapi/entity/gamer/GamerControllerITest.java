@@ -6,6 +6,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseD
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
+import com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
 import com.marcel.malewski.playtogetherapi.setup.DatabaseSetup;
 import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
@@ -37,7 +38,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
-import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerController.GAMER_PATH_V1_PROFILE_DATA;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1_PROFILE_DATA;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.INVALID_EMAIL;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getGamerShallowCopy;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,7 +67,7 @@ public class GamerControllerITest {
 	}
 
 	@Autowired
-	GamerController gamerController;
+    GamerController gamerController;
 
 	@Autowired
 	GamerRepository gamerRepository;

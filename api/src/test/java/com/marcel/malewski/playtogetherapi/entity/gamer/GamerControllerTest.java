@@ -6,6 +6,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseD
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateProfileRequestDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.exception.GamerNotFoundException;
+import com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.security.exception.AuthenticatedGamerNotFoundException;
@@ -26,7 +27,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerController.*;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.*;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRole;
 import static org.assertj.core.api.Assertions.assertThat;
