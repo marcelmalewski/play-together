@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.entity.gamer.register;
+package com.marcel.malewski.playtogetherapi.entity.gamer.controller;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
