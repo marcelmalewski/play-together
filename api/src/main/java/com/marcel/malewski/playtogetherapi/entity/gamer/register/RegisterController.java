@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.security.register;
+package com.marcel.malewski.playtogetherapi.entity.gamer.register;
 
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
 import com.marcel.malewski.playtogetherapi.security.exception.AlreadyAuthenticatedGamerException;
