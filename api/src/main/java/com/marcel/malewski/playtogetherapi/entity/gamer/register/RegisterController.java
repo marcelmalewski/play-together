@@ -30,13 +30,13 @@ public class RegisterController {
 	}
 
 	@PostMapping(value="/registration/gamers")
-	@Operation(summary = "Register gamer with role user")
+	@Operation(summary = "Register gamer with role basic gamer")
 	public ResponseEntity<Void> registerGamer(@Valid @RequestBody GamerRegisterRequestDto registerDto, Principal principal) {
 		if(principal != null) {
 			throw new AlreadyAuthenticatedGamerException();
 		}
 
-		Long registeredGamerId = registerService.register(registerDto, GamerRoleName.ROLE_BASIC_GAMER);
+		Long registeredGamerId = registerService.register(registerDto, GamerRoleName.BASIC_GAMER_ROLE);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", "/api/v1/gamers/" + registeredGamerId.toString());
 
@@ -46,9 +46,9 @@ public class RegisterController {
 	//TODO endpoint not used
 	@PostMapping(value="/moderator-panel/registration/moderators")
 	@Operation(summary = "Register gamer with role moderator")
-	@Secured("ROLE_MODERATOR")
+	@Secured("MODERATOR_CREATE")
 	public ResponseEntity<Void> registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
-		Long registeredModeratorId = registerService.register(registerDto, GamerRoleName.ROLE_MODERATOR);
+		Long registeredModeratorId = registerService.register(registerDto, GamerRoleName.MODERATOR_ROLE);
 		HttpHeaders headers = new HttpHeaders();
 		//TODO czy napewno takie location?
 		headers.add("Location", "/api/v1/gamers/" + registeredModeratorId.toString());

@@ -47,7 +47,7 @@ public class GamerController {
 	//TODO endpoint not used
 	@GetMapping(value = GAMER_PATH_V1)
 	@Operation(summary = "Find all gamers public info")
-	@Secured(GAMER_VIEW_PRIVILEGE)
+	@Secured(GAMER_VIEW)
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
@@ -58,7 +58,7 @@ public class GamerController {
 
 	@GetMapping(value = GAMER_PATH_V1_ID)
 	@Operation(summary = "Get public info about a gamer by id")
-	@Secured(GAMER_VIEW_PRIVILEGE)
+	@Secured(GAMER_VIEW)
 	public ResponseEntity<GamerPublicResponseDto> getGamer(@PathVariable long gamerId, Principal principal, HttpServletRequest request,
 	                                                       HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
@@ -73,7 +73,7 @@ public class GamerController {
 
 	@GetMapping(value = GAMER_PATH_V1_ME)
 	@Operation(summary = "Get private info about the authenticated gamer")
-	@Secured(GAMER_VIEW_PRIVILEGE)
+	@Secured(PRINCIPLE)
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -89,7 +89,7 @@ public class GamerController {
 
 	@PutMapping(value = GAMER_PATH_V1_PROFILE_DATA)
 	@Operation(summary = "Update the authenticated gamers's profile data")
-	@Secured(GAMER_EDIT_PRIVILEGE)
+	@Secured(PRINCIPLE)
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -105,7 +105,7 @@ public class GamerController {
 
 	@PatchMapping(value = GAMER_PATH_V1_AUTHENTICATION_DATA)
 	@Operation(summary = "Update the authenticated gamers's authentication data")
-	@Secured(GAMER_EDIT_PRIVILEGE)
+	@Secured(PRINCIPLE)
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -121,7 +121,7 @@ public class GamerController {
 
 	@DeleteMapping(GAMER_PATH_V1_ME)
 	@Operation(summary = "Delete the authenticated gamer and log out")
-	@Secured(GAMER_DELETE_PRIVILEGE)
+	@Secured(PRINCIPLE)
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);

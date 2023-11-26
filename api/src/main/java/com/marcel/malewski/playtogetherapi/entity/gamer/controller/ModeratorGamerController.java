@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.*;
+
 @RestController
 @RequestMapping(path = "v1")
 @Tag(name = "Moderator Gamers v1", description = "Gamers API v1 for Moderators")
@@ -28,6 +30,7 @@ public class ModeratorGamerController {
 	//TODO endpoint not used
 	@GetMapping("/moderator-panel/gamers")
 	@Operation(summary = "Find all gamers private info")
+	@Secured(GAMER_PRIVATE_DATA_VIEW)
 	public ResponseEntity<List<GamerPrivateResponseDto>> findAllGamers() {
 		List<GamerPrivateResponseDto> allGamers = gamerService.findAllGamersPrivateInfo();
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
@@ -36,6 +39,7 @@ public class ModeratorGamerController {
 	//TODO endpoint not used
 	@DeleteMapping("/moderator-panel/gamers/:gamerId")
 	@Operation(summary = "Delete gamer by id")
+	@Secured(GAMER_DELETE)
 	public ResponseEntity<Void> deleteGamer(long gamerId) {
 		if(gamerService.tryDeleteGamer(gamerId)) {
 			throw new GamerNotFoundException(gamerId);
@@ -47,6 +51,7 @@ public class ModeratorGamerController {
 	//TODO endpoint not used
 	@DeleteMapping("/moderator-panel/moderators/:moderatorId")
 	@Operation(summary = "Delete gamer with role moderator by id")
+	@Secured(MODERATOR_DELETE)
 	public ResponseEntity<Void> deleteModerator(long moderatorId) {
 		if(gamerService.tryDeleteGamer(moderatorId)) {
 			throw new GamerNotFoundException(moderatorId);
