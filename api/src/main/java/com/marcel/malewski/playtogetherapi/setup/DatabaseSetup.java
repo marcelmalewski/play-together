@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerController.GAMER_PUBLIC_VIEW_PRIVILEGE;
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW_PRIVILEGE;
 
 public final class DatabaseSetup {
 	private DatabaseSetup() {
@@ -31,7 +31,7 @@ public final class DatabaseSetup {
 	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Privilege
-			GamerPrivilege gamerPublicViewPrivilege = new GamerPrivilege(GAMER_PUBLIC_VIEW_PRIVILEGE);
+			GamerPrivilege gamerPublicViewPrivilege = new GamerPrivilege(GAMER_VIEW_PRIVILEGE_LOCAL);
 			GamerPrivilege savedGamerPublicViewPrivilege = gamerPrivilegeRepository.save(gamerPublicViewPrivilege);
 
 			//Role
@@ -131,4 +131,6 @@ public final class DatabaseSetup {
 	//TODO przenieść hasło do plików konfiguracyjnych?
 	public static final String TEST_GAMERS_PASSWORD = "test123456789";
 	public static final String DEV_ADMIN_PASSWORD = "admin.123";
+
+	public static final String GAMER_VIEW_PRIVILEGE_LOCAL = GAMER_VIEW_PRIVILEGE;
 }
