@@ -47,7 +47,7 @@ public class GamerController {
 	//TODO endpoint not used
 	@GetMapping(value = GAMER_PATH_V1)
 	@Operation(summary = "Find all gamers public info")
-	@Secured(GAMER_VIEW)
+	@Secured(GAMER_VIEW_PRIVILEGE)
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
@@ -58,7 +58,7 @@ public class GamerController {
 
 	@GetMapping(value = GAMER_PATH_V1_ID)
 	@Operation(summary = "Get public info about a gamer by id")
-	@Secured(GAMER_VIEW)
+	@Secured(GAMER_VIEW_PRIVILEGE)
 	public ResponseEntity<GamerPublicResponseDto> getGamer(@PathVariable long gamerId, Principal principal, HttpServletRequest request,
 	                                                       HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);

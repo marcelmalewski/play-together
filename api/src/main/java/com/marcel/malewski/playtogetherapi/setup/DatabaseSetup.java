@@ -21,7 +21,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW;
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_MANAGE_PRIVILEGE;
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW_PRIVILEGE;
 
 public final class DatabaseSetup {
 	private DatabaseSetup() {
@@ -31,8 +32,11 @@ public final class DatabaseSetup {
 	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Privilege
-			GamerPrivilege gamerPublicViewPrivilege = new GamerPrivilege(GAMER_VIEW_PRIVILEGE_LOCAL);
-			GamerPrivilege savedGamerPublicViewPrivilege = gamerPrivilegeRepository.save(gamerPublicViewPrivilege);
+			GamerPrivilege gamerView = new GamerPrivilege(GAMER_VIEW_PRIVILEGE_LOCAL);
+			GamerPrivilege savedGamerView = gamerPrivilegeRepository.save(gamerView);
+
+			GamerPrivilege gamerManage = new GamerPrivilege(GAMER_MANAGE_PRIVILEGE_LOCAL);
+			GamerPrivilege savedGamerManage = gamerPrivilegeRepository.save(gamerManage);
 
 			//Role
 //			List<GamerPrivilege> basicGamerRolePrivileges = List.of(savedGamerEdit);
@@ -45,7 +49,7 @@ public final class DatabaseSetup {
 //			rolesManagerRole.setGamerPrivileges(rolesManagerRolePrivileges);
 			gamerRoleRepository.save(rolesManagerRole);
 
-			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedGamerPublicViewPrivilege);
+			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedGamerManage);
 			GamerRole moderatorRole = new GamerRole(GamerRoleName.MODERATOR_ROLE.name());
 			moderatorRole.setGamerPrivileges(moderatorRolePrivileges);
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
@@ -132,5 +136,6 @@ public final class DatabaseSetup {
 	public static final String TEST_GAMERS_PASSWORD = "test123456789";
 	public static final String DEV_ADMIN_PASSWORD = "admin.123";
 
-	public static final String GAMER_VIEW_PRIVILEGE_LOCAL = GAMER_VIEW;
+	public static final String GAMER_VIEW_PRIVILEGE_LOCAL = GAMER_VIEW_PRIVILEGE;
+	public static final String GAMER_MANAGE_PRIVILEGE_LOCAL = GAMER_MANAGE_PRIVILEGE;
 }
