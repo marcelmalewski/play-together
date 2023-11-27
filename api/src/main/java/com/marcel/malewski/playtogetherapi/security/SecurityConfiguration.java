@@ -4,12 +4,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 //TODO dodać profile
@@ -77,7 +80,28 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
-	public AccessDeniedHandler accessDeniedHandler(){
+	public AccessDeniedHandler accessDeniedHandler() {
 		return new CustomAccessDeniedHandler();
+	}
+
+	@Bean
+	public RoleHierarchy roleHierarchy() {
+		RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+		String hierarchy = """
+			GAMER_ANALYSE_PRIVILEGE > GAMER_VIEW_PRIVILEGE
+			GAMER_MANAGE_PRIVILEGE > GAMER_ANALYSE_PRIVILEGE
+			GAMER_MANAGE_PRIVILEGE > GAMER_CREATE_PRIVILEGE
+			GAMER_MANAGE_PRIVILEGE > GAMER_EDIT_PRIVILEGE
+			GAMER_MANAGE_PRIVILEGE > GAMER_DELETE_PRIVILEGE
+			""";
+		roleHierarchy.setHierarchy(hierarchy);
+		return roleHierarchy;
+	}
+
+	@Bean
+	public DefaultWebSecurityExpressionHandler customWebSecurityExpressionHandler() {
+		DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
+		expressionHandler.setRoleHierarchy(roleHierarchy());
+		return expressionHandler;
 	}
 }
