@@ -32,6 +32,7 @@ public final class DatabaseSetup {
 	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Privilege
+			//========================================================
 			GamerPrivilege gamerViewPrivilege = new GamerPrivilege(GAMER_VIEW_PRIVILEGE_LOCAL);
 			GamerPrivilege savedGamerViewPrivilege = gamerPrivilegeRepository.save(gamerViewPrivilege);
 
@@ -39,6 +40,7 @@ public final class DatabaseSetup {
 			GamerPrivilege savedGamerManagePrivilege = gamerPrivilegeRepository.save(gamerManagePrivilege);
 
 			//Role
+			//========================================================
 //			List<GamerPrivilege> basicGamerRolePrivileges = List.of(savedGamerEdit);
 			GamerRole basicGamerRole = new GamerRole(GamerRoleName.BASIC_GAMER_ROLE.name());
 //			basicGamerRole.setGamerPrivileges(basicGamerRolePrivileges);
@@ -55,10 +57,12 @@ public final class DatabaseSetup {
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 
 			//Platform
+			//========================================================
 			Platform pc = new Platform(BasicPlatformName.PC.name());
 			Platform savedPcPlatform = platformRepository.save(pc);
 
 			//Gamer
+			//========================================================
 			Gamer admin;
 
 			if (testSetup) {
@@ -107,10 +111,12 @@ public final class DatabaseSetup {
 			Gamer savedAdmin = gamerRepository.save(admin);
 
 			//Game
+			//========================================================
 			Game fortnite = new Game("fortnite");
 			Game savedFortnite = gameRepository.save(fortnite);
 
 			//GameSession
+			//========================================================
 			LocalDate today = LocalDate.now();
 			GameSession testGameSession = GameSession.builder()
 				.name("test game session")
