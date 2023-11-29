@@ -32,11 +32,11 @@ public final class DatabaseSetup {
 	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Privilege
-			GamerPrivilege gamerView = new GamerPrivilege(GAMER_VIEW_PRIVILEGE_LOCAL);
-			GamerPrivilege savedGamerView = gamerPrivilegeRepository.save(gamerView);
+			GamerPrivilege gamerViewPrivilege = new GamerPrivilege(GAMER_VIEW_PRIVILEGE_LOCAL);
+			GamerPrivilege savedGamerViewPrivilege = gamerPrivilegeRepository.save(gamerViewPrivilege);
 
-			GamerPrivilege gamerManage = new GamerPrivilege(GAMER_MANAGE_PRIVILEGE_LOCAL);
-			GamerPrivilege savedGamerManage = gamerPrivilegeRepository.save(gamerManage);
+			GamerPrivilege gamerManagePrivilege = new GamerPrivilege(GAMER_MANAGE_PRIVILEGE_LOCAL);
+			GamerPrivilege savedGamerManagePrivilege = gamerPrivilegeRepository.save(gamerManagePrivilege);
 
 			//Role
 //			List<GamerPrivilege> basicGamerRolePrivileges = List.of(savedGamerEdit);
@@ -49,7 +49,7 @@ public final class DatabaseSetup {
 //			rolesManagerRole.setGamerPrivileges(rolesManagerRolePrivileges);
 			gamerRoleRepository.save(rolesManagerRole);
 
-			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedGamerManage);
+			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedGamerManagePrivilege);
 			GamerRole moderatorRole = new GamerRole(GamerRoleName.MODERATOR_ROLE.name());
 			moderatorRole.setGamerPrivileges(moderatorRolePrivileges);
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);

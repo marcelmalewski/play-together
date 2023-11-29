@@ -6,9 +6,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -30,46 +32,45 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-			.csrf()
-			.disable()
-			.authorizeHttpRequests()
+			.csrf(AbstractHttpConfigurer::disable)
+			.authorizeHttpRequests(authorize -> authorize
+				.requestMatchers(
+					HttpMethod.POST,
+					"/v1/registration/gamers"
+				)
+				.permitAll()
 
-			.requestMatchers(
-				HttpMethod.POST,
-				"/v1/registration/gamers"
+				.requestMatchers(
+					HttpMethod.GET,
+					"/docs",
+					"/v2/api-docs/**",
+					"/v3/api-docs/**",
+					"/swagger-resources/**",
+					"/swagger-ui/**",
+					"/swagger-ui.html"
+				)
+				.permitAll()
+
+				.requestMatchers(
+					"/error",
+					"/v1/gamers/@me/authentication-data"
+				)
+				.permitAll()
+
+				.anyRequest()
+				.authenticated()
 			)
-			.permitAll()
 
-			.requestMatchers(
-				HttpMethod.GET,
-				"/docs",
-				"/v2/api-docs/**",
-				"/v3/api-docs/**",
-				"/swagger-resources/**",
-				"/swagger-ui/**",
-				"/swagger-ui.html"
+			.formLogin(formLogin -> formLogin
+				.successHandler((request, response, authentication) -> {
+					// Do nothing upon successful login
+				})
 			)
-			.permitAll()
 
-			.requestMatchers(
-				"/error",
-				"/v1/gamers/@me/authentication-data"
-			)
-			.permitAll()
-
-			.anyRequest()
-			.authenticated()
-			.and()
-			.formLogin()
-			.successHandler((request, response, authentication) -> {
-				// Do nothing upon successful login
-			})
-			.and()
-			.exceptionHandling()
-			.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-			.and()
-			.exceptionHandling()
-			.accessDeniedHandler(accessDeniedHandler());
+			.exceptionHandling(exceptionHandling -> exceptionHandling
+				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+				.accessDeniedHandler(accessDeniedHandler())
+			);
 
 		return http.build();
 	}
