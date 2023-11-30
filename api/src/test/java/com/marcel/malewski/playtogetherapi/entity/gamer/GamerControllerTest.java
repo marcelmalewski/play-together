@@ -29,7 +29,7 @@ import java.util.Optional;
 
 import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.*;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
-import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRole;
+import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRoleAsList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -68,8 +68,8 @@ class GamerControllerTest {
 	@BeforeEach
 	void setUp() {
 		List<Platform> testPlatforms = getTestPlatforms();
-		List<GamerRole> allRoles = getModeratorRole();
-		testGamer = TestGamerCreator.getTestGamer(testPlatforms, allRoles);
+		List<GamerRole> moderatorRoleAsList = getModeratorRoleAsList();
+		testGamer = TestGamerCreator.getTestGamer(testPlatforms, moderatorRoleAsList);
 		testGamerPublicResponseDto = TestGamerCreator.toGamerPublicResponseDto(testGamer);
 		testGamerPrivateResponseDto = TestGamerCreator.toGamerPrivateResponseDto(testGamer);
 	}
