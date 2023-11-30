@@ -17,7 +17,7 @@ public final class GamerPrivilegeName {
 	public static final String DELETE = "_DELETE_PRIVILEGE";
 	public static final String MANAGE = "_MANAGE_PRIVILEGE";
 
-	public static final String PRINCIPLE = "PRINCIPLE";
+	public static final String PRINCIPLE_PRIVILEGE = "PRINCIPLE_PRIVILEGE";
 
 	public static final String GAMER_PREFIX = "GAMER";
 	public static final String GAMER_VIEW_PRIVILEGE = GAMER_PREFIX + VIEW;
@@ -32,7 +32,7 @@ public final class GamerPrivilegeName {
 
 
 	public static final String MODERATOR_PREFIX = "MODERATOR";
-	public static final String MODERATOR_VIEW_PRIVILEGE = MODERATOR_PREFIX + VIEW;
+	public static final String MODERATOR_CREATE_PRIVILEGE = MODERATOR_PREFIX + CREATE;
 	public static final String MODERATOR_DELETE_PRIVILEGE = MODERATOR_PREFIX + DELETE;
 
 

@@ -73,7 +73,7 @@ public class GamerController {
 
 	@GetMapping(value = GAMER_PATH_V1_ME)
 	@Operation(summary = "Get private info about the authenticated gamer")
-	@Secured(PRINCIPLE)
+	@Secured(PRINCIPLE_PRIVILEGE)
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -89,7 +89,7 @@ public class GamerController {
 
 	@PutMapping(value = GAMER_PATH_V1_PROFILE_DATA)
 	@Operation(summary = "Update the authenticated gamers's profile data")
-	@Secured(PRINCIPLE)
+	@Secured(PRINCIPLE_PRIVILEGE)
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -105,7 +105,7 @@ public class GamerController {
 
 	@PatchMapping(value = GAMER_PATH_V1_AUTHENTICATION_DATA)
 	@Operation(summary = "Update the authenticated gamers's authentication data")
-	@Secured(PRINCIPLE)
+	@Secured(PRINCIPLE_PRIVILEGE)
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -119,9 +119,10 @@ public class GamerController {
 		return new ResponseEntity<>(optionalUpdatedGamer.get(), HttpStatus.OK);
 	}
 
+	//TODO jakas blokada zeby ostatni moderator nie usunal sam siebie?
 	@DeleteMapping(GAMER_PATH_V1_ME)
 	@Operation(summary = "Delete the authenticated gamer and log out")
-	@Secured(PRINCIPLE)
+	@Secured(PRINCIPLE_PRIVILEGE)
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);

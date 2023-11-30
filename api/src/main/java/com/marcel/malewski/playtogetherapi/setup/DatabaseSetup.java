@@ -21,8 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_MANAGE_PRIVILEGE;
-import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW_PRIVILEGE;
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.*;
 
 public final class DatabaseSetup {
 	private DatabaseSetup() {
@@ -33,28 +32,44 @@ public final class DatabaseSetup {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Privilege
 			//========================================================
-			GamerPrivilege gamerViewPrivilege = new GamerPrivilege(GAMER_VIEW_PRIVILEGE_LOCAL);
+			GamerPrivilege principlePrivilege = new GamerPrivilege(PRINCIPLE_PRIVILEGE);
+			GamerPrivilege savedPrinciplePrivilege = gamerPrivilegeRepository.save(principlePrivilege);
+
+			GamerPrivilege gamerViewPrivilege = new GamerPrivilege(GAMER_VIEW_PRIVILEGE);
 			GamerPrivilege savedGamerViewPrivilege = gamerPrivilegeRepository.save(gamerViewPrivilege);
 
-			GamerPrivilege gamerManagePrivilege = new GamerPrivilege(GAMER_MANAGE_PRIVILEGE_LOCAL);
+
+			GamerPrivilege gamerManagePrivilege = new GamerPrivilege(GAMER_MANAGE_PRIVILEGE);
 			GamerPrivilege savedGamerManagePrivilege = gamerPrivilegeRepository.save(gamerManagePrivilege);
+
+			GamerPrivilege gamerPrivateDataViewPrivilege = new GamerPrivilege(GAMER_PRIVATE_DATA_VIEW_PRIVILEGE);
+			GamerPrivilege savedGamerPrivateDataViewPrivilege = gamerPrivilegeRepository.save(gamerPrivateDataViewPrivilege);
+
+
+			GamerPrivilege moderatorCreatePrivilege = new GamerPrivilege(MODERATOR_CREATE_PRIVILEGE);
+			GamerPrivilege savedModeratorCreatePrivilege = gamerPrivilegeRepository.save(moderatorCreatePrivilege);
+
+			GamerPrivilege moderatorDeletePrivilege = new GamerPrivilege(MODERATOR_DELETE_PRIVILEGE);
+			GamerPrivilege savedModeratorDeletePrivilege = gamerPrivilegeRepository.save(moderatorDeletePrivilege);
 
 			//Role
 			//========================================================
-//			List<GamerPrivilege> basicGamerRolePrivileges = List.of(savedGamerEdit);
+			List<GamerPrivilege> basicGamerRolePrivileges = List.of(savedPrinciplePrivilege, savedGamerViewPrivilege);
 			GamerRole basicGamerRole = new GamerRole(GamerRoleName.BASIC_GAMER_ROLE.name());
-//			basicGamerRole.setGamerPrivileges(basicGamerRolePrivileges);
+			basicGamerRole.setGamerPrivileges(basicGamerRolePrivileges);
 			gamerRoleRepository.save(basicGamerRole);
 
-//			List<GamerPrivilege> rolesManagerRolePrivileges = List.of(savedGamerEdit);
-			GamerRole rolesManagerRole = new GamerRole(GamerRoleName.ROLES_MANAGER_ROLE.name());
-//			rolesManagerRole.setGamerPrivileges(rolesManagerRolePrivileges);
-			gamerRoleRepository.save(rolesManagerRole);
+			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedPrinciplePrivilege, savedGamerManagePrivilege, savedGamerPrivateDataViewPrivilege);
+			moderatorRolePrivileges.addAll(basicGamerRolePrivileges);
 
-			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedGamerManagePrivilege);
 			GamerRole moderatorRole = new GamerRole(GamerRoleName.MODERATOR_ROLE.name());
 			moderatorRole.setGamerPrivileges(moderatorRolePrivileges);
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
+
+			List<GamerPrivilege> manageModeratorsRole = List.of(savedModeratorCreatePrivilege, savedModeratorDeletePrivilege);
+			GamerRole rolesManagerRole = new GamerRole(GamerRoleName.MANAGE_MODERATORS_ROLE.name());
+			rolesManagerRole.setGamerPrivileges(manageModeratorsRole);
+			gamerRoleRepository.save(rolesManagerRole);
 
 			//Platform
 			//========================================================
@@ -141,7 +156,4 @@ public final class DatabaseSetup {
 	//TODO przenieść hasło do plików konfiguracyjnych?
 	public static final String TEST_GAMERS_PASSWORD = "test123456789";
 	public static final String DEV_ADMIN_PASSWORD = "admin.123";
-
-	public static final String GAMER_VIEW_PRIVILEGE_LOCAL = GAMER_VIEW_PRIVILEGE;
-	public static final String GAMER_MANAGE_PRIVILEGE_LOCAL = GAMER_MANAGE_PRIVILEGE;
 }

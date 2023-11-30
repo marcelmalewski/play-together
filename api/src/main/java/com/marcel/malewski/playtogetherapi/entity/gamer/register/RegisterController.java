@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.MODERATOR_CREATE_PRIVILEGE;
+
 @RestController
 @RequestMapping(path = "v1")
 @Tag(
@@ -46,7 +48,7 @@ public class RegisterController {
 	//TODO endpoint not used
 	@PostMapping(value="/moderator-panel/registration/moderators")
 	@Operation(summary = "Register gamer with role moderator")
-	@Secured("MODERATOR_CREATE")
+	@Secured(MODERATOR_CREATE_PRIVILEGE)
 	public ResponseEntity<Void> registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
 		Long registeredModeratorId = registerService.register(registerDto, GamerRoleName.MODERATOR_ROLE);
 		HttpHeaders headers = new HttpHeaders();

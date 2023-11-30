@@ -85,6 +85,7 @@ public class SecurityConfiguration {
 		return new CustomAccessDeniedHandler();
 	}
 
+	//TODO test czy ten przypadek dziala: "GAMER_ANALYSE_PRIVILEGE > GAMER_VIEW_PRIVILEGE GAMER_MANAGE_PRIVILEGE > GAMER_ANALYSE_PRIVILEGE"
 	@Bean
 	public RoleHierarchy roleHierarchy() {
 		RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
