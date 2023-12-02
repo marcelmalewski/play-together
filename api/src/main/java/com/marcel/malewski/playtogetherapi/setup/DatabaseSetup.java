@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.*;
@@ -32,25 +33,16 @@ public final class DatabaseSetup {
 		if (!gamerRepository.existsByLogin("admin")) {
 			//Privilege
 			//========================================================
-			GamerPrivilege principlePrivilege = new GamerPrivilege(PRINCIPLE_PRIVILEGE);
-			GamerPrivilege savedPrinciplePrivilege = gamerPrivilegeRepository.save(principlePrivilege);
-
-			GamerPrivilege gamerViewPrivilege = new GamerPrivilege(GAMER_VIEW_PRIVILEGE);
-			GamerPrivilege savedGamerViewPrivilege = gamerPrivilegeRepository.save(gamerViewPrivilege);
+			GamerPrivilege savedPrinciplePrivilege = createGamerPrivilege(PRINCIPLE_PRIVILEGE, gamerPrivilegeRepository);
+			GamerPrivilege savedGamerViewPrivilege = createGamerPrivilege(GAMER_VIEW_PRIVILEGE, gamerPrivilegeRepository);
 
 
-			GamerPrivilege gamerManagePrivilege = new GamerPrivilege(GAMER_MANAGE_PRIVILEGE);
-			GamerPrivilege savedGamerManagePrivilege = gamerPrivilegeRepository.save(gamerManagePrivilege);
-
-			GamerPrivilege gamerPrivateDataViewPrivilege = new GamerPrivilege(GAMER_PRIVATE_DATA_VIEW_PRIVILEGE);
-			GamerPrivilege savedGamerPrivateDataViewPrivilege = gamerPrivilegeRepository.save(gamerPrivateDataViewPrivilege);
+			GamerPrivilege savedGamerManagePrivilege = createGamerPrivilege(GAMER_MANAGE_PRIVILEGE, gamerPrivilegeRepository);
+			GamerPrivilege savedGamerPrivateDataViewPrivilege = createGamerPrivilege(GAMER_PRIVATE_DATA_VIEW_PRIVILEGE, gamerPrivilegeRepository);
 
 
-			GamerPrivilege moderatorCreatePrivilege = new GamerPrivilege(MODERATOR_CREATE_PRIVILEGE);
-			GamerPrivilege savedModeratorCreatePrivilege = gamerPrivilegeRepository.save(moderatorCreatePrivilege);
-
-			GamerPrivilege moderatorDeletePrivilege = new GamerPrivilege(MODERATOR_DELETE_PRIVILEGE);
-			GamerPrivilege savedModeratorDeletePrivilege = gamerPrivilegeRepository.save(moderatorDeletePrivilege);
+			GamerPrivilege savedModeratorCreatePrivilege = createGamerPrivilege(MODERATOR_CREATE_PRIVILEGE, gamerPrivilegeRepository);
+			GamerPrivilege savedModeratorDeletePrivilege = createGamerPrivilege(MODERATOR_DELETE_PRIVILEGE, gamerPrivilegeRepository);
 
 			//Role
 			//========================================================
@@ -60,8 +52,6 @@ public final class DatabaseSetup {
 			gamerRoleRepository.save(basicGamerRole);
 
 			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedPrinciplePrivilege, savedGamerManagePrivilege, savedGamerPrivateDataViewPrivilege);
-			moderatorRolePrivileges.addAll(basicGamerRolePrivileges);
-
 			GamerRole moderatorRole = new GamerRole(GamerRoleName.MODERATOR_ROLE.name());
 			moderatorRole.setGamerPrivileges(moderatorRolePrivileges);
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
@@ -151,6 +141,11 @@ public final class DatabaseSetup {
 				.build();
 			gameSessionRepository.save(testGameSession);
 		}
+	}
+
+	static private GamerPrivilege createGamerPrivilege(String gamerPrivilegeName, GamerPrivilegeRepository gamerprivilegerepository) {
+		GamerPrivilege gamerPrivilege = new GamerPrivilege(gamerPrivilegeName);
+		return gamerprivilegerepository.save(gamerPrivilege);
 	}
 
 	//TODO przenieść hasło do plików konfiguracyjnych?
