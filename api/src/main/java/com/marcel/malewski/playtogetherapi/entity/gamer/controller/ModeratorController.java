@@ -20,10 +20,10 @@ import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPri
 @RestController
 @RequestMapping(path = "v1")
 @Tag(name = "Moderator Gamers v1", description = "Gamers API v1 for Moderators")
-public class ModeratorGamerController {
+public class ModeratorController {
 	private final GamerService gamerService;
 
-	public ModeratorGamerController(GamerService gamerService) {
+	public ModeratorController(GamerService gamerService) {
 		this.gamerService = gamerService;
 	}
 
