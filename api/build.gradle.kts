@@ -1,8 +1,8 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.1.6"
-    id("io.spring.dependency-management") version "1.1.0"
     application
+    id("org.springframework.boot") version "3.1.6"
+    id("io.spring.dependency-management") version "1.1.4"
 }
 
 group = "com.marcel.malewski"
@@ -29,6 +29,7 @@ dependencies {
     implementation("org.mapstruct:mapstruct:1.5.3.Final")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
     implementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    implementation("org.flywaydb:flyway-core")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
