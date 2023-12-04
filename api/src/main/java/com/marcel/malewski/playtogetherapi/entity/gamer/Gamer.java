@@ -14,6 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -65,7 +66,7 @@ public class Gamer implements UserDetails {
     private LocalTime playingTimeStart;
     @NotNull
     private LocalTime playingTimeEnd;
-    @NotNull
+    @CreationTimestamp
     private LocalDate createdAt;
     @TrimmedSize(min = 3, max = 500)
     private String bio;
