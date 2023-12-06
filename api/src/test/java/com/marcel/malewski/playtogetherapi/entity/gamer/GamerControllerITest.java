@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -39,6 +40,7 @@ import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1_PROFILE_DATA;
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW_PRIVILEGE;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.INVALID_EMAIL;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getGamerShallowCopy;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -97,6 +99,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", authorities = GAMER_VIEW_PRIVILEGE)
 	@Transactional
 	void shouldReturnListWithOneGamerWhenOneGamerExist() {
 		ResponseEntity<List<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(principal, request, response);
