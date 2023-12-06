@@ -84,17 +84,12 @@ public class SecurityConfiguration {
 		return new CustomAccessDeniedHandler();
 	}
 
-	//TODO test czy ten przypadek dziala: "GAMER_ANALYSE_PRIVILEGE > GAMER_VIEW_PRIVILEGE GAMER_MANAGE_PRIVILEGE > GAMER_ANALYSE_PRIVILEGE"
 	@Bean
 	public RoleHierarchy roleHierarchy() {
 		RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
 		String hierarchy = """
-			GAMER_ANALYSE_PRIVILEGE > GAMER_VIEW_PRIVILEGE
+			MODERATOR_ROLE > BASIC_GAMER_ROLE
 			GAMER_MANAGE_PRIVILEGE > GAMER_VIEW_PRIVILEGE
-			GAMER_MANAGE_PRIVILEGE > GAMER_ANALYSE_PRIVILEGE
-			GAMER_MANAGE_PRIVILEGE > GAMER_CREATE_PRIVILEGE
-			GAMER_MANAGE_PRIVILEGE > GAMER_EDIT_PRIVILEGE
-			GAMER_MANAGE_PRIVILEGE > GAMER_DELETE_PRIVILEGE
 			""";
 		roleHierarchy.setHierarchy(hierarchy);
 		return roleHierarchy;
