@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 //				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true)
+@EnableMethodSecurity
 public class SecurityConfiguration {
 
 	//TODO dodac specjalna permisje dostepu do swaggera
@@ -88,8 +88,7 @@ public class SecurityConfiguration {
 	public RoleHierarchy roleHierarchy() {
 		RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
 		String hierarchy = """
-			MODERATOR_ROLE > BASIC_GAMER_ROLE
-			GAMER_MANAGE_PRIVILEGE > GAMER_VIEW_PRIVILEGE
+			ROLE_GAMER_MANAGE_PRIVILEGE > ROLE_GAMER_VIEW_PRIVILEGE
 			""";
 		roleHierarchy.setHierarchy(hierarchy);
 		return roleHierarchy;
