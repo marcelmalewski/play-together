@@ -17,21 +17,19 @@ public final class GamerPrivilegeName {
 	public static final String DELETE = "_DELETE_PRIVILEGE";
 	public static final String MANAGE = "_MANAGE_PRIVILEGE";
 
-	public static final String PRINCIPLE_PRIVILEGE = "PRINCIPLE_PRIVILEGE";
+	public static final String PRINCIPLE_PRIVILEGE = "ROLE_PRINCIPLE_PRIVILEGE";
 
-	public static final String GAMER_PREFIX = "GAMER";
+	public static final String GAMER_PREFIX = "ROLE_GAMER";
 	public static final String GAMER_VIEW_PRIVILEGE = GAMER_PREFIX + VIEW;
 	public static final String GAMER_ANALYSE_PRIVILEGE = GAMER_PREFIX + ANALYSE;
 	public static final String GAMER_CREATE_PRIVILEGE = GAMER_PREFIX + CREATE;
 	public static final String GAMER_EDIT_PRIVILEGE = GAMER_PREFIX + EDIT;
 	public static final String GAMER_DELETE_PRIVILEGE = GAMER_PREFIX + DELETE;
+	public static final String GAMER_PRIVATE_DATA_VIEW_PRIVILEGE = "ROLE_GAMER_PRIVATE" + VIEW;
 	public static final String GAMER_MANAGE_PRIVILEGE = GAMER_PREFIX + MANAGE;
 
-	public static final String GAMER_PRIVATE_DATA_PREFIX = "GAMER_PRIVATE";
-	public static final String GAMER_PRIVATE_DATA_VIEW_PRIVILEGE = GAMER_PRIVATE_DATA_PREFIX + VIEW;
 
-
-	public static final String MODERATOR_PREFIX = "MODERATOR";
+	public static final String MODERATOR_PREFIX = "ROLE_MODERATOR";
 	public static final String MODERATOR_CREATE_PRIVILEGE = MODERATOR_PREFIX + CREATE;
 	public static final String MODERATOR_DELETE_PRIVILEGE = MODERATOR_PREFIX + DELETE;
 

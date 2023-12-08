@@ -19,7 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.*;
@@ -36,10 +35,7 @@ public final class DatabaseSetup {
 			GamerPrivilege savedPrinciplePrivilege = createGamerPrivilege(PRINCIPLE_PRIVILEGE, gamerPrivilegeRepository);
 			GamerPrivilege savedGamerViewPrivilege = createGamerPrivilege(GAMER_VIEW_PRIVILEGE, gamerPrivilegeRepository);
 
-
 			GamerPrivilege savedGamerManagePrivilege = createGamerPrivilege(GAMER_MANAGE_PRIVILEGE, gamerPrivilegeRepository);
-			GamerPrivilege savedGamerPrivateDataViewPrivilege = createGamerPrivilege(GAMER_PRIVATE_DATA_VIEW_PRIVILEGE, gamerPrivilegeRepository);
-
 
 			GamerPrivilege savedModeratorCreatePrivilege = createGamerPrivilege(MODERATOR_CREATE_PRIVILEGE, gamerPrivilegeRepository);
 			GamerPrivilege savedModeratorDeletePrivilege = createGamerPrivilege(MODERATOR_DELETE_PRIVILEGE, gamerPrivilegeRepository);
@@ -51,7 +47,7 @@ public final class DatabaseSetup {
 			basicGamerRole.setGamerPrivileges(basicGamerRolePrivileges);
 			gamerRoleRepository.save(basicGamerRole);
 
-			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedPrinciplePrivilege, savedGamerManagePrivilege, savedGamerPrivateDataViewPrivilege);
+			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedPrinciplePrivilege, savedGamerManagePrivilege);
 			GamerRole moderatorRole = new GamerRole(GamerRoleName.MODERATOR_ROLE.name());
 			moderatorRole.setGamerPrivileges(moderatorRolePrivileges);
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);

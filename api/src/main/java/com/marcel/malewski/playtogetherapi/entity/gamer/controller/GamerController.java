@@ -16,14 +16,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.*;
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW_PRIVILEGE;
 
 @RestController
 @Tag(name = "Gamers v1", description = "Gamers API v1")
@@ -47,7 +47,7 @@ public class GamerController {
 	//TODO endpoint not used
 	@GetMapping(value = GAMER_PATH_V1)
 	@Operation(summary = "Find all gamers public info")
-	@Secured(GAMER_VIEW_PRIVILEGE)
+	@PreAuthorize("hasRole('" + GAMER_VIEW_PRIVILEGE + "')")
 	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
@@ -58,7 +58,7 @@ public class GamerController {
 
 	@GetMapping(value = GAMER_PATH_V1_ID)
 	@Operation(summary = "Get public info about a gamer by id")
-	@Secured(GAMER_VIEW_PRIVILEGE)
+//	@Secured(GAMER_VIEW_PRIVILEGE)
 	public ResponseEntity<GamerPublicResponseDto> getGamer(@PathVariable long gamerId, Principal principal, HttpServletRequest request,
 	                                                       HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
@@ -73,7 +73,7 @@ public class GamerController {
 
 	@GetMapping(value = GAMER_PATH_V1_ME)
 	@Operation(summary = "Get private info about the authenticated gamer")
-	@Secured(PRINCIPLE_PRIVILEGE)
+//	@Secured(PRINCIPLE_PRIVILEGE)
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -89,7 +89,7 @@ public class GamerController {
 
 	@PutMapping(value = GAMER_PATH_V1_PROFILE_DATA)
 	@Operation(summary = "Update the authenticated gamers's profile data")
-	@Secured(PRINCIPLE_PRIVILEGE)
+//	@Secured(PRINCIPLE_PRIVILEGE)
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -105,7 +105,7 @@ public class GamerController {
 
 	@PatchMapping(value = GAMER_PATH_V1_AUTHENTICATION_DATA)
 	@Operation(summary = "Update the authenticated gamers's authentication data")
-	@Secured(PRINCIPLE_PRIVILEGE)
+//	@Secured(PRINCIPLE_PRIVILEGE)
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -122,7 +122,7 @@ public class GamerController {
 	//TODO jakas blokada zeby ostatni moderator nie usunal sam siebie?
 	@DeleteMapping(GAMER_PATH_V1_ME)
 	@Operation(summary = "Delete the authenticated gamer and log out")
-	@Secured(PRINCIPLE_PRIVILEGE)
+//	@Secured(PRINCIPLE_PRIVILEGE)
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);

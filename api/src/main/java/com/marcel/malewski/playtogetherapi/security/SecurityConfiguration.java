@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -15,6 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.*;
 
 //TODO dodać profile
 //TODO co to dokladnie stateless session
@@ -37,7 +41,8 @@ public class SecurityConfiguration {
 					HttpMethod.POST,
 					"/v1/registration/gamers"
 				)
-				.permitAll()
+				.hasRole("asdf")
+//				.permitAll()
 
 				.requestMatchers(
 					HttpMethod.GET,
@@ -87,17 +92,29 @@ public class SecurityConfiguration {
 	@Bean
 	public RoleHierarchy roleHierarchy() {
 		RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-		String hierarchy = """
-			ROLE_GAMER_MANAGE_PRIVILEGE > ROLE_GAMER_VIEW_PRIVILEGE
-			""";
+		String hierarchy =
+			GAMER_ANALYSE_PRIVILEGE + " > " + GAMER_VIEW_PRIVILEGE + "\n" +
+			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_ANALYSE_PRIVILEGE + "\n" +
+			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_CREATE_PRIVILEGE + "\n" +
+			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_EDIT_PRIVILEGE + "\n" +
+			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_DELETE_PRIVILEGE + "\n" +
+			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_PRIVATE_DATA_VIEW_PRIVILEGE;
 		roleHierarchy.setHierarchy(hierarchy);
 		return roleHierarchy;
 	}
 
+	//TODO zapewne do usunięcia
 	@Bean
 	public DefaultWebSecurityExpressionHandler customWebSecurityExpressionHandler() {
 		DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
 		expressionHandler.setRoleHierarchy(roleHierarchy());
 		return expressionHandler;
+	}
+
+	@Bean
+	static MethodSecurityExpressionHandler methodSecurityExpressionHandler(RoleHierarchy roleHierarchy) {
+		DefaultMethodSecurityExpressionHandler handler = new DefaultMethodSecurityExpressionHandler();
+		handler.setRoleHierarchy(roleHierarchy);
+		return handler;
 	}
 }
