@@ -37,8 +37,7 @@ public final class DatabaseSetup {
 
 			GamerPrivilege savedGamerManagePrivilege = createGamerPrivilege(GAMER_MANAGE_PRIVILEGE, gamerPrivilegeRepository);
 
-			GamerPrivilege savedModeratorCreatePrivilege = createGamerPrivilege(MODERATOR_CREATE_PRIVILEGE, gamerPrivilegeRepository);
-			GamerPrivilege savedModeratorDeletePrivilege = createGamerPrivilege(MODERATOR_DELETE_PRIVILEGE, gamerPrivilegeRepository);
+			GamerPrivilege savedModeratorManagePrivilege = createGamerPrivilege(MODERATOR_CREATE_PRIVILEGE, gamerPrivilegeRepository);
 
 			//Role
 			//========================================================
@@ -52,9 +51,9 @@ public final class DatabaseSetup {
 			moderatorRole.setGamerPrivileges(moderatorRolePrivileges);
 			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
 
-			List<GamerPrivilege> manageModeratorsRole = List.of(savedModeratorCreatePrivilege, savedModeratorDeletePrivilege);
-			GamerRole rolesManagerRole = new GamerRole(GamerRoleName.MANAGE_MODERATORS_ROLE.name());
-			rolesManagerRole.setGamerPrivileges(manageModeratorsRole);
+			List<GamerPrivilege> moderatorManagerRole = List.of(savedModeratorManagePrivilege);
+			GamerRole rolesManagerRole = new GamerRole(GamerRoleName.MODERATOR_MANAGER_ROLE.name());
+			rolesManagerRole.setGamerPrivileges(moderatorManagerRole);
 			gamerRoleRepository.save(rolesManagerRole);
 
 			//Platform
