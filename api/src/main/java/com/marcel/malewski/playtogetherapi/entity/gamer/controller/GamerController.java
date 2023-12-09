@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW_PRIVILEGE;
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.PRINCIPLE_PRIVILEGE;
 
 @RestController
 @Tag(name = "Gamers v1", description = "Gamers API v1")
@@ -58,7 +59,7 @@ public class GamerController {
 
 	@GetMapping(value = GAMER_PATH_V1_ID)
 	@Operation(summary = "Get public info about a gamer by id")
-//	@Secured(GAMER_VIEW_PRIVILEGE)
+	@PreAuthorize("hasRole('" + GAMER_VIEW_PRIVILEGE + "')")
 	public ResponseEntity<GamerPublicResponseDto> getGamer(@PathVariable long gamerId, Principal principal, HttpServletRequest request,
 	                                                       HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
@@ -73,7 +74,7 @@ public class GamerController {
 
 	@GetMapping(value = GAMER_PATH_V1_ME)
 	@Operation(summary = "Get private info about the authenticated gamer")
-//	@Secured(PRINCIPLE_PRIVILEGE)
+	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
 	                                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -89,7 +90,7 @@ public class GamerController {
 
 	@PutMapping(value = GAMER_PATH_V1_PROFILE_DATA)
 	@Operation(summary = "Update the authenticated gamers's profile data")
-//	@Secured(PRINCIPLE_PRIVILEGE)
+	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -105,7 +106,7 @@ public class GamerController {
 
 	@PatchMapping(value = GAMER_PATH_V1_AUTHENTICATION_DATA)
 	@Operation(summary = "Update the authenticated gamers's authentication data")
-//	@Secured(PRINCIPLE_PRIVILEGE)
+	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 	                                                                             HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
@@ -122,7 +123,7 @@ public class GamerController {
 	//TODO jakas blokada zeby ostatni moderator nie usunal sam siebie?
 	@DeleteMapping(GAMER_PATH_V1_ME)
 	@Operation(summary = "Delete the authenticated gamer and log out")
-//	@Secured(PRINCIPLE_PRIVILEGE)
+	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
 	                                        HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
