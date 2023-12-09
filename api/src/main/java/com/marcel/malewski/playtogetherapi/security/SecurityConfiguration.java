@@ -98,17 +98,12 @@ public class SecurityConfiguration {
 			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_CREATE_PRIVILEGE + "\n" +
 			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_EDIT_PRIVILEGE + "\n" +
 			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_DELETE_PRIVILEGE + "\n" +
-			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_PRIVATE_DATA_VIEW_PRIVILEGE;
+			GAMER_MANAGE_PRIVILEGE + " > " + GAMER_PRIVATE_DATA_VIEW_PRIVILEGE + "\n" +
+
+			MODERATOR_MANAGE_PRIVILEGE + " > " + MODERATOR_CREATE_PRIVILEGE + "\n" +
+			MODERATOR_MANAGE_PRIVILEGE + " > " + MODERATOR_DELETE_PRIVILEGE;
 		roleHierarchy.setHierarchy(hierarchy);
 		return roleHierarchy;
-	}
-
-	//TODO zapewne do usunięcia
-	@Bean
-	public DefaultWebSecurityExpressionHandler customWebSecurityExpressionHandler() {
-		DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
-		expressionHandler.setRoleHierarchy(roleHierarchy());
-		return expressionHandler;
 	}
 
 	@Bean

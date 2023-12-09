@@ -32,7 +32,7 @@ public final class GamerPrivilegeName {
 	public static final String MODERATOR_PREFIX = "ROLE_MODERATOR";
 	public static final String MODERATOR_CREATE_PRIVILEGE = MODERATOR_PREFIX + CREATE;
 	public static final String MODERATOR_DELETE_PRIVILEGE = MODERATOR_PREFIX + DELETE;
-
+	public static final String MODERATOR_MANAGE_PRIVILEGE = GAMER_PREFIX + MANAGE;
 
 	private GamerPrivilegeName() {
 	}
