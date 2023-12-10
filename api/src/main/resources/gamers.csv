@@ -1,0 +1,11 @@
+login,password,email,birthdateAsString,playingTimeStartAsString,playingTimeEndAsString,platformId
+MysticGamer,Passw0rd!,mystic.gamer@email.com,1993-05-12,18:30,23:00,1
+TechWizard,SecureP@ss,email.tech.wizard@example.com,1988-09-28,08:00,17:30,1
+GalacticHero,SpaceAdventures42,heroic.galaxy@gmail.com,1995-03-03,12:45,22:15,1
+EpicExplorer,SeekerOfLegends,legendary.explorer@gmail.com,1990-11-15,14:00,23:59,1
+PixelPioneer,8BitJourney,pixel.pioneer@yahoo.com,1985-07-20,10:30,20:00,1
+CyberNinja,CodeMaster42,cyber.ninja@codeland.com,1998-01-08,16:15,01:30,1
+StarStrategist,Commander123,star.strategist@gmail.com,1992-12-03,11:00,20:30,1
+TimeTraveler,ChronoExplorer,time.traveler@hotmail.com,1987-06-18,13:45,23:45,1
+EnigmaGamer,SecretCipher,enigma.gamer@example.com,1996-02-28,09:30,19:00,1
+CosmicChampion,UniverseSavior,cosmic.champion@gmail.com,1983-10-10,15:30,01:00,1

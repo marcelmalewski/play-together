@@ -1,5 +1,8 @@
 package com.marcel.malewski.playtogetherapi.setup;
 
+import com.marcel.malewski.playtogetherapi.devdata.CsvFileNotFoundException;
+import com.marcel.malewski.playtogetherapi.devdata.GamerCsvRecord;
+import com.marcel.malewski.playtogetherapi.devdata.GamerCsvService;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
@@ -9,21 +12,33 @@ import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeR
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.BasicPlatformName;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
+import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.*;
+import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToDate;
+import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToTime;
 
 public final class DatabaseSetup {
+	//TODO przenieść hasło do plików konfiguracyjnych?
+	public static final String TEST_GAMERS_PASSWORD = "test123456789";
+	public static final String DEV_ADMIN_PASSWORD = "admin.123";
+
 	private DatabaseSetup() {
 	}
 
@@ -73,7 +88,6 @@ public final class DatabaseSetup {
 					.birthdate(LocalDate.of(2000, 1, 1))
 					.playingTimeStart(LocalTime.of(15, 0))
 					.playingTimeEnd(LocalTime.of(19, 0))
-					.createdAt(LocalDate.now())
 					.bio("test bio")
 					.roles(List.of(savedModeratorRole))
 					.platforms(List.of(savedPcPlatform))
@@ -86,7 +100,6 @@ public final class DatabaseSetup {
 					.birthdate(LocalDate.of(2000, 1, 1))
 					.playingTimeStart(LocalTime.of(15, 0))
 					.playingTimeEnd(LocalTime.of(19, 0))
-					.createdAt(LocalDate.now())
 					.bio("test bio")
 					.roles(List.of(savedModeratorRole))
 					.platforms(List.of(savedPcPlatform))
@@ -138,12 +151,45 @@ public final class DatabaseSetup {
 		}
 	}
 
-	static private GamerPrivilege createGamerPrivilege(String gamerPrivilegeName, GamerPrivilegeRepository gamerprivilegerepository) {
+	private static GamerPrivilege createGamerPrivilege(String gamerPrivilegeName, GamerPrivilegeRepository gamerprivilegerepository) {
 		GamerPrivilege gamerPrivilege = new GamerPrivilege(gamerPrivilegeName);
 		return gamerprivilegerepository.save(gamerPrivilege);
 	}
 
-	//TODO przenieść hasło do plików konfiguracyjnych?
-	public static final String TEST_GAMERS_PASSWORD = "test123456789";
-	public static final String DEV_ADMIN_PASSWORD = "admin.123";
+	public static void loadTestDataFromCsv(GamerRepository gamerRepository, GamerCsvService gamerCsvService, PasswordEncoder passwordEncoder, PlatformService platformService, GamerRoleService gamerRoleService) {
+		if(gamerRepository.count() < 2) {
+			String filePath = "classpath:gamers.csv";
+
+			try {
+				File file = ResourceUtils.getFile(filePath);
+
+				List<GamerCsvRecord> recs = gamerCsvService.convertCSV(file, filePath);
+
+				recs.forEach(gamerCsvRecord -> {
+					String encodedPassword = passwordEncoder.encode(gamerCsvRecord.getPassword());
+
+					LocalDate birthdate = parseToDate(gamerCsvRecord.getBirthdateAsString());
+					LocalTime playingTimeStart = parseToTime(gamerCsvRecord.getPlayingTimeStartAsString());
+					LocalTime playingTimeEnd = parseToTime(gamerCsvRecord.getPlayingTimeEndAsString());
+
+					Platform platform = platformService.getReferenceOfGivenPlatform(gamerCsvRecord.getPlatformId());
+					GamerRole basicGamerRole = gamerRoleService.getGamerRoleReference(GamerRoleName.BASIC_GAMER_ROLE.name());
+
+					Gamer newGamer = Gamer.builder()
+						.login(gamerCsvRecord.getLogin())
+						.password(encodedPassword)
+						.email(gamerCsvRecord.getEmail())
+						.birthdate(birthdate)
+						.playingTimeStart(playingTimeStart)
+						.playingTimeEnd(playingTimeEnd)
+						.platforms(List.of(platform))
+						.roles(List.of(basicGamerRole))
+						.build();
+					gamerRepository.save(newGamer);
+				});
+			} catch (FileNotFoundException e) {
+				throw new CsvFileNotFoundException(filePath);
+			}
+		}
+	}
 }

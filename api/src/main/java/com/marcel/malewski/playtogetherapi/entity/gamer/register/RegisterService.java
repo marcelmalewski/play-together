@@ -59,7 +59,6 @@ public class RegisterService {
 			.birthdate(birthdate)
 			.playingTimeStart(playingTimeStart)
 			.playingTimeEnd(playingTimeEnd)
-			.createdAt(LocalDate.now())
 			.build();
 
 		registerDto.platformsIds().forEach(platformId -> {
