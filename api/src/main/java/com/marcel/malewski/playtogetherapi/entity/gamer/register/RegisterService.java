@@ -69,6 +69,6 @@ public class RegisterService {
 		GamerRole userRole = gamerRoleService.getGamerRoleReference(gamerRole.name());
 		newGamer.getRoles().add(userRole);
 
-		return gamerService.saveGamer(newGamer);
+		return gamerService.saveGamer(newGamer).getId();
 	}
 }

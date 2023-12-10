@@ -2,6 +2,7 @@ package com.marcel.malewski.playtogetherapi.setup;
 
 import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
@@ -16,7 +17,7 @@ import static com.marcel.malewski.playtogetherapi.setup.DatabaseSetup.basicSetup
 @Profile("test")
 @Component
 public class DatabaseTestSetup implements CommandLineRunner {
-	private final GamerRepository gamerRepository;
+	private final GamerService gamerService;
 	private final GamerRoleRepository gamerRoleRepository;
 	private final GamerPrivilegeRepository gamerPrivilegeRepository;
 	private final PlatformRepository platformRepository;
@@ -24,8 +25,8 @@ public class DatabaseTestSetup implements CommandLineRunner {
 	private final GameSessionRepository gameSessionRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 
-	public DatabaseTestSetup(GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformRepository platformRepository, GameRepository gameRepository, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder) {
-		this.gamerRepository = gamerRepository;
+	public DatabaseTestSetup(GamerService gamerService, GamerRoleRepository gamerRoleRepository, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformRepository platformRepository, GameRepository gameRepository, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder) {
+		this.gamerService = gamerService;
 		this.gamerRoleRepository = gamerRoleRepository;
 		this.gamerPrivilegeRepository = gamerPrivilegeRepository;
 		this.platformRepository = platformRepository;
@@ -36,6 +37,6 @@ public class DatabaseTestSetup implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		basicSetup(true, gamerRepository, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository, gamerPrivilegeRepository);
+		basicSetup(true, gamerService, gamerRoleRepository, platformRepository, passwordEncoder, gameRepository, gameSessionRepository, gamerPrivilegeRepository);
 	}
 }

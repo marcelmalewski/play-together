@@ -7,6 +7,7 @@ import com.marcel.malewski.playtogetherapi.entity.game.Game;
 import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilege;
 import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
@@ -43,8 +44,8 @@ public final class DatabaseSetup {
 	}
 
 	//TODO duzo parametrow hmmm
-	static void basicSetup(boolean testSetup, GamerRepository gamerRepository, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
-		if (!gamerRepository.existsByLogin("admin")) {
+	static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
+		if (!gamerService.gamerExistsByLogin("admin")) {
 			//Privilege
 			//========================================================
 			GamerPrivilege savedPrinciplePrivilege = createGamerPrivilege(PRINCIPLE_PRIVILEGE, gamerPrivilegeRepository);
@@ -105,7 +106,7 @@ public final class DatabaseSetup {
 					.platforms(List.of(savedPcPlatform))
 					.build();
 
-				gamerRepository.save(testGamer2);
+				gamerService.saveGamer(testGamer2);
 			} else {
 				admin = Gamer.builder()
 					.login("admin")
@@ -121,7 +122,7 @@ public final class DatabaseSetup {
 					.build();
 			}
 
-			Gamer savedAdmin = gamerRepository.save(admin);
+			Gamer savedAdmin = gamerService.saveGamer(admin);
 
 			//Game
 			//========================================================
