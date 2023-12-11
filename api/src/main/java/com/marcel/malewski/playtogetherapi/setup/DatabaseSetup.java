@@ -44,7 +44,7 @@ public final class DatabaseSetup {
 	}
 
 	//TODO duzo parametrow hmmm
-	static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleRepository gamerRoleRepository, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
+	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
 		if (!gamerService.gamerExistsByLogin("admin")) {
 			//Privilege
 			//========================================================
@@ -60,17 +60,17 @@ public final class DatabaseSetup {
 			List<GamerPrivilege> basicGamerRolePrivileges = List.of(savedPrinciplePrivilege, savedGamerViewPrivilege);
 			GamerRole basicGamerRole = new GamerRole(GamerRoleName.BASIC_GAMER_ROLE.name());
 			basicGamerRole.setGamerPrivileges(basicGamerRolePrivileges);
-			gamerRoleRepository.save(basicGamerRole);
+			gamerRoleService.saveGamerRole(basicGamerRole);
 
 			List<GamerPrivilege> moderatorRolePrivileges = List.of(savedPrinciplePrivilege, savedGamerManagePrivilege);
 			GamerRole moderatorRole = new GamerRole(GamerRoleName.MODERATOR_ROLE.name());
 			moderatorRole.setGamerPrivileges(moderatorRolePrivileges);
-			GamerRole savedModeratorRole = gamerRoleRepository.save(moderatorRole);
+			GamerRole savedModeratorRole = gamerRoleService.saveGamerRole(moderatorRole);
 
-			List<GamerPrivilege> moderatorManagerRole = List.of(savedModeratorManagePrivilege);
-			GamerRole rolesManagerRole = new GamerRole(GamerRoleName.MODERATOR_MANAGER_ROLE.name());
-			rolesManagerRole.setGamerPrivileges(moderatorManagerRole);
-			gamerRoleRepository.save(rolesManagerRole);
+			List<GamerPrivilege> moderatorManagerRolePrivileges = List.of(savedModeratorManagePrivilege);
+			GamerRole moderatorManagerRole= new GamerRole(GamerRoleName.MODERATOR_MANAGER_ROLE.name());
+			moderatorManagerRole.setGamerPrivileges(moderatorManagerRolePrivileges);
+			gamerRoleService.saveGamerRole(moderatorManagerRole);
 
 			//Platform
 			//========================================================

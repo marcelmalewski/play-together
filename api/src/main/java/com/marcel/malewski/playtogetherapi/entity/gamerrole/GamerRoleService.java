@@ -14,6 +14,10 @@ public class GamerRoleService {
 		this.gamerRoleRepository = gamerRoleRepository;
 	}
 
+	public GamerRole saveGamerRole(GamerRole gamerRole) {
+		return gamerRoleRepository.save(gamerRole);
+	}
+
 	public GamerRole getGamerRoleReference(@NotNull String gamerRoleName) {
 		if (!gamerRoleRepository.existsByName(gamerRoleName)) {
 			throw new GamerRoleNotFoundException(gamerRoleName);
