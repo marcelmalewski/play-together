@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.devdata.CsvFileNotFoundException;
 import com.marcel.malewski.playtogetherapi.devdata.GamerCsvRecord;
 import com.marcel.malewski.playtogetherapi.devdata.GamerCsvService;
 import com.marcel.malewski.playtogetherapi.entity.game.Game;
-import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
+import com.marcel.malewski.playtogetherapi.entity.game.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.Gamer;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
@@ -12,14 +12,12 @@ import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilege;
 import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
-import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.BasicPlatformName;
-import com.marcel.malewski.playtogetherapi.entity.platform.PlatformRepository;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,7 +42,7 @@ public final class DatabaseSetup {
 	}
 
 	//TODO duzo parametrow hmmm
-	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
+	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, BCryptPasswordEncoder passwordEncoder, GameService gameService, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
 		if (!gamerService.gamerExistsByLogin("admin")) {
 			//Privilege
 			//========================================================
@@ -127,7 +125,7 @@ public final class DatabaseSetup {
 			//Game
 			//========================================================
 			Game fortnite = new Game("fortnite");
-			Game savedFortnite = gameRepository.save(fortnite);
+			Game savedFortnite = gameService.saveGame(fortnite);
 
 			//GameSession
 			//========================================================

@@ -1,6 +1,6 @@
 package com.marcel.malewski.playtogetherapi.setup;
 
-import com.marcel.malewski.playtogetherapi.entity.game.GameRepository;
+import com.marcel.malewski.playtogetherapi.entity.game.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
@@ -20,22 +20,22 @@ public class DatabaseTestSetup implements CommandLineRunner {
 	private final GamerRoleService gamerRoleService;
 	private final GamerPrivilegeRepository gamerPrivilegeRepository;
 	private final PlatformService platformService;
-	private final GameRepository gameRepository;
+	private final GameService gameService;
 	private final GameSessionRepository gameSessionRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 
-	public DatabaseTestSetup(GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformService platformService, GameRepository gameRepository, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder) {
+	public DatabaseTestSetup(GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformService platformService, GameService gameService, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder) {
 		this.gamerService = gamerService;
 		this.gamerRoleService = gamerRoleService;
 		this.gamerPrivilegeRepository = gamerPrivilegeRepository;
 		this.platformService = platformService;
-		this.gameRepository = gameRepository;
+		this.gameService = gameService;
 		this.gameSessionRepository = gameSessionRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
 	public void run(String... args) {
-		basicSetup(true, gamerService, gamerRoleService, platformService, passwordEncoder, gameRepository, gameSessionRepository, gamerPrivilegeRepository);
+		basicSetup(true, gamerService, gamerRoleService, platformService, passwordEncoder, gameService, gameSessionRepository, gamerPrivilegeRepository);
 	}
 }

@@ -18,4 +18,8 @@ public class GameService {
 
 		return gameRepository.getReferenceById(gameId);
 	}
+
+	public Game saveGame(Game game) {
+		return gameRepository.save(game);
+	}
 }
