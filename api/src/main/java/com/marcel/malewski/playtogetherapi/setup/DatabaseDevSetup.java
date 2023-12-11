@@ -25,19 +25,17 @@ public class DatabaseDevSetup implements CommandLineRunner {
 	private final GamerService gamerService;
 	private final GamerRoleService gamerRoleService;
 	private final GamerPrivilegeRepository gamerPrivilegeRepository;
-	private final PlatformRepository platformRepository;
 	private final PlatformService platformService;
 	private final GameRepository gameRepository;
 	private final GameSessionRepository gameSessionRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 	private final GamerCsvService gamerCsvService;
 
-	public DatabaseDevSetup(GamerRepository gamerRepository, GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformRepository platformRepository, PlatformService platformService, GameRepository gameRepository, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder, GamerCsvService gamerCsvService) {
+	public DatabaseDevSetup(GamerRepository gamerRepository, GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformService platformService, GameRepository gameRepository, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder, GamerCsvService gamerCsvService) {
 		this.gamerRepository = gamerRepository;
 		this.gamerService = gamerService;
 		this.gamerRoleService = gamerRoleService;
 		this.gamerPrivilegeRepository = gamerPrivilegeRepository;
-		this.platformRepository = platformRepository;
 		this.platformService = platformService;
 		this.gameRepository = gameRepository;
 		this.gameSessionRepository = gameSessionRepository;
@@ -47,7 +45,7 @@ public class DatabaseDevSetup implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		basicSetup(false, gamerService, gamerRoleService, platformRepository, passwordEncoder, gameRepository, gameSessionRepository, gamerPrivilegeRepository);
+		basicSetup(false, gamerService, gamerRoleService, platformService, passwordEncoder, gameRepository, gameSessionRepository, gamerPrivilegeRepository);
 		loadTestDataFromCsv(gamerRepository, gamerCsvService, passwordEncoder, platformService, gamerRoleService);
 	}
 

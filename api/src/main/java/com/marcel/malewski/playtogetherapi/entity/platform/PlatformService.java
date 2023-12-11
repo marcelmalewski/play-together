@@ -1,11 +1,14 @@
 package com.marcel.malewski.playtogetherapi.entity.platform;
 
 import com.marcel.malewski.playtogetherapi.entity.platform.exception.GivenPlatformDoesNotExistException;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Service
+@Validated
 public class PlatformService {
 	private final PlatformRepository platformRepository;
 
@@ -23,5 +26,9 @@ public class PlatformService {
 		}
 
 		return platformRepository.getReferenceById(platformId);
+	}
+
+	public Platform savePlatform(@NotNull Platform platform) {
+		return platformRepository.save(platform);
 	}
 }

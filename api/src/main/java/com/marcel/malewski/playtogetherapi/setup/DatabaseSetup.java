@@ -44,7 +44,7 @@ public final class DatabaseSetup {
 	}
 
 	//TODO duzo parametrow hmmm
-	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformRepository platformRepository, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
+	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, BCryptPasswordEncoder passwordEncoder, GameRepository gameRepository, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
 		if (!gamerService.gamerExistsByLogin("admin")) {
 			//Privilege
 			//========================================================
@@ -75,7 +75,7 @@ public final class DatabaseSetup {
 			//Platform
 			//========================================================
 			Platform pc = new Platform(BasicPlatformName.PC.name());
-			Platform savedPcPlatform = platformRepository.save(pc);
+			Platform savedPcPlatform = platformService.savePlatform(pc);
 
 			//Gamer
 			//========================================================
