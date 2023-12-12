@@ -14,7 +14,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession;
-import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.enums.PrivacyLevel;
 import com.marcel.malewski.playtogetherapi.entity.platform.Platform;
 import com.marcel.malewski.playtogetherapi.entity.platform.BasicPlatformName;
@@ -42,7 +42,7 @@ public final class DatabaseSetup {
 	}
 
 	//TODO duzo parametrow hmmm
-	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, BCryptPasswordEncoder passwordEncoder, GameService gameService, GameSessionRepository gameSessionRepository, GamerPrivilegeRepository gamerPrivilegeRepository) {
+	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, BCryptPasswordEncoder passwordEncoder, GameService gameService, GameSessionService gameSessionService, GamerPrivilegeRepository gamerPrivilegeRepository) {
 		if (!gamerService.gamerExistsByLogin("admin")) {
 			//Privilege
 			//========================================================
@@ -146,7 +146,7 @@ public final class DatabaseSetup {
 				.game(savedFortnite)
 				.platforms(List.of(savedPcPlatform))
 				.build();
-			gameSessionRepository.save(testGameSession);
+			gameSessionService.saveGameSession(testGameSession);
 		}
 	}
 

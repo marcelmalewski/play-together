@@ -1,6 +1,7 @@
 package com.marcel.malewski.playtogetherapi.entity.game;
 
 import com.marcel.malewski.playtogetherapi.entity.game.exception.GivenGameDoesNotExistException;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +20,7 @@ public class GameService {
 		return gameRepository.getReferenceById(gameId);
 	}
 
-	public Game saveGame(Game game) {
+	public Game saveGame(@NotNull Game game) {
 		return gameRepository.save(game);
 	}
 }

@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.entity.game.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
-import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionService;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -21,21 +21,21 @@ public class DatabaseTestSetup implements CommandLineRunner {
 	private final GamerPrivilegeRepository gamerPrivilegeRepository;
 	private final PlatformService platformService;
 	private final GameService gameService;
-	private final GameSessionRepository gameSessionRepository;
+	private final GameSessionService gameSessionService;
 	private final BCryptPasswordEncoder passwordEncoder;
 
-	public DatabaseTestSetup(GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformService platformService, GameService gameService, GameSessionRepository gameSessionRepository, BCryptPasswordEncoder passwordEncoder) {
+	public DatabaseTestSetup(GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformService platformService, GameService gameService, GameSessionService gameSessionService, BCryptPasswordEncoder passwordEncoder) {
 		this.gamerService = gamerService;
 		this.gamerRoleService = gamerRoleService;
 		this.gamerPrivilegeRepository = gamerPrivilegeRepository;
 		this.platformService = platformService;
 		this.gameService = gameService;
-		this.gameSessionRepository = gameSessionRepository;
+		this.gameSessionService = gameSessionService;
 		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
 	public void run(String... args) {
-		basicSetup(true, gamerService, gamerRoleService, platformService, passwordEncoder, gameService, gameSessionRepository, gamerPrivilegeRepository);
+		basicSetup(true, gamerService, gamerRoleService, platformService, passwordEncoder, gameService, gameSessionService, gamerPrivilegeRepository);
 	}
 }
