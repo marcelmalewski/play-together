@@ -2,7 +2,7 @@ package com.marcel.malewski.playtogetherapi.setup;
 
 import com.marcel.malewski.playtogetherapi.entity.game.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
-import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeService;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionService;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
@@ -18,16 +18,16 @@ import static com.marcel.malewski.playtogetherapi.setup.DatabaseSetup.basicSetup
 public class DatabaseTestSetup implements CommandLineRunner {
 	private final GamerService gamerService;
 	private final GamerRoleService gamerRoleService;
-	private final GamerPrivilegeRepository gamerPrivilegeRepository;
+	private final GamerPrivilegeService gamerPrivilegeService;
 	private final PlatformService platformService;
 	private final GameService gameService;
 	private final GameSessionService gameSessionService;
 	private final BCryptPasswordEncoder passwordEncoder;
 
-	public DatabaseTestSetup(GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformService platformService, GameService gameService, GameSessionService gameSessionService, BCryptPasswordEncoder passwordEncoder) {
+	public DatabaseTestSetup(GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeService gamerPrivilegeService, PlatformService platformService, GameService gameService, GameSessionService gameSessionService, BCryptPasswordEncoder passwordEncoder) {
 		this.gamerService = gamerService;
 		this.gamerRoleService = gamerRoleService;
-		this.gamerPrivilegeRepository = gamerPrivilegeRepository;
+		this.gamerPrivilegeService = gamerPrivilegeService;
 		this.platformService = platformService;
 		this.gameService = gameService;
 		this.gameSessionService = gameSessionService;
@@ -36,6 +36,6 @@ public class DatabaseTestSetup implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		basicSetup(true, gamerService, gamerRoleService, platformService, passwordEncoder, gameService, gameSessionService, gamerPrivilegeRepository);
+		basicSetup(true, gamerService, gamerRoleService, platformService, passwordEncoder, gameService, gameSessionService, gamerPrivilegeService);
 	}
 }

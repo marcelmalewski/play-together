@@ -10,6 +10,7 @@ import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
 import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilege;
 import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeService;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRole;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleName;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
@@ -42,16 +43,16 @@ public final class DatabaseSetup {
 	}
 
 	//TODO duzo parametrow hmmm
-	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, BCryptPasswordEncoder passwordEncoder, GameService gameService, GameSessionService gameSessionService, GamerPrivilegeRepository gamerPrivilegeRepository) {
+	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, BCryptPasswordEncoder passwordEncoder, GameService gameService, GameSessionService gameSessionService, GamerPrivilegeService gamerPrivilegeService) {
 		if (!gamerService.gamerExistsByLogin("admin")) {
 			//Privilege
 			//========================================================
-			GamerPrivilege savedPrinciplePrivilege = createGamerPrivilege(PRINCIPLE_PRIVILEGE, gamerPrivilegeRepository);
-			GamerPrivilege savedGamerViewPrivilege = createGamerPrivilege(GAMER_VIEW_PRIVILEGE, gamerPrivilegeRepository);
+			GamerPrivilege savedPrinciplePrivilege = createGamerPrivilege(PRINCIPLE_PRIVILEGE, gamerPrivilegeService);
+			GamerPrivilege savedGamerViewPrivilege = createGamerPrivilege(GAMER_VIEW_PRIVILEGE, gamerPrivilegeService);
 
-			GamerPrivilege savedGamerManagePrivilege = createGamerPrivilege(GAMER_MANAGE_PRIVILEGE, gamerPrivilegeRepository);
+			GamerPrivilege savedGamerManagePrivilege = createGamerPrivilege(GAMER_MANAGE_PRIVILEGE, gamerPrivilegeService);
 
-			GamerPrivilege savedModeratorManagePrivilege = createGamerPrivilege(MODERATOR_CREATE_PRIVILEGE, gamerPrivilegeRepository);
+			GamerPrivilege savedModeratorManagePrivilege = createGamerPrivilege(MODERATOR_CREATE_PRIVILEGE, gamerPrivilegeService);
 
 			//Role
 			//========================================================
@@ -101,7 +102,7 @@ public final class DatabaseSetup {
 					.playingTimeEnd(LocalTime.of(19, 0))
 					.bio("test bio")
 					.roles(List.of(savedModeratorRole))
-					.platforms(List.of(savedPcPlatform))
+
 					.build();
 
 				gamerService.saveGamer(testGamer2);
@@ -150,9 +151,9 @@ public final class DatabaseSetup {
 		}
 	}
 
-	private static GamerPrivilege createGamerPrivilege(String gamerPrivilegeName, GamerPrivilegeRepository gamerprivilegerepository) {
+	private static GamerPrivilege createGamerPrivilege(String gamerPrivilegeName, GamerPrivilegeService gamerPrivilegeService) {
 		GamerPrivilege gamerPrivilege = new GamerPrivilege(gamerPrivilegeName);
-		return gamerprivilegerepository.save(gamerPrivilege);
+		return gamerPrivilegeService.saveGamerPrivilege(gamerPrivilege);
 	}
 
 	public static void loadTestDataFromCsv(GamerRepository gamerRepository, GamerCsvService gamerCsvService, PasswordEncoder passwordEncoder, PlatformService platformService, GamerRoleService gamerRoleService) {

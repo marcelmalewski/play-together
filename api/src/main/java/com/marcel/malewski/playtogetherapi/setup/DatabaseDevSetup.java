@@ -4,7 +4,7 @@ import com.marcel.malewski.playtogetherapi.devdata.GamerCsvService;
 import com.marcel.malewski.playtogetherapi.entity.game.GameService;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerRepository;
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
-import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeRepository;
+import com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeService;
 import com.marcel.malewski.playtogetherapi.entity.gamerrole.GamerRoleService;
 import com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionService;
 import com.marcel.malewski.playtogetherapi.entity.platform.PlatformService;
@@ -22,18 +22,18 @@ public class DatabaseDevSetup implements CommandLineRunner {
 	private final GamerRepository gamerRepository;
 	private final GamerService gamerService;
 	private final GamerRoleService gamerRoleService;
-	private final GamerPrivilegeRepository gamerPrivilegeRepository;
+	private final GamerPrivilegeService gamerPrivilegeService;
 	private final PlatformService platformService;
 	private final GameService gameService;
 	private final GameSessionService gameSessionService;
 	private final BCryptPasswordEncoder passwordEncoder;
 	private final GamerCsvService gamerCsvService;
 
-	public DatabaseDevSetup(GamerRepository gamerRepository, GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeRepository gamerPrivilegeRepository, PlatformService platformService, GameService gameService, GameSessionService gameSessionService, BCryptPasswordEncoder passwordEncoder, GamerCsvService gamerCsvService) {
+	public DatabaseDevSetup(GamerRepository gamerRepository, GamerService gamerService, GamerRoleService gamerRoleService, GamerPrivilegeService gamerPrivilegeService, PlatformService platformService, GameService gameService, GameSessionService gameSessionService, BCryptPasswordEncoder passwordEncoder, GamerCsvService gamerCsvService) {
 		this.gamerRepository = gamerRepository;
 		this.gamerService = gamerService;
 		this.gamerRoleService = gamerRoleService;
-		this.gamerPrivilegeRepository = gamerPrivilegeRepository;
+		this.gamerPrivilegeService = gamerPrivilegeService;
 		this.platformService = platformService;
 		this.gameService = gameService;
 		this.gameSessionService = gameSessionService;
@@ -43,7 +43,7 @@ public class DatabaseDevSetup implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		basicSetup(false, gamerService, gamerRoleService, platformService, passwordEncoder, gameService, gameSessionService, gamerPrivilegeRepository);
+		basicSetup(false, gamerService, gamerRoleService, platformService, passwordEncoder, gameService, gameSessionService, gamerPrivilegeService);
 		loadTestDataFromCsv(gamerRepository, gamerCsvService, passwordEncoder, platformService, gamerRoleService);
 	}
 
