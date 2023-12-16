@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_PRIVATE_DATA_VIEW_PRIVILEGE;
 import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.MODERATOR_CREATE_PRIVILEGE;
 
 @RestController
@@ -48,7 +50,7 @@ public class RegisterController {
 	//TODO endpoint not used
 	@PostMapping(value="/moderator-panel/registration/moderators")
 	@Operation(summary = "Register gamer with role moderator")
-	@Secured(MODERATOR_CREATE_PRIVILEGE)
+	@PreAuthorize("hasRole('" + MODERATOR_CREATE_PRIVILEGE + "')")
 	public ResponseEntity<Void> registerModerator(@Valid @RequestBody GamerRegisterRequestDto registerDto) {
 		Long registeredModeratorId = registerService.register(registerDto, GamerRoleName.MODERATOR_ROLE);
 		HttpHeaders headers = new HttpHeaders();

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public class ModeratorController {
 	//TODO endpoint not used
 	@GetMapping("/moderator-panel/gamers")
 	@Operation(summary = "Find all gamers private info")
-	@Secured(GAMER_PRIVATE_DATA_VIEW_PRIVILEGE)
+	@PreAuthorize("hasRole('" + GAMER_PRIVATE_DATA_VIEW_PRIVILEGE + "')")
 	public ResponseEntity<List<GamerPrivateResponseDto>> findAllGamers() {
 		List<GamerPrivateResponseDto> allGamers = gamerService.findAllGamersPrivateInfo();
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
@@ -39,9 +40,9 @@ public class ModeratorController {
 	//TODO endpoint not used
 	@DeleteMapping("/moderator-panel/gamers/:gamerId")
 	@Operation(summary = "Delete gamer by id")
-	@Secured(GAMER_DELETE_PRIVILEGE)
+	@PreAuthorize("hasRole('" + GAMER_DELETE_PRIVILEGE + "')")
 	public ResponseEntity<Void> deleteGamer(long gamerId) {
-		if(gamerService.tryDeleteGamer(gamerId)) {
+		if (gamerService.tryDeleteGamer(gamerId)) {
 			throw new GamerNotFoundException(gamerId);
 		}
 
@@ -51,9 +52,9 @@ public class ModeratorController {
 	//TODO endpoint not used
 	@DeleteMapping("/moderator-panel/moderators/:moderatorId")
 	@Operation(summary = "Delete gamer with role moderator by id")
-	@Secured(MODERATOR_DELETE_PRIVILEGE)
+	@PreAuthorize("hasRole('" + MODERATOR_DELETE_PRIVILEGE + "')")
 	public ResponseEntity<Void> deleteModerator(long moderatorId) {
-		if(gamerService.tryDeleteGamer(moderatorId)) {
+		if (gamerService.tryDeleteGamer(moderatorId)) {
 			throw new GamerNotFoundException(moderatorId);
 		}
 
