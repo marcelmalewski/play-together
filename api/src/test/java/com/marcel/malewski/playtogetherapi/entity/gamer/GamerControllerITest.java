@@ -40,7 +40,6 @@ import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1_PROFILE_DATA;
-import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW_PRIVILEGE;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.INVALID_EMAIL;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getGamerShallowCopy;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -91,6 +90,9 @@ public class GamerControllerITest {
 	public Principal principal;
 	public Gamer testGamer;
 
+	public final String MOCK_GAMER_MANAGE_PRIVILEGE = "GAMER_MANAGE_PRIVILEGE";
+	public final String MOCK_PRINCIPLE_PRIVILEGE = "PRINCIPLE_PRIVILEGE";
+
 	@BeforeEach
 	public void setUp() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -99,7 +101,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
-	@WithMockUser(username = "testUser", password = "testPassword", authorities = GAMER_VIEW_PRIVILEGE)
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
 	void shouldReturnListWithOneGamerWhenOneGamerExist() {
 		ResponseEntity<List<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(principal, request, response);
@@ -108,6 +110,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
 	void shouldReturnGamerWhenGamerWithGivenIdExist() {
 		ResponseEntity<GamerPublicResponseDto> gamerResponse = gamerController.getGamer(testGamer.getId(), principal, request, response);
@@ -116,6 +119,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
 	void shouldReturnGamerNotFoundWhenGamerWithGivenIdNotExist() {
 		assertThrows(GamerNotFoundException.class, () -> {
@@ -124,6 +128,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
 	@Transactional
 	void shouldReturnAuthenticatedGamerPrivateInfoWhenGamerIsAuthenticated() {
 		ResponseEntity<GamerPrivateResponseDto> gamerResponse = gamerController.getGamer(principal, request, response);
@@ -132,6 +137,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
 	@Transactional
 	void shouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() {
 		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
@@ -144,6 +150,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
 	@Transactional
 	@Rollback
 	void shouldUpdateAuthenticatedGamerProfileDataWhenRequestIsValid() {
@@ -161,6 +168,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
 	void updateGamerProfileShouldReturnBadRequestStatusWhenBodyIsInvalid() throws Exception {
 		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
 		testGamerShallowCopy.setEmail(INVALID_EMAIL);
@@ -176,6 +184,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
 	@Transactional
 	void updateGamerProfileShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() {
 		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
@@ -189,6 +198,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
 	@Transactional
 	@Rollback
 	void shouldPartiallyUpdateAuthenticatedGamerAuthenticationDataWhenRequestIsValid() {
@@ -196,7 +206,7 @@ public class GamerControllerITest {
 		String updatedEmail = "updated@updated.updated";
 		testGamerShallowCopy.setEmail(updatedEmail);
 		testGamerShallowCopy.setPassword(DatabaseSetup.TEST_GAMERS_PASSWORD);
-		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy);
+		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy, null);
 
 		ResponseEntity<GamerPrivateResponseDto> updatedGamerResponse = gamerController.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, principal, request, response);
 
@@ -208,13 +218,14 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
 	@Transactional
 	@Rollback
 	void updatePartiallyGamerAuthenticationDataShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() {
 		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
 		testGamerShallowCopy.setId(ID_OF_GAMER_THAT_NOT_EXIST);
 		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
-		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy);
+		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy, null);
 
 		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
 			gamerController.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, principal, request, response);
@@ -222,6 +233,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
 	@Transactional
 	@Rollback
 	void shouldDeleteAuthenticatedGamer() {
@@ -232,6 +244,7 @@ public class GamerControllerITest {
 	}
 
 	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
 	@Transactional
 	@Rollback
 	void deleteGamerShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() {

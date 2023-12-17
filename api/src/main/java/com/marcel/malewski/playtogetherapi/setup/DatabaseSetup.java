@@ -102,7 +102,7 @@ public final class DatabaseSetup {
 					.playingTimeEnd(LocalTime.of(19, 0))
 					.bio("test bio")
 					.roles(List.of(savedModeratorRole))
-
+					.platforms(List.of(savedPcPlatform))
 					.build();
 
 				gamerService.saveGamer(testGamer2);

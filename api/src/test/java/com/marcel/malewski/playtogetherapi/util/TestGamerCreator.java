@@ -167,10 +167,10 @@ public final class TestGamerCreator {
 		);
 	}
 
-	public static GamerUpdateAuthenticationDataRequestDto toGamerUpdateAuthenticationDataRequestDto(Gamer gamer) {
+	public static GamerUpdateAuthenticationDataRequestDto toGamerUpdateAuthenticationDataRequestDto(Gamer gamer, String newPassword) {
 		return new GamerUpdateAuthenticationDataRequestDto(
 			gamer.getEmail(),
-			gamer.getPassword(),
+			newPassword,
 			gamer.getPassword()
 		);
 	}
