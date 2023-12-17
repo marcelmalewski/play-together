@@ -122,9 +122,7 @@ public class GamerControllerITest {
 	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
 	void shouldReturnGamerNotFoundWhenGamerWithGivenIdNotExist() {
-		assertThrows(GamerNotFoundException.class, () -> {
-			gamerController.getGamer(ID_OF_GAMER_THAT_NOT_EXIST, principal, request, response);
-		});
+		assertThrows(GamerNotFoundException.class, () -> gamerController.getGamer(ID_OF_GAMER_THAT_NOT_EXIST, principal, request, response));
 	}
 
 	@Test
@@ -144,9 +142,7 @@ public class GamerControllerITest {
 		testGamerShallowCopy.setId(ID_OF_GAMER_THAT_NOT_EXIST);
 		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
 
-		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
-			gamerController.getGamer(principal, request, response);
-		});
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> gamerController.getGamer(principal, request, response));
 	}
 
 	@Test
@@ -192,9 +188,7 @@ public class GamerControllerITest {
 		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
 		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamerShallowCopy);
 
-		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
-			gamerController.updateGamerProfile(gamerToUpdate, principal, request, response);
-		});
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> gamerController.updateGamerProfile(gamerToUpdate, principal, request, response));
 	}
 
 	@Test
@@ -227,9 +221,7 @@ public class GamerControllerITest {
 		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
 		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy, null);
 
-		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
-			gamerController.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, principal, request, response);
-		});
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> gamerController.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, principal, request, response));
 	}
 
 	@Test
@@ -252,8 +244,6 @@ public class GamerControllerITest {
 		testGamerShallowCopy.setId(ID_OF_GAMER_THAT_NOT_EXIST);
 		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
 
-		assertThrows(AuthenticatedGamerNotFoundException.class, () -> {
-			gamerController.deleteGamer(principal, request, response);
-		});
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> gamerController.deleteGamer(principal, request, response));
 	}
 }
