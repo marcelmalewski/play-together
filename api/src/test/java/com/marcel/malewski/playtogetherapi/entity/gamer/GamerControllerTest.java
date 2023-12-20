@@ -78,7 +78,7 @@ class GamerControllerTest {
 	void shouldReturnListWithOneGamerWhenOneGamerExist() throws Exception {
 		List<GamerPublicResponseDto> allGamers = List.of(testGamerPublicResponseDto);
 
-		given(gamerService.findAllGamersPublicInfo()).willReturn(allGamers);
+		given(gamerService.findAllGamersPublicInfo(null)).willReturn(allGamers);
 
 		mockMvc.perform(get(GAMER_PATH_V1)
 			.with(user(testGamer))

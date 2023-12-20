@@ -49,11 +49,11 @@ public class GamerController {
 	@GetMapping(value = GAMER_PATH_V1)
 	@Operation(summary = "Find all gamers public info")
 	@PreAuthorize("hasRole('" + GAMER_VIEW_PRIVILEGE + "')")
-	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(Principal principal, HttpServletRequest request,
+	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(@RequestParam(required = false) String gamerName, Principal principal, HttpServletRequest request,
 	                                                                  HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
-		List<GamerPublicResponseDto> allGamers = gamerService.findAllGamersPublicInfo();
+		List<GamerPublicResponseDto> allGamers = gamerService.findAllGamersPublicInfo(gamerName);
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
