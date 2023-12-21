@@ -113,6 +113,7 @@ public class GamerControllerITest {
 	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
 	void gamersFilterByNameShouldWork() {
+		//TODO
 		ResponseEntity<List<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(null, principal, request, response);
 
 		assertThat(Objects.requireNonNull(allGamersResponse.getBody())).hasSize(NUMBER_OF_GAMERS_IN_TEST_DATABASE);

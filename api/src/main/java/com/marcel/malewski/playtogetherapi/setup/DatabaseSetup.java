@@ -69,85 +69,17 @@ public final class DatabaseSetup {
 			List<GamerPrivilege> moderatorManagerRolePrivileges = List.of(savedModeratorManagePrivilege);
 			GamerRole moderatorManagerRole= new GamerRole(GamerRoleName.MODERATOR_MANAGER_ROLE.name());
 			moderatorManagerRole.setGamerPrivileges(moderatorManagerRolePrivileges);
-			gamerRoleService.saveGamerRole(moderatorManagerRole);
 
 			//Platform
 			//========================================================
 			Platform pc = new Platform(BasicPlatformName.PC.name());
-			Platform savedPcPlatform = platformService.savePlatform(pc);
-
-			//Gamer
-			//========================================================
-			Gamer admin;
+			Platform savedPcPlatform = platformService.savePlatform(pc);	gamerRoleService.saveGamerRole(moderatorManagerRole);
 
 			if (testSetup) {
-				admin = Gamer.builder()
-					.login("test1")
-					.password(passwordEncoder.encode(TEST_GAMERS_PASSWORD))
-					.email("test1@test1.test1")
-					.birthdate(LocalDate.of(2000, 1, 1))
-					.playingTimeStart(LocalTime.of(15, 0))
-					.playingTimeEnd(LocalTime.of(19, 0))
-					.bio("test bio")
-					.roles(List.of(savedModeratorRole))
-					.platforms(List.of(savedPcPlatform))
-					.build();
-
-				Gamer testGamer2 = Gamer.builder()
-					.login("test2")
-					.password(passwordEncoder.encode(TEST_GAMERS_PASSWORD))
-					.email("test2@test2.test2")
-					.birthdate(LocalDate.of(2000, 1, 1))
-					.playingTimeStart(LocalTime.of(15, 0))
-					.playingTimeEnd(LocalTime.of(19, 0))
-					.bio("test bio")
-					.roles(List.of(savedModeratorRole))
-					.platforms(List.of(savedPcPlatform))
-					.build();
-
-				gamerService.saveGamer(testGamer2);
+				loadTestDataForGamer(savedPcPlatform, passwordEncoder, savedModeratorRole, gamerService);
 			} else {
-				admin = Gamer.builder()
-					.login("admin")
-					.password(passwordEncoder.encode(DEV_ADMIN_PASSWORD))
-					.email("admin@admin.com")
-					.birthdate(LocalDate.of(2000, 1, 1))
-					.playingTimeStart(LocalTime.of(15, 0))
-					.playingTimeEnd(LocalTime.of(19, 0))
-					.createdAt(LocalDate.now())
-					.bio("Hello, I am admin.")
-					.roles(List.of(savedModeratorRole))
-					.platforms(List.of(savedPcPlatform))
-					.build();
+				loadDevData(savedPcPlatform, passwordEncoder, savedModeratorRole, gamerService, gameService, gameSessionService);
 			}
-
-			Gamer savedAdmin = gamerService.saveGamer(admin);
-
-			//Game
-			//========================================================
-			Game fortnite = new Game("fortnite");
-			Game savedFortnite = gameService.saveGame(fortnite);
-
-			//GameSession
-			//========================================================
-			LocalDate today = LocalDate.now();
-			GameSession testGameSession = GameSession.builder()
-				.name("test game session")
-				.visibilityType(PrivacyLevel.PUBLIC)
-				.isCompetitive(false)
-				.accessType(PrivacyLevel.PUBLIC)
-				.date(today)
-				.createdAt(today)
-				.modifiedAt(today)
-				.numberOfMembers(1)
-				.maxMembers(20)
-				.minAge(15)
-				.description("yes pls")
-				.creator(savedAdmin)
-				.game(savedFortnite)
-				.platforms(List.of(savedPcPlatform))
-				.build();
-			gameSessionService.saveGameSession(testGameSession);
 		}
 	}
 
@@ -156,8 +88,82 @@ public final class DatabaseSetup {
 		return gamerPrivilegeService.saveGamerPrivilege(gamerPrivilege);
 	}
 
+	private static void loadTestDataForGamer(Platform savedPcPlatform, PasswordEncoder passwordEncoder, GamerRole savedModeratorRole, GamerService gamerService) {
+		Gamer admin = Gamer.builder()
+			.login("test1")
+			.password(passwordEncoder.encode(TEST_GAMERS_PASSWORD))
+			.email("test1@test1.test1")
+			.birthdate(LocalDate.of(2000, 1, 1))
+			.playingTimeStart(LocalTime.of(15, 0))
+			.playingTimeEnd(LocalTime.of(19, 0))
+			.bio("test bio")
+			.roles(List.of(savedModeratorRole))
+			.platforms(List.of(savedPcPlatform))
+			.build();
+
+		Gamer testGamer2 = Gamer.builder()
+			.login("test2")
+			.password(passwordEncoder.encode(TEST_GAMERS_PASSWORD))
+			.email("test2@test2.test2")
+			.birthdate(LocalDate.of(2000, 1, 1))
+			.playingTimeStart(LocalTime.of(15, 0))
+			.playingTimeEnd(LocalTime.of(19, 0))
+			.bio("test bio")
+			.roles(List.of(savedModeratorRole))
+			.platforms(List.of(savedPcPlatform))
+			.build();
+
+		gamerService.saveGamer(admin);
+		gamerService.saveGamer(testGamer2);
+	}
+
+	private static void loadDevData(Platform savedPcPlatform, PasswordEncoder passwordEncoder, GamerRole savedModeratorRole, GamerService gamerService, GameService gameService, GameSessionService gameSessionService) {
+		//Gamer
+		//========================================================
+		Gamer admin = Gamer.builder()
+			.login("admin")
+			.password(passwordEncoder.encode(DEV_ADMIN_PASSWORD))
+			.email("admin@admin.com")
+			.birthdate(LocalDate.of(2000, 1, 1))
+			.playingTimeStart(LocalTime.of(15, 0))
+			.playingTimeEnd(LocalTime.of(19, 0))
+			.createdAt(LocalDate.now())
+			.bio("Hello, I am admin.")
+			.roles(List.of(savedModeratorRole))
+			.platforms(List.of(savedPcPlatform))
+			.build();
+
+		Gamer savedAdmin = gamerService.saveGamer(admin);
+
+		//Game
+		//========================================================
+		Game fortnite = new Game("fortnite");
+		Game savedFortnite = gameService.saveGame(fortnite);
+
+		//GameSession
+		//========================================================
+		LocalDate today = LocalDate.now();
+		GameSession testGameSession = GameSession.builder()
+			.name("test game session")
+			.visibilityType(PrivacyLevel.PUBLIC)
+			.isCompetitive(false)
+			.accessType(PrivacyLevel.PUBLIC)
+			.date(today)
+			.createdAt(today)
+			.modifiedAt(today)
+			.numberOfMembers(1)
+			.maxMembers(20)
+			.minAge(15)
+			.description("yes pls")
+			.creator(savedAdmin)
+			.game(savedFortnite)
+			.platforms(List.of(savedPcPlatform))
+			.build();
+		gameSessionService.saveGameSession(testGameSession);	gamerService.saveGamer(admin);
+	}
+
 	public static void loadTestDataFromCsv(GamerRepository gamerRepository, GamerCsvService gamerCsvService, PasswordEncoder passwordEncoder, PlatformService platformService, GamerRoleService gamerRoleService) {
-		if(gamerRepository.count() < 2) {
+		if(gamerRepository.count() < 4) {
 			String filePath = "classpath:gamers.csv";
 
 			try {

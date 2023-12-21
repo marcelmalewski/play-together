@@ -23,11 +23,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,8 +60,20 @@ public class GamerService {
 		this.principalExtractor = principalExtractor;
 	}
 
-	public List<GamerPublicResponseDto> findAllGamersPublicInfo() {
-		return gamerRepository.findAll().stream().map(gamerMapper::toGamerPublicResponseDto).toList();
+	public List<GamerPublicResponseDto> findAllGamersPublicInfo(String gamerLogin) {
+		List<Gamer> gamersList;
+
+		if(StringUtils.hasText(gamerLogin)) {
+			gamersList = listGamersByLogin(gamerLogin);
+		} else {
+			gamersList = gamerRepository.findAll();
+		}
+
+		return gamersList.stream().map(gamerMapper::toGamerPublicResponseDto).toList();
+	}
+
+	private List<Gamer> listGamersByLogin(String gamerLogin) {
+		return new ArrayList<Gamer>();
 	}
 
 	public List<GamerPrivateResponseDto> findAllGamersPrivateInfo() {
@@ -187,6 +201,10 @@ public class GamerService {
 			throw new NewPasswordSameAsPrevious();
 		}
 	}
+
+	public void deleteGamers(long gamerId) {
+		//TODO
+	};
 
 	public boolean tryDeleteGamer(long gamerId) {
 		if (!gamerRepository.existsById(gamerId)) {
