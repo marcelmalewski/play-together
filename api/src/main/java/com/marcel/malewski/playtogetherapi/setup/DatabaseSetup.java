@@ -42,7 +42,6 @@ public final class DatabaseSetup {
 	private DatabaseSetup() {
 	}
 
-	//TODO duzo parametrow hmmm
 	public static void basicSetup(boolean testSetup, GamerService gamerService, GamerRoleService gamerRoleService, PlatformService platformService, BCryptPasswordEncoder passwordEncoder, GameService gameService, GameSessionService gameSessionService, GamerPrivilegeService gamerPrivilegeService) {
 		if (!gamerService.gamerExistsByLogin("admin")) {
 			//Privilege
