@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1_PROFILE_DATA;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.INVALID_EMAIL;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getGamerShallowCopy;
@@ -47,7 +48,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.core.Is.is;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;;
 
 @SpringBootTest()
 @Testcontainers
@@ -68,7 +72,7 @@ public class GamerControllerITest {
 	}
 
 	@Autowired
-    GamerController gamerController;
+	GamerController gamerController;
 
 	@Autowired
 	GamerRepository gamerRepository;
@@ -112,11 +116,13 @@ public class GamerControllerITest {
 	@Test
 	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
-	void gamersFilterByNameShouldWork() {
-		//TODO
-		ResponseEntity<List<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(null, principal, request, response);
-
-		assertThat(Objects.requireNonNull(allGamersResponse.getBody())).hasSize(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
+	void gamersFilterByNameShouldWork() throws Exception {
+		mockMvc.perform(get(GAMER_PATH_V1)
+				.with(csrf())
+				.with(user(testGamer))
+				.queryParam("gamerLogin", "Mro"))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.size()", is(2)));
 	}
 
 	@Test

@@ -73,7 +73,7 @@ public class GamerService {
 	}
 
 	private List<Gamer> listGamersByLogin(String gamerLogin) {
-		return new ArrayList<Gamer>();
+		return gamerRepository.findAllByLoginIsLikeIgnoreCase("%" + gamerLogin + "%");
 	}
 
 	public List<GamerPrivateResponseDto> findAllGamersPrivateInfo() {
