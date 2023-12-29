@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.DEFAULT_PAGEABLE_PAGE_AS_STRING;
-import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.DEFAULT_PAGEABLE_SIZE_AS_STRING;
+import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.*;
 
 @RestController
 @RequestMapping(path = "v1")
@@ -41,8 +40,8 @@ public class GameSessionController {
 	//TODO endpoint not used
 	@GetMapping(value = "/game-sessions")
 	@Operation(summary = "Find all game sessions")
-	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = DEFAULT_PAGEABLE_PAGE_AS_STRING) @Min(0) Integer page,
-	                                                                              @RequestParam(defaultValue = DEFAULT_PAGEABLE_SIZE_AS_STRING) @Min(1) @Max(100) Integer size,
+	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = MIN_PAGE_NUMBER_AS_STRING) Integer pageNumber,
+	                                                                              @RequestParam(defaultValue = DEFAULT_PAGE_SIZE_AS_STRING) Integer pageSize,
 	                                                                              @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort,
 	                                                                              Principal principal, HttpServletRequest request,
 	                                                                              HttpServletResponse response
@@ -50,7 +49,7 @@ public class GameSessionController {
 //		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 //		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
-		Pageable pageable = PageRequest.of(page, size, sort.getSort());
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, sort.getSort());
 		Page<GameSessionPublicResponseDto> allGameSessions = gameSessionService.findAllGameSessions(pageable, 1L);
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
 	}
