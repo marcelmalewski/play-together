@@ -41,8 +41,8 @@ public class GameSessionController {
 	//TODO endpoint not used
 	@GetMapping(value = "/game-sessions")
 	@Operation(summary = "Find all game sessions")
-	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = DEFAULT_PAGEABLE_PAGE_AS_STRING) @Min(0) @Max(100) int page,
-	                                                                              @RequestParam(defaultValue = DEFAULT_PAGEABLE_SIZE_AS_STRING) @Min(1) @Max(100) int size,
+	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = DEFAULT_PAGEABLE_PAGE_AS_STRING) @Min(0) Integer page,
+	                                                                              @RequestParam(defaultValue = DEFAULT_PAGEABLE_SIZE_AS_STRING) @Min(1) @Max(100) Integer size,
 	                                                                              @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort,
 	                                                                              Principal principal, HttpServletRequest request,
 	                                                                              HttpServletResponse response
