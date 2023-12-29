@@ -20,12 +20,15 @@ import com.marcel.malewski.playtogetherapi.security.util.PrincipalExtractor;
 import com.marcel.malewski.playtogetherapi.security.util.SecurityHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 
+import java.awt.print.Pageable;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -33,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.*;
 import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToDate;
 import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToTime;
 
@@ -59,8 +63,8 @@ public class GamerService {
 		this.securityHelper = securityHelper;
 		this.principalExtractor = principalExtractor;
 	}
-
-	public List<GamerPublicResponseDto> findAllGamersPublicInfo(String gamerLogin) {
+	//pagenumber 0, page size 1
+	public List<GamerPublicResponseDto> findAllGamersPublicInfo(@Min(MIN_PAGE_NUMBER) Integer pageNumber, @Min(MIN_PAGE_SIZE) @Max(MAX_PAGE_SIZE) Integer pageSize, String gamerLogin) {
 		List<Gamer> gamersList;
 
 		if(StringUtils.hasText(gamerLogin)) {
