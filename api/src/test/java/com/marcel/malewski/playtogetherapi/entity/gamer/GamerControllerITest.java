@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -107,8 +108,8 @@ public class GamerControllerITest {
 	@Test
 	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
-	void shouldReturnListWithOneGamerWhenOneGamerExist() {
-		ResponseEntity<List<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(null, principal, request, response);
+	void shouldReturnPageWithGamersWhenGamersExist() {
+		ResponseEntity<Page<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(null, null, null, principal, request, response);
 
 		assertThat(Objects.requireNonNull(allGamersResponse.getBody())).hasSize(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
 	}

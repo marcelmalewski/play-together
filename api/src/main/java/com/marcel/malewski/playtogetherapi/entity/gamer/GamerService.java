@@ -23,20 +23,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 
-import java.awt.print.Pageable;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.*;
+import static com.marcel.malewski.playtogetherapi.constant.PageableConstants.*;
 import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToDate;
 import static com.marcel.malewski.playtogetherapi.validation.DateTimeParser.parseToTime;
 
@@ -63,21 +64,29 @@ public class GamerService {
 		this.securityHelper = securityHelper;
 		this.principalExtractor = principalExtractor;
 	}
-	//pagenumber 0, page size 1
-	public List<GamerPublicResponseDto> findAllGamersPublicInfo(@Min(MIN_PAGE_NUMBER) Integer pageNumber, @Min(MIN_PAGE_SIZE) @Max(MAX_PAGE_SIZE) Integer pageSize, String gamerLogin) {
-		List<Gamer> gamersList;
+
+	public Page<GamerPublicResponseDto> findAllGamersPublicInfo(@Min(MIN_PAGE_NUMBER) Integer pageNumber, @Min(MIN_PAGE_SIZE) @Max(MAX_PAGE_SIZE) Integer pageSize, String gamerLogin) {
+		Pageable pageable = createPageable(pageNumber, pageSize);
+		Page<Gamer> gamerPage;
 
 		if(StringUtils.hasText(gamerLogin)) {
-			gamersList = listGamersByLogin(gamerLogin);
+			gamerPage = listGamersByLogin(gamerLogin, pageable);
 		} else {
-			gamersList = gamerRepository.findAll();
+			gamerPage = gamerRepository.findAll(pageable);
 		}
 
-		return gamersList.stream().map(gamerMapper::toGamerPublicResponseDto).toList();
+		return gamerPage.map(gamerMapper::toGamerPublicResponseDto);
 	}
 
-	private List<Gamer> listGamersByLogin(String gamerLogin) {
-		return gamerRepository.findAllByLoginIsLikeIgnoreCase("%" + gamerLogin + "%");
+	private Pageable createPageable(Integer pageNumber, Integer pageSize) {
+		int finalPageNumber = pageNumber != null ? pageNumber : DEFAULT_PAGE_NUMBER;
+		int finalPageSize = pageSize != null ? pageSize : DEFAULT_PAGE_SIZE;
+
+		return PageRequest.of(finalPageNumber, finalPageSize);
+	}
+
+	private Page<Gamer> listGamersByLogin(String gamerLogin, Pageable pageable) {
+		return gamerRepository.findAllByLoginIsLikeIgnoreCase("%" + gamerLogin + "%", pageable);
 	}
 
 	public List<GamerPrivateResponseDto> findAllGamersPrivateInfo() {

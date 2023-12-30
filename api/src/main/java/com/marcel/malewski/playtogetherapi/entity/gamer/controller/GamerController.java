@@ -14,15 +14,17 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
+import static com.marcel.malewski.playtogetherapi.constant.PageableConstants.DEFAULT_PAGE_NUMBER_AS_STRING;
+import static com.marcel.malewski.playtogetherapi.constant.PageableConstants.DEFAULT_PAGE_SIZE_AS_STRING;
 import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW_PRIVILEGE;
 import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.PRINCIPLE_PRIVILEGE;
 
@@ -49,11 +51,14 @@ public class GamerController {
 	@GetMapping(value = GAMER_PATH_V1)
 	@Operation(summary = "Find all gamers public info")
 	@PreAuthorize("hasRole('" + GAMER_VIEW_PRIVILEGE + "')")
-	public ResponseEntity<List<GamerPublicResponseDto>> findAllGamers(@RequestParam(required = false) String gamerLogin, Principal principal, HttpServletRequest request,
+	public ResponseEntity<Page<GamerPublicResponseDto>> findAllGamers(@RequestParam(required = false, defaultValue = DEFAULT_PAGE_NUMBER_AS_STRING) Integer pageNumber,
+																																		@RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE_AS_STRING) Integer pageSize,
+																																		@RequestParam(required = false) String gamerLogin,
+																																		Principal principal, HttpServletRequest request,
 																																		HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
-		List<GamerPublicResponseDto> allGamers = gamerService.findAllGamersPublicInfo(gamerLogin);
+		Page<GamerPublicResponseDto> allGamers = gamerService.findAllGamersPublicInfo(pageNumber, pageSize, gamerLogin);
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
@@ -61,11 +66,11 @@ public class GamerController {
 	@Operation(summary = "Get public info about a gamer by id")
 	@PreAuthorize("hasRole('" + GAMER_VIEW_PRIVILEGE + "')")
 	public ResponseEntity<GamerPublicResponseDto> getGamer(@PathVariable long gamerId, Principal principal, HttpServletRequest request,
-	                                                       HttpServletResponse response) {
+																												 HttpServletResponse response) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
 		Optional<GamerPublicResponseDto> optionalGamerPublicResponse = gamerService.findGamerPublicInfo(gamerId);
-		if(optionalGamerPublicResponse.isEmpty()) {
+		if (optionalGamerPublicResponse.isEmpty()) {
 			throw new GamerNotFoundException(gamerId);
 		}
 
@@ -76,11 +81,11 @@ public class GamerController {
 	@Operation(summary = "Get private info about the authenticated gamer")
 	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
 	public ResponseEntity<GamerPrivateResponseDto> getGamer(Principal principal, HttpServletRequest request,
-	                                                        HttpServletResponse response) {
+																													HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		Optional<GamerPrivateResponseDto> optionalGamerPrivateResponse = gamerService.findGamerPrivateInfo(principalId);
-		if(optionalGamerPrivateResponse.isEmpty()) {
+		if (optionalGamerPrivateResponse.isEmpty()) {
 			securityHelper.logoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
@@ -92,11 +97,11 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
 	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
-	                                                                  HttpServletResponse response) {
+																																		HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		Optional<GamerPrivateResponseDto> optionalUpdatedGamer = gamerService.tryUpdateGamerProfile(updateProfileDto, principalId);
-		if(optionalUpdatedGamer.isEmpty()) {
+		if (optionalUpdatedGamer.isEmpty()) {
 			securityHelper.logoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
@@ -108,11 +113,11 @@ public class GamerController {
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
 	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
-	                                                                             HttpServletResponse response) {
+																																												HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		Optional<GamerPrivateResponseDto> optionalUpdatedGamer = gamerService.tryUpdatePartiallyGamerAuthenticationData(updateAuthDto, principalId);
-		if(optionalUpdatedGamer.isEmpty()) {
+		if (optionalUpdatedGamer.isEmpty()) {
 			securityHelper.logoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
@@ -125,10 +130,10 @@ public class GamerController {
 	@Operation(summary = "Delete the authenticated gamer and log out")
 	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
 	public ResponseEntity<Void> deleteGamer(Principal principal, HttpServletRequest request,
-	                                        HttpServletResponse response) {
+																					HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
-		if(!gamerService.tryDeleteGamer(principalId)) {
+		if (!gamerService.tryDeleteGamer(principalId)) {
 			securityHelper.logoutManually(request, response);
 			throw new AuthenticatedGamerNotFoundException();
 		}
