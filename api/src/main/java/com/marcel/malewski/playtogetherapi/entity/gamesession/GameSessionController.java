@@ -10,8 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+import static com.marcel.malewski.playtogetherapi.constant.PageableConstants.DEFAULT_PAGE_NUMBER_AS_STRING;
+import static com.marcel.malewski.playtogetherapi.constant.PageableConstants.DEFAULT_PAGE_SIZE_AS_STRING;
 import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.*;
 
 @RestController
@@ -40,7 +40,7 @@ public class GameSessionController {
 	//TODO endpoint not used
 	@GetMapping(value = "/game-sessions")
 	@Operation(summary = "Find all game sessions")
-	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = MIN_PAGE_NUMBER_AS_STRING) Integer pageNumber,
+	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = DEFAULT_PAGE_NUMBER_AS_STRING) Integer pageNumber,
 	                                                                              @RequestParam(defaultValue = DEFAULT_PAGE_SIZE_AS_STRING) Integer pageSize,
 	                                                                              @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort,
 	                                                                              Principal principal, HttpServletRequest request,
@@ -49,6 +49,7 @@ public class GameSessionController {
 //		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 //		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
+		//TODO do like gamerController
 		Pageable pageable = PageRequest.of(pageNumber, pageSize, sort.getSort());
 		Page<GameSessionPublicResponseDto> allGameSessions = gameSessionService.findAllGameSessions(pageable, 1L);
 		return new ResponseEntity<>(allGameSessions, HttpStatus.OK);
