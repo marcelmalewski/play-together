@@ -111,7 +111,7 @@ public class GamerControllerITest {
 	void shouldReturnPageWithGamersWhenGamersExist() {
 		ResponseEntity<Page<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(null, null, null, principal, request, response);
 
-		assertThat(Objects.requireNonNull(allGamersResponse.getBody())).hasSize(NUMBER_OF_GAMERS_IN_TEST_DATABASE);
+		assertThat(Objects.requireNonNull(allGamersResponse.getBody())).hasSize(10);
 	}
 
 	@Test
@@ -123,7 +123,7 @@ public class GamerControllerITest {
 				.with(user(testGamer))
 				.queryParam("gamerLogin", "Mro"))
 			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.size()", is(2)));
+			.andExpect(jsonPath("$.content.size()", is(2)));
 	}
 
 	@Test
