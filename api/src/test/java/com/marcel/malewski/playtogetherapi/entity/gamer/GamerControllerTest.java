@@ -20,6 +20,10 @@ import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,6 +31,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import static com.marcel.malewski.playtogetherapi.TestConstants.NUMBER_OF_GAMERS_IN_TEST_DATABASE;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.*;
 import static com.marcel.malewski.playtogetherapi.util.TestPlatformCreator.getTestPlatforms;
 import static com.marcel.malewski.playtogetherapi.util.TestRoleCreator.getModeratorRoleAsList;
@@ -75,17 +80,19 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void shouldReturnListWithOneGamerWhenOneGamerExist() throws Exception {
+	void shouldReturnPageWithGamersWhenGamersExist() throws Exception {
 		List<GamerPublicResponseDto> allGamers = List.of(testGamerPublicResponseDto);
+		Pageable pageable = PageRequest.of(0, NUMBER_OF_GAMERS_IN_TEST_DATABASE);
+		Page<GamerPublicResponseDto> gamerPage = new PageImpl<>(allGamers, pageable, NUMBER_OF_GAMERS_IN_TEST_DATABASE);
 
-		given(gamerService.findAllGamersPublicInfo(null)).willReturn(allGamers);
+		given(gamerService.findAllGamersPublicInfo(any(), any(), any())).willReturn(gamerPage);
 
 		mockMvc.perform(get(GAMER_PATH_V1)
 			.with(user(testGamer))
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.length()", is(1)));
+			.andExpect(jsonPath("$.content.size()", is(1)));
 	}
 
 	@Test
