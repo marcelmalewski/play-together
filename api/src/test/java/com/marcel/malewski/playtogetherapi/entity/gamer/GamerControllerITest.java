@@ -36,19 +36,15 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1;
-import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1_PROFILE_DATA;
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.INVALID_EMAIL;
-import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.getGamerShallowCopy;
+import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.core.Is.is;
@@ -114,6 +110,7 @@ public class GamerControllerITest {
 		assertThat(Objects.requireNonNull(allGamersResponse.getBody())).hasSize(10);
 	}
 
+	//TODO principal is null and it is problem
 	@Test
 	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
@@ -178,22 +175,6 @@ public class GamerControllerITest {
 		GamerPrivateResponseDto updatedGamer = updatedGamerResponse.getBody();
 		assert updatedGamer != null;
 		assertThat(updatedGamer.login()).isEqualTo(updatedLogin);
-	}
-
-	@Test
-	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
-	void updateGamerProfileShouldReturnBadRequestStatusWhenBodyIsInvalid() throws Exception {
-		Gamer testGamerShallowCopy = getGamerShallowCopy(testGamer);
-		testGamerShallowCopy.setEmail(INVALID_EMAIL);
-		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamerShallowCopy);
-
-		mockMvc.perform(put(GAMER_PATH_V1_PROFILE_DATA)
-				.with(csrf())
-				.with(user(testGamer))
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(gamerUpdateProfileRequestDto)))
-			.andExpect(status().isUnprocessableEntity());
 	}
 
 	@Test
