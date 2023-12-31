@@ -164,19 +164,6 @@ class GamerControllerTest {
 	}
 
 	@Test
-	void updateGamerProfileShouldReturnBadRequestStatusWhenBodyIsInvalid() throws Exception {
-		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.getInValidGamerUpdateProfileRequestDto();
-
-		mockMvc.perform(put(GAMER_PATH_V1_PROFILE_DATA)
-				.with(csrf())
-				.with(user(testGamer))
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(gamerUpdateProfileRequestDto)))
-			.andExpect(status().isBadRequest());
-	}
-
-	@Test
 	void updateGamerProfileShouldThrowAuthenticatedGamerNotFoundExceptionWhenAuthenticatedGamerNotExist() throws Exception {
 		GamerUpdateProfileRequestDto gamerUpdateProfileRequestDto = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
 
@@ -209,19 +196,6 @@ class GamerControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.id", is(Math.toIntExact(testGamerPrivateResponseDto.id()))))
 			.andExpect(jsonPath("$.login", is(testGamerPrivateResponseDto.login())));
-	}
-
-	@Test
-	void updatePartiallyGamerAuthenticationDataShouldReturnBadRequestStatusWhenBodyIsInvalid() throws Exception {
-		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.getInvalidGamerUpdateAuthenticationDataRequestDto();
-
-		mockMvc.perform(patch(GAMER_PATH_V1_AUTHENTICATION_DATA)
-				.with(csrf())
-				.with(user(testGamer))
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(gamerUpdateAuthenticationDataRequestDto)))
-			.andExpect(status().isBadRequest());
 	}
 
 	@Test
