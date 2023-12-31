@@ -20,6 +20,7 @@ import com.marcel.malewski.playtogetherapi.security.util.PrincipalExtractor;
 import com.marcel.malewski.playtogetherapi.security.util.SecurityHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -129,7 +130,7 @@ public class GamerService {
 		return gamerRepository.save(gamer);
 	}
 
-	public Optional<GamerPrivateResponseDto> tryUpdateGamerProfile(@NotNull GamerUpdateProfileRequestDto updateProfileDto, long gamerId) {
+	public Optional<GamerPrivateResponseDto> tryUpdateGamerProfile(@Valid GamerUpdateProfileRequestDto updateProfileDto, long gamerId) {
 		Optional<Gamer> optionalGamer = gamerRepository.findById(gamerId);
 		if(optionalGamer.isEmpty()) {
 			return Optional.ofNullable(gamerMapper.toGamerPrivateResponseDto(null));
