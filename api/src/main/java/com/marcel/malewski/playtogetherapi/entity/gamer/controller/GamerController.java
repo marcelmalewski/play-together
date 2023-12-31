@@ -112,7 +112,7 @@ public class GamerController {
 	@PatchMapping(value = GAMER_PATH_V1_AUTHENTICATION_DATA)
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
-	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@Valid @RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
+	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
 																																												HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 

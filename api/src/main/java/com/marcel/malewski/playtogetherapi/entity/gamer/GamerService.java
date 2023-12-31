@@ -177,7 +177,7 @@ public class GamerService {
 		);
 	}
 
-	public Optional<GamerPrivateResponseDto> tryUpdatePartiallyGamerAuthenticationData(@NotNull GamerUpdateAuthenticationDataRequestDto updateAuthDto, long gamerId) {
+	public Optional<GamerPrivateResponseDto> tryUpdatePartiallyGamerAuthenticationData(@Valid GamerUpdateAuthenticationDataRequestDto updateAuthDto, long gamerId) {
 		Optional<Gamer> optionalGamer = gamerRepository.findById(gamerId);
 		if(optionalGamer.isEmpty()) {
 			return Optional.ofNullable(gamerMapper.toGamerPrivateResponseDto(null));
