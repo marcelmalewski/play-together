@@ -41,8 +41,7 @@ public class SecurityConfiguration {
 					HttpMethod.POST,
 					"/v1/registration/gamers"
 				)
-				.hasRole("asdf")
-//				.permitAll()
+				.permitAll()
 
 				.requestMatchers(
 					HttpMethod.GET,
