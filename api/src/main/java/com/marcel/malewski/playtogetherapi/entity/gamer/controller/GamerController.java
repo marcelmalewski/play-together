@@ -96,7 +96,7 @@ public class GamerController {
 	@PutMapping(value = GAMER_PATH_V1_PROFILE_DATA)
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
-	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@Valid @RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
+	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
 																																		HttpServletResponse response) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
