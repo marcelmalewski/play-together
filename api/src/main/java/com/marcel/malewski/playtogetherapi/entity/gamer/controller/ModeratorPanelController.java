@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +20,10 @@ import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPri
 @RestController
 @RequestMapping(path = "v1")
 @Tag(name = "Moderator Gamers v1", description = "Gamers API v1 for Moderators")
-public class ModeratorController {
+public class ModeratorPanelController {
 	private final GamerService gamerService;
 
-	public ModeratorController(GamerService gamerService) {
+	public ModeratorPanelController(GamerService gamerService) {
 		this.gamerService = gamerService;
 	}
 
@@ -45,6 +44,17 @@ public class ModeratorController {
 		if (gamerService.tryDeleteGamer(gamerId)) {
 			throw new GamerNotFoundException(gamerId);
 		}
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	//TODO endpoint not used
+	@DeleteMapping("/moderator-panel/gamers")
+	@Operation(summary = "Delete gamers by id's")
+	@PreAuthorize("hasRole('" + GAMER_DELETE_PRIVILEGE + "')")
+	public ResponseEntity<Void> deleteGamers() {
+		//TODO
+		gamerService.deleteGamers(1L);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
