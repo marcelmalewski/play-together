@@ -25,11 +25,11 @@ public class Platform {
 	@NotNull
 	private String name;
 
-	@ManyToMany(mappedBy = "platforms")
+	@ManyToMany(mappedBy = "platforms", fetch = FetchType.EAGER)
 	@NotNull
 	private List<Gamer> gamers = new ArrayList<>();
 
-	@ManyToMany(mappedBy = "platforms")
+	@ManyToMany(mappedBy = "platforms", fetch = FetchType.EAGER)
 	@NotNull
 	private List<GameSession> gameSessions = new ArrayList<>();
 

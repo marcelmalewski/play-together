@@ -13,6 +13,7 @@ import com.marcel.malewski.playtogetherapi.util.TestGamerCreator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
 import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1_PROFILE_DATA;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,7 +50,8 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.core.Is.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @SpringBootTest()
 @Testcontainers
@@ -187,6 +190,16 @@ public class GamerControllerITest {
 		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamerShallowCopy);
 
 		assertThrows(AuthenticatedGamerNotFoundException.class, () -> gamerController.updateGamerProfile(gamerToUpdate, principal, request, response));
+	}
+
+	@Test
+	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_PRINCIPLE_PRIVILEGE)
+	void updateGamerProfileShouldReturnBadRequestStatusWhenBodyIsInvalid() {
+		String updatedLogin = "u";
+		testGamer.setLogin(updatedLogin);
+		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
+
+		assertThrows(ConstraintViolationException.class, () -> gamerController.updateGamerProfile(gamerToUpdate, principal, request, response));
 	}
 
 	@Test

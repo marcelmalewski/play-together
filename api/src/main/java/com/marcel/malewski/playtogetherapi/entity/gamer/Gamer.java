@@ -101,7 +101,7 @@ public class Gamer implements UserDetails {
     @NotNull
     private List<GameSession> joinedGameSessions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "gamer")
+    @OneToMany(mappedBy = "gamer", fetch = FetchType.EAGER)
     @Builder.Default
     @NotNull
     private List<PendingMember> pendingMembers = new ArrayList<>();
