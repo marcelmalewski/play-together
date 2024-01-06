@@ -53,20 +53,21 @@ public class GamerController {
 	@PreAuthorize("hasRole('" + GAMER_VIEW_PRIVILEGE + "')")
 	public ResponseEntity<Page<GamerPublicResponseDto>> findAllGamers(@RequestParam(required = false, defaultValue = DEFAULT_PAGE_NUMBER_AS_STRING) Integer pageNumber,
 																																		@RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE_AS_STRING) Integer pageSize,
-																																		@RequestParam(required = false) String gamerLogin,
 																																		Principal principal, HttpServletRequest request,
-																																		HttpServletResponse response) {
+																																		HttpServletResponse response,
+																																		@RequestParam(required = false) String gamerLogin
+	) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
-		Page<GamerPublicResponseDto> allGamers = gamerService.findAllGamersPublicInfo(pageNumber, pageSize, gamerLogin);
+		Page<GamerPublicResponseDto> allGamers = gamerService.findAllGamersPublicInfo(pageNumber, pageSize, null, gamerLogin);
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
 	@GetMapping(value = GAMER_PATH_V1_ID)
 	@Operation(summary = "Get public info about a gamer by id")
 	@PreAuthorize("hasRole('" + GAMER_VIEW_PRIVILEGE + "')")
-	public ResponseEntity<GamerPublicResponseDto> getGamer(@PathVariable long gamerId, Principal principal, HttpServletRequest request,
-																												 HttpServletResponse response) {
+	public ResponseEntity<GamerPublicResponseDto> getGamer(Principal principal, HttpServletRequest request,
+																												 HttpServletResponse response, @PathVariable long gamerId) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
 		Optional<GamerPublicResponseDto> optionalGamerPublicResponse = gamerService.findGamerPublicInfo(gamerId);
@@ -96,8 +97,9 @@ public class GamerController {
 	@PutMapping(value = GAMER_PATH_V1_PROFILE_DATA)
 	@Operation(summary = "Update the authenticated gamers's profile data")
 	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
-	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(@RequestBody GamerUpdateProfileRequestDto updateProfileDto, Principal principal, HttpServletRequest request,
-																																		HttpServletResponse response) {
+	public ResponseEntity<GamerPrivateResponseDto> updateGamerProfile(Principal principal, HttpServletRequest request,
+																																		HttpServletResponse response,
+																																		@RequestBody GamerUpdateProfileRequestDto updateProfileDto) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		Optional<GamerPrivateResponseDto> optionalUpdatedGamer = gamerService.tryUpdateGamerProfile(updateProfileDto, principalId);
@@ -112,8 +114,9 @@ public class GamerController {
 	@PatchMapping(value = GAMER_PATH_V1_AUTHENTICATION_DATA)
 	@Operation(summary = "Update the authenticated gamers's authentication data")
 	@PreAuthorize("hasRole('" + PRINCIPLE_PRIVILEGE + "')")
-	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(@RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto, Principal principal, HttpServletRequest request,
-																																												HttpServletResponse response) {
+	public ResponseEntity<GamerPrivateResponseDto> updatePartiallyGamerAuthenticationData(Principal principal, HttpServletRequest request,
+																																												HttpServletResponse response,
+																																												@RequestBody GamerUpdateAuthenticationDataRequestDto updateAuthDto) {
 		long principalId = principalExtractor.extractIdFromPrincipal(principal);
 
 		Optional<GamerPrivateResponseDto> optionalUpdatedGamer = gamerService.tryUpdatePartiallyGamerAuthenticationData(updateAuthDto, principalId);
