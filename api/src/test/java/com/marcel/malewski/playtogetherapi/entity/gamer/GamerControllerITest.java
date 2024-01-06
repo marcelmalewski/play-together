@@ -21,7 +21,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -40,16 +39,9 @@ import java.security.Principal;
 import java.util.Objects;
 
 import static com.marcel.malewski.playtogetherapi.TestConstants.*;
-import static com.marcel.malewski.playtogetherapi.entity.gamer.controller.GamerController.GAMER_PATH_V1;
 import static com.marcel.malewski.playtogetherapi.util.TestGamerCreator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.core.Is.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest()
 @Testcontainers
@@ -106,7 +98,7 @@ public class GamerControllerITest {
 	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
 	void shouldReturnPageWithGamersWhenGamersExist() {
-		ResponseEntity<Page<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(null, null, null, principal, request, response);
+		ResponseEntity<Page<GamerPublicResponseDto>> allGamersResponse = gamerController.findAllGamers(null, null, null, principal, request, response, null);
 
 		assertThat(Objects.requireNonNull(allGamersResponse.getBody())).hasSize(10);
 	}
@@ -128,7 +120,7 @@ public class GamerControllerITest {
 	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
 	void shouldReturnGamerWhenGamerWithGivenIdExist() {
-		ResponseEntity<GamerPublicResponseDto> gamerResponse = gamerController.getGamer(testGamer.getId(), principal, request, response);
+		ResponseEntity<GamerPublicResponseDto> gamerResponse = gamerController.getGamer(principal, request, response, testGamer.getId());
 
 		assertThat(gamerResponse).isNotNull();
 	}
@@ -137,7 +129,7 @@ public class GamerControllerITest {
 	@WithMockUser(username = "testUser", password = "testPassword", roles = MOCK_GAMER_MANAGE_PRIVILEGE)
 	@Transactional
 	void shouldReturnGamerNotFoundWhenGamerWithGivenIdNotExist() {
-		assertThrows(GamerNotFoundException.class, () -> gamerController.getGamer(ID_OF_GAMER_THAT_NOT_EXIST, principal, request, response));
+		assertThrows(GamerNotFoundException.class, () -> gamerController.getGamer(principal, request, response, ID_OF_GAMER_THAT_NOT_EXIST));
 	}
 
 	@Test
@@ -169,7 +161,7 @@ public class GamerControllerITest {
 		testGamer.setLogin(updatedLogin);
 		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
 
-		ResponseEntity<GamerPrivateResponseDto> updatedGamerResponse = gamerController.updateGamerProfile(gamerToUpdate, principal, request, response);
+		ResponseEntity<GamerPrivateResponseDto> updatedGamerResponse = gamerController.updateGamerProfile(principal, request, response, gamerToUpdate);
 
 		assertThat(updatedGamerResponse.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
 
@@ -187,7 +179,7 @@ public class GamerControllerITest {
 		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
 		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamerShallowCopy);
 
-		assertThrows(AuthenticatedGamerNotFoundException.class, () -> gamerController.updateGamerProfile(gamerToUpdate, principal, request, response));
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> gamerController.updateGamerProfile(principal, request, response, gamerToUpdate));
 	}
 
 	@Test
@@ -197,7 +189,7 @@ public class GamerControllerITest {
 		testGamer.setLogin(updatedLogin);
 		GamerUpdateProfileRequestDto gamerToUpdate = TestGamerCreator.toGamerUpdateProfileRequestDto(testGamer);
 
-		assertThrows(ConstraintViolationException.class, () -> gamerController.updateGamerProfile(gamerToUpdate, principal, request, response));
+		assertThrows(ConstraintViolationException.class, () -> gamerController.updateGamerProfile(principal, request, response, gamerToUpdate));
 	}
 
 	@Test
@@ -211,7 +203,7 @@ public class GamerControllerITest {
 		testGamerShallowCopy.setPassword(DatabaseSetup.TEST_GAMERS_PASSWORD);
 		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy, null);
 
-		ResponseEntity<GamerPrivateResponseDto> updatedGamerResponse = gamerController.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, principal, request, response);
+		ResponseEntity<GamerPrivateResponseDto> updatedGamerResponse = gamerController.updatePartiallyGamerAuthenticationData(principal, request, response, gamerUpdateAuthenticationDataRequestDto);
 
 		assertThat(updatedGamerResponse.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
 
@@ -230,7 +222,7 @@ public class GamerControllerITest {
 		principal = new UsernamePasswordAuthenticationToken(testGamerShallowCopy, testGamerShallowCopy.getPassword());
 		GamerUpdateAuthenticationDataRequestDto gamerUpdateAuthenticationDataRequestDto = TestGamerCreator.toGamerUpdateAuthenticationDataRequestDto(testGamerShallowCopy, null);
 
-		assertThrows(AuthenticatedGamerNotFoundException.class, () -> gamerController.updatePartiallyGamerAuthenticationData(gamerUpdateAuthenticationDataRequestDto, principal, request, response));
+		assertThrows(AuthenticatedGamerNotFoundException.class, () -> gamerController.updatePartiallyGamerAuthenticationData(principal, request, response, gamerUpdateAuthenticationDataRequestDto));
 	}
 
 	@Test
