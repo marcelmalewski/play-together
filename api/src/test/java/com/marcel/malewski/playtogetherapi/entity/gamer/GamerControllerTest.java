@@ -85,7 +85,7 @@ class GamerControllerTest {
 		Pageable pageable = PageRequest.of(0, NUMBER_OF_GAMERS_IN_TEST_DATABASE);
 		Page<GamerPublicResponseDto> gamerPage = new PageImpl<>(allGamers, pageable, NUMBER_OF_GAMERS_IN_TEST_DATABASE);
 
-		given(gamerService.findAllGamersPublicInfo(any(), any(), any())).willReturn(gamerPage);
+		given(gamerService.findAllGamersPublicInfo(any(), any(), any(), any())).willReturn(gamerPage);
 
 		mockMvc.perform(get(GAMER_PATH_V1)
 			.with(user(testGamer))
