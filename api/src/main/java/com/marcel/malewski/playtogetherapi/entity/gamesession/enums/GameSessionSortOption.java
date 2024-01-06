@@ -3,8 +3,8 @@ package com.marcel.malewski.playtogetherapi.entity.gamesession.enums;
 import lombok.Getter;
 import org.springframework.data.domain.Sort;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionConstants.CREATED_AT_FIELD;
-import static com.marcel.malewski.playtogetherapi.entity.gamesession.GameSessionConstants.DATE_FIELD;
+import static com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession.CREATED_AT_FIELD;
+import static com.marcel.malewski.playtogetherapi.entity.gamesession.GameSession.DATE_FIELD;
 
 @Getter
 public enum GameSessionSortOption {

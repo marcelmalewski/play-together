@@ -37,6 +37,7 @@ public class GameSessionController {
 	}
 
 	//TODO endpoint not used
+	//TODO sort shoud get value from enum or sth i think
 	@GetMapping(value = "/game-sessions")
 	@Operation(summary = "Find all game sessions")
 	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = DEFAULT_PAGE_NUMBER_AS_STRING) Integer pageNumber,
