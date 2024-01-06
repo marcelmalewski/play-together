@@ -1,6 +1,7 @@
 package com.marcel.malewski.playtogetherapi.entity.gamer.controller;
 
 import com.marcel.malewski.playtogetherapi.entity.gamer.GamerService;
+import com.marcel.malewski.playtogetherapi.entity.gamer.GamerSortOption;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPrivateResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerPublicResponseDto;
 import com.marcel.malewski.playtogetherapi.entity.gamer.dto.GamerUpdateAuthenticationDataRequestDto;
@@ -13,7 +14,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.Optional;
 
-import static com.marcel.malewski.playtogetherapi.constant.PageableConstants.DEFAULT_PAGE_NUMBER_AS_STRING;
-import static com.marcel.malewski.playtogetherapi.constant.PageableConstants.DEFAULT_PAGE_SIZE_AS_STRING;
 import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.GAMER_VIEW_PRIVILEGE;
 import static com.marcel.malewski.playtogetherapi.entity.gamerprivilege.GamerPrivilegeName.PRINCIPLE_PRIVILEGE;
 
@@ -51,15 +49,16 @@ public class GamerController {
 	@GetMapping(value = GAMER_PATH_V1)
 	@Operation(summary = "Find all gamers public info")
 	@PreAuthorize("hasRole('" + GAMER_VIEW_PRIVILEGE + "')")
-	public ResponseEntity<Page<GamerPublicResponseDto>> findAllGamers(@RequestParam(required = false, defaultValue = DEFAULT_PAGE_NUMBER_AS_STRING) Integer pageNumber,
-																																		@RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE_AS_STRING) Integer pageSize,
+	public ResponseEntity<Page<GamerPublicResponseDto>> findAllGamers(@RequestParam(required = false) Integer pageNumber,
+																																		@RequestParam(required = false) Integer pageSize,
+																																		@RequestParam(required = false) GamerSortOption sort,
 																																		Principal principal, HttpServletRequest request,
 																																		HttpServletResponse response,
 																																		@RequestParam(required = false) String gamerLogin
 	) {
 		gamerService.throwExceptionAndLogoutIfAuthenticatedGamerNotFound(principal, request, response);
 
-		Page<GamerPublicResponseDto> allGamers = gamerService.findAllGamersPublicInfo(pageNumber, pageSize, null, gamerLogin);
+		Page<GamerPublicResponseDto> allGamers = gamerService.findAllGamersPublicInfo(pageNumber, pageSize, sort, gamerLogin);
 		return new ResponseEntity<>(allGamers, HttpStatus.OK);
 	}
 
