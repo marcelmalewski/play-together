@@ -3,7 +3,7 @@ package com.marcel.malewski.playtogetherapi.entity.gamer;
 import lombok.Getter;
 import org.springframework.data.domain.Sort;
 
-import static com.marcel.malewski.playtogetherapi.entity.gamer.GamerConstants.LOGIN_FIELD;
+import static com.marcel.malewski.playtogetherapi.entity.gamer.Gamer.LOGIN_FIELD;
 
 @Getter
 public enum GamerSortOption {
