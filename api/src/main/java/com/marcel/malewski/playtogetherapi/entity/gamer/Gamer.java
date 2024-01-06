@@ -175,4 +175,6 @@ public class Gamer implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public static final String LOGIN_FIELD = "login";
 }
