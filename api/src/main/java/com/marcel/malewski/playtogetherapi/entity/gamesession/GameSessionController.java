@@ -21,7 +21,6 @@ import java.security.Principal;
 
 import static com.marcel.malewski.playtogetherapi.constant.PageableConstants.DEFAULT_PAGE_NUMBER_AS_STRING;
 import static com.marcel.malewski.playtogetherapi.constant.PageableConstants.DEFAULT_PAGE_SIZE_AS_STRING;
-import static com.marcel.malewski.playtogetherapi.entity.gamesession.constants.GameSessionConstants.*;
 
 @RestController
 @RequestMapping(path = "v1")

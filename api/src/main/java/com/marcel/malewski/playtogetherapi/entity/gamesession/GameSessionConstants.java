@@ -1,4 +1,4 @@
-package com.marcel.malewski.playtogetherapi.entity.gamesession.constants;
+package com.marcel.malewski.playtogetherapi.entity.gamesession;
 
 public final class GameSessionConstants {
 	public static final String DATE_FIELD = "date";
