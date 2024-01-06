@@ -90,4 +90,7 @@ public class GameSession {
 	public int hashCode() {
 		return getId() != null ? getId().hashCode() : 0;
 	}
+
+	public static final String DATE_FIELD = "date";
+	public static final String CREATED_AT_FIELD = "createdAt";
 }
