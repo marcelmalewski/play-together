@@ -42,7 +42,7 @@ public class GameSessionController {
 	@Operation(summary = "Find all game sessions")
 	public ResponseEntity<Page<GameSessionPublicResponseDto>> findAllGameSessions(@RequestParam(defaultValue = DEFAULT_PAGE_NUMBER_AS_STRING) Integer pageNumber,
 	                                                                              @RequestParam(defaultValue = DEFAULT_PAGE_SIZE_AS_STRING) Integer pageSize,
-	                                                                              @RequestParam(defaultValue = "CREATED_AT_DESC") GameSessionSortOption sort,
+	                                                                              @RequestParam() GameSessionSortOption sort,
 	                                                                              Principal principal, HttpServletRequest request,
 	                                                                              HttpServletResponse response
 	) {
