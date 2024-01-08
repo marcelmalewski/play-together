@@ -158,7 +158,7 @@ public final class DatabaseSetup {
 			.game(savedFortnite)
 			.platforms(List.of(savedPcPlatform))
 			.build();
-		gameSessionService.saveGameSession(testGameSession);	gamerService.saveGamer(admin);
+		gameSessionService.saveGameSession(testGameSession);
 	}
 
 	public static void loadTestDataFromCsv(GamerRepository gamerRepository, GamerCsvService gamerCsvService, PasswordEncoder passwordEncoder, PlatformService platformService, GamerRoleService gamerRoleService) {
