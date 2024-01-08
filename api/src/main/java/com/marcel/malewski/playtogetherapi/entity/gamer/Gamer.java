@@ -67,6 +67,7 @@ public class Gamer implements UserDetails {
     @NotNull
     private LocalTime playingTimeEnd;
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDate createdAt;
     @TrimmedSize(min = 3, max = 500)
     private String bio;
