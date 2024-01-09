@@ -1,5 +1,6 @@
 package com.marcel.malewski.playtogetherapi.security;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -78,6 +79,7 @@ public class SecurityConfiguration {
 		return http.build();
 	}
 
+	//TODO do i need to implement this encoder?
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
