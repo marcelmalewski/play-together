@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,8 +24,9 @@ public class GamerPrivilege {
     private String name;
 
     @ManyToMany(mappedBy = "gamerPrivileges")
+    @ToString.Exclude
     @NotNull
-    private Collection<GamerRole> gamerRoles = new ArrayList<>();
+    private List<GamerRole> gamerRoles = new ArrayList<>();
 
     public GamerPrivilege(@NotNull String name) {
         this.name = name;

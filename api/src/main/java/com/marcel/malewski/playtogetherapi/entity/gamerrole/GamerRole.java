@@ -34,8 +34,14 @@ public class GamerRole {
             name = "gamerroles_gamerprivileges",
             joinColumns = @JoinColumn(name = "gamerrole_id"),
             inverseJoinColumns = @JoinColumn(name = "gamerprivilege_id"))
+    @ToString.Exclude
     @NotNull
-    private Collection<GamerPrivilege> gamerPrivileges = new ArrayList<>();
+    private List<GamerPrivilege> gamerPrivileges = new ArrayList<>();
+
+    public void setGamerPrivileges(List<GamerPrivilege> gamerPrivileges) {
+            this.gamerPrivileges = gamerPrivileges;
+            gamerPrivileges.forEach(gamerPrivilege -> gamerPrivilege.getGamerRoles().add(this));
+    }
 
     public GamerRole(@NotNull String name) {
         this.name = name;
