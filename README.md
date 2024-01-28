@@ -1,5 +1,4 @@
 # Play together
-State: in progress
 
 ## Table of contents
 * [General info](#general-info)
@@ -10,6 +9,8 @@ State: in progress
 
 ## General Info
 Web application whose primary objective is to assist in effectively organizing meetings, primarily related to computer gaming. It facilitates scheduling for both individual sessions and groups, accommodating a potentially high volume of such gatherings. Users can easily coordinate timings and days, making it a valuable tool for avid gamers.
+
+State: in progress
 
 ## Technologies
 Not all technologies are included.
