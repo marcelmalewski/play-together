@@ -1,4 +1,5 @@
 # Play together
+State: in progress
 
 ## Table of contents
 * [General info](#general-info)
