@@ -10,7 +10,7 @@
 ## General Info
 Web application whose primary objective is to assist in effectively organizing meetings, primarily related to computer gaming. It facilitates scheduling for both individual sessions and groups, accommodating a potentially high volume of such gatherings. Users can easily coordinate timings and days, making it a valuable tool for avid gamers.
 
-State: in progress
+This project is currently just a playground for my learning. I am not sure if it will be finished.
 
 ## Technologies
 Not all technologies are included.
